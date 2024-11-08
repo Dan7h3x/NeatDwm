@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+alacritty --class "'Float'" -T "Process" -e btop

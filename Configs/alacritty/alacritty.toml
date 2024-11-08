@@ -1,0 +1,76 @@
+[colors.primary]
+background = '#212337'
+foreground = '#ebfafa'
+
+[colors.cursor]
+cursor = '#37f499'
+text = '#f8f8f2'
+
+[colors.normal]
+black = '#21222c'
+blue = '#9071f4'
+cyan = '#04d1f9'
+green = '#37f499'
+magenta = '#f265b5'
+red = '#f9515d'
+white = '#ebfafa'
+yellow = '#e9f941'
+
+[colors.bright]
+black = '#7081d0'
+blue = '#a48cf2'
+cyan = '#66e4fd'
+green = '#69f8b3'
+magenta = '#fd92ce'
+red = '#f16c75'
+white = '#ffffff'
+yellow = '#f1fc79'
+
+[colors.selection]
+background = '#bf4f8e'
+text = '#ebfafa'
+
+
+[font]
+size = 12
+
+builtin_box_drawing = true
+
+normal = { family = "CaskaydiaMono Nerd Font", style = "SemiBold" }
+bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
+italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
+bold_italic = { family = "CaskaydiaMono Nerd Font", style = "Bold Italic" }
+
+[general]
+live_config_reload = true
+
+[cursor]
+blink_interval = 550
+unfocused_hollow = false
+thickness = 0.15
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "Full"
+dynamic_title = true
+opacity = 0.8
+dynamic_padding = true
+
+[window.padding]
+x = 0
+y = 0
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[bell]
+animation = "Linear"
+duration = 0
+command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/dialog-error.oga"] }

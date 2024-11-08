@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+
+vol=$(pamixer --get-volume)
+
+[ "$vol" != "${vol%\[MUTED\]}" ] && echo 🔇 && exit
+
+vol="${vol#Volume: }"
+
+split() {
+  # For ommiting the . without calling and external program.
+  IFS=$2
+  set -- $1
+  printf '%s' "$@"
+}
+
+vol="$(printf "%.0f" "$(split "$vol" ".")")"
+
+case 1 in
+$((vol >= 40))) icon=" " ;;
+$((vol >= 10))) icon=" " ;;
+$((vol >= 1))) icon=" " ;;
+*) echo 🔇 && exit ;;
+esac
+
+echo -e "^c$black^^b$blue^$icon$vol%^d^"
+# echo "$ICON$VOL%"
+
+case $BLOCK_BUTTON in
+1)
+  pavucontrol
+  ;;
+2)
+  pamixer -t
+  ;;
+3)
+  setsid -f "$TERMINAL" -e "$EDITOR" "$0"
+  ;;
+4)
+  pamixer -i 2
+  ;;
+5)
+  pamixer -d 2
+  ;;
+esac

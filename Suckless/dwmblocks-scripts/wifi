@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+
+SSID=$(iwgetid -r | awk -F '[-]' '{print $1}')
+case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+up) NET="^c$black^^b$green^󱚽 $SSID^d^" ;;
+down) NET="^b$black^^c$red^󱛅 Off " ;;
+esac
+echo -e $NET
+case $BLOCK_BUTTON in
+1)
+  "$TERMINAL" --class 'FloatTerm' -T "WiFi Settings" -e nmtui
+  pkill -RTMIN+4 dwmblocks
+  ;;
+3) notify-send "🌐 Internet module" "\- Click to connect
+❌: wifi disabled
+📡: no wifi connection
+📶: wifi connection with quality
+❎: no ethernet
+🌐: ethernet working
+🔒: vpn is active
+" ;;
+2) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

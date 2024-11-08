@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+case $BLOCK_BUTTON in
+1) notify-send "💽 Disk space" "$(df -h --output=target,used,size)" ;;
+3) notify-send "💽 Disk module" "\- Shows used hard drive space.
+- Click to show all disk info." ;;
+6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+echo -e "^c$black^^b$purple^ $(df -h / | awk 'NR==2 { print $4 }' | sed s/i//g)^d^"
