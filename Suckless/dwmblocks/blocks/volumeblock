@@ -28,9 +28,9 @@ vol="$(printf "%.0f" "$(split "$vol" ".")")"
 
 case 1 in
 $((vol >= 40))) icon=" " ;;
-$((vol >= 10))) icon=" " ;;
+$((vol >= 20))) icon=" " ;;
 $((vol >= 1))) icon=" " ;;
-*) echo 🔇 && exit ;;
+*) echo "" && exit ;;
 esac
 
 echo -e "^c$black^^b$blue^$icon$vol%^d^"

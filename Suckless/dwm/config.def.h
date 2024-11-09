@@ -202,11 +202,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "FiraCode Nerd Font Regular:size=13";
+static const char font[] = "CaskaydiaMono Nerd Font :size=13";
 #else
-static const char *fonts[] = {"FiraCode Nerd Font Regular:size=13"};
+static const char *fonts[] = {"CaskaydiaMono Nerd Font :size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "FiraCode Nerd Font Regular:size=13";
+static const char dmenufont[] = "CaskaydiaMono Nerd Font :size=13";
 
 #include "themes/tokyo.h"
 
@@ -407,8 +407,8 @@ static char tagicons[][NUMTAGS][MAX_TAGLEN] =
 static char *tagicons[][NUMTAGS] =
 #endif // NAMETAG_PATCH
     {
-        [DEFAULT_TAGS] = {"", "", "", "", "", "", "",
-                          "", ""},
+        [DEFAULT_TAGS] = {"󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳", "󰎶",
+                          "󰎹", "󰎼"},
         // [DEFAULT_TAGS] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"},
         [ALTERNATIVE_TAGS] = {"A", "B", "C", "D", "E", "F", "G", "H", "I"},
         [ALT_TAGS_DECORATION] = {"<1>", "<2>", "<3>", "<4>", "<5>", "<6>",

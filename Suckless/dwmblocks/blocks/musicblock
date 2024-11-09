@@ -27,11 +27,11 @@ online=$(timeout 2 mpc 2>/dev/null)
 if [ ! "$online" = "" ]; then
   title=$(mpc -f "%title%" | head -n 1)
   if [ "$(echo "$online" | wc -l)" -le 1 ]; then
-    echo -n "^c$blue^"
+    echo -n "^c$blue^󰝚"
   elif [ ! "$title" = "" ]; then
-    echo -e "^b$cyan^^c$black^:${title:0:14}^d^"
+    echo -e "^b$cyan^^c$black^󰝚 ${title:0:14}^d^"
   else
-    echo -e "^b$cyan^^c$black^:$(mpc -f "%artist%" | head -n 1)^d^"
+    echo -e "^b$cyan^^c$black^󰝚 $(mpc -f "%artist%" | head -n 1)^d^"
   fi
 else
   echo -e "^b$black^c$red^ﳌ Off ^d^ "
