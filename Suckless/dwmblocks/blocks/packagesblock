@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 #
 
+case $BLOCK_BUTTON in
+1)
+  setsid -f "$TERMINAL" --class "FloatTerm" -T "Packages" -e yay
+  ;;
+3)
+  notify-send "Updates" "$(yay -Qu | tr -d ' ')"
+  ;;
+esac
+
 red="#FF3131"
 purple="#9457EB"
 green="#39FF14"
@@ -12,4 +21,4 @@ cyan="#00FEFC"
 teal="#43BBB6"
 black="#000000"
 
-echo "^b$black^^c$cyan^ ^d^^b$cyan^^c$black^$(pacman -Q | wc -l)^d^"
+echo -e "^c$black^^b$cyan^ $(pacman -Q | wc -l)"

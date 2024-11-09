@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+
+# Configuration
+REDSHIFT_PID=$(pidof redshift)
+REDSHIFT_STATUS=""     # Icon to show when redshift is running
+REDSHIFT_OFF_STATUS="" # Icon to show when redshift is off
+REDSHIFT_TEMP=5000      # Default temperature
+REDSHIFT_INCREMENT=200  # Temperature increment/decrement
+
+# Function to toggle redshift
+toggle_redshift() {
+  if [ -z "$REDSHIFT_PID" ]; then
+    redshift -O $REDSHIFT_TEMP &
+    echo "$REDSHIFT_STATUS"
+  else
+    kill $REDSHIFT_PID
+    echo "$REDSHIFT_OFF_STATUS"
+  fi
+}
+
+# Function to adjust temperature
+adjust_temperature() {
+  if [ -n "$REDSHIFT_PID" ]; then
+    if [ "$1" == "up" ]; then
+      REDSHIFT_TEMP=$((REDSHIFT_TEMP + REDSHIFT_INCREMENT))
+    elif [ "$1" == "down" ]; then
+      REDSHIFT_TEMP=$((REDSHIFT_TEMP - REDSHIFT_INCREMENT))
+    fi
+    redshift -P -O $REDSHIFT_TEMP
+    echo "$REDSHIFT_STATUS $REDSHIFT_TEMP"
+  else
+    echo "$REDSHIFT_OFF_STATUS"
+  fi
+}
+
+# Handle click and scroll events
+case "$BLOCK_BUTTON" in
+3)
+  toggle_redshift
+  ;;
+4) # Scroll up
+  adjust_temperature "up"
+  ;;
+5) # Scroll down
+  adjust_temperature "down"
+  ;;
+esac
+
+echo -e "^c$black^^b$green^ Redshift"
