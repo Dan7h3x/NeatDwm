@@ -1,0 +1,42 @@
+<Stations>
+  <Station>
+    <uri>http://usa4.fastcast4u.com/proxy/radyoizmirfm</uri>
+    <name>Radyo Izmir</name>
+  </Station>
+  <Station>
+    <uri>http://46.20.7.126</uri>
+    <name>Best FM</name>
+  </Station>
+  <Station>
+    <uri>http://stream.radyoodtu.com.tr/canli</uri>
+    <name>Radyo ODTU</name>
+  </Station>
+  <Station>
+    <uri>http://canli.radyoa.anadolu.edu.tr:44445/Radyo_A_MP3</uri>
+    <name>Radyo A</name>
+  </Station>
+  <Station>
+    <uri>http://yayin2.canliyayin.org:8698/</uri>
+    <name>Radyo Life</name>
+  </Station>
+  <Station>
+    <uri>http://usa9.fastcast4u.com/proxy/jamz</uri>
+    <name>Lofi</name>
+  </Station>
+  <Station>
+    <uri>http://mp3-128.streamthejazzgroove.com/</uri>
+    <name>TheJazzGroove</name>
+  </Station>
+  <Station>
+    <uri>http://stream.rtlradio.de/charts/mp3-192/</uri>
+    <name>Charts</name>
+  </Station>
+  <Station>
+    <uri>http://stream.rtlradio.de/2000er/mp3-192/</uri>
+    <name>2000er</name>
+  </Station>
+  <Station>
+    <uri>http://cdn.gotradio.com/itunes/100hitz_top_40.pls</uri>
+    <name>100Hoy</name>
+  </Station>
+</Stations>

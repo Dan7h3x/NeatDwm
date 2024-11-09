@@ -12,7 +12,9 @@ teal="#43BBB6"
 black="#000000"
 
 case $BLOCK_BUTTON in
-1) setsid -f "$TERMINAL" --class 'FloatTerm' -T "Progress" -e btop ;;
+1)
+  setsid -f "$TERMINAL" --class 'FloatTerm' -T "Progress" -e btop
+  ;;
 2) notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)\\n(100% per core)" ;;
 3) notify-send "🖥 CPU module " "\- Shows CPU temperature.
 - Click to show intensive processes.

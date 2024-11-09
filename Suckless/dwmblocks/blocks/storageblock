@@ -13,6 +13,6 @@ case $BLOCK_BUTTON in
 1) notify-send "💽 Disk space" "$(df -h --output=target,used,size)" ;;
 3) notify-send "💽 Disk module" "\- Shows used hard drive space.
 - Click to show all disk info." ;;
-6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+2) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 echo -e "^c$black^^b$purple^ $(df -h / | awk 'NR==2 { print $4 }' | sed s/i//g)^d^"

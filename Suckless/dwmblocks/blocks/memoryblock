@@ -11,11 +11,13 @@ cyan="#00FEFC"
 teal="#43BBB6"
 black="#000000"
 case $BLOCK_BUTTON in
-1) setsid -f "$TERMINAL" --class 'FloatTerm' -T "Progress" -e htop ;;
+1)
+  setsid -f "$TERMINAL" --class 'FloatTerm' -T "Progress" -e htop
+  ;;
 2) notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
 3) notify-send "🧠 Memory module" "\- Shows Memory Used/Total.
 - Click to show memory hogs.
 - Middle click to open htop." ;;
 6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-echo "^c$black^^b$orange^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)^d^"
+echo "^c$black^^b$teal^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)^d^"

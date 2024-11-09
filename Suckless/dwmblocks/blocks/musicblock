@@ -1,0 +1,38 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+# right click, pause/unpause
+1)
+  setsid -f "$TERMINAL" --class 'FloatMusic' -T "Music" -e ncmpcpp
+  ;;
+
+2) mpc toggle ;; # right click, pause/unpause
+  # right click, pause/unpause
+4) mpc prev ;; # scroll up, previous
+5) mpc next ;; # scroll down, next
+esac
+
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+online=$(timeout 2 mpc 2>/dev/null)
+
+if [ ! "$online" = "" ]; then
+  title=$(mpc -f "%title%" | head -n 1)
+  if [ "$(echo "$online" | wc -l)" -le 1 ]; then
+    echo -n "^c$blue^"
+  elif [ ! "$title" = "" ]; then
+    echo -e "^b$cyan^^c$black^:${title:0:14}^d^"
+  else
+    echo -e "^b$cyan^^c$black^:$(mpc -f "%artist%" | head -n 1)^d^"
+  fi
+else
+  echo -e "^b$black^c$red^ﳌ Off ^d^ "
+fi

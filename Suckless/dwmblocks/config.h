@@ -24,13 +24,13 @@ static const Block blocks[] = {
 	// {"",	"sb-internet",	5,	4},
 	// /* {"",	"sb-iplocate", 0,	27}, */
 	// {"",	"sb-help-icon",	0,	15},
-  {"",	"/usr/local/bin/dwmblocks-scripts/volume",	1,	11},
-  {"",	"/usr/local/bin/dwmblocks-scripts/wifi",	3,	2},
-  {"",	"/usr/local/bin/dwmblocks-scripts/mpc",	1,	3},
-  {"",	"/usr/local/bin/dwmblocks-scripts/cpu",	2,	4},
-  {"",	"/usr/local/bin/dwmblocks-scripts/memory",	3,	14},
-  {"",	"/usr/local/bin/dwmblocks-scripts/storage",	3,	16},
-  {"",	"/usr/local/bin/dwmblocks-scripts/clock",	1,	1},
+  {"",	"volumeblock",	1,	7},
+  {"",	"wifiblock",	1,	4},
+  {"",	"musicblock",	1,	3},
+  {"",	"cpublock",	1,	18},
+  {"",	"memoryblock",	1,	15},
+  {"",	"storageblock",	1,	16},
+  {"",	"clockblock",	1,	1},
 };
 
 //Sets delimiter between status commands. NULL character ('\0') means no delimiter.

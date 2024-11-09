@@ -202,11 +202,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "FiraCode Nerd Font 13";
+static const char font[] = "FiraCode Nerd Font Regular:size=13";
 #else
-static const char *fonts[] = {"FiraCode Nerd Font:size=13"};
+static const char *fonts[] = {"FiraCode Nerd Font Regular:size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "FiraCode Nerd Font:size=13";
+static const char dmenufont[] = "FiraCode Nerd Font Regular:size=13";
 
 #include "themes/tokyo.h"
 
@@ -961,10 +961,14 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 #endif // BAR_STATUSCMD_PATCH
 
 #if ON_EMPTY_KEYS_PATCH
-static const char *chromiumcmd[] = {"chromium", NULL};
+static const char *browsercmd[] = {"chromium", NULL};
+static const char *filescmd[] = {"pcmanfm", NULL};
+static const char *telegramcmd[] = {"telegram-desktop", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
-    {0, XK_f, spawn, {.v = chromiumcmd}},
+    {0, XK_f, spawn, {.v = browsercmd}},
+    {0, XK_t, spawn, {.v = telegramcmd}},
+    {0, XK_e, spawn, {.v = filescmd}},
 };
 #endif // ON_EMPTY_KEYS_PATCH
 

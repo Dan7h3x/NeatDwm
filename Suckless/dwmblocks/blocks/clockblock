@@ -15,10 +15,13 @@ cyan="#00FEFC"
 teal="#43BBB6"
 black="#000000"
 case $BLOCK_BUTTON in
-1) setsid -f "$TERMINAL" --class 'FloatTerm' -T "Dates" -e calcurse ;;
+1)
+  setsid -f "$TERMINAL" --class 'FloatTerm' -T "Dates" -e calcurse
+  pkill -RTMIN+7 "${STATUSBAR:-dwmblocks}"
+  ;;
 2) notify-send "This Month" "$(cal | sed "s/\<$(date +'%e' | tr -d ' ')\>/<b><span color='red'>&<\/span><\/b>/")" && notify-send "Appointments" "$(calcurse -d3)" ;;
 3) notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
 - Middle click opens calcurse if installed" ;;
 6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-echo -e "^c$black^^b$orange^ $(date '+%d/%m|%I:%M:%S')"
+echo -e "^c$black^^b$yellow^ $(date '+%I:%M:%S')"

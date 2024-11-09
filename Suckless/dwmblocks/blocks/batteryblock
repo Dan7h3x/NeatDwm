@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 bat=$(cat /sys/class/power_supply/BAT*/capacity)
 stat=$(cat /sys/class/power_supply/BAT*/status)
 if [ "$stat" == "Charging" ]; then
@@ -68,4 +69,26 @@ elif [[ $1 == '--class' ]]; then
   echo $class
 elif [[ $1 == '--val' ]]; then
   echo $bat
+fi
+
+red="#FF3131"
+purple="#9457EB"
+green="#39FF14"
+blue="#4D4DFF"
+bblue="#89CFF0"
+orange="#F6890A"
+yellow="#CCFF00"
+cyan="#00FEFC"
+teal="#43BBB6"
+black="#000000"
+
+if [[ ! $(acpi -b | grep -i battery) ]]; then
+  exit 0
+else
+  if [[ ! $(acpi -a | grep -i adapter | grep -i on-line) ]]; then
+    printf "^b$black^^c$foreground^$icon^d^"
+  else
+    printf "^b$black^^c$foreground^$icon^d^"
+  fi
+  echo "^b$foreground^^c$black^$(acpi | sed "s/,//g" | awk '{print $4}' | tr -d "\n")^d"
 fi
