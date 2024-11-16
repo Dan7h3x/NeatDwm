@@ -11,50 +11,34 @@ cyan="#00FEFC"
 teal="#43BBB6"
 black="#000000"
 
-# Configuration
-REDSHIFT_PID=$(pidof redshift)
-REDSHIFT_STATUS=""     # Icon to show when redshift is running
-REDSHIFT_OFF_STATUS="" # Icon to show when redshift is off
-REDSHIFT_TEMP=5000      # Default temperature
-REDSHIFT_INCREMENT=200  # Temperature increment/decrement
-
-# Function to toggle redshift
-toggle_redshift() {
-  if [ -z "$REDSHIFT_PID" ]; then
-    redshift -O $REDSHIFT_TEMP &
-    echo "$REDSHIFT_STATUS"
+checkIfRunning() {
+  if [ $(systemctl --user is-active redshift) == "active" ]; then
+    return 0
   else
-    kill $REDSHIFT_PID
-    echo "$REDSHIFT_OFF_STATUS"
+    return 1
   fi
 }
 
-# Function to adjust temperature
-adjust_temperature() {
-  if [ -n "$REDSHIFT_PID" ]; then
-    if [ "$1" == "up" ]; then
-      REDSHIFT_TEMP=$((REDSHIFT_TEMP + REDSHIFT_INCREMENT))
-    elif [ "$1" == "down" ]; then
-      REDSHIFT_TEMP=$((REDSHIFT_TEMP - REDSHIFT_INCREMENT))
-    fi
-    redshift -P -O $REDSHIFT_TEMP
-    echo "$REDSHIFT_STATUS $REDSHIFT_TEMP"
+changeModeToggle() {
+
+  if checkIfRunning; then
+    systemctl --user stop redshift
   else
-    echo "$REDSHIFT_OFF_STATUS"
+    systemctl --user start redshift
   fi
 }
+
+if checkIfRunning; then
+  CURRENT_TEMP=$(redshift -P 2>/dev/null | grep "Color temperature" | sed 's/.*: //')
+else
+  CURRENT_TEMP="Off"
+fi
 
 # Handle click and scroll events
 case "$BLOCK_BUTTON" in
-3)
-  toggle_redshift
-  ;;
-4) # Scroll up
-  adjust_temperature "up"
-  ;;
-5) # Scroll down
-  adjust_temperature "down"
+1)
+  changeModeToggle
   ;;
 esac
 
-echo -e "^c$black^^b$green^ Redshift"
+echo -e "^c$black^^b$bblue$^ $CURRENT_TEMP^d^"

@@ -24,7 +24,9 @@ static const Block blocks[] = {
 	// {"",	"sb-internet",	5,	4},
 	// /* {"",	"sb-iplocate", 0,	27}, */
 	// {"",	"sb-help-icon",	0,	15},
+  {"", "wallpaperblock",0,11},
   {"",	"volumeblock",	1,	7},
+  // {"",	"redshiftblock",	3,	5},
   {"",	"wifiblock",	1,	4},
   {"",	"musicblock",	1,	3},
   {"",	"cpublock",	1,	18},

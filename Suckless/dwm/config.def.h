@@ -340,10 +340,10 @@ static const char *layoutmenu_cmd = "layoutmenu.sh";
 #if BAR_LAUNCHER_PATCH
 static const Launcher launchers[] = {
     /* icon to display      command        */
-    {"", CMD("chromium")},
-    {"",
+    {"^c#9457EB^^d^", CMD("chromium")},
+    {"^c#39FF14^^d^",
      CMD("alacritty", "--class", "'FloatTerm'", "-T", "Files", "-e", "ranger")},
-    {"  ", CMD("kitty")},
+    {"^c#F6890A^ ^d^", CMD("kitty")},
 };
 #endif // BAR_LAUNCHER_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
@@ -483,6 +483,8 @@ static const Rule rules[] = {
                                      .isfloating = 1) RULE(.class = "Goodvibes",
                                                            .isfloating = 1)
                                     RULE(.class = "Fsearch", .isfloating = 1)
+                                    RULE(.class = "Nwg-look", .isfloating = 1)
+                                    RULE(.class = "Viewnior", .isfloating = 1)
 #if RENAMED_SCRATCHPADS_PATCH
                                         RULE(.instance = "FloatTerm",
                                              .scratchkey = 's', .isfloating = 1)

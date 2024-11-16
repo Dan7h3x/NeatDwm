@@ -1,15 +1,39 @@
 #!/bin/bash
+isRadio=$(playerctl -l)
+radio=$(playerctl --player=$isRadio metadata | grep "title" | awk -F'xesam:title' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); split($2, a, " - "); print a[1] "-" a[2]}')
 
 case $BLOCK_BUTTON in
 # right click, pause/unpause
 1)
-  setsid -f "$TERMINAL" --class 'FloatMusic' -T "Music" -e ncmpcpp
+  if [[ $isRadio = "Goodvibes" ]]; then
+    notify-send "Radio" "$radio"
+  else
+    setsid -f "$TERMINAL" --class 'FloatMusic' -T "Music" -e ncmpcpp
+  fi
   ;;
 
-2) mpc toggle ;; # right click, pause/unpause
+3)
+  if [[ $isRadio = "Goodvibes" ]]; then
+    playerctl --player=$isRadio play-pause
+  else
+    mpc toggle
+  fi
+  ;; # right click, pause/unpause
   # right click, pause/unpause
-4) mpc prev ;; # scroll up, previous
-5) mpc next ;; # scroll down, next
+4)
+  if [[ $isRadio = "Goodvibes" ]]; then
+    playerctl --player=$isRadio prev
+  else
+    mpc prev
+  fi
+  ;; # scroll up, previous
+5)
+  if [[ $isRadio = "Goodvibes" ]]; then
+    playerctl --player=$isRadio next
+  else
+    mpc next
+  fi
+  ;; # scroll down, next
 esac
 
 red="#FF3131"
@@ -26,13 +50,17 @@ online=$(timeout 2 mpc 2>/dev/null)
 
 if [ ! "$online" = "" ]; then
   title=$(mpc -f "%title%" | head -n 1)
+  if [[ $isRadio = "Goodvibes" ]]; then
+    echo -e "^b$purple^^c$black^ ${radio:0:20}^d^"
+  fi
+
   if [ "$(echo "$online" | wc -l)" -le 1 ]; then
-    echo -n "^c$blue^󰝚"
+    echo -e "^b$blue^^c$black^󰝚 On^d^"
   elif [ ! "$title" = "" ]; then
     echo -e "^b$cyan^^c$black^󰝚 ${title:0:14}^d^"
   else
     echo -e "^b$cyan^^c$black^󰝚 $(mpc -f "%artist%" | head -n 1)^d^"
   fi
 else
-  echo -e "^b$black^c$red^ﳌ Off ^d^ "
+  echo -e "^c$black^b$red^ﳌ Off^d^"
 fi
