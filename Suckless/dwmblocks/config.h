@@ -27,7 +27,7 @@ static const Block blocks[] = {
   {"", "wallpaperblock",0,11},
   {"",	"volumeblock",	1,	7},
   // {"",	"redshiftblock",	3,	5},
-  {"",	"wifiblock",	1,	4},
+  // {"",	"wifiblock",	1,	4},
   {"",	"musicblock",	1,	3},
   {"",	"cpublock",	1,	18},
   {"",	"memoryblock",	1,	15},

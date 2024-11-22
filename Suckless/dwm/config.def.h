@@ -485,6 +485,8 @@ static const Rule rules[] = {
                                     RULE(.class = "Fsearch", .isfloating = 1)
                                     RULE(.class = "Nwg-look", .isfloating = 1)
                                     RULE(.class = "Viewnior", .isfloating = 1)
+                                    RULE(.class = "octave-gui", .isfloating = 1)
+                                    RULE(.class = "R_x11", .isfloating = 1)
 #if RENAMED_SCRATCHPADS_PATCH
                                         RULE(.instance = "FloatTerm",
                                              .scratchkey = 's', .isfloating = 1)
