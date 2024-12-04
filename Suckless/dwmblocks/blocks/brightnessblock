@@ -22,4 +22,4 @@ elif [[ $BRIGHTNESS -ge 20 ]]; then
   ICON=" "
 fi
 
-echo "^b$black^^c$yellow^$ICON^d^^b$yellow^^c$black^$BRIGHTNESS^d^"
+echo "^c$black^^b$yellow^$ICON$BRIGHTNESS^d^"

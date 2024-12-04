@@ -90,5 +90,5 @@ else
   else
     printf "^b$black^^c$foreground^$icon^d^"
   fi
-  echo "^b$foreground^^c$black^$(acpi | sed "s/,//g" | awk '{print $4}' | tr -d "\n")^d"
+  echo "^b$foreground^^c$black^$(acpi | sed "s/,//g" | awk '{print $4}' | tr -d "\n")^d^"
 fi

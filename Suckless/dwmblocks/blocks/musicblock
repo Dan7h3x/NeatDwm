@@ -1,35 +1,46 @@
 #!/bin/bash
-isRadio=$(playerctl -l)
-radio=$(playerctl --player=$isRadio metadata | grep "title" | awk -F'xesam:title' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); split($2, a, " - "); print a[1] "-" a[2]}')
+Players=$(playerctl -l 2>/dev/null)
+
+playing_player=""
+
+# Check the status of each player
+for player in $Players; do
+  status=$(playerctl --player=$player status 2>/dev/null)
+  if [[ "$status" == "Playing" ]]; then
+    playing_player=$player
+    break
+  fi
+done
+Info=$(playerctl --player=$playing_player metadata | grep "title" | awk -F'xesam:title' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); split($2, a, " - "); print a[1] "-" a[2]}')
 
 case $BLOCK_BUTTON in
 # right click, pause/unpause
 1)
-  if [[ $isRadio = "Goodvibes" ]]; then
-    notify-send "Radio" "$radio"
+  if [[ -n "$playing_player" ]]; then
+    notify-send "Player $playing_player" "$Info"
   else
     setsid -f "$TERMINAL" --class 'FloatMusic' -T "Music" -e ncmpcpp
   fi
   ;;
 
 3)
-  if [[ $isRadio = "Goodvibes" ]]; then
-    playerctl --player=$isRadio play-pause
+  if [[ -n "$playing_player" ]]; then
+    playerctl --player="$playing_player" play-pause
   else
     mpc toggle
   fi
   ;; # right click, pause/unpause
   # right click, pause/unpause
 4)
-  if [[ $isRadio = "Goodvibes" ]]; then
-    playerctl --player=$isRadio prev
+  if [[ -n "$playing_player" ]]; then
+    playerctl --player="$playing_player" prev
   else
     mpc prev
   fi
   ;; # scroll up, previous
 5)
-  if [[ $isRadio = "Goodvibes" ]]; then
-    playerctl --player=$isRadio next
+  if [[ -n "$playing_player" ]]; then
+    playerctl --player="$playing_player" next
   else
     mpc next
   fi
@@ -50,8 +61,12 @@ online=$(timeout 2 mpc 2>/dev/null)
 
 if [ ! "$online" = "" ]; then
   title=$(mpc -f "%title%" | head -n 1)
-  if [[ $isRadio = "Goodvibes" ]]; then
-    echo -e "^b$purple^^c$black^ ${radio:0:20}^d^"
+  if [[ -n "$playing_player" ]]; then
+    if [[ $playing_player = "Goodvibes" ]]; then
+      echo -e "^b$purple^^c$black^ ${Info:0:20}^d^"
+    else
+      echo -e "^b$teal^^c$black^ ${Info:0:20}^d^"
+    fi
   fi
 
   if [ "$(echo "$online" | wc -l)" -le 1 ]; then

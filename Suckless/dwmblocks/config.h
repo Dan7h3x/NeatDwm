@@ -24,15 +24,17 @@ static const Block blocks[] = {
 	// {"",	"sb-internet",	5,	4},
 	// /* {"",	"sb-iplocate", 0,	27}, */
 	// {"",	"sb-help-icon",	0,	15},
-  {"", "wallpaperblock",0,11},
+  // {"", "wallpaperblock",0,11},
   {"",	"volumeblock",	1,	7},
+  // {"",  "brightnessblock",1,6},
   // {"",	"redshiftblock",	3,	5},
-  // {"",	"wifiblock",	1,	4},
-  {"",	"musicblock",	1,	3},
+  {"",	"wifiblock",	1,	4},
   {"",	"cpublock",	1,	18},
   {"",	"memoryblock",	1,	15},
   {"",	"storageblock",	1,	16},
+  {"",	"musicblock",	1,	3},
   {"",	"clockblock",	1,	1},
+  {"",  "batteryblock",2,5},
 };
 
 //Sets delimiter between status commands. NULL character ('\0') means no delimiter.
