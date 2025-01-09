@@ -1,45 +1,50 @@
-[colors.primary]
-background = '#212337'
-foreground = '#ebfafa'
 
-[colors.cursor]
-cursor = '#37f499'
-text = '#f8f8f2'
-
-[colors.normal]
-black = '#21222c'
-blue = '#9071f4'
-cyan = '#04d1f9'
-green = '#37f499'
-magenta = '#f265b5'
-red = '#f9515d'
-white = '#ebfafa'
-yellow = '#e9f941'
+[colors]
+draw_bold_text_with_bright_colors = true
 
 [colors.bright]
-black = '#7081d0'
-blue = '#a48cf2'
-cyan = '#66e4fd'
-green = '#69f8b3'
-magenta = '#fd92ce'
-red = '#f16c75'
-white = '#ffffff'
-yellow = '#f1fc79'
+black = "#949494"
+blue = "#74b2ff"
+cyan = "#85dc85"
+green = "#36c692"
+magenta = "#ae81ff"
+red = "#ff5189"
+white = "#e4e4e4"
+yellow = "#c6c684"
+
+[colors.cursor]
+cursor = "#8e8e8e"
+text = "#080808"
+
+[colors.normal]
+black = "#323437"
+blue = "#80a0ff"
+cyan = "#79dac8"
+green = "#8cc85f"
+magenta = "#cf87e8"
+red = "#ff5454"
+white = "#c6c6c6"
+yellow = "#e3c78a"
+
+[colors.primary]
+background = "#080808"
+bright_foreground = "#eeeeee"
+foreground = "#bdbdbd"
 
 [colors.selection]
-background = '#bf4f8e'
-text = '#ebfafa'
+background = "#b2ceee"
+text = "#080808"
 
 
 [font]
-size = 12
+size = 13
 
 builtin_box_drawing = true
 
-normal = { family = "CaskaydiaMono Nerd Font", style = "SemiBold" }
-bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
-italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-bold_italic = { family = "CaskaydiaMono Nerd Font", style = "Bold Italic" }
+normal = { family = "FantasqueSansM Nerd Font", style = "SemiBold" }
+bold = { family = "FantasqueSansM Nerd Font", style = "Bold" }
+italic = { family = "FantasqueSansM Nerd Font", style = "Italic" }
+bold_italic = { family = "FantasqueSansM Nerd Font", style = "Bold Italic" }
 
 [general]
 live_config_reload = true
