@@ -1,100 +1,102 @@
-local wezterm = require("wezterm")
-local config = {}
+local wez = require("wezterm")
+local utils = require("lua.util")
+local appearance = require("lua.ui")
+local mappings = require("lua.maps")
+local bar = wez.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
--- Set the color scheme to Tokyo Night
-config.color_scheme = "tokyonight_moon"
+local platform = utils.platform()
+local c = {}
 
--- Font configuration
-config.font = wezterm.font_with_fallback({
-	"JetBrains Mono Nerd Font",
-	"Fira Code",
-	"Noto Color Emoji",
+if wez.config_builder then
+	c = wez.config_builder()
+end
+
+-- General configurations
+c.font = wez.font("JetBrainsMono Nerd Font", { weight = "Medium" })
+c.font_rules = {
+	{
+		italic = true,
+		font = wez.font("JetBrainsMono Nerd Font", { weight = "Medium", italic = true }),
+	},
+}
+c.font_size = 12
+c.command_palette_font_size = 13
+c.command_palette_rows = 15
+c.default_prog = platform.is_win and { "pwsh", "-NoLogo" } or { "zsh" }
+c.adjust_window_size_when_changing_font_size = false
+c.audible_bell = "Disabled"
+c.scrollback_lines = 3000
+c.default_workspace = "main"
+c.max_fps = 240
+
+-- appearance
+appearance.apply_to_config(c)
+
+-- keys
+mappings.apply_to_config(c)
+
+-- bar
+bar.apply_to_config(c, {
+	position = "top",
+	max_width = 25,
+	padding = {
+		left = 1,
+		right = 1,
+	},
+	separator = {
+		space = 1,
+		left_icon = wez.nerdfonts.fa_long_arrow_right,
+		right_icon = wez.nerdfonts.fa_long_arrow_left,
+		field_icon = wez.nerdfonts.indent_line,
+	},
+	modules = {
+		tabs = {
+			active_tab_fg = 4,
+			inactive_tab_fg = 6,
+		},
+		workspace = {
+			enabled = true,
+			icon = wez.nerdfonts.cod_window,
+			color = 8,
+		},
+		leader = {
+			enabled = true,
+			icon = wez.nerdfonts.oct_rocket,
+			color = 2,
+		},
+		pane = {
+			enabled = true,
+			icon = wez.nerdfonts.cod_multiple_windows,
+			color = 7,
+		},
+		username = {
+			enabled = true,
+			icon = wez.nerdfonts.fa_user,
+			color = 6,
+		},
+		hostname = {
+			enabled = true,
+			icon = wez.nerdfonts.cod_server,
+			color = 8,
+		},
+		clock = {
+			enabled = true,
+			icon = wez.nerdfonts.md_calendar_clock,
+			color = 5,
+		},
+		cwd = {
+			enabled = true,
+			icon = wez.nerdfonts.oct_file_directory,
+			color = 7,
+		},
+		spotify = {
+			enabled = false,
+			icon = wez.nerdfonts.fa_spotify,
+			color = 3,
+			max_width = 64,
+			throttle = 15,
+		},
+	},
 })
-config.font_size = 11.0
-config.line_height = 1.0
 
--- Window configuration
-config.window_background_opacity = 0.9
-config.window_decorations = "RESIZE"
-config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
-}
-
--- Tab bar configuration
-config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
-config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = false
-
--- Key mappings
-config.keys = {
-	-- Split panes
-	{ key = "/", mods = "CTRL", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = ".", mods = "CTRL", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-	-- Navigate between panes
-	{ key = "h", mods = "CTRL", action = wezterm.action.ActivatePaneDirection("Left") },
-	{ key = "l", mods = "CTRL", action = wezterm.action.ActivatePaneDirection("Right") },
-	{ key = "k", mods = "CTRL", action = wezterm.action.ActivatePaneDirection("Up") },
-	{ key = "j", mods = "CTRL", action = wezterm.action.ActivatePaneDirection("Down") },
-
-	-- Resize panes
-	{ key = "H", mods = "CTRL|SHIFT", action = wezterm.action.AdjustPaneSize({ "Left", 5 }) },
-	{ key = "L", mods = "CTRL|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 5 }) },
-	{ key = "K", mods = "CTRL|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 5 }) },
-	{ key = "J", mods = "CTRL|SHIFT", action = wezterm.action.AdjustPaneSize({ "Down", 5 }) },
-
-	-- Tab management
-	{ key = "t", mods = "CTRL|SHIFT", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
-	{ key = "w", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
-	{ key = "Tab", mods = "CTRL", action = wezterm.action.ActivateTabRelative(1) },
-	{ key = "Tab", mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
-
-	-- Copy and Paste
-	{ key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
-	{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
-
-	-- Reload configuration
-	{ key = "r", mods = "CTRL|SHIFT", action = wezterm.action.ReloadConfiguration },
-
-	-- Fullscreen
-	{ key = "Enter", mods = "CTRL|SHIFT", action = wezterm.action.ToggleFullScreen },
-
-	-- Scrollback
-	{ key = "PageUp", mods = "SHIFT", action = wezterm.action.ScrollByPage(-1) },
-	{ key = "PageDown", mods = "SHIFT", action = wezterm.action.ScrollByPage(1) },
-}
-
--- Mouse bindings
-config.mouse_bindings = {
-	-- Change the default click behavior to select text
-	{
-		event = { Down = { streak = 1, button = "Left" } },
-		mods = "NONE",
-		action = wezterm.action.SelectTextAtMouseCursor("Cell"),
-	},
-	-- Drag to select text
-	{
-		event = { Drag = { streak = 1, button = "Left" } },
-		mods = "NONE",
-		action = wezterm.action.ExtendSelectionToMouseCursor("Cell"),
-	},
-	-- Right-click to paste from clipboard
-	{
-		event = { Up = { streak = 1, button = "Right" } },
-		mods = "NONE",
-		action = wezterm.action.PasteFrom("Clipboard"),
-	},
-}
-
--- Additional configuration options
-config.scrollback_lines = 10000
-config.enable_scroll_bar = true
-config.adjust_window_size_when_changing_font_size = true
-config.warn_about_missing_glyphs = false
-config.window_close_confirmation = "NeverPrompt"
--- Return the configuration table
-return config
+return c
