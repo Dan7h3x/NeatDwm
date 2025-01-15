@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# red="#FF3131"
+# purple="#9457EB"
+# green="#39FF14"
+# blue="#4D4DFF"
+# bblue="#89CFF0"
+# orange="#F6890A"
+# yellow="#CCFF00"
+# cyan="#00FEFC"
+# teal="#43BBB6"
+# black="#000000"
+red="#ff5454"
+purple="#cf87e8"
+green="#8cc85f"
+blue="#80a0ff"
+white="#c6c6c6"
+orange="#F6890A"
+yellow="#e3c78a"
+cyan="#79dac8"
+teal="#58cbd4"
+black="#15161e"
+
+echo -e "^b$white^^c$black^ Wall^d^"
+
+case "$BLOCK_BUTTON" in
+1)
+  feh --bg-fill -z $HOME/.config/Wallpaper
+  ;;
+esac
