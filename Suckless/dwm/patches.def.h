@@ -266,7 +266,7 @@
  * the sole purpose of providing visual aid.
  * https://dwm.suckless.org/patches/alternativetags/
  */
-#define BAR_ALTERNATIVE_TAGS_PATCH 0
+#define BAR_ALTERNATIVE_TAGS_PATCH 1
 
 /* This patches provides the ability to use alternative text for tags which
  * contain at least one window.
@@ -466,7 +466,7 @@
 /* Adds a window task switcher toggled using alt-tab.
  * https://dwm.suckless.org/patches/alt-tab/
  */
-#define ALT_TAB_PATCH 1
+#define ALT_TAB_PATCH 0
 
 /* All floating windows are centered, like the center patch, but without a rule.
  * The center patch takes precedence over this patch.
@@ -740,7 +740,7 @@
  * selected area (master or stack) without affecting the other area.
  * https://dwm.suckless.org/patches/inplacerotate/
  */
-#define INPLACEROTATE_PATCH 1
+#define INPLACEROTATE_PATCH 0
 
 /* This patch lets you define custom insets from each edge of the screen. One
  * use case would be to arrange space for an external bar.
@@ -865,7 +865,7 @@
  *
  * https://dwm.suckless.org/patches/nametag/
  */
-#define NAMETAG_PATCH 0
+#define NAMETAG_PATCH 1
 
 /* Variant of the above which prepends the tag number to the given string.
  * The toggle does nothing on its own and need to be enabled in combination with
@@ -1428,7 +1428,7 @@
  * The number of history elements is defined by the NUMVIEWHIST macro in dwm.c
  * and defaults to the number of tags in the system.
  */
-#define VIEW_HISTORY_PATCH 0
+#define VIEW_HISTORY_PATCH 1
 
 /* Follow a window to the tag it is being moved to.
  * https://dwm.suckless.org/patches/viewontag/

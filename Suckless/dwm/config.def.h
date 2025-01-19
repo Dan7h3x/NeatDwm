@@ -165,16 +165,12 @@ static const int ulineall =
 
 #if ALT_TAB_PATCH
 /* alt-tab configuration */
-static const unsigned int tabmodkey =
-    0x40; /* (Alt) when this key is held down the alt-tab functionality stays
+static const unsigned int tabmodkey = 0x40; /* (Alt) when this key is held down the alt-tab functionality stays
              active. Must be the same modifier as used to run alttabstart */
-static const unsigned int tabcyclekey =
-    0x17; /* (Tab) when this key is hit the menu moves one position forward in
+static const unsigned int tabcyclekey = 0x17; /* (Tab) when this key is hit the menu moves one position forward in
              client stack. Must be the same key as used to run alttabstart */
-static const unsigned int tabposy =
-    1; /* tab position on Y axis, 0 = top, 1 = center, 2 = bottom */
-static const unsigned int tabposx =
-    1; /* tab position on X axis, 0 = left, 1 = center, 2 = right */
+static const unsigned int tabposy = 1; /* tab position on Y axis, 0 = top, 1 = center, 2 = bottom */
+static const unsigned int tabposx = 1; /* tab position on X axis, 0 = left, 1 = center, 2 = right */
 static const unsigned int maxwtab = 300; /* tab menu width */
 static const unsigned int maxhtab = 200; /* tab menu height */
 #endif                                   // ALT_TAB_PATCH
@@ -842,6 +838,7 @@ static const char *xkb_layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define ALTKEY Mod1Mask
+ 
 #if COMBO_PATCH && SWAPTAGS_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
   {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
@@ -966,7 +963,7 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 
 #if ON_EMPTY_KEYS_PATCH
 static const char *browsercmd[] = {"chromium", NULL};
-static const char *filescmd[] = {"pcmanfm", NULL};
+static const char *filescmd[] = {"thunar", NULL};
 static const char *telegramcmd[] = {"telegram-desktop", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
@@ -991,6 +988,7 @@ static const char *shotwin[] = {"takeshot", "--win", NULL};
 static const char *shotarea[] = {"takeshot", "--area", NULL};
 
 static const char *alacritty[] = {"alacritty", NULL};
+static const char *kitty[] = {"kitty",NULL};
 static const char *lockscreen[] = {"xflock4", NULL};
 static const Key keys[] = {
 /* modifier                     key            function                argument
@@ -1016,6 +1014,7 @@ static const Key keys[] = {
     {ControlMask | ALTKEY, XK_l, spawn, {.v = lockscreen}},
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
     {MODKEY, XK_Return, spawn, {.v = alacritty}},
+    {ALTKEY, XK_Return, spawn, {.v = kitty}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_b, togglebar, {0}},
 #if TOGGLETOPBAR_PATCH
@@ -1031,7 +1030,7 @@ static const Key keys[] = {
     {MODKEY, XK_k, focusstack, {.i = -1}},
 #endif // STACKER_PATCH
 #if FOCUSDIR_PATCH
-        {MODKEY, XK_Left, focusdir, {.i = 0}}, // left
+    {MODKEY, XK_Left, focusdir, {.i = 0}}, // left
     {MODKEY, XK_Right, focusdir, {.i = 1}},    // right
     {MODKEY, XK_Up, focusdir, {.i = 2}},       // up
     {MODKEY, XK_Down, focusdir, {.i = 3}},     // down
@@ -1045,14 +1044,6 @@ static const Key keys[] = {
 #if SWITCHCOL_PATCH
     {MODKEY, XK_v, switchcol, {0}},
 #endif // SWITCHCOL_PATCH
-#if INPLACEROTATE_PATCH
-    {MODKEY | ALTKEY, XK_j, inplacerotate, {.i = +2}}, // same as rotatestack
-    {MODKEY | ALTKEY, XK_k, inplacerotate, {.i = -2}}, // same as reotatestack
-#endif                                                 // INPLACEROTATE_PATCH
-#if PUSH_PATCH || PUSH_NO_MASTER_PATCH
-    {MODKEY | ControlMask, XK_j, pushdown, {0}},
-    {MODKEY | ControlMask, XK_k, pushup, {0}},
-#endif // PUSH_PATCH / PUSH_NO_MASTER_PATCH
     {MODKEY, XK_i, incnmaster, {.i = +1}},
     {MODKEY | ShiftMask, XK_i, incnmaster, {.i = -1}},
 #if FLEXTILE_DELUXE_LAYOUT
@@ -1112,48 +1103,10 @@ static const Key keys[] = {
     {MODKEY | ALTKEY | ShiftMask, XK_0, defaultgaps, {0}},
 #endif // VANITYGAPS_PATCH
 #if ALT_TAB_PATCH
-    {MODKEY, XK_Tab, alttabstart, {0}},
+    {ALTKEY, XK_Tab, alttabstart, {0}},
 #else
-    {MODKEY, XK_Tab, view, {0}},
+    {ALTKEY, XK_Tab, view, {0}},
 #endif // ALT_TAB_PATCH
-#if SHIFTTAG_PATCH
-    {MODKEY | ShiftMask,
-     XK_Left,
-     shifttag,
-     {.i = -1}}, // note keybinding conflict with focusadjacenttag tagtoleft
-    {MODKEY | ShiftMask,
-     XK_Right,
-     shifttag,
-     {.i = +1}}, // note keybinding conflict with focusadjacenttag tagtoright
-#endif           // SHIFTTAG_PATCH
-#if SHIFTTAGCLIENTS_PATCH
-    {MODKEY | ShiftMask | ControlMask, XK_Left, shifttagclients, {.i = -1}},
-    {MODKEY | ShiftMask | ControlMask, XK_Right, shifttagclients, {.i = +1}},
-#endif // SHIFTTAGCLIENTS_PATCH
-#if SHIFTVIEW_PATCH
-    {MODKEY | ShiftMask, XK_Tab, shiftview, {.i = -1}},
-    {MODKEY | ShiftMask, XK_backslash, shiftview, {.i = +1}},
-#endif // SHIFTVIEW_PATCH
-#if SHIFTVIEW_CLIENTS_PATCH
-    {MODKEY | ALTKEY, XK_Tab, shiftviewclients, {.i = -1}},
-    {MODKEY | ALTKEY, XK_backslash, shiftviewclients, {.i = +1}},
-#endif // SHIFTVIEW_CLIENTS_PATCH
-#if SHIFTBOTH_PATCH
-    {MODKEY | ControlMask,
-     XK_Left,
-     shiftboth,
-     {.i = -1}}, // note keybinding conflict with focusadjacenttag
-                 // tagandviewtoleft placedir
-    {MODKEY | ControlMask,
-     XK_Right,
-     shiftboth,
-     {.i = +1}}, // note keybinding conflict with focusadjacenttag
-                 // tagandviewtoright placedir
-#endif           // SHIFTBOTH_PATCH
-#if SHIFTSWAPTAGS_PATCH && SWAPTAGS_PATCH
-    {MODKEY | ALTKEY | ShiftMask, XK_Left, shiftswaptags, {.i = -1}},
-    {MODKEY | ALTKEY | ShiftMask, XK_Right, shiftswaptags, {.i = +1}},
-#endif // SHIFTSWAPTAGS_PATCH
 #if BAR_WINTITLEACTIONS_PATCH
     {MODKEY | ControlMask, XK_z, showhideclient, {0}},
 #endif // BAR_WINTITLEACTIONS_PATCH
@@ -1255,32 +1208,7 @@ static const Key keys[] = {
 #if STICKY_PATCH
     {MODKEY | ShiftMask, XK_s, togglesticky, {0}},
 #endif // STICKY_PATCH
-#if FOCUSADJACENTTAG_PATCH
-    {MODKEY,
-     XK_Left,
-     viewtoleft,
-     {0}}, // note keybinding conflict with focusdir
-    {MODKEY,
-     XK_Right,
-     viewtoright,
-     {0}}, // note keybinding conflict with focusdir
-    {MODKEY | ShiftMask,
-     XK_Left,
-     tagtoleft,
-     {0}}, // note keybinding conflict with shifttag
-    {MODKEY | ShiftMask,
-     XK_Right,
-     tagtoright,
-     {0}}, // note keybinding conflict with shifttag
-    {MODKEY | ControlMask,
-     XK_Left,
-     tagandviewtoleft,
-     {0}}, // note keybinding conflict with placedir
-    {MODKEY | ControlMask,
-     XK_Right,
-     tagandviewtoright,
-     {0}}, // note keybinding conflict with placedir
-#endif     // FOCUSADJACENTTAG_PATCH
+
 #if TAGALL_PATCH
     {MODKEY | ShiftMask, XK_F1, tagall, {.v = "F1"}},
     {MODKEY | ShiftMask, XK_F2, tagall, {.v = "F2"}},
@@ -1301,14 +1229,7 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_F8, tagall, {.v = "8"}},
     {MODKEY | ControlMask, XK_F9, tagall, {.v = "9"}},
 #endif // TAGALL_PATCH
-#if TAGALLMON_PATCH
-    {MODKEY | ALTKEY | ShiftMask, XK_comma, tagallmon, {.i = +1}},
-    {MODKEY | ALTKEY | ShiftMask, XK_period, tagallmon, {.i = -1}},
-#endif // TAGALLMON_PATCH
-#if TAGSWAPMON_PATCH
-    {MODKEY | ALTKEY | ControlMask, XK_comma, tagswapmon, {.i = +1}},
-    {MODKEY | ALTKEY | ControlMask, XK_period, tagswapmon, {.i = -1}},
-#endif // TAGSWAPMON_PATCH
+
 #if BAR_ALTERNATIVE_TAGS_PATCH
     {MODKEY, XK_n, togglealttag, {0}},
 #endif // BAR_ALTERNATIVE_TAGS_PATCH
@@ -1316,20 +1237,20 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_n, nametag, {0}},
 #endif // NAMETAG_PATCH
 #if BAR_TAGGRID_PATCH
-    {MODKEY | ControlMask,
+    {MODKEY | ALTKEY |ControlMask,
      XK_Up,
      switchtag,
      {.ui = SWITCHTAG_UP | SWITCHTAG_VIEW}},
-    {MODKEY | ControlMask,
+    {MODKEY | ALTKEY | ControlMask,
      XK_Down,
      switchtag,
      {.ui = SWITCHTAG_DOWN | SWITCHTAG_VIEW}},
-    {MODKEY | ControlMask,
+    {MODKEY | ALTKEY | ControlMask,
      XK_Right,
      switchtag,
      {.ui = SWITCHTAG_RIGHT |
             SWITCHTAG_VIEW}}, // note keybinding conflict with placedir
-    {MODKEY | ControlMask,
+    {MODKEY | ALTKEY | ControlMask,
      XK_Left,
      switchtag,
      {.ui = SWITCHTAG_LEFT |
@@ -1419,51 +1340,9 @@ static const Key keys[] = {
      togglemaximize,
      {.i = 0}}, /* XK_KP_Begin, */
 #endif          // EXRESIZE_PATCH
-#if FLOATPOS_PATCH
-    /* Note that due to key limitations the below example kybindings are defined
-     * with a Mod3Mask, which is not always readily available. Refer to the
-     * patch wiki for more details. */
-    /* Client position is limited to monitor window area */
-    {Mod3Mask, XK_u, floatpos, {.v = "-26x -26y"}},      // ↖
-    {Mod3Mask, XK_i, floatpos, {.v = "  0x -26y"}},      // ↑
-    {Mod3Mask, XK_o, floatpos, {.v = " 26x -26y"}},      // ↗
-    {Mod3Mask, XK_j, floatpos, {.v = "-26x   0y"}},      // ←
-    {Mod3Mask, XK_l, floatpos, {.v = " 26x   0y"}},      // →
-    {Mod3Mask, XK_m, floatpos, {.v = "-26x  26y"}},      // ↙
-    {Mod3Mask, XK_comma, floatpos, {.v = "  0x  26y"}},  // ↓
-    {Mod3Mask, XK_period, floatpos, {.v = " 26x  26y"}}, // ↘
-    /* Absolute positioning (allows moving windows between monitors) */
-    {Mod3Mask | ControlMask, XK_u, floatpos, {.v = "-26a -26a"}},      // ↖
-    {Mod3Mask | ControlMask, XK_i, floatpos, {.v = "  0a -26a"}},      // ↑
-    {Mod3Mask | ControlMask, XK_o, floatpos, {.v = " 26a -26a"}},      // ↗
-    {Mod3Mask | ControlMask, XK_j, floatpos, {.v = "-26a   0a"}},      // ←
-    {Mod3Mask | ControlMask, XK_l, floatpos, {.v = " 26a   0a"}},      // →
-    {Mod3Mask | ControlMask, XK_m, floatpos, {.v = "-26a  26a"}},      // ↙
-    {Mod3Mask | ControlMask, XK_comma, floatpos, {.v = "  0a  26a"}},  // ↓
-    {Mod3Mask | ControlMask, XK_period, floatpos, {.v = " 26a  26a"}}, // ↘
-    /* Resize client, client center position is fixed which means that client
-       expands in all directions */
-    {Mod3Mask | ShiftMask, XK_u, floatpos, {.v = "-26w -26h"}},      // ↖
-    {Mod3Mask | ShiftMask, XK_i, floatpos, {.v = "  0w -26h"}},      // ↑
-    {Mod3Mask | ShiftMask, XK_o, floatpos, {.v = " 26w -26h"}},      // ↗
-    {Mod3Mask | ShiftMask, XK_j, floatpos, {.v = "-26w   0h"}},      // ←
-    {Mod3Mask | ShiftMask, XK_k, floatpos, {.v = "800W 800H"}},      // ·
-    {Mod3Mask | ShiftMask, XK_l, floatpos, {.v = " 26w   0h"}},      // →
-    {Mod3Mask | ShiftMask, XK_m, floatpos, {.v = "-26w  26h"}},      // ↙
-    {Mod3Mask | ShiftMask, XK_comma, floatpos, {.v = "  0w  26h"}},  // ↓
-    {Mod3Mask | ShiftMask, XK_period, floatpos, {.v = " 26w  26h"}}, // ↘
-    /* Client is positioned in a floating grid, movement is relative to client's
-       current position */
-    {Mod3Mask | MODKEY, XK_u, floatpos, {.v = "-1p -1p"}},      // ↖
-    {Mod3Mask | MODKEY, XK_i, floatpos, {.v = " 0p -1p"}},      // ↑
-    {Mod3Mask | MODKEY, XK_o, floatpos, {.v = " 1p -1p"}},      // ↗
-    {Mod3Mask | MODKEY, XK_j, floatpos, {.v = "-1p  0p"}},      // ←
-    {Mod3Mask | MODKEY, XK_k, floatpos, {.v = " 0p  0p"}},      // ·
-    {Mod3Mask | MODKEY, XK_l, floatpos, {.v = " 1p  0p"}},      // →
-    {Mod3Mask | MODKEY, XK_m, floatpos, {.v = "-1p  1p"}},      // ↙
-    {Mod3Mask | MODKEY, XK_comma, floatpos, {.v = " 0p  1p"}},  // ↓
-    {Mod3Mask | MODKEY, XK_period, floatpos, {.v = " 1p  1p"}}, // ↘
-#endif // FLOATPOS_PATCH
+  //
+  //
+  //
 #if SETBORDERPX_PATCH
     {MODKEY | ControlMask, XK_minus, setborderpx, {.i = -1}},
     {MODKEY | ControlMask, XK_plus, setborderpx, {.i = +1}},
