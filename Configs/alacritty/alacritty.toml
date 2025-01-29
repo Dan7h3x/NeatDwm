@@ -1,50 +1,79 @@
-
-[colors]
-draw_bold_text_with_bright_colors = true
-
-[colors.bright]
-black = "#949494"
-blue = "#74b2ff"
-cyan = "#85dc85"
-green = "#36c692"
-magenta = "#ae81ff"
-red = "#ff5189"
-white = "#e4e4e4"
-yellow = "#c6c684"
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+dim_foreground = "#7f849c"
+bright_foreground = "#cdd6f4"
 
 [colors.cursor]
-cursor = "#8e8e8e"
-text = "#080808"
+text = "#1e1e2e"
+cursor = "#f5e0dc"
 
-[colors.normal]
-black = "#323437"
-blue = "#80a0ff"
-cyan = "#79dac8"
-green = "#8cc85f"
-magenta = "#cf87e8"
-red = "#ff5454"
-white = "#c6c6c6"
-yellow = "#e3c78a"
+[colors.vi_mode_cursor]
+text = "#1e1e2e"
+cursor = "#b4befe"
 
-[colors.primary]
-background = "#080808"
-bright_foreground = "#eeeeee"
-foreground = "#bdbdbd"
+[colors.search.matches]
+foreground = "#1e1e2e"
+background = "#a6adc8"
+
+[colors.search.focused_match]
+foreground = "#1e1e2e"
+background = "#a6e3a1"
+
+[colors.footer_bar]
+foreground = "#1e1e2e"
+background = "#a6adc8"
+
+[colors.hints.start]
+foreground = "#1e1e2e"
+background = "#f9e2af"
+
+[colors.hints.end]
+foreground = "#1e1e2e"
+background = "#a6adc8"
 
 [colors.selection]
-background = "#b2ceee"
-text = "#080808"
+text = "#1e1e2e"
+background = "#f5e0dc"
+
+[colors.normal]
+black = "#45475a"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#bac2de"
+
+[colors.bright]
+black = "#585b70"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#a6adc8"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#fab387"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#f5e0dc"
 
 
 [font]
-size = 13
+size = 12
 
 builtin_box_drawing = true
 
-normal = { family = "FantasqueSansM Nerd Font", style = "SemiBold" }
-bold = { family = "FantasqueSansM Nerd Font", style = "Bold" }
-italic = { family = "FantasqueSansM Nerd Font", style = "Italic" }
-bold_italic = { family = "FantasqueSansM Nerd Font", style = "Bold Italic" }
+normal = { family = "Monaspace Argon", style = "SemiBold" }
+bold = { family = "Monaspace Argon", style = "Bold" }
+italic = { family = "Monaspace Argon", style = "Italic" }
+bold_italic = { family = "Monaspace Argon", style = "Bold Italic" }
 
 [general]
 live_config_reload = true

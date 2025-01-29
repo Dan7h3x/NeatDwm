@@ -219,7 +219,7 @@ map kitty_mod+f>h myhints --type hash --program @
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="SourceCodeVF"
+font_family      family="Monaspace Radon"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
