@@ -5,19 +5,19 @@
 
 # display scaling (≈1.25x)
 
-box_drawing_scale               0.00125, 1.25, 1.875, 2.5
-cursor_beam_thickness           1.875
+box_drawing_scale               0.001, 1.0, 1.5, 2.0
+cursor_beam_thickness           1.5
 cursor_underline_thickness      2.5
 background_opacity              0.75
 tab_bar_edge                    top
 tab_bar_style                   custom
-tab_bar_min_tabs                1
+tab_bar_align                   center
+tab_bar_min_tabs                2
 tab_bar_margin_width            0
 tab_bar_margin_height           0 0
-tab_powerline_style             slanted
 tab_activity_symbol             ""
 bell_on_tab                     false
-tab_separator                   ""
+tab_separator                   "|"
 active_tab_font_style           bold
 inactive_tab_font_style         normal
 
@@ -26,7 +26,7 @@ inactive_tab_font_style         normal
 symbol_map                      U+2665,U+26A1,U+2B58,U+E000-U+E00A,U+E0A0-U+E0A3 Symbols Nerd Font
 
 
-enabled_layouts                 fat:bias=75,tall:bias=50,fat:bias=25
+enabled_layouts                 grid:bias=50,tall:bias=50,fat:bias=25
 window_border_width             1px
 window_margin_width             4
 single_window_margin_width      0
@@ -127,7 +127,7 @@ clear_all_shortcuts             yes
 map kitty_mod+equal             change_font_size all +1.0
 map kitty_mod+minus             change_font_size all -1.0
 map kitty_mod+escape            change_font_size all 0
-map kitty_mod+/                 change_font_size all 24
+map kitty_mod+/                 change_font_size all 13
 
 map kitty_mod+f1                show_kitty_doc overview
 map kitty_mod+f2                edit_config_file
@@ -146,16 +146,7 @@ map kitty_mod+b                 paste_from_selection
 
 # }}}
 
-# 📜 Terminal scrolling: {{{
 
-map kitty_mod+up                scroll_line_up
-map kitty_mod+down              scroll_line_down
-map kitty_mod+u                 scroll_page_up
-map kitty_mod+d                 scroll_page_down
-map kitty_mod+home              scroll_home
-map kitty_mod+end               scroll_end
-map kitty_mod+right             scroll_to_prompt 1
-map kitty_mod+left              scroll_to_prompt -1
 
 # show output in pager
 map kitty_mod+s>s               show_scrollback
@@ -166,7 +157,7 @@ map kitty_mod+s>c               show_last_command_output
 # 📑 Tabs: {{{
 
 map kitty_mod+right                 next_tab
-map kitty_mod+down                   previous_tab
+map kitty_mod+left                  previous_tab
 map kitty_mod+1                 goto_tab 1
 map kitty_mod+2                 goto_tab 2
 map kitty_mod+3                 goto_tab 3
@@ -179,19 +170,17 @@ map kitty_mod+w>e               move_tab_backward
 action_alias new_tab_current launch --cwd=current --type=tab
 action_alias nvim new_tab_current --tab-title="⟜  ⊸" zsh -c "source ~/.zshrc && nvim; zsh"
 action_alias term new_tab_current --tab-title="⟜  ⊸"
-action_alias xplr new_tab_current --tab-title="⟜ 󰭎 ⊸" zsh -c "xplr; zsh"
-action_alias build new_tab_current --tab-title="⟜ 󰖷 ⊸" zsh -c "trap 'echo \"Air stopped. Press Enter to exit.\"; read' INT; air -c ./config/air.toml; zsh"
+action_alias files new_tab_current --tab-title="⟜ 󰭎 ⊸" zsh -c "yazi; zsh"
 
 action_alias refresh_nvim  combine : goto_tab 1 : nvim : move_tab_backward : move_tab_backward : previous_tab : close_tab
 action_alias refresh_term  combine : goto_tab 2 : term : move_tab_backward : previous_tab : close_tab
 action_alias refresh_xplr  combine : goto_tab 3 : xplr : previous_tab : close_tab
-action_alias refresh_build  combine : goto_tab 4 : build : previous_tab : close_tab
 
-map kitty_mod+r>e refresh_nvim
+map kitty_mod+e refresh_nvim
 map kitty_mod+r>t refresh_term
 map kitty_mod+r>g refresh_xplr
 map kitty_mod+r>b refresh_build
-map kitty_mod+r>r combine : nvim : term : xplr : build : goto_tab 1 : close_tab : next_tab
+map kitty_mod+r>r combine : nvim : term : files  : goto_tab 1 : close_tab : next_tab
 
 #: }}}
 
@@ -199,8 +188,8 @@ map kitty_mod+r>r combine : nvim : term : xplr : build : goto_tab 1 : close_tab 
 
 map kitty_mod+return        new_window_with_cwd
 map kitty_mod+x             close_window
-map kitty_mod+n             next_window
-map kitty_mod+y             previous_window
+map kitty_mod+up             next_window
+map kitty_mod+down             previous_window
 map kitty_mod+l             next_layout
 
 # }}}
@@ -219,7 +208,7 @@ map kitty_mod+f>h myhints --type hash --program @
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="Monaspace Radon"
+font_family      family="MonaspiceNe Nerd Font Mono"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto

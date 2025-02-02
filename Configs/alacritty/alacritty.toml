@@ -70,10 +70,10 @@ size = 12
 
 builtin_box_drawing = true
 
-normal = { family = "Monaspace Argon", style = "SemiBold" }
-bold = { family = "Monaspace Argon", style = "Bold" }
-italic = { family = "Monaspace Argon", style = "Italic" }
-bold_italic = { family = "Monaspace Argon", style = "Bold Italic" }
+normal = { family = "MonaspiceRn Nerd Font ", style = "SemiBold" }
+bold = { family = "MonaspiceRn Nerd Font ", style = "Bold" }
+italic = { family = "MonaspiceRn Nerd Font ", style = "Italic" }
+bold_italic = { family = "MonaspiceRn Nerd Font ", style = "Bold Italic" }
 
 [general]
 live_config_reload = true
