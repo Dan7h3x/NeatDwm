@@ -1,44 +1,87 @@
 #!/usr/bin/env bash
 
-red="#FF3131"
-purple="#9457EB"
-green="#39FF14"
-blue="#4D4DFF"
-bblue="#89CFF0"
-orange="#F6890A"
-yellow="#CCFF00"
-cyan="#00FEFC"
-teal="#43BBB6"
-black="#000000"
+# Color definitions
+RED="#FF3131"
+PURPLE="#9457EB"
+GREEN="#39FF14"
+BLUE="#4D4DFF"
+LIGHT_BLUE="#89CFF0"
+ORANGE="#F6890A"
+YELLOW="#CCFF00"
+CYAN="#00FEFC"
+TEAL="#43BBB6"
+BLACK="#000000"
 
-checkIfRunning() {
-  if [ $(systemctl --user is-active redshift) == "active" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
+# Configuration
+TEMP_STEP=200
+DEFAULT_TEMP=4500
+MIN_TEMP=1000
+MAX_TEMP=10000
+STATE_FILE="/tmp/redshift_temp"
 
-changeModeToggle() {
-
-  if checkIfRunning; then
-    systemctl --user stop redshift
-  else
-    systemctl --user start redshift
-  fi
-}
-
-if checkIfRunning; then
-  CURRENT_TEMP=$(redshift -P 2>/dev/null | grep "Color temperature" | sed 's/.*: //')
+# Initialize or read current temperature from state file
+if [ -f "$STATE_FILE" ]; then
+  current_temp=$(cat "$STATE_FILE")
 else
-  CURRENT_TEMP="Off"
+  current_temp=$DEFAULT_TEMP
+  echo "$current_temp" >"$STATE_FILE"
 fi
 
-# Handle click and scroll events
-case "$BLOCK_BUTTON" in
-1)
-  changeModeToggle
-  ;;
-esac
+# Helper function to validate and save temperature
+validate_and_save_temp() {
+  if [ "$current_temp" -lt "$MIN_TEMP" ]; then
+    current_temp=$MIN_TEMP
+  elif [ "$current_temp" -gt "$MAX_TEMP" ]; then
+    current_temp=$MAX_TEMP
+  fi
+  echo "$current_temp" >"$STATE_FILE"
+}
 
-echo -e "^c$black^^b$bblue$^ $CURRENT_TEMP^d^"
+# Helper function to apply temperature
+apply_temp() {
+  redshift -P -O "$current_temp" &>/dev/null
+}
+
+stop() {
+  redshift -x &>/dev/null
+  current_temp=$DEFAULT_TEMP
+  echo "$current_temp" >"$STATE_FILE"
+}
+
+start() {
+  current_temp=$DEFAULT_TEMP
+  echo "$current_temp" >"$STATE_FILE"
+  apply_temp
+}
+
+increase() {
+  current_temp=$((current_temp + TEMP_STEP))
+  validate_and_save_temp
+  apply_temp
+}
+
+decrease() {
+  current_temp=$((current_temp - TEMP_STEP))
+  validate_and_save_temp
+  apply_temp
+}
+
+# Determine icon based on temperature
+if [ "$current_temp" -gt "$DEFAULT_TEMP" ]; then
+  icon="󰃞 "
+elif [ "$current_temp" -lt "$DEFAULT_TEMP" ]; then
+  icon="󰃜 "
+else
+  icon="󰃟 "
+fi
+
+# Output current status
+echo -e "^c$BLACK^^b$YELLOW^$icon$(current_temp)K^d^"
+
+# Handle button events
+case "$BLOCK_BUTTON" in
+1) start ;;    # Left click
+3) stop ;;     # Right click
+4) increase ;; # Scroll up
+5) decrease ;; # Scroll down
+esac
