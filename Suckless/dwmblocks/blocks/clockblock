@@ -16,7 +16,7 @@ teal="#43BBB6"
 black="#000000"
 case $BLOCK_BUTTON in
 1)
-  setsid -f "$TERMINAL" --class 'FloatTerm' -T "Dates" -e calcurse
+  setsid -f "$TERMINAL" -c 'floating' -T "Dates" -e calcurse
   pkill -RTMIN+7 "${STATUSBAR:-dwmblocks}"
   ;;
 2) notify-send "This Month" "$(cal | sed "s/\<$(date +'%e' | tr -d ' ')\>/<b><span color='red'>&<\/span><\/b>/")" && notify-send "Appointments" "$(calcurse -d3)" ;;

@@ -4,7 +4,7 @@ VERSION = 6.5
 # Customize below to fit your system
 
 # paths
-PREFIX = /usr/local
+PREFIX = /usr
 MANPREFIX = ${PREFIX}/share/man
 
 X11INC = /usr/X11R6/include
@@ -46,7 +46,7 @@ YAJLINC = -I/usr/include/yajl
 XEXTLIB = -lXext
 
 # Uncomment this for the swallow patch / SWALLOW_PATCH
-XCBLIBS = -lX11-xcb -lxcb -lxcb-res
+# XCBLIBS = -lX11-xcb -lxcb -lxcb-res
 
 # This is needed for the winicon and tagpreview patches / BAR_WINICON_PATCH / BAR_TAGPREVIEW_PATCH
 IMLIB2LIBS = -lImlib2

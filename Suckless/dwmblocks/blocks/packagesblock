@@ -3,7 +3,7 @@
 
 case $BLOCK_BUTTON in
 1)
-  setsid -f "$TERMINAL" --class "FloatTerm" -T "Packages" -e yay
+  setsid -f "$TERMINAL" -c "floating" -T "Packages" -e yay
   ;;
 3)
   notify-send "Updates" "$(yay -Qu | tr -d ' ')"

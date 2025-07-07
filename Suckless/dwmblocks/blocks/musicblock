@@ -33,7 +33,7 @@ case $BLOCK_BUTTON in
   # right click, pause/unpause
 4)
   if [[ -n "$playing_player" ]]; then
-    playerctl --player="$playing_player" prev
+    playerctl --player="$playing_player" previous
   else
     mpc prev
   fi

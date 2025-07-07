@@ -76,7 +76,7 @@ else
 fi
 
 # Output current status
-echo -e "^c$BLACK^^b$YELLOW^$icon$(current_temp)K^d^"
+echo -e "^c$BLACK^^b$YELLOW^$icon$current_temp^d^"
 
 # Handle button events
 case "$BLOCK_BUTTON" in

@@ -12,7 +12,7 @@ teal="#43BBB6"
 black="#000000"
 case $BLOCK_BUTTON in
 1)
-  setsid -f "$TERMINAL" --class 'FloatTerm' -T "Progress" -e htop
+  setsid -f "$TERMINAL" -c 'floating' -T "Progress" -e btop
   ;;
 2) notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
 3) notify-send "🧠 Memory module" "\- Shows Memory Used/Total.
