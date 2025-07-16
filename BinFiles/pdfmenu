@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+HIST="$HOME/.local/share/zathura/history"
+
+RECENT=$(grep -oP '\[\K[^]]*\.pdf(?=\])' "$HIST" 2>/dev/null | uniq)
+ALL=$(fd --type=file --extension=pdf .)
+
+ALL_UNIQ=$(echo -e "$RECENT\n$ALL" | sort | uniq)
+
+SEL=$(echo "$ALL_UNIQ" | dmenu -l 10 -p "PDFs:")
+
+if [ -n "$SEL" ]; then
+  zathura "$SEL" &
+fi

@@ -338,20 +338,20 @@ static const Launcher launchers[] = {
     /* icon to display      command        */
     {"^c#9457EB^^d^", CMD("qutebrowser")},
     {"^c#39FF14^^d^",
-     CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","'Files'", "-e", "yazi")},
-    {"^c#F6890A^^d^", CMD("telegram-desktop")},
+     CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","Files","-g","90x45", "-e", "yazi")},
+    {"^c#F6890A^^d^", CMD("Telegram")},
 };
 #endif // BAR_LAUNCHER_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
-const char *spcmd1[] = {"s",  "st","-c","'floating'",  "-n", "'spterm'","-T","'ScratchTerm'", NULL};
-const char *spmusic[] = {"m",  "st","-c","'floating'" ,"-n","'spmusic'","-T","'Music'","-e",      "ncmpcpp",
+const char *spcmd1[] = {"s",  "st","-c","'floating'",  "-n", "'spterm'","-T","ScratchTerm", NULL};
+const char *spmusic[] = {"m",  "st","-c","'floating'" ,"-n","'spmusic'","-T","Music","-e",      "ncmpcpp",
                          NULL};
-const char *spproc[] = {"b",       "st","-c","'floating'", "-n", "'spproc'","-T","'Processes'","-e", "btop",    NULL};
+const char *spproc[] = {"b", "st","-c","'floating'", "-n", "'spproc'","-T","Processes","-e", "btop",    NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st",  "-n", "'spterm'", NULL};
-const char *spmusic[] = {"st", "-n", "'spmusic'","-e",      "ncmpcpp", NULL};
+const char *spmusic[] = {"st", "-n", "'spmusic'","-e", "ncmpcpp", NULL};
 static Sp scratchpads[] = {
     /* name          cmd  */
     {"spterm", spcmd1},
@@ -481,6 +481,7 @@ RULE(.class = "octave-gui", .isfloating = 1)
 RULE(.class = "R_x11", .isfloating = 1)
 RULE(.instance = "Floatterm", .isfloating = 1)
 RULE(.instance = "spfiles",.isfloating = 1 )
+RULE(.instance = "v2rayN",.isfloating = 1 )
 
 #if RENAMED_SCRATCHPADS_PATCH
                                         RULE(.instance = "spterm",
@@ -981,9 +982,10 @@ static const char *shotin5[] = {"takeshot", "--in5", NULL};
 static const char *shotin10[] = {"takeshot", "--in10", NULL};
 static const char *shotwin[] = {"takeshot", "--win", NULL};
 static const char *shotarea[] = {"takeshot", "--area", NULL};
-static const char *floatterm[] = {"st","-c","floating","-T","'TermFloat'",NULL};
-static const char *yazi[] = {"st","-c","floating","-T","'Files'","-e","yazi",NULL};
-
+static const char *floatterm[] = {"st","-c","floating","-T","TermFloat",NULL};
+static const char *yazi[] = {"st","-c","floating","-T","Files","-g","90x45","-e","yazi",NULL};
+static const char *notes[] = {"st","-c","floating","-T","Notes","-g","90x45","-e","fznote",NULL};
+static const char *pdfs[] = {"pdfmenu",NULL};
 static const char *kitty[] = {"kitty",NULL};
 static const char *lockscreen[] = {"xflock4", NULL};
 static const Key keys[] = {
@@ -1012,6 +1014,8 @@ static const Key keys[] = {
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
     {ALTKEY, XK_e, spawn, {.v = yazi}},
+    {ALTKEY, XK_p, spawn, {.v = pdfs}},
+    {ALTKEY, XK_n, spawn, {.v = notes}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},
 #if TOGGLETOPBAR_PATCH
