@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include <time.h>
 #include <X11/Xft/Xft.h>
 #include <X11/cursorfont.h>
 #include <hb.h>
@@ -33,7 +32,6 @@ typedef struct {
 } RuneBuffer;
 
 static RuneBuffer hbrunebuffer = { 0, NULL };
-static hb_buffer_t *hbbuffer;
 
 /*
  * Poplulate the array with a list of font features, wrapped in FEATURE macro,
@@ -43,19 +41,7 @@ static hb_buffer_t *hbbuffer;
 hb_feature_t features[] = { };
 
 void
-hbcreatebuffer(void)
-{
-	hbbuffer = hb_buffer_create();
-}
-
-void
-hbdestroybuffer(void)
-{
-	hb_buffer_destroy(hbbuffer);
-}
-
-void
-hbunloadfonts(void)
+hbunloadfonts()
 {
 	for (int i = 0; i < hbfontcache.capacity; i++) {
 		hb_font_destroy(hbfontcache.fonts[i].font);
@@ -91,21 +77,16 @@ hbfindfont(XftFont *match)
 	return font;
 }
 
-void
-hbtransform(HbTransformData *data, XftFont *xfont, const Glyph *glyphs, int start, int length)
-{
-	uint32_t mode;
+void hbtransform(HbTransformData *data, XftFont *xfont, const Glyph *glyphs, int start, int length) {
+	ushort mode = USHRT_MAX;
 	unsigned int glyph_count;
 	int rune_idx, glyph_idx, end = start + length;
-	hb_buffer_t *buffer = hbbuffer;
 
 	hb_font_t *font = hbfindfont(xfont);
-	if (font == NULL) {
-		data->count = 0;
+	if (font == NULL)
 		return;
-	}
 
-	hb_buffer_reset(buffer);
+	hb_buffer_t *buffer = hb_buffer_create();
 	hb_buffer_set_direction(buffer, HB_DIRECTION_LTR);
 	hb_buffer_set_cluster_level(buffer, HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS);
 
@@ -120,6 +101,9 @@ hbtransform(HbTransformData *data, XftFont *xfont, const Glyph *glyphs, int star
 		hbrunebuffer.runes[rune_idx] = glyphs[glyph_idx].u;
 		mode = glyphs[glyph_idx].mode;
 		if (mode & ATTR_WDUMMY)
+			hbrunebuffer.runes[rune_idx] = 0x0020;
+		/* Draw spaces for image placeholders. */
+		if (mode & ATTR_IMAGE)
 			hbrunebuffer.runes[rune_idx] = 0x0020;
 	}
 	hb_buffer_add_codepoints(buffer, hbrunebuffer.runes, length, 0, length);
@@ -136,4 +120,9 @@ hbtransform(HbTransformData *data, XftFont *xfont, const Glyph *glyphs, int star
 	data->glyphs = info;
 	data->positions = pos;
 	data->count = glyph_count;
+}
+
+void hbcleanup(HbTransformData *data) {
+	hb_buffer_destroy(data->buffer);
+	memset(data, 0, sizeof(HbTransformData));
 }

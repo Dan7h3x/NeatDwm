@@ -9,7 +9,6 @@ typedef struct {
 	unsigned int count;
 } HbTransformData;
 
-void hbcreatebuffer(void);
-void hbdestroybuffer(void);
-void hbunloadfonts(void);
+void hbunloadfonts();
 void hbtransform(HbTransformData *, XftFont *, const Glyph *, int, int);
+void hbcleanup(HbTransformData *);
