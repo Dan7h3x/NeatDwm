@@ -338,15 +338,19 @@ static const Launcher launchers[] = {
     /* icon to display      command        */
     {"^c#9457EB^^d^", CMD("qutebrowser")},
     {"^c#39FF14^^d^",
-     CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","Files","-g","90x45", "-e", "yazi")},
+     CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","Files","-g","80x35", "-e", "yazi")},
     {"^c#F6890A^^d^", CMD("Telegram")},
+    {"^c#9C04D1^󰊠^d^", CMD("ghostty")},
 };
 #endif // BAR_LAUNCHER_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
 const char *spcmd1[] = {"s",  "st","-c","'floating'",  "-n", "'spterm'","-T","ScratchTerm", NULL};
 const char *spmusic[] = {"m",  "st","-c","'floating'" ,"-n","'spmusic'","-T","Music","-e",      "ncmpcpp",
                          NULL};
-const char *spproc[] = {"b", "st","-c","'floating'", "-n", "'spproc'","-T","Processes","-e", "btop",    NULL};
+const char *spproc[] = {"b", "st","-c","'floating'", "-n", "'spproc'","-T","Processes","-g","85x25","-e", "btop",    NULL};
+const char *spfiles[] = {"e", "st","-c","'floating'", "-n", "'spfiles'","-T","Files","-g","100x35","-e", "yazi",    NULL};
+const char *spradio[] = {"r", "st","-c","'floating'", "-n", "'spradio'","-T","Radio","-g","80x35","-e", "sonicradio",    NULL};
+const char *spnotes[] = {"n", "st","-c","'floating'", "-n", "'spnotes'","-T","Notes","-g","100x45","-e", "fznote",    NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
 
 #elif SCRATCHPADS_PATCH
@@ -445,62 +449,46 @@ static const Rule rules[] = {
      *	WM_WINDOW_ROLE(STRING) = role
      *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
      */
-    RULE(.wintype = WTYPE "DIALOG",
-         .isfloating = 1) RULE(.wintype = WTYPE "UTILITY",
-                               .isfloating = 1) RULE(.wintype = WTYPE "TOOLBAR",
-                                                     .isfloating = 1)
-        RULE(.wintype = WTYPE "SPLASH",
-             .isfloating = 1) RULE(.class = "MATLAB R2018b", .isfloating = 1)
-            RULE(.class = "MATLAB R2024a", .isfloating = 1) RULE(
-                    .class = "Matlab",
-                    .isfloating = 1) RULE(.class = "sun-awt-X11-XFramePeer",
-                                          .isfloating = 1)
-
-                RULE(.class = "python3",
-                     .isfloating = 1) RULE(.class = "Matplotlib",
-                                           .isfloating =
-                                               1) RULE(.class = "matplotlib",
-                                                       .isfloating = 1)
-                    RULE(.class = "Python3",
-                         .isfloating =
-                             1) RULE(.class = "Figure", .isfloating = 1)
-                        RULE(.class = "Lxappearance", .isfloating = 1) RULE(
-                                .class =
-                                    "TelegramDesktop",
-                                .isfloating = 1) RULE(.class = "pavucontrol",
-                                                      .isfloating = 1)
-                            RULE(.class = "Blueman-manager", .isfloating = 1)
-                                RULE(.class = "Windscribe2",
-                                     .isfloating = 1) RULE(.class = "Goodvibes",
-                                                           .isfloating = 1)
-                                    RULE(.class = "Fsearch", .isfloating = 1)
-                                    RULE(.class = "Nwg-look", .isfloating = 1)
-                                    RULE(.class = "Viewnior", .isfloating = 1)
-                                    RULE(.class= "floating",.isfloating = 1)
-RULE(.class = "octave-gui", .isfloating = 1)
-RULE(.class = "R_x11", .isfloating = 1)
-RULE(.instance = "Floatterm", .isfloating = 1)
-RULE(.instance = "spfiles",.isfloating = 1 )
-RULE(.instance = "v2rayN",.isfloating = 1 )
+  RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
+  RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
+  RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
+  RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
+  RULE(.class = "MATLAB R2018b", .isfloating = 1)
+  RULE(.class = "MATLAB R2024a", .isfloating = 1)
+  RULE( .class = "Matlab", .isfloating = 1)
+  RULE(.class = "sun-awt-X11-XFramePeer", .isfloating = 1)
+  RULE(.class = "python3", .isfloating = 1)
+  RULE(.class = "Matplotlib", .isfloating = 1)
+  RULE(.class = "matplotlib", .isfloating = 1)
+  RULE(.class = "Python3", .isfloating = 1)
+  RULE(.class = "Figure", .isfloating = 1)
+  RULE(.class = "Lxappearance", .isfloating = 1)
+  RULE(.class = "TelegramDesktop", .isfloating = 1)
+  RULE(.class = "pavucontrol", .isfloating = 2)
+  RULE(.class = "Blueman-manager", .isfloating = 1)
+  RULE(.class = "Windscribe2", .isfloating = 1)
+  RULE(.class = "Goodvibes", .isfloating = 1)
+  RULE(.class = "Fsearch", .isfloating = 1)
+  RULE(.class = "Nwg-look", .isfloating = 1)
+  RULE(.class = "Viewnior", .isfloating = 1)
+  RULE(.class= "floating",.isfloating = 1)
+  RULE(.class = "octave-gui", .isfloating = 1)
+  RULE(.class = "R_x11", .isfloating = 1)
+  RULE(.instance = "Floatterm", .isfloating = 1)
+  RULE(.instance = "spfiles",.isfloating = 1 )
+  RULE(.instance = "v2rayN",.isfloating = 1 )
 
 #if RENAMED_SCRATCHPADS_PATCH
-                                        RULE(.instance = "spterm",
-                                             .scratchkey = 's', .isfloating = 1)
-                                            RULE(.instance = "spmusic",
-                                                 .scratchkey = 'm',
-                                                 .isfloating = 1)
-                                                RULE(.instance = "spproc",
-                                                     .scratchkey = 'b',
-                                                     .isfloating = 1)
-                                                    RULE(.instance = "Fsearch",
-                                                         .scratchkey = 'f',
-                                                         .isfloating = 1)
+  RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
+  RULE(.instance = "spmusic", .scratchkey = 'm', .isfloating = 1)
+  RULE(.instance = "spproc", .scratchkey = 'b', .isfloating = 1)
+  RULE(.instance = "spfiles", .scratchkey = 'e', .isfloating = 1)
+  RULE(.instance = "spradio", .scratchkey = 'r', .isfloating = 1)
+  RULE(.instance = "spnotes", .scratchkey = 'r', .isfloating = 1)
+  RULE(.instance = "Fsearch",.scratchkey = 'f',.isfloating = 1)
 #elif SCRATCHPADS_PATCH
-                                        RULE(.instance = "spterm",
-                                             .tags = SPTAG(0), .isfloating = 1)
-                                            RULE(.instance = "spmusic",
-                                                 .tags = SPTAG(1),
-                                                 .isfloating = 1)
+  RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+  RULE(.instance = "spmusic", .tags = SPTAG(1), .isfloating = 1)
 #endif // SCRATCHPADS_PATCH
 };
 
@@ -961,11 +949,15 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 static const char *browsercmd[] = {"qutebrowser", NULL};
 static const char *filescmd[] = {"pcmanfm", NULL};
 static const char *telegramcmd[] = {"Telegram", NULL};
+static const char *ghostty[] = {"ghostty", NULL};
+static const char *zeal[] = {"zeal", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
     {0, XK_f, spawn, {.v = browsercmd}},
     {0, XK_t, spawn, {.v = telegramcmd}},
     {0, XK_e, spawn, {.v = filescmd}},
+    {0, XK_g, spawn, {.v = ghostty}},
+    {0, XK_z, spawn, {.v = zeal}},
 };
 #endif // ON_EMPTY_KEYS_PATCH
 
@@ -983,8 +975,6 @@ static const char *shotin10[] = {"takeshot", "--in10", NULL};
 static const char *shotwin[] = {"takeshot", "--win", NULL};
 static const char *shotarea[] = {"takeshot", "--area", NULL};
 static const char *floatterm[] = {"st","-c","floating","-T","TermFloat",NULL};
-static const char *yazi[] = {"st","-c","floating","-T","Files","-g","90x45","-e","yazi",NULL};
-static const char *notes[] = {"st","-c","floating","-T","Notes","-g","90x45","-e","fznote",NULL};
 static const char *pdfs[] = {"pdfmenu",NULL};
 static const char *kitty[] = {"kitty",NULL};
 static const char *lockscreen[] = {"xflock4", NULL};
@@ -1013,9 +1003,7 @@ static const Key keys[] = {
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
-    {ALTKEY, XK_e, spawn, {.v = yazi}},
     {ALTKEY, XK_p, spawn, {.v = pdfs}},
-    {ALTKEY, XK_n, spawn, {.v = notes}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},
 #if TOGGLETOPBAR_PATCH
@@ -1180,6 +1168,9 @@ static const Key keys[] = {
     {ALTKEY, XK_m, togglescratch, {.v = spmusic}},
     {ALTKEY, XK_b, togglescratch, {.v = spproc}},
     {ALTKEY, XK_f, togglescratch, {.v = spfile}},
+    {ALTKEY, XK_e, togglescratch, {.v = spfiles}},
+    {ALTKEY, XK_r, togglescratch, {.v = spradio}},
+    {ALTKEY, XK_n, togglescratch, {.v = spnotes}},
     {MODKEY | ControlMask, XK_grave, setscratch, {.v = spcmd1}},
     {MODKEY | ShiftMask, XK_grave, removescratch, {.v = spcmd1}},
 #elif SCRATCHPADS_PATCH
