@@ -1,0 +1,131 @@
+background_opacity        0.8
+font_size 12.0
+enable_audio_bell no
+
+tab_bar_min_tabs 0
+tab_bar_edge top
+tab_activity_symbol none
+bell_on_tab no
+tab_bar_style custom
+tab_title_template              "{index} {tab.active_wd.rsplit('/', 1)[-1]}"
+active_tab_title_template       "󰅍 {index} {tab.active_wd.rsplit('/', 1)[-1]}"
+tab_powerline_style angled
+update_check_interval 1
+confirm_os_window_close 0
+
+
+enabled_layouts tall,stack
+
+scrollback_pager bash -c "exec nvim 63<&0 0</dev/null -u NONE -c 'map <silent> q :qa!<CR>' -c 'map <silent> vv V' -c 'set shell=bash scrollback=100000 termguicolors laststatus=0 clipboard+=unnamedplus' -c 'colorscheme vim' -c 'autocmd TermEnter * stopinsert' -c 'autocmd TermClose * call cursor(max([0,INPUT_LINE_NUMBER-1])+CURSOR_LINE, CURSOR_COLUMN)' -c 'terminal sed </dev/fd/63 -e \"s/'$'\x1b'']8;;file:[^\]*[\]//g\" && sleep 0.01 && printf \"'$'\x1b'']2;\"'"
+
+
+
+#### Theme ####
+# The basic colors
+
+
+background #292b3c
+foreground #f9fbff
+selection_background #3b3d4d
+selection_foreground #f9fbff
+url_color #9effb9
+cursor #cbaee4
+cursor_text_color #292b3c
+
+# Tabs
+active_tab_background #7fa7ff
+active_tab_foreground #222434
+inactive_tab_background #3b3d4d
+inactive_tab_foreground #e6e7e9
+#tab_bar_background #292b3c
+
+# Windows
+active_border_color #7fa7ff
+inactive_border_color #3b3d4d
+
+# normal
+color0 #212230
+color1 #fe4c4c
+color2 #65ff91
+color3 #ffc965
+color4 #7fa7ff
+color5 #b58cd8
+color6 #7fe7ff
+color7 #e6e7e9
+
+# bright
+color8 #8d8e9a
+color9 #fe4c4c
+color10 #65ff91
+color11 #ffc965
+color12 #7fa7ff
+color13 #b58cd8
+color14 #7fe7ff
+color15 #f9fbff
+
+# extended colors
+color16 #fe854c
+color17 #ff8484
+# END_KITTY_THEME
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="JetBrainsMono Nerd Font"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS
+kitty_mod   ctrl+shift
+clear_all_shortcuts yes
+
+map kitty_mod+equal             change_font_size all +1.0
+map kitty_mod+minus             change_font_size all -1.0
+map kitty_mod+escape            change_font_size all 0
+map kitty_mod+/                 change_font_size all 13
+
+map kitty_mod+f1                show_kitty_doc overview
+map kitty_mod+f2                edit_config_file
+map kitty_mod+f5                load_config_file
+
+map kitty_mod+p                 kitty_shell tab
+map kitty_mod+i                 kitten unicode_input
+
+#: }}}
+
+# 📋 Clipboard: {{{
+
+map kitty_mod+c                 combine : copy_to_clipboard : clear_selection
+map kitty_mod+v                 paste_from_clipboard
+map kitty_mod+b                 paste_from_selection
+
+# }}}
+
+
+
+# show output in pager
+map kitty_mod+s>s               show_scrollback
+map kitty_mod+s>c               show_last_command_output
+
+#: }}}
+
+# 📑 Tabs: {{{
+
+map kitty_mod+up                 next_tab
+map kitty_mod+down                  previous_tab
+map kitty_mod+enter             new_window
+map kitty_mod+left                next_window
+map kitty_mod+right              previous_window
+map ctrl+1                 goto_tab 1
+map ctrl+2                 goto_tab 2
+map ctrl+3                 goto_tab 3
+map ctrl+4                 goto_tab 4
+map kitty_mod+t     new_tab
+map kitty_mod+q     close_tab
+map kitty_mod+w>t               move_tab_forward
+map kitty_mod+w>e               move_tab_backward
+map kitty_mod+l   resize_window narrower 5
+map kitty_mod+h resize_window wider 5
+map kitty_mod+k resize_window taller 5
+map kitty_mod+j resize_window shorter 5
+map kitty_mod+r   resize_window reset
+

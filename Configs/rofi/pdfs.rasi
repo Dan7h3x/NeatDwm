@@ -1,0 +1,93 @@
+
+* {
+    font:   "JetBrainsMono Nerd Font 12";
+
+    bg0:     #F5F5F5BF;
+    bg1:     #7E7E7E80;
+    bg2:     #0860F2E6;
+
+    fg0:     #242424;
+    fg1:     #FFFFFF;
+    fg2:     #24242480;
+
+    background-color:   transparent;
+    text-color:         @fg0;
+
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+    background-color:   @bg0;
+  prefer-icon-theme:  true;
+
+    location:       center;
+    width:          640;
+    y-offset:       -100;
+    border-radius:  8;
+}
+
+inputbar {
+    font:       "JetBrainsMono Nerd Font 20";
+    padding:    12px;
+    spacing:    12px;
+    children:   [ icon-search, entry ];
+}
+
+icon-search {
+    expand:     false;
+    filename:   "search";
+    size: 28px;
+}
+
+
+
+entry {
+    font:   inherit;
+
+    placeholder         : "PDFs";
+    placeholder-color   : @fg2;
+}
+
+message {
+    border:             2px 0 0;
+    border-color:       @bg1;
+    background-color:   @bg1;
+}
+
+textbox {
+    padding:    8px 24px;
+}
+
+listview {
+    lines:      2;
+    columns:    2;
+
+    fixed-height:   false;
+    border:         1px 0 0;
+    border-color:   @bg1;
+}
+
+element {
+    padding:            1px 1px;
+    spacing:            16px;
+    background-color:   transparent;
+}
+
+element normal active {
+    text-color: @bg2;
+}
+
+element selected normal, element selected active {
+    background-color:   @bg2;
+    text-color:         @fg1;
+}
+
+element-icon {
+    size:   300px;
+}
+
+element-text {
+    text-color: inherit;
+}

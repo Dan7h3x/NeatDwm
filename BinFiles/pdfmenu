@@ -1,14 +1,76 @@
 #!/usr/bin/env bash
 
-HIST="$HOME/.local/share/zathura/history"
+# Config
+HIST_FILE="$HOME/.local/share/zathura/history"
+THUMBNAIL_DIR="$HOME/.cache/pdf_thumbnails"
+ROFI_THEME="$HOME/.config/rofi/pdfs.rasi"
 
-RECENT=$(grep -oP '\[\K[^]]*\.pdf(?=\])' "$HIST" 2>/dev/null | uniq)
-ALL=$(fd --type=file --extension=pdf .)
+# Ensure thumbnail directory exists
+mkdir -p "$THUMBNAIL_DIR"
 
-ALL_UNIQ=$(echo -e "$RECENT\n$ALL" | sort | uniq)
+# Get session type (X11 or Wayland)
+SESSION_TYPE="${XDG_SESSION_TYPE:-x11}"
 
-SEL=$(echo "$ALL_UNIQ" | dmenu -l 10 -p "PDFs:")
+# Get recent PDFs from Zathura history (more robust parsing)
+get_recent_pdfs() {
+  [ -f "$HIST_FILE" ] &&
+    grep -oP '\[\K[^]]*\.pdf(?=\])' "$HIST_FILE" 2>/dev/null |
+    awk '!seen[$0]++' # Remove duplicates without sorting
+}
 
-if [ -n "$SEL" ]; then
-  zathura "$SEL" &
-fi
+# Get all PDFs using fd (fast) with fallback to find
+get_all_pdfs() {
+  if command -v fd >/dev/null; then
+    fd --type=file --extension=pdf . 2>/dev/null
+  else
+    find ~/ -type f -name "*.pdf" 2>/dev/null
+  fi
+}
+
+# Generate thumbnail for a PDF (cached)
+generate_thumbnail() {
+  local pdf="$1"
+  local hash=$(echo -n "$pdf" | md5sum | awk '{print $1}')
+  local thumb="$THUMBNAIL_DIR/$hash.png"
+
+  if [[ ! -f "$thumb" ]]; then
+    # Use pdftoppm (fast) or convert (fallback)
+    if command -v pdftoppm >/dev/null; then
+      pdftoppm -png -singlefile -scale-to-x 300 -scale-to-y 340 "$pdf" "$THUMBNAIL_DIR/$hash" 2>/dev/null
+    elif command -v convert >/dev/null; then
+      convert -thumbnail 258x200 "$pdf[0]" "$thumb" 2>/dev/null
+    fi
+  fi
+  echo "$thumb"
+}
+
+# Main selection logic
+main() {
+  local RECENT=$(get_recent_pdfs)
+  local ALL=$(get_all_pdfs)
+  local ALL_UNIQ=$(echo -e "$RECENT\n$ALL" | awk '!seen[$0]++') # Merge without sorting
+
+  if [[ "$SESSION_TYPE" == "x11" ]]; then
+    # Rofi with thumbnails (X11)
+    local SEL=$(
+      while IFS= read -r pdf; do
+        [ -f "$pdf" ] || continue
+        thumb=$(generate_thumbnail "$pdf")
+        echo -e "$pdf\0icon\x1f$thumb"
+      done <<<"$ALL_UNIQ" |
+        rofi -dmenu -matching fuzzy -case-smart -show-icons -theme "$ROFI_THEME" -p "PDFs: "
+    )
+  else
+    # Fuzzel (Wayland)
+    local SEL=$(echo "$ALL_UNIQ" | fuzzel \
+      -b 232136ff -t e0def4ff -s c4a7e7ff -S 232136ff \
+      -d --match-mode=exact -w 100 -l 10 -p 'PDFs: ')
+  fi
+
+  # Open selected PDF
+  if [ -n "$SEL" ] && [ -f "$SEL" ]; then
+    zathura "$SEL" &
+  fi
+}
+
+main
