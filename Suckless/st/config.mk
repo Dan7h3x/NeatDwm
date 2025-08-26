@@ -1,5 +1,5 @@
 # st version
-VERSION = 0.9.2
+VERSION = 0.9.3
 
 # Customize below to fit your system
 
@@ -18,7 +18,7 @@ PKG_CONFIG = pkg-config
 XRENDER = `$(PKG_CONFIG) --libs xrender`
 
 # Uncomment this for the themed cursor patch / THEMED_CURSOR_PATCH
-XCURSOR = `$(PKG_CONFIG) --libs xcursor`
+#XCURSOR = `$(PKG_CONFIG) --libs xcursor`
 
 # Uncomment the lines below for the ligatures patch / LIGATURES_PATCH
 LIGATURES_C = hb.c

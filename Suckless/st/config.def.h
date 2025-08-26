@@ -9,7 +9,7 @@ static char *font = "JetBrainsMono Nerd Font:pixelsize=17:antialias=true:autohin
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
-	"Noto Color Emoji Regular:pixelsize=13:antialias=true:autohint=true",
+"Noto Color Emoji:pixelsize=14:antialias=true:autohint=true",
 /*	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
 };
 #endif // FONT2_PATCH
@@ -161,7 +161,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 #if ALPHA_PATCH
 /* bg opacity */
@@ -185,34 +185,32 @@ char *xdndescchar = " !\"#$&'()*;<>?[\\]^`{|}~";
 #endif // DRAG_AND_DROP_PATCH
 
 /* Terminal colors (16 first used in escape sequence) */
+
 static const char *colorname[] = {
 	/* 8 normal colors */
-	    "#45475a",  // black
-    "#f38ba8",  // red
-    "#a6e3a1",  // green
-    "#f9e2af",  // yellow
-    "#89b4fa",  // blue
-    "#f5c2e7",  // magenta
-    "#94e2d5",  // cyan
-    "#bac2de",  // white
+	"#45475A",
+	"#F38BA8",
+	"#A6E3A1",
+	"#F9E2AF",
+	"#89B4FA",
+	"#F5C2E7",
+	"#94E2D5",
+	"#BAC2DE",
 
-    /* 8 bright colors */
-    "#585b70",  // bright black
-    "#f38ba8",  // bright red
-    "#a6e3a1",  // bright green
-    "#f9e2af",  // bright yellow
-    "#89b4fa",  // bright blue
-    "#f5c2e7",  // bright magenta
-    "#94e2d5",  // bright cyan
-    "#a6adc8",  // bright white
+	/* 8 bright colors */
+	"#585B70",
+	"#F38BA8",
+	"#A6E3A1",
+	"#F9E2AF",
+	"#89B4FA",
+	"#F5C2E7",
+	"#94E2D5",
+	"#A6ADC8",
 
-    [255] = 0,
+[256] = "#CDD6F4", /* default foreground colour */
+[257] = "#1E1E2E", /* default background colour */
+[258] = "#F5E0DC", /*575268*/
 
-    /* more colors */
-    "#f5e0dc",  // 256 -> cursor
-    "#f5e0dc",  // 257 -> rev cursor
-    "#1e1e2e",  // 258 -> bg
-    "#cdd6f4",  // 259 -> fg
 };
 
 
@@ -224,14 +222,14 @@ static const char *colorname[] = {
 unsigned int defaultbg = 0;
 unsigned int bg = 17, bgUnfocused = 16;
 #else
-unsigned int defaultbg = 258;
+unsigned int defaultbg = 257;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
-unsigned int defaultfg = 259;
-unsigned int defaultcs = 256;
-unsigned int defaultrcs = 257;
+unsigned int defaultfg = 256;
+unsigned int defaultcs = 258;
+unsigned int defaultrcs = 258;
 #if SELECTION_COLORS_PATCH
-unsigned int selectionfg = 258;
-unsigned int selectionbg = 259;
+unsigned int selectionfg = 257;
+unsigned int selectionbg = 258;
 /* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
 /* Else if 1 keep original foreground-color of each cell => more colors :) */
 static int ignoreselfg = 1;
@@ -421,9 +419,9 @@ static Shortcut shortcuts[] = {
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,       {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,   {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,     {.i =  0} },
-	{ TERMMOD,              XK_Print,       printsel,        {.i =  0} },
-	{ MODKEY,              XK_Prior,       zoom,            {.f = +1} },
-	{ MODKEY,              XK_Next,        zoom,            {.f = -1} },
+  { XK_ANY_MOD,           XK_Print,       printsel,        {.i =  0} },
+  { TERMMOD,              XK_Prior,       zoom,            {.f = +1} },
+	{ TERMMOD,              XK_Next,        zoom,            {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,       {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,        {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,       {.i =  0} },
@@ -437,6 +435,7 @@ static Shortcut shortcuts[] = {
 	#endif // ALPHA_PATCH
 	#if FULLSCREEN_PATCH
 	{ XK_NO_MOD,            XK_F11,         fullscreen,      {.i =  0} },
+	{ MODKEY,               XK_Return,      fullscreen,      {.i =  0} },
 	#endif // FULLSCREEN_PATCH
 	#if SCROLLBACK_PATCH
 	{ ShiftMask,            XK_Page_Up,     kscrollup,       {.i = -1}, S_PRI },

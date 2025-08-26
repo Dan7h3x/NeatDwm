@@ -39,7 +39,7 @@
 /* This patch allows st to resize to any pixel size rather than snapping to character width/height.
  * https://st.suckless.org/patches/anysize/
  */
-#define ANYSIZE_PATCH 1
+#define ANYSIZE_PATCH 0
 
 /* A simple variant of the anysize patch that only changes the resize hints to allow the window to
  * be resized to any size.
@@ -64,7 +64,7 @@
  *    https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h4-Functions-using-CSI-_-ordered-by-the-final-character-lparen-s-rparen:CSI-Ps-SP-q.1D81
  * https://st.suckless.org/patches/blinking_cursor/
  */
-#define BLINKING_CURSOR_PATCH 1
+#define BLINKING_CURSOR_PATCH 0
 
 /* By default bold text is rendered with a bold font in the bright variant of the current color.
  * This patch makes bold text rendered simply as bold, leaving the color unaffected.
@@ -75,7 +75,7 @@
 /* This patch adds custom rendering of lines/blocks/braille characters for gapless alignment.
  * https://st.suckless.org/patches/boxdraw/
  */
-#define BOXDRAW_PATCH 0
+#define BOXDRAW_PATCH 1
 
 /* By default st only sets PRIMARY on selection.
  * This patch makes st set CLIPBOARD on selection.
@@ -89,7 +89,7 @@
  *
  * https://github.com/bakkeby/st-flexipatch/issues/34
  */
-#define COLUMNS_PATCH 1
+#define COLUMNS_PATCH 0
 
 /* Select and copy the last URL displayed with Mod+l. Multiple invocations cycle through the
  * available URLs.
@@ -101,7 +101,7 @@
  * available URLs. This variant also highlights the selected URLs.
  * https://st.suckless.org/patches/copyurl/
  */
-#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 1
+#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 0
 
 /* This patch adds support for CSI escape sequences 22 and 23, which save and
  * restores the window title (for instance nvim does this when opening and closing).
@@ -152,7 +152,7 @@
 /* This patch makes the cursor color the inverse of the current cell color.
  * https://st.suckless.org/patches/dynamic-cursor-color/
  */
-#define DYNAMIC_CURSOR_COLOR_PATCH 1
+#define DYNAMIC_CURSOR_COLOR_PATCH 0
 
 /* This is a variant of the anysize patch that explicitly do not change the size increment hints,
  * i.e. only keeping the dynamic padding which is the main thing the anysize patch introduces.
@@ -163,12 +163,12 @@
  *
  * Note that this patch depends on ANYSIZE_PATCH being enabled to have an effect.
  */
-#define DYNAMIC_PADDING_PATCH 1
+#define DYNAMIC_PADDING_PATCH 0
 
 /* Reading and writing st's screen through a pipe, e.g. pass info to dmenu.
  * https://st.suckless.org/patches/externalpipe/
  */
-#define EXTERNALPIPE_PATCH 0
+#define EXTERNALPIPE_PATCH 1
 
 /* This patch improves and extends the externalpipe patch in two ways:
  *    - it prevents the reset of the signal handler set on SIGCHILD, when
@@ -192,7 +192,7 @@
  * that are available to GUI applications.
  * https://st.suckless.org/patches/fix_keyboard_input/
  */
-#define FIXKEYBOARDINPUT_PATCH 1
+#define FIXKEYBOARDINPUT_PATCH 0
 
 /* This patch allows you to add spare font besides the default. Some glyphs can be not present in
  * the default font. For this glyphs st uses font-config and try to find them in font cache first.
@@ -219,7 +219,7 @@
  * cursor).
  * https://www.reddit.com/r/suckless/comments/nvee8h/how_to_hide_cursor_in_st_is_there_a_patch_for_it/
  */
-#define HIDE_TERMINAL_CURSOR_PATCH 1
+#define HIDE_TERMINAL_CURSOR_PATCH 0
 
 /* This patch adds a keybinding that lets you invert the current colorscheme of st.
  * This provides a simple way to temporarily switch to a light colorscheme if you use a dark
@@ -308,7 +308,7 @@
 /* Open contents of the clipboard in a user-defined browser.
  * https://st.suckless.org/patches/open_copied_url/
  */
-#define OPENCOPIED_PATCH 1
+#define OPENCOPIED_PATCH 0
 
 /* Open the selected text using xdg-open.
  * https://st.suckless.org/patches/open_selected_text/
@@ -320,7 +320,7 @@
  *
  * https://www.reddit.com/r/suckless/comments/cc83om/st_open_url/
  */
-#define OPENURLONCLICK_PATCH 0
+#define OPENURLONCLICK_PATCH 1
 
 /* This patch allows st to fetch the current working directory through the OSC 7 escape
  * sequence emitted by shells. Must be used with newterm patch.
@@ -328,7 +328,7 @@
  * https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory
  * https://github.com/veltza/st-sx/commit/817865c2c6ed905af8849580e58bdcf399216fbd
  */
-#define OSC7_PATCH 1
+#define OSC7_PATCH 0
 
 /* This patch allows jumping between prompts by utilizing the OSC 133 escape sequence
  * emitted by shells. Must be used with either reflow or scrollback patch.
@@ -414,7 +414,7 @@
 /* Use inverted defaultbg/fg for selection when bg/fg are the same.
  * https://st.suckless.org/patches/spoiler/
  */
-#define SPOILER_PATCH 1
+#define SPOILER_PATCH 0
 
 /* This patch changes the mouse shape to the global default when the running program subscribes
  * for mouse events, for instance, in programs like ranger and fzf. It emulates the behaviour
@@ -441,7 +441,7 @@
  * when including this patch.
  * https://st.suckless.org/patches/themed_cursor/
  */
-#define THEMED_CURSOR_PATCH 1
+#define THEMED_CURSOR_PATCH 0
 
 /* Adds support for special underlines.
  *
@@ -465,7 +465,7 @@
  * scroll program.
  * https://st.suckless.org/patches/universcroll/
  */
-#define UNIVERSCROLL_PATCH 0
+#define UNIVERSCROLL_PATCH 1
 
 /* Use XftFontMatch in place of FcFontMatch.
  *
@@ -477,7 +477,7 @@
  * [1]: https://cgit.freedesktop.org/xorg/lib/libXft/tree/src/xftdpy.c?id=libXft-2.3.2#n535
  * [2]: https://cgit.freedesktop.org/fontconfig/tree/src/fcdefault.c?id=2.11.1#n255
  *
- * https://git.suckless.org/st/commit/528241aa3835e2f1f052abeeaf891737712955a0.html
+ * https://git.suckless.org/st/commit/528241aa3835e2f1f053abeeaf891737712955a0.html
  */
 #define USE_XFTFONTMATCH_PATCH 1
 
@@ -498,10 +498,10 @@
 
 /* Adds proper glyphs rendering in st allowing wide glyphs to be drawn as-is as opposed to
  * smaller or cut glyphs being rendered.
- * https://github.com/Dreomite/st/commit/e3b821dcb3511d60341dec35ee05a4a0abfef7f2
+ * https://github.com/Dreomite/st/commit/e3b821dcb3511d60342dec35ee05a4a0abfef7f2
  * https://www.reddit.com/r/suckless/comments/jt90ai/update_support_for_proper_glyph_rendering_in_st/
  */
-#define WIDE_GLYPHS_PATCH 0
+#define WIDE_GLYPHS_PATCH 1
 
 /* There is a known issue that Google's Variable Fonts (VF) can end up with letter spacing
  * that is too wide in programs that use Xft, for example Inconsolata v3.000.
@@ -522,10 +522,10 @@
  * apply the resources named in the resources[] array in config.h.
  * https://st.suckless.org/patches/xresources/
  */
-#define XRESOURCES_PATCH 1
+#define XRESOURCES_PATCH 0
 
 /* This patch adds the ability to reload the Xresources config when a SIGUSR1 signal is received
  * e.g.: killall -USR1 st
  * Depends on the XRESOURCES_PATCH.
  */
-#define XRESOURCES_RELOAD_PATCH 1
+#define XRESOURCES_RELOAD_PATCH 0
