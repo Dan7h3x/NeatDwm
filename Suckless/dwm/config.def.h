@@ -484,7 +484,7 @@ static const Rule rules[] = {
   RULE(.instance = "spproc", .scratchkey = 'b', .isfloating = 1)
   RULE(.instance = "spfiles", .scratchkey = 'e', .isfloating = 1)
   RULE(.instance = "spradio", .scratchkey = 'r', .isfloating = 1)
-  RULE(.instance = "spnotes", .scratchkey = 'r', .isfloating = 1)
+  RULE(.instance = "spnotes", .scratchkey = 'n', .isfloating = 1)
   RULE(.instance = "Fsearch",.scratchkey = 'f',.isfloating = 1)
 #elif SCRATCHPADS_PATCH
   RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
@@ -920,6 +920,8 @@ static const char *dmenucmd[] = {"dmenu_run",
                                  selbgcolor,
                                  "-sf",
                                  selfgcolor,
+                                "-l",
+                                "10",
 #if BAR_DMENUMATCHTOP_PATCH
                                  topbar ? NULL : "-b",
 #endif // BAR_DMENUMATCHTOP_PATCH
