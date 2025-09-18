@@ -1,0 +1,188 @@
+/* One Dark Theme CSS for Global Night Reading */
+/* Apply this via browser extensions like Stylus or userContent.css in Firefox */
+
+:root {
+  /* One Dark Base Color Palette */
+  --bg-primary: hsl(220, 13%, 18%);
+  --bg-secondary: hsl(220, 13%, 22%);
+  --text-primary: hsl(220, 10%, 75%);
+  --text-secondary: hsl(220, 10%, 60%);
+  --accent-blue: hsl(207, 82%, 66%);
+  --accent-purple: hsl(286, 60%, 67%);
+  --accent-green: hsl(95, 38%, 62%);
+  --accent-red: hsl(355, 65%, 65%);
+  --accent-yellow: hsl(29, 54%, 61%);
+  --border-color: hsl(220, 13%, 26%);
+
+  /* Typography */
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-size: 16px;
+  --line-height: 1.6;
+
+  /* Spacing */
+  --spacing: 1rem;
+
+  /* Effects */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Enable dark color scheme support */
+:root {
+  color-scheme: light dark;
+}
+
+/* Base Styles for All Websites */
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size) !important;
+  line-height: var(--line-height) !important;
+  margin: var(--spacing) !important;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  margin-top: calc(var(--spacing) * 1.5) !important;
+  margin-bottom: calc(var(--spacing) * 0.5) !important;
+}
+
+/* Links */
+a {
+  color: var(--accent-blue) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+a:hover {
+  color: var(--accent-purple) !important;
+  text-decoration: underline !important;
+}
+
+/* Code and Preformatted Text */
+code,
+pre {
+  background-color: var(--bg-secondary) !important;
+  color: var(--accent-green) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-family:
+    "Fira Code", Monaco, "Cascadia Code", "Roboto Mono", monospace !important;
+}
+pre {
+  padding: var(--spacing) !important;
+  overflow: auto !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Inputs and Buttons */
+input,
+textarea,
+select,
+button {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 0.5em !important;
+  border-radius: 4px !important;
+  font-family: inherit !important;
+}
+button {
+  background-color: var(--accent-blue) !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+button:hover {
+  background-color: var(--accent-purple) !important;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin-bottom: var(--spacing) !important;
+}
+th,
+td {
+  border: 1px solid var(--border-color) !important;
+  padding: 0.75em !important;
+  text-align: left !important;
+}
+th {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Images and Media */
+img {
+  filter: brightness(0.85) contrast(1.1) !important;
+  transition: filter 0.3s ease !important;
+}
+img:hover {
+  filter: brightness(1) contrast(1) !important;
+}
+
+/* Scrollbar Styling (WebKit Browsers) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Utility Classes for Forced Light/Dark Overrides */
+.force-light {
+  color-scheme: light !important;
+  --bg-primary: hsl(0, 0%, 100%) !important;
+  --bg-secondary: hsl(0, 0%, 95%) !important;
+  --text-primary: hsl(0, 0%, 20%) !important;
+  --text-secondary: hsl(0, 0%, 40%) !important;
+  --border-color: hsl(0, 0%, 85%) !important;
+}
+.force-dark {
+  color-scheme: dark !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  :root {
+    --font-size: 14px;
+    --spacing: 0.75rem;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: hsl(220, 10%, 90%);
+    --text-secondary: hsl(220, 10%, 75%);
+    --border-color: hsl(220, 13%, 40%);
+  }
+}
+
+/* Animation Reduction for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

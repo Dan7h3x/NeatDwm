@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+#
+# Adds DuckDuckGo bang as searchengine.
+#
+# Usage:
+#   :spawn --userscript ripbang [bang]...
+#
+# Example:
+#   :spawn --userscript ripbang amazon maps
+#
+
+import os, requests, sys
+
+for argument in sys.argv[1:]:
+    bang = '!' + argument
+    r = requests.get('https://html.duckduckgo.com/html/',
+                     allow_redirects=False,
+                     params={'q': bang + ' SEARCHTEXT'},
+                     headers={'user-agent': 'qutebrowser ripbang'})
+
+    searchengine = r.headers['location']
+    searchengine = searchengine.replace('SEARCHTEXT', '{}')
+
+    if os.getenv('QUTE_FIFO'):
+        with open(os.environ['QUTE_FIFO'], 'w') as fifo:
+            fifo.write('config-dict-add url.searchengines %s %s' % (bang, searchengine))
+    else:
+        print('%s %s' % (bang, searchengine))
