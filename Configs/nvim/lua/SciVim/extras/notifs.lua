@@ -299,7 +299,7 @@ function M.notify(title, message, level, opts)
 	show_floating_notification(notification)
 
 	-- Trigger update event for control center auto-refresh
-	api.nvim_exec_autocmds("User", { pattern = "FlNotifUpdate" })
+	api.nvim_exec_autocmds("User", { pattern = "NotificationsUpdate" })
 
 	return notification.id
 end
@@ -901,7 +901,7 @@ function M.setup()
 
 	-- Auto-refresh control center when notifications change
 	api.nvim_create_autocmd({ "User" }, {
-		pattern = "FlNotifUpdate",
+		pattern = "NotificationsUpdate",
 		callback = function()
 			if notification_state.control_center.is_open then
 				M.refresh_control_center()
@@ -910,15 +910,15 @@ function M.setup()
 	})
 
 	-- Create user commands for easy access
-	api.nvim_create_user_command("FlNotif", M.toggle, {
+	api.nvim_create_user_command("Notifications", M.toggle, {
 		desc = "Toggle notification control center",
 	})
 
-	api.nvim_create_user_command("FlNotifClear", M.clear_all, {
+	api.nvim_create_user_command("NotificationsClear", M.clear_all, {
 		desc = "Clear all active notifications",
 	})
 
-	api.nvim_create_user_command("FlNotifHistory", function()
+	api.nvim_create_user_command("NotificationsHistory", function()
 		M.open_control_center()
 		control_center_state.show_active = false
 		control_center_state.show_history = true
@@ -927,7 +927,7 @@ function M.setup()
 		desc = "Open notification center showing only history",
 	})
 
-	api.nvim_create_user_command("FlNotifExport", function(opts)
+	api.nvim_create_user_command("NotificationsExport", function(opts)
 		local format = opts.args ~= "" and opts.args or "json"
 		M.export_notifications(format)
 	end, {

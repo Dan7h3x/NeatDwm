@@ -340,7 +340,7 @@ static const Launcher launchers[] = {
     {"^c#39FF14^^d^",
      CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","Files","-g","80x35", "-e", "yazi")},
     {"^c#F6890A^^d^", CMD("Telegram")},
-    {"^c#9C04D1^󰊠^d^", CMD("ghostty")},
+    {"^c#9C04D1^󰊠^d^", CMD("wezterm")},
 };
 #endif // BAR_LAUNCHER_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
@@ -951,15 +951,13 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 static const char *browsercmd[] = {"qutebrowser", NULL};
 static const char *filescmd[] = {"pcmanfm", NULL};
 static const char *telegramcmd[] = {"Telegram", NULL};
-static const char *ghostty[] = {"ghostty", NULL};
-static const char *zeal[] = {"zeal", NULL};
+static const char *gterm[] = {"wezterm", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
     {0, XK_f, spawn, {.v = browsercmd}},
     {0, XK_t, spawn, {.v = telegramcmd}},
     {0, XK_e, spawn, {.v = filescmd}},
-    {0, XK_g, spawn, {.v = ghostty}},
-    {0, XK_z, spawn, {.v = zeal}},
+    {0, XK_g, spawn, {.v = gterm}},
 };
 #endif // ON_EMPTY_KEYS_PATCH
 
@@ -1113,8 +1111,6 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_F5, xrdb, {.v = NULL}},
 #endif // XRDB_PATCH
     {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-    {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
 #if COLUMNS_LAYOUT
     {MODKEY | ShiftMask, XK_c, setlayout, {.v = &layouts[3]}},
 #endif // COLUMNS_LAYOUT

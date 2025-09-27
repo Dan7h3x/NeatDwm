@@ -165,7 +165,7 @@ unsigned int tabspaces = 4;
 
 #if ALPHA_PATCH
 /* bg opacity */
-float alpha = 0.9;
+float alpha = 0.8;
 #if ALPHA_GRADIENT_PATCH
 float grad_alpha = 0.54; //alpha value that'll change
 float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
@@ -186,32 +186,80 @@ char *xdndescchar = " !\"#$&'()*;<>?[\\]^`{|}~";
 
 /* Terminal colors (16 first used in escape sequence) */
 
-static const char *colorname[] = {
-	/* 8 normal colors */
-	"#45475A",
-	"#F38BA8",
-	"#A6E3A1",
-	"#F9E2AF",
-	"#89B4FA",
-	"#F5C2E7",
-	"#94E2D5",
-	"#BAC2DE",
+typedef struct {
+	const char* const colors[258]; /* terminal colors */
+	unsigned int fg;               /* foreground */
+	unsigned int bg;               /* background */
+	unsigned int cs;               /* cursor */
+	unsigned int rcs;              /* reverse cursor */
+} ColorScheme;
+/*
+ * Terminal colors (16 first used in escape sequence,
+ * 2 last for custom cursor color),
+ * foreground, background, cursor, reverse cursor
+ */
+static const ColorScheme schemes[] = {
+	// st (dark)
+	{{"#212230", "#fe4c4c", "#65ff91", "#ffc965",
+	  "#7fa7ff", "#b58cd8", "#7fe7ff", "#e6e7e9",
+	  "#8d8e9a", "#fe4c4c", "#65ff91", "#ffc965",
+	  "#7fa7ff", "#b58cd8", "#7fe7ff", "#f9fbff",
+	  [256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
 
-	/* 8 bright colors */
-	"#585B70",
-	"#F38BA8",
-	"#A6E3A1",
-	"#F9E2AF",
-	"#89B4FA",
-	"#F5C2E7",
-	"#94E2D5",
-	"#A6ADC8",
+	// Alacritty (dark)
+	{{"#1d1f21", "#cc6666", "#b5bd68", "#f0c674",
+	  "#81a2be", "#b294bb", "#8abeb7", "#c5c8c6",
+	  "#666666", "#d54e53", "#b9ca4a", "#e7c547",
+	  "#7aa6da", "#c397d8", "#70c0b1", "#eaeaea",
+	  [256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
 
-[256] = "#CDD6F4", /* default foreground colour */
-[257] = "#1E1E2E", /* default background colour */
-[258] = "#F5E0DC", /*575268*/
+	// One Half dark
+	{{"#282c34", "#e06c75", "#98c379", "#e5c07b",
+	  "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
+	  "#282c34", "#e06c75", "#98c379", "#e5c07b",
+	  "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
+	  [256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
 
+	// One Half light
+	{{"#fafafa", "#e45649", "#50a14f", "#c18401",
+      "#0184bc", "#a626a4", "#0997b3", "#383a42",
+	  "#fafafa", "#e45649", "#50a14f", "#c18401",
+	  "#0184bc", "#a626a4", "#0997b3", "#383a42",
+		  [256]="#292b3c", "#cbaee5"}, 7, 0, 256, 257},
+
+	// Solarized dark
+	{{"#073642", "#dc322f", "#859900", "#b58900",
+	  "#268bd2", "#d33682", "#2aa198", "#eee8d5",
+	  "#002b36", "#cb4b16", "#586e75", "#657b83",
+	  "#839496", "#6c71c4", "#93a1a1", "#fdf6e3",
+		  [256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
+
+	// Solarized light
+	{{"#eee8d5", "#dc322f", "#859900", "#b58900",
+	  "#268bd2", "#d33682", "#2aa198", "#073642",
+	  "#fdf6e3", "#cb4b16", "#93a1a1", "#839496",
+	  "#657b83", "#6c71c4", "#586e75", "#002b36",
+		  		  [256]="#292b3c", "#cbaee5"}, 7, 0, 256, 257},
+
+	// Gruvbox dark
+	{{"#282828", "#cc241d", "#98971a", "#d79921",
+	  "#458588", "#b16286", "#689d6a", "#a89984",
+	  "#928374", "#fb4934", "#b8bb26", "#fabd2f",
+	  "#83a598", "#d3869b", "#8ec07c", "#ebdbb2",
+		  [256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
+
+	// Gruvbox light
+	{{"#fbf1c7", "#cc241d", "#98971a", "#d79921",
+	  "#458588", "#b16286", "#689d6a", "#7c6f64",
+	  "#928374", "#9d0006", "#79740e", "#b57614",
+	  "#076678", "#8f3f71", "#427b58", "#3c3836",
+[256]="#cbaee5", "#292b3c"}, 7, 0, 256, 257},
 };
+
+static const char * const * colorname;
+int colorscheme = 0;
+
+
 
 
 /*
@@ -224,9 +272,10 @@ unsigned int bg = 17, bgUnfocused = 16;
 #else
 unsigned int defaultbg = 257;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
-unsigned int defaultfg = 256;
-unsigned int defaultcs = 258;
-unsigned int defaultrcs = 258;
+unsigned int defaultfg;
+unsigned int defaultbg;
+unsigned int defaultcs;
+static unsigned int defaultrcs;
 #if SELECTION_COLORS_PATCH
 unsigned int selectionfg = 257;
 unsigned int selectionbg = 258;
@@ -425,6 +474,18 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Home,        zoomreset,       {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,        {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,       {.i =  0} },
+	{ ControlMask,               XK_1,           selectscheme,   {.i =  0} },
+	{ ControlMask,               XK_2,           selectscheme,   {.i =  1} },
+	{ ControlMask,               XK_3,           selectscheme,   {.i =  2} },
+	{ ControlMask,               XK_4,           selectscheme,   {.i =  3} },
+	{ ControlMask,               XK_5,           selectscheme,   {.i =  4} },
+	{ ControlMask,               XK_6,           selectscheme,   {.i =  5} },
+	{ ControlMask,               XK_7,           selectscheme,   {.i =  6} },
+	{ ControlMask,               XK_8,           selectscheme,   {.i =  7} },
+	{ ControlMask,               XK_9,           selectscheme,   {.i =  8} },
+	{ ControlMask,               XK_0,           nextscheme,     {.i = +1} },
+	{ MODKEY|ControlMask,   XK_0,           nextscheme,     {.i = -1} },
+
 	#if ALPHA_PATCH
 	{ TERMMOD,              XK_O,           changealpha,     {.f = +0.05} },
 	{ TERMMOD,              XK_P,           changealpha,     {.f = -0.05} },
