@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+ALL=$(fd --type=file --extension=kitty-session --hidden  --absolute-path . 2>/dev/null)
+
+SEL=$(echo -e "$ALL" | dmenu -fn "JetBrainsMono Nerd Font" -nb "#232136"\
+  -nf "#e0def4" -sb "#c4a7e7" -sf "#232136" -W 600 -l 10 -p " ")
+
+if [ -n "$SEL" ]; then
+  kitty --session "$SEL"
+fi

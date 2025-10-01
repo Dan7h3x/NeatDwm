@@ -340,7 +340,7 @@ static const Launcher launchers[] = {
     {"^c#39FF14^^d^",
      CMD("st", "-c","'floating'" ,"-n","'spfile'","-T","Files","-g","80x35", "-e", "yazi")},
     {"^c#F6890A^^d^", CMD("Telegram")},
-    {"^c#9C04D1^󰊠^d^", CMD("wezterm")},
+    {"^c#9C04D1^󰊠^d^", CMD("kitty")},
 };
 #endif // BAR_LAUNCHER_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
@@ -951,7 +951,7 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 static const char *browsercmd[] = {"qutebrowser", NULL};
 static const char *filescmd[] = {"pcmanfm", NULL};
 static const char *telegramcmd[] = {"Telegram", NULL};
-static const char *gterm[] = {"wezterm", NULL};
+static const char *gterm[] = {"kitty", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
     {0, XK_f, spawn, {.v = browsercmd}},
@@ -977,6 +977,7 @@ static const char *shotarea[] = {"takeshot", "--area", NULL};
 static const char *floatterm[] = {"st","-c","floating","-T","TermFloat",NULL};
 static const char *pdfs[] = {"pdfmenu",NULL};
 static const char *kitty[] = {"kitty",NULL};
+static const char *kitty_session[] = {"psps",NULL};
 static const char *lockscreen[] = {"xflock4", NULL};
 static const Key keys[] = {
 /* modifier                     key            function                argument
@@ -1003,6 +1004,7 @@ static const Key keys[] = {
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
+    {ALTKEY, XK_k, spawn, {.v = kitty_session}},
     {ALTKEY, XK_p, spawn, {.v = pdfs}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},
