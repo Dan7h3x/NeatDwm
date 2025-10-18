@@ -1042,8 +1042,8 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_h, setmfact, {.f = -0.05}},
     {MODKEY | ShiftMask, XK_l, setmfact, {.f = +0.05}},
 #if ASPECTRESIZE_PATCH
-    {ALTKEY, XK_e, aspectresize, {.i = +24}},
-    {ALTKEY, XK_r, aspectresize, {.i = -24}},
+    {MODKEY | ALTKEY, XK_e, aspectresize, {.i = +24}},
+    {MODKEY | ALTKEY, XK_r, aspectresize, {.i = -24}},
 #endif // ASPECTRESIZE_PATCH
 #if MOVERESIZE_PATCH
     {ALTKEY, XK_Down, moveresize, {.v = "0x 25y 0w 0h"}},
