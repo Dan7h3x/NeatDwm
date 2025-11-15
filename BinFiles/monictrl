@@ -1,0 +1,232 @@
+#!/bin/bash
+
+# Monitor Control Script using ddcutil
+# Usage: ./monitor-control.sh [options]
+# Options:
+#   --brightness <value>        Set brightness (0-100)
+#   --increase-brightness [step] Increase brightness by step (default: 10)
+#   --decrease-brightness [step] Decrease brightness by step (default: 10)
+#   --default-brightness        Set brightness to default value (70)
+#   --contrast <value>          Set contrast (0-100)
+#   --input <source>            Set input source (hdmi1, hdmi2, dp1, etc.)
+#   --volume <value>            Set volume (0-100)
+#   --mute                      Toggle mute
+#   --power <state>             Set power state (on, off)
+#   --list-inputs               List available input sources
+#   --info                      Display monitor information
+
+# Default monitor (change if you have multiple monitors)
+MONITOR=1
+
+# Default brightness values
+DEFAULT_BRIGHTNESS=70
+BRIGHTNESS_STEP=10
+
+# Function to get current brightness
+get_current_brightness() {
+  ddcutil --display $MONITOR getvcp 10 | awk -F' ' '{print $9}' | awk -F',' '{print $1}'
+}
+
+# Function to display help
+display_help() {
+  echo "Monitor Control Script using ddcutil"
+  echo "Usage: $0 [options]"
+  echo
+  echo "Options:"
+  echo "  --brightness <value>        Set brightness (0-100)"
+  echo "  --increase-brightness [step] Increase brightness by step (default: $BRIGHTNESS_STEP)"
+  echo "  --decrease-brightness [step] Decrease brightness by step (default: $BRIGHTNESS_STEP)"
+  echo "  --default-brightness        Set brightness to default value ($DEFAULT_BRIGHTNESS)"
+  echo "  --contrast <value>          Set contrast (0-100)"
+  echo "  --input <source>            Set input source (hdmi1, hdmi2, dp1, etc.)"
+  echo "  --volume <value>            Set volume (0-100)"
+  echo "  --mute                      Toggle mute"
+  echo "  --power <state>             Set power state (on, off)"
+  echo "  --list-inputs               List available input sources"
+  echo "  --info                      Display monitor information"
+  echo
+  echo "Note: You may need to run this script with sudo for some commands to work."
+  exit 0
+}
+
+# Check if ddcutil is installed
+if ! command -v ddcutil &>/dev/null; then
+  echo "Error: ddcutil is not installed. Please install it first."
+  echo "On Ubuntu/Debian: sudo apt install ddcutil"
+  echo "On Fedora: sudo dnf install ddcutil"
+  echo "On Arch: sudo pacman -S ddcutil"
+  exit 1
+fi
+
+# Check if no arguments were provided
+if [ $# -eq 0 ]; then
+  display_help
+  exit 1
+fi
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --brightness)
+    if [[ -n $2 && $2 != -* ]]; then
+      if [[ $2 -ge 0 && $2 -le 100 ]]; then
+        echo "Setting brightness to $2..."
+        ddcutil --display $MONITOR setvcp 10 $2
+        shift 2
+      else
+        echo "Error: Brightness must be between 0 and 100"
+        exit 1
+      fi
+    else
+      echo "Error: Missing brightness value"
+      exit 1
+    fi
+    ;;
+  --increase-brightness)
+    step=$BRIGHTNESS_STEP
+    if [[ -n $2 && $2 != -* && $2 =~ ^[0-9]+$ ]]; then
+      step=$2
+      shift
+    fi
+    current=$(get_current_brightness)
+    new=$( (current + step))
+    if [[ $new -gt 100 ]]; then
+      new=100
+      echo "Brightness cannot exceed 100, setting to maximum"
+    fi
+    echo "Increasing brightness by $step (from $current to $new)..."
+    ddcutil --display $MONITOR setvcp 10 $new
+    shift
+    ;;
+  --decrease-brightness)
+    step=$BRIGHTNESS_STEP
+    if [[ -n $2 && $2 != -* && $2 =~ ^[0-9]+$ ]]; then
+      step=$2
+      shift
+    fi
+    current=$(get_current_brightness)
+    new=$( (current - step))
+    if [[ $new -lt 0 ]]; then
+      new=0
+      echo "Brightness cannot be below 0, setting to minimum"
+    fi
+    echo "Decreasing brightness by $step (from $current to $new)..."
+    ddcutil --display $MONITOR setvcp 10 $new
+    shift
+    ;;
+  --default-brightness)
+    echo "Setting brightness to default value ($DEFAULT_BRIGHTNESS)..."
+    ddcutil --display $MONITOR setvcp 10 $DEFAULT_BRIGHTNESS
+    shift
+    ;;
+  --contrast)
+    if [[ -n $2 && $2 != -* ]]; then
+      if [[ $2 -ge 0 && $2 -le 100 ]]; then
+        echo "Setting contrast to $2..."
+        ddcutil --display $MONITOR setvcp 12 $2
+        shift 2
+      else
+        echo "Error: Contrast must be between 0 and 100"
+        exit 1
+      fi
+    else
+      echo "Error: Missing contrast value"
+      exit 1
+    fi
+    ;;
+  --input)
+    if [[ -n $2 && $2 != -* ]]; then
+      case "$2" in
+      hdmi1 | hdmi2 | dp1 | dp2 | vga | dvi)
+        echo "Setting input source to $2..."
+        # Convert input name to hex value (these values may vary by monitor)
+        case "$2" in
+        hdmi1) input_val=0x11 ;;
+        hdmi2) input_val=0x12 ;;
+        dp1) input_val=0x0f ;;
+        dp2) input_val=0x10 ;;
+        vga) input_val=0x01 ;;
+        dvi) input_val=0x03 ;;
+        esac
+        ddcutil --display $MONITOR setvcp 60 $input_val
+        ;;
+      *)
+        echo "Error: Unknown input source '$2'"
+        exit 1
+        ;;
+      esac
+      shift 2
+    else
+      echo "Error: Missing input source"
+      exit 1
+    fi
+    ;;
+  --volume)
+    if [[ -n $2 && $2 != -* ]]; then
+      if [[ $2 -ge 0 && $2 -le 100 ]]; then
+        echo "Setting volume to $2..."
+        ddcutil --display $MONITOR setvcp 62 $2
+        shift 2
+      else
+        echo "Error: Volume must be between 0 and 100"
+        exit 1
+      fi
+    else
+      echo "Error: Missing volume value"
+      exit 1
+    fi
+    ;;
+  --mute)
+    echo "Toggling mute..."
+    ddcutil --display $MONITOR setvcp 8D 1
+    shift
+    ;;
+  --power)
+    if [[ -n $2 && $2 != -* ]]; then
+      case "$2" in
+      on)
+        echo "Turning monitor on..."
+        ddcutil --display $MONITOR setvcp D6 1
+        ;;
+      off)
+        echo "Turning monitor off..."
+        ddcutil --display $MONITOR setvcp D6 5
+        ;;
+      *)
+        echo "Error: Invalid power state. Use 'on' or 'off'"
+        exit 1
+        ;;
+      esac
+      shift 2
+    else
+      echo "Error: Missing power state"
+      exit 1
+    fi
+    ;;
+  --list-inputs)
+    echo "Available input sources (may vary by monitor):"
+    echo "  hdmi1 - HDMI 1"
+    echo "  hdmi2 - HDMI 2"
+    echo "  dp1   - DisplayPort 1"
+    echo "  dp2   - DisplayPort 2"
+    echo "  vga   - VGA"
+    echo "  dvi   - DVI"
+    exit 0
+    ;;
+  --info)
+    echo "Displaying monitor information..."
+    ddcutil --display $MONITOR capabilities
+    exit 0
+    ;;
+  --help | -h)
+    display_help
+    ;;
+  *)
+    echo "Error: Unknown option $1"
+    display_help
+    exit 1
+    ;;
+  esac
+done
+
+exit 0

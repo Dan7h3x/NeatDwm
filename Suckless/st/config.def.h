@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Google Sans Code:pixelsize=17:antialias=true:autohint=true";
+static char *font = "Pragmasevka Nerd Font:pixelsize=20:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
