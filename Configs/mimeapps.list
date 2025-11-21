@@ -1,0 +1,23 @@
+[Default Applications]
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
+image/jpeg=viewnior.desktop
+image/gif=viewnior.desktop
+text/html=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+inode/directory=pcmanfm.desktop
+image/png=viewnior.desktop
+text/plain=nvim.desktop
+x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
+text/x-tex=nvim.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
+image/jpeg=viewnior.desktop;
+image/gif=viewnior.desktop;
+text/html=org.qutebrowser.qutebrowser.desktop;chromium.desktop;
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+image/png=viewnior.desktop;
+text/plain=nvim.desktop;
+text/x-tex=nvim.desktop;

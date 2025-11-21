@@ -15,8 +15,8 @@ def userscript(script_name):
 
 
 # Font #
-c.fonts.default_family = ["JetBrainsMono Nerd Font"]
-c.fonts.default_size = "11pt"
+c.fonts.default_family = ["Pragmasevka Nerd Font"]
+c.fonts.default_size = "13pt"
 
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"
@@ -137,19 +137,21 @@ c.completion.open_categories = [
 ################
 # Searchengines#
 ################
+c.url.start_pages = "https://github.com/"
+
 c.url.searchengines = {
-    "DEFAULT": "https://www.google.com/search?hl=en&q={}",
+    "DEFAULT": "https://duckduckgo.com/search?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
     "yt": "https://youtube.com/results?search_query={}",
     "in": "https://inv.nadeko.net/search?q={}",
     "re": "https://www.reddit.com/search/?q={}",
     "so": "https://stackoverflow.com/search?q={}",
-    "s": "https://sourcegraph.com/search?q=context:global+{}&patternType=standard&sm=1",
-    "w": "https://en.wikipedia.org/wiki/Special:Search/{}",
+    "sg": "https://sourcegraph.com/search?q=context:global+{}&patternType=standard&sm=1",
+    "wk": "https://en.wikipedia.org/wiki/Special:Search/{}",
+    "mt": "https://www.magnetdl.com/search/?m=1&q={}",
+    "pp": "https://www.perplexity.ai/search?q={}",
     "dd": "https://devdocs.io#q={}",
-    "p": "https://www.perplexity.ai/search?q={}",
-    "t": "https://www.magnetdl.com/search/?m=1&q={}",
     "dp": "https://devdocs.io#q=python {}",
     "dl": "https://devdocs.io#q=lua {}",
     "dr": "https://devdocs.io#q=rust {}",
@@ -160,6 +162,7 @@ c.url.searchengines = {
 ################
 c.auto_save.session = True
 c.content.javascript.clipboard = "access-paste"
+c.content.javascript.enabled = True
 c.content.notifications.presenter = "auto"
 c.content.pdfjs = True
 c.downloads.position = "bottom"
@@ -209,21 +212,21 @@ config.bind("<Ctrl-6>", "tab-focus 6")
 config.bind("<Ctrl-7>", "tab-focus 7")
 config.bind("<Ctrl-8>", "tab-focus 8")
 config.bind("<Ctrl-9>", "tab-focus -1")
-config.bind("<Ctrl-m>", "tab-mute")
+# config.bind("<Ctrl-m>", "tab-mute")
 config.bind("<Ctrl+e>", "edit-text", "insert")
-config.bind("<Ctrl+e>", "edit-command", "command")
+config.bind("<Ctrl+e>", "cmd-edit", "command")
 config.bind("<Ctrl+i>", "mode-enter normal ;; hint inputs", "insert")
 config.bind("j", "scroll-page 0 0.4", "normal")
 config.bind("k", "scroll-page 0 -0.4", "normal")
-config.bind("<Ctrl+h>", "fake-key <right>", "insert")
+config.bind("<Ctrl+h>", "fake-key <left>", "insert")
 config.bind("<Ctrl+j>", "fake-key <down>", "insert")
 config.bind("<Ctrl+k>", "fake-key <up>", "insert")
-config.bind("<Ctrl+l>", "fake-key <left>", "insert")
+config.bind("<Ctrl+l>", "fake-key <right>", "insert")
 config.bind("<Enter>", "fake-key -g <enter>;; later 0.3s mode-leave", "insert")
 config.bind("<Ctrl+h>", "rl-unix-filename-rubout", "prompt")
 config.bind("<Ctrl+j>", "prompt-item-focus next", "prompt")
 config.bind("<Ctrl+k>", "prompt-item-focus prev", "prompt")
-config.bind("<Ctrl+l>", "fake-key -g /", "prompt")
+config.bind("<Ctrl+g>", "fake-key -g /", "prompt")
 config.bind(";c", "hint code userscript code_select")
 config.bind("O", "cmd-set-text -s :open -t")
 config.bind(
@@ -235,7 +238,7 @@ config.bind(
 config.bind("sd", f"spawn --userscript {userscript('open_download')}")
 config.bind(";a", f"spawn --userscript {userscript('readability')}")
 config.bind(";B", f"spawn --userscript {userscript('getbib')}")
-
+config.bind("<Ctrl-m>", "hint links spawn mpv {hint-url}")
 # config.bind("'", "mode-enter jump_mark")
 # config.bind("+", "zoom-in")
 # config.bind("-", "zoom-out")
