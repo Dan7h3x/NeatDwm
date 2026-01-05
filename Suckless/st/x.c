@@ -60,8 +60,6 @@ static void clippaste(const Arg *);
 static void numlock(const Arg *);
 static void selpaste(const Arg *);
 static void ttysend(const Arg *);
-static void nextscheme(const Arg *);
-static void selectscheme(const Arg *);
 static void zoom(const Arg *);
 static void zoomabs(const Arg *);
 static void zoomreset(const Arg *);
@@ -144,7 +142,7 @@ static void mousesel(XEvent *, int);
 static void mousereport(XEvent *);
 static char *kmap(KeySym, uint);
 static int match(uint, uint);
-static void updatescheme(void);
+
 static void run(void);
 static void usage(void);
 
@@ -982,6 +980,11 @@ xloadalpha(void)
 	dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * usedAlpha);
 	dc.col[defaultbg].pixel &= 0x00FFFFFF;
 	dc.col[defaultbg].pixel |= (unsigned char)(0xff * usedAlpha) << 24;
+	#if SELECTION_COLORS_PATCH && SELECTIONBG_ALPHA_PATCH
+	dc.col[selectionbg].color.alpha = (unsigned short)(0xffff * usedAlpha);
+	dc.col[selectionbg].pixel &= 0x00FFFFFF;
+	dc.col[selectionbg].pixel |= (unsigned char)(0xff * usedAlpha) << 24;
+	#endif // SELECTION_COLORS_PATCH && SELECTIONBG_ALPHA_PATCH
 }
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 
@@ -1022,8 +1025,7 @@ xloadcols(void)
 		for (cp = dc.col; cp < &dc.col[dc.collen]; ++cp)
 			XftColorFree(xw.dpy, xw.vis, xw.cmap, cp);
 	} else {
-		// dc.collen = MAX(LEN(colorname), 256);
-    dc.collen = 258;
+		dc.collen = MAX(LEN(colorname), 256);
 		dc.col = xmalloc(dc.collen * sizeof(Color));
 	}
 
@@ -1044,6 +1046,18 @@ xloadcols(void)
 	dc.col[defaultbg].color.red   *= alpha;
 	dc.col[defaultbg].color.green *= alpha;
 	dc.col[defaultbg].color.blue  *= alpha;
+	#if SELECTION_COLORS_PATCH && SELECTIONBG_ALPHA_PATCH
+	/* set alpha value of selbg color */
+	dc.col[selectionbg].color.alpha = (unsigned short)(0xffff * alpha);
+	dc.col[selectionbg].pixel &= 0x00FFFFFF;
+	dc.col[selectionbg].pixel |= (unsigned char)(0xff * alpha) << 24;
+	dc.col[selectionbg].color.red =
+		((unsigned short)(dc.col[selectionbg].color.red * alpha)) & 0xff00;
+	dc.col[selectionbg].color.green =
+		((unsigned short)(dc.col[selectionbg].color.green * alpha)) & 0xff00;
+	dc.col[selectionbg].color.blue =
+		((unsigned short)(dc.col[selectionbg].color.blue * alpha)) & 0xff00;
+	#endif // SELECTION_COLORS_PATCH && SELECTIONBG_ALPHA_PATCH
 	#endif // ALPHA_PATCH
 	loaded = 1;
 }
@@ -3927,50 +3941,6 @@ usage(void)
 		" [stty_args ...]\n", argv0, argv0);
 }
 
-void
-nextscheme(const Arg *arg)
-{
-	colorscheme += arg->i;
-	if (colorscheme >= (int)LEN(schemes))
-		colorscheme = 0;
-	else if (colorscheme < 0)
-		colorscheme = LEN(schemes) - 1;
-	updatescheme();
-}
-
-void
-selectscheme(const Arg *arg)
-{
-	if (BETWEEN(arg->i, 0, LEN(schemes)-1)) {
-		colorscheme = arg->i;
-		updatescheme();
-	}
-}
-
-void
-updatescheme(void)
-{
-	int oldbg, oldfg;
-
-	oldbg = defaultbg;
-	oldfg = defaultfg;
-	colorname = schemes[colorscheme].colors;
-	defaultbg = schemes[colorscheme].bg;
-	defaultfg = schemes[colorscheme].fg;
-	defaultcs = schemes[colorscheme].cs;
-	defaultrcs = schemes[colorscheme].rcs;
-	xloadcols();
-	if (defaultbg != oldbg)
-		tupdatebgcolor(oldbg, defaultbg);
-	if (defaultfg != oldfg)
-		tupdatefgcolor(oldfg, defaultfg);
-	cresize(win.w, win.h);
-	redraw();
-}
-
-
-
-
 int
 main(int argc, char *argv[])
 {
@@ -4047,12 +4017,6 @@ main(int argc, char *argv[])
 	} ARGEND;
 
 run:
-  colorname = schemes[colorscheme].colors;
-	defaultbg = schemes[colorscheme].bg;
-	defaultfg = schemes[colorscheme].fg;
-	defaultcs = schemes[colorscheme].cs;
-	defaultrcs = schemes[colorscheme].rcs;
-
 	if (argc > 0) /* eat all remaining arguments */
 		opt_cmd = argv;
 

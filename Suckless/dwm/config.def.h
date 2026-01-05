@@ -349,7 +349,7 @@ const char *spmusic[] = {"m",  "st","-c","'floating'" ,"-n","'spmusic'","-T","Mu
                          NULL};
 const char *spproc[] = {"b", "st","-c","'floating'", "-n", "'spproc'","-T","Processes","-g","85x25","-e", "btop",    NULL};
 const char *spfiles[] = {"e", "st","-c","'floating'", "-n", "'spfiles'","-T","Files","-g","100x35","-e", "yazi",    NULL};
-const char *spradio[] = {"r", "st","-c","'floating'", "-n", "'spradio'","-T","Radio","-g","80x35","-e", "sonicradio",    NULL};
+const char *spradio[] = {"r", "st","-c","'floating'", "-n", "'spradio'","-T","Radio","-g","80x35","-e", "pyradio",    NULL};
 const char *spnotes[] = {"n", "st","-c","'floating'", "-n", "'spnotes'","-T","Notes","-g","100x45","-e", "fznote",    NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
 
@@ -922,6 +922,8 @@ static const char *dmenucmd[] = {"dmenu_run",
                                  selfgcolor,
                                 "-l",
                                 "10",
+                                "-p",
+                                "Run:",
 #if BAR_DMENUMATCHTOP_PATCH
                                  topbar ? NULL : "-b",
 #endif // BAR_DMENUMATCHTOP_PATCH
@@ -951,7 +953,7 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 static const char *browsercmd[] = {"qutebrowser", NULL};
 static const char *filescmd[] = {"pcmanfm", NULL};
 static const char *telegramcmd[] = {"Telegram", NULL};
-static const char *gterm[] = {"kitty", NULL};
+static const char *gterm[] = {"ghostty", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
     {0, XK_f, spawn, {.v = browsercmd}},
@@ -999,7 +1001,7 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_Print, spawn, {.v = shotnow}},
 
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
-    {ALTKEY, XK_F1, spawn, SHCMD("launcher")},
+    {MODKEY, XK_r, spawn, SHCMD("launcher")},
     {ControlMask | ALTKEY, XK_l, spawn, {.v = lockscreen}},
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
@@ -1012,7 +1014,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_b, toggletopbar, {0}},
 #endif // TOGGLETOPBAR_PATCH
 #if TAB_PATCH
-    {MODKEY | ControlMask, XK_b, tabmode, {-1}},
+    {MODKEY | ControlMask, XK_t, tabmode, {-1}},
 #endif // TAB_PATCH
 #if STACKER_PATCH
     STACKKEYS(MODKEY, focus) STACKKEYS(MODKEY | ShiftMask, push)

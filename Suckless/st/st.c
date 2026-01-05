@@ -2451,10 +2451,22 @@ csihandle(void)
 			goto unknown;
 		}
 		break;
-	#if SYNC_PATCH
+	#if SYNC_PATCH || SIXEL_PATCH
 	case '$': /* DECRQM -- DEC Request Mode (private) */
 		if (csiescseq.mode[1] == 'p' && csiescseq.priv) {
 			switch (csiescseq.arg[0]) {
+			#if SIXEL_PATCH
+			case 80:
+				/* Sixel Display Mode  */
+				ttywrite(IS_SET(MODE_SIXEL_SDM) ? "\033[?80;1$y"
+				                                : "\033[?80;2$y", 9, 0);
+				break;
+			case 8452:
+				/* Sixel scrolling leaves cursor to right of graphic */
+				ttywrite(IS_SET(MODE_SIXEL_CUR_RT) ? "\033[?8452;1$y"
+				                                   : "\033[?8452;2$y", 11, 0);
+				break;
+			#endif // SIXEL_PATCH
 			#if SYNC_PATCH
 			case 2026:
 				/* https://gist.github.com/christianparpart/d8a62cc1ab659194337d73e399004036 */
@@ -2467,7 +2479,7 @@ csihandle(void)
 			break;
 		}
 		goto unknown;
-	#endif // SYNC_PATCH
+	#endif // SYNC_PATCH | SIXEL_PATCH
 	case 'r': /* DECSTBM -- Set Scrolling Region */
 		if (csiescseq.priv) {
 			goto unknown;
@@ -3588,33 +3600,6 @@ twrite(const char *buf, int buflen, int show_ctrl)
 	}
 	return n;
 }
-
-
-
-void
-tupdatebgcolor(int oldbg, int newbg)
-{
-	for (int y = 0; y < term.row; y++) {
-		for (int x = 0; x < term.col; x++) {
-			if (term.line[y][x].bg == oldbg)
-				term.line[y][x].bg = newbg;
-		}
-	}
-}
-
-void
-tupdatefgcolor(int oldfg, int newfg)
-{
-	for (int y = 0; y < term.row; y++) {
-		for (int x = 0; x < term.col; x++) {
-			if (term.line[y][x].fg == oldfg)
-				term.line[y][x].fg = newfg;
-		}
-	}
-}
-
-
-
 
 #if !REFLOW_PATCH
 void

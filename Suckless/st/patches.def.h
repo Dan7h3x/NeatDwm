@@ -39,7 +39,7 @@
 /* This patch allows st to resize to any pixel size rather than snapping to character width/height.
  * https://st.suckless.org/patches/anysize/
  */
-#define ANYSIZE_PATCH 0
+#define ANYSIZE_PATCH 1
 
 /* A simple variant of the anysize patch that only changes the resize hints to allow the window to
  * be resized to any size.
@@ -101,7 +101,7 @@
  * available URLs. This variant also highlights the selected URLs.
  * https://st.suckless.org/patches/copyurl/
  */
-#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 0
+#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 1
 
 /* This patch adds support for CSI escape sequences 22 and 23, which save and
  * restores the window title (for instance nvim does this when opening and closing).
@@ -152,7 +152,7 @@
 /* This patch makes the cursor color the inverse of the current cell color.
  * https://st.suckless.org/patches/dynamic-cursor-color/
  */
-#define DYNAMIC_CURSOR_COLOR_PATCH 1
+#define DYNAMIC_CURSOR_COLOR_PATCH 0
 
 /* This is a variant of the anysize patch that explicitly do not change the size increment hints,
  * i.e. only keeping the dynamic padding which is the main thing the anysize patch introduces.
@@ -226,7 +226,7 @@
  * colorscheme or visa-versa.
  * https://st.suckless.org/patches/invert/
  */
-#define INVERT_PATCH 1
+#define INVERT_PATCH 0
 
 /* Pressing the default binding Ctrl+Shift-i will popup dmenu, asking you to enter a unicode
  * codepoint that will be converted to a glyph and then pushed to st.
@@ -266,7 +266,7 @@
  *
  * https://st.suckless.org/patches/netwmicon/
  */
-#define NETWMICON_PATCH 1
+#define NETWMICON_PATCH 0
 
 /* This patch sets the _NET_WM_ICON X property with an icon that is read from a farbfeld image.
  * The benefit of this patch is that you do not need an additional dependency on an external
@@ -328,7 +328,7 @@
  * https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory
  * https://github.com/veltza/st-sx/commit/817865c2c6ed905af8849580e58bdcf399216fbd
  */
-#define OSC7_PATCH 0
+#define OSC7_PATCH 1
 
 /* This patch allows jumping between prompts by utilizing the OSC 133 escape sequence
  * emitted by shells. Must be used with either reflow or scrollback patch.
@@ -342,7 +342,7 @@
  * Text wraps when the terminal window is made smaller.
  * Comes with scrollback.
  */
-#define REFLOW_PATCH 1
+#define REFLOW_PATCH 0
 
 /* This patch allows you to specify a border that is relative in size to the width of a cell
  * in the terminal.
@@ -379,6 +379,12 @@
  * https://st.suckless.org/patches/selectioncolors/
  */
 #define SELECTION_COLORS_PATCH 1
+
+/* This patch works with selectioncolors and alpha patches to make selection
+ * background color transparent.
+ * https://st.suckless.org/patches/selectionbg-alpha/
+ */
+#define SELECTIONBG_ALPHA_PATCH 0
 
 /* This is the single drawable buffer patch as outlined in the FAQ to get images
  * in w3m to display. While this patch does not break the alpha patch it images
@@ -465,7 +471,7 @@
  * scroll program.
  * https://st.suckless.org/patches/universcroll/
  */
-#define UNIVERSCROLL_PATCH 1
+#define UNIVERSCROLL_PATCH 0
 
 /* Use XftFontMatch in place of FcFontMatch.
  *
@@ -477,9 +483,9 @@
  * [1]: https://cgit.freedesktop.org/xorg/lib/libXft/tree/src/xftdpy.c?id=libXft-2.3.2#n535
  * [2]: https://cgit.freedesktop.org/fontconfig/tree/src/fcdefault.c?id=2.11.1#n255
  *
- * https://git.suckless.org/st/commit/528241aa3835e2f1f053abeeaf891737712955a0.html
+ * https://git.suckless.org/st/commit/528241aa3835e2f1f052abeeaf891737712955a0.html
  */
-#define USE_XFTFONTMATCH_PATCH 1
+#define USE_XFTFONTMATCH_PATCH 0
 
 /* Vertically center lines in the space available if you have set a larger chscale in config.h
  * https://st.suckless.org/patches/vertcenter/
@@ -498,7 +504,7 @@
 
 /* Adds proper glyphs rendering in st allowing wide glyphs to be drawn as-is as opposed to
  * smaller or cut glyphs being rendered.
- * https://github.com/Dreomite/st/commit/e3b821dcb3511d60342dec35ee05a4a0abfef7f2
+ * https://github.com/Dreomite/st/commit/e3b821dcb3511d60341dec35ee05a4a0abfef7f2
  * https://www.reddit.com/r/suckless/comments/jt90ai/update_support_for_proper_glyph_rendering_in_st/
  */
 #define WIDE_GLYPHS_PATCH 1
@@ -522,10 +528,10 @@
  * apply the resources named in the resources[] array in config.h.
  * https://st.suckless.org/patches/xresources/
  */
-#define XRESOURCES_PATCH 0
+#define XRESOURCES_PATCH 1
 
 /* This patch adds the ability to reload the Xresources config when a SIGUSR1 signal is received
  * e.g.: killall -USR1 st
  * Depends on the XRESOURCES_PATCH.
  */
-#define XRESOURCES_RELOAD_PATCH 0
+#define XRESOURCES_RELOAD_PATCH 1
