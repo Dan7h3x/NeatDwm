@@ -5,7 +5,7 @@ config = config  # noqa: F821
 config.load_autoconfig(False)
 
 
-def userscript(script_name):
+def userscript(script_name: str):
     return os.path.join(os.path.join(config.configdir, "userscripts"), script_name)
 
 
@@ -15,8 +15,8 @@ def userscript(script_name):
 
 
 # Font #
-c.fonts.default_family = ["Pragmasevka Nerd Font"]
-c.fonts.default_size = "13pt"
+c.fonts.default_family = ["Maple Mono Medium"]
+c.fonts.default_size = "12pt"
 
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"
@@ -144,7 +144,7 @@ c.url.searchengines = {
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
     "yt": "https://youtube.com/results?search_query={}",
-    "in": "https://inv.nadeko.net/search?q={}",
+    "in": "https://invidious.nerdvpn.de/search?q={}",
     "re": "https://www.reddit.com/search/?q={}",
     "so": "https://stackoverflow.com/search?q={}",
     "sg": "https://sourcegraph.com/search?q=context:global+{}&patternType=standard&sm=1",
@@ -168,7 +168,7 @@ c.content.pdfjs = True
 c.downloads.position = "bottom"
 c.downloads.remove_finished = 10000
 c.editor.command = [
-    os.environ["TERMINAL"],
+    os.environ["TERMINAL"] or "st",
     "-c",
     "'floating'",
     "-e",

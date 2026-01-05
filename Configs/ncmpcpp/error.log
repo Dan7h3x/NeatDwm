@@ -22,3 +22,55 @@ TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded fr
 TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
 TagLib: ID3v2::Tag::read() - Duplicate ID3v2 tags found.
 TagLib: Could not open file /home/kratos/Music/http://pureplay.cdnstream1.com/6038_128.mp3?DIST=TuneIn&TGT=TuneIn&maxServers=2&gdpr=0&us_privacy=1YNY&partnertok=eyJhbGciOiJIUzI1NiIsImtpZCI6InR1bmVpbiIsInR5cCI6IkpXVCJ9.eyJ0cnVzdGVkX3BhcnRuZXIiOnRydWUsImlhdCI6MTYzMzk1Nzc4NCwiaXNzIjoidGlzcnYifQ.pcgS3hF5YBvvbD9rJO3OMBWPgEGE037nPVwPu4hamPY%22
+TagLib: Could not open file /home/kratos/Music/Downloads/1_5091811749498191953.mp3
+TagLib: ID3v2::Tag::read() - Duplicate ID3v2 tags found.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: TagLib::ID3v2::Header::parse() - One of the size bytes in the id3v2 header was greater than the allowed 128.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2::Tag::read() - Duplicate ID3v2 tags found.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: TagLib::ID3v2::Header::parse() - One of the size bytes in the id3v2 header was greater than the allowed 128.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: MP4: Unknown covr format 1
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: ID3v2.4 no longer supports the frame type TDAT.  It will be discarded from the tag.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: TagLib::ID3v2::Header::parse() - One of the size bytes in the id3v2 header was greater than the allowed 128.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: String::copyFromUTF16() - Invalid UTF16 string. BOM is broken.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: TagLib::ID3v2::Header::parse() - One of the size bytes in the id3v2 header was greater than the allowed 128.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: MPEG::Properties::read() -- Could not find an MPEG frame in the stream.
+TagLib: MPEG::Header::parse() -- MPEG header did not match MPEG synch.
+TagLib: ID3v2::Tag::read() - Duplicate ID3v2 tags found.
+TagLib: ID3v2::Tag::read() - Duplicate ID3v2 tags found.
+TagLib: Could not open file /home/kratos/Music/http://5.191.241.101:8000/bakuretrofm
+TagLib: Could not open file /home/kratos/Music/http://5.191.241.101:8000/bakuretrofm
+TagLib: Could not open file /home/kratos/Music/http://5.191.241.101:8000/bakuretrofm
+TagLib: Could not open file /home/kratos/Music/https://playerservices.streamtheworld.com/api/livestream-redirect/JOYTURK_ROCK_SC?/
+TagLib: Could not open file /home/kratos/Music/http://5.191.241.101:8000/bakuretrofm
+TagLib: Could not open file /home/kratos/Music/http://5.191.241.101:8000/bakuretrofm

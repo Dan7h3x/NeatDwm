@@ -472,7 +472,7 @@ def_key "s"
 def_key "f"
   show_browser
 def_key "f"
-  change_browse_mode
+  seek_forward
 def_key "x"
   delete_playlist_items
 def_key "P"

@@ -1,3 +1,0 @@
-update plugins:
-    - ya pack --migrate
-    - ya pack --upgrade

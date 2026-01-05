@@ -23,8 +23,8 @@ window {
   prefer-icon-theme:  true;
 
     location:       center;
-    width:          640;
-    y-offset:       -100;
+    width:          1040;
+    y-offset:       0;
     border-radius:  8;
 }
 
@@ -46,7 +46,7 @@ icon-search {
 entry {
     font:   inherit;
 
-    placeholder         : "PDFs";
+    placeholder         : "PDFs.............";
     placeholder-color   : @fg2;
 }
 
@@ -61,15 +61,19 @@ textbox {
 }
 
 listview {
-    lines:      2;
+    lines:      1;
     columns:    2;
 
     fixed-height:   false;
     border:         1px 0 0;
     border-color:   @bg1;
+    cycle:          false;
+    layout:         Vertical;
+    flow:           Vertical;
 }
 
 element {
+  orientation: vertical;
     padding:            1px 1px;
     spacing:            16px;
     background-color:   transparent;
@@ -85,9 +89,12 @@ element selected normal, element selected active {
 }
 
 element-icon {
-    size:   300px;
+    size:   640px;
 }
 
 element-text {
+  font: "JetBrainsMono Nerd Font 10";
     text-color: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
 }
