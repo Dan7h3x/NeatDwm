@@ -36,7 +36,7 @@ generate_thumbnail() {
   if [[ ! -f "$thumb" ]]; then
     # Use pdftoppm (fast) or convert (fallback)
     if command -v pdftoppm >/dev/null; then
-      pdftoppm -png -singlefile -scale-to-x 300 -scale-to-y 340 "$pdf" "$THUMBNAIL_DIR/$hash" 2>/dev/null
+      pdftoppm -png -singlefile -scale-to-x 600 -scale-to-y 640 "$pdf" "$THUMBNAIL_DIR/$hash" 2>/dev/null
     elif command -v convert >/dev/null; then
       convert -thumbnail 258x200 "$pdf[0]" "$thumb" 2>/dev/null
     fi
@@ -50,22 +50,19 @@ main() {
   local ALL=$(get_all_pdfs)
   local ALL_UNIQ=$(echo -e "$RECENT\n$ALL" | awk '!seen[$0]++') # Merge without sorting
 
-  if [[ "$SESSION_TYPE" == "x11" ]]; then
-    # Rofi with thumbnails (X11)
-    local SEL=$(
-      while IFS= read -r pdf; do
-        [ -f "$pdf" ] || continue
-        thumb=$(generate_thumbnail "$pdf")
-        echo -e "$pdf\0icon\x1f$thumb"
-      done <<<"$ALL_UNIQ" |
-        rofi -dmenu -matching fuzzy -case-smart -show-icons -theme "$ROFI_THEME" -p "PDFs: "
-    )
-  else
-    # Fuzzel (Wayland)
-    local SEL=$(echo "$ALL_UNIQ" | fuzzel \
-      -b 232136ff -t e0def4ff -s c4a7e7ff -S 232136ff \
-      -d --match-mode=exact -w 100 -l 10 -p 'PDFs: ')
-  fi
+  # Rofi with thumbnails (X11)
+  local SEL=$(
+    while IFS= read -r pdf; do
+      [ -f "$pdf" ] || continue
+      thumb=$(generate_thumbnail "$pdf")
+      echo -e "$pdf\0icon\x1f$thumb"
+    done <<<"$ALL_UNIQ" |
+      rofi -dmenu -sorting-method fzf -show-icons -theme "$ROFI_THEME" -p "PDFs: "
+  )
+  # # Fuzzel (Wayland)
+  # local SEL=$(echo "$ALL_UNIQ" | fuzzel \
+  #   -b 232136ff -t e0def4ff -s c4a7e7ff -S 232136ff \
+  #   -d --match-mode=exact -w 100 -l 10 -p 'PDFs: ')
 
   # Open selected PDF
   if [ -n "$SEL" ] && [ -f "$SEL" ]; then

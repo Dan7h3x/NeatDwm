@@ -2,7 +2,7 @@
 
 
 # icons
-iDIR='/home/mehdi/.config/dunst/icons/dunst'
+iDIR='/home/kratos/.config/dunst/icons'
 
 # Get Volume
 get_volume() {
@@ -25,7 +25,7 @@ get_icon() {
 	fi
 }
 
-# Notify 
+# Notify
 notify_vol() {
 	get_icon && dunstify -u low --replace=69 -i "$icon" "Volume : $(get_volume)"
 }

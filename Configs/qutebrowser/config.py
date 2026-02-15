@@ -1,7 +1,7 @@
 import os
 
-c = c  # noqa: F821
-config = config  # noqa: F821
+c = c  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
+config = config  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
 config.load_autoconfig(False)
 
 
@@ -15,8 +15,8 @@ def userscript(script_name: str):
 
 
 # Font #
-c.fonts.default_family = ["Maple Mono Medium"]
-c.fonts.default_size = "12pt"
+c.fonts.default_family = ["Liberation Mono"]
+c.fonts.default_size = "11pt"
 
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"
@@ -140,7 +140,8 @@ c.completion.open_categories = [
 c.url.start_pages = "https://github.com/"
 
 c.url.searchengines = {
-    "DEFAULT": "https://duckduckgo.com/search?q={}",
+    "DEFAULT": "https://google.com/search?q={}",
+    "g": "https://google.com/search?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
     "yt": "https://youtube.com/results?search_query={}",

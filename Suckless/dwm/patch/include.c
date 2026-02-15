@@ -104,6 +104,9 @@
 #if ALT_TAB_PATCH
 #include "alttab.c"
 #endif
+#if ALWAYSONTOP_PATCH
+#include "alwaysontop.c"
+#endif
 #if ASPECTRESIZE_PATCH
 #include "aspectresize.c"
 #endif
@@ -112,6 +115,12 @@
 #endif
 #if AUTOSTART_PATCH
 #include "autostart.c"
+#endif
+#if BANISH_PATCH || PLACEMOUSE_PATCH
+#include "recttoclient.c"
+#endif
+#if BANISH_PATCH
+#include "banish.c"
 #endif
 #if CFACTS_PATCH
 #include "cfacts.c"
@@ -166,6 +175,9 @@
 #if FULLSCREEN_PATCH
 #include "fullscreen.c"
 #endif
+#if GAMES_PATCH
+#include "games.c"
+#endif
 #if INPLACEROTATE_PATCH
 #include "inplacerotate.c"
 #endif
@@ -192,6 +204,9 @@
 #endif
 #if MPDCONTROL_PATCH
 #include "mpdcontrol.c"
+#endif
+#if MOVECENTER_PATCH
+#include "movecenter.c"
 #endif
 #if MOVEPLACE_PATCH
 #include "moveplace.c"
@@ -346,7 +361,9 @@
 #if XKB_PATCH
 #include "xkb.c"
 #endif
-#if XRDB_PATCH && !BAR_VTCOLORS_PATCH
+#if XRESOURCES_PATCH
+#include "xresources.c"
+#elif XRDB_PATCH
 #include "xrdb.c"
 #endif
 #if DRAGMFACT_PATCH

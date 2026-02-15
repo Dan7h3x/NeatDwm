@@ -18,7 +18,7 @@ PKG_CONFIG = pkg-config
 XRENDER = `$(PKG_CONFIG) --libs xrender`
 
 # Uncomment this for the themed cursor patch / THEMED_CURSOR_PATCH
-#XCURSOR = `$(PKG_CONFIG) --libs xcursor`
+XCURSOR = `$(PKG_CONFIG) --libs xcursor`
 
 # Uncomment the lines below for the ligatures patch / LIGATURES_PATCH
 LIGATURES_C = hb.c
@@ -31,7 +31,7 @@ SIXEL_C = sixel.c sixel_hls.c
 SIXEL_LIBS = `$(PKG_CONFIG) --libs imlib2`
 
 # Uncomment for the netwmicon patch / NETWMICON_PATCH
-#NETWMICON_LIBS = `$(PKG_CONFIG) --libs gdlib`
+NETWMICON_LIBS = `$(PKG_CONFIG) --libs gdlib`
 
 # includes and libs, uncomment harfbuzz for the ligatures patch
 INCS = -I$(X11INC) \

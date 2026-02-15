@@ -1,4 +1,4 @@
-This dwm 6.5 (5687f46, 2024-06-08) side project has a different take on dwm patching. It uses preprocessor directives to decide whether or not to include a patch during build time. Essentially this means that this build, for better or worse, contains both the patched _and_ the original code. The aim being that you can select which patches to include and the build will contain that code and nothing more. Due to the complexity of some of the patches dwm-flexipatch has diverged from mainstream dwm by making some core patches non-optional for maintenance reasons. For the classic dwm-flexipatch build refer to branch [dwm-flexipatch-1.0](https://github.com/bakkeby/dwm-flexipatch/tree/dwm-flexipatch-1.0).
+This dwm 6.8 (397d618, 2026-02-12) side project has a different take on dwm patching. It uses preprocessor directives to decide whether or not to include a patch during build time. Essentially this means that this build, for better or worse, contains both the patched _and_ the original code. The aim being that you can select which patches to include and the build will contain that code and nothing more. Due to the complexity of some of the patches dwm-flexipatch has diverged from mainstream dwm by making some core patches non-optional for maintenance reasons. For the classic dwm-flexipatch build refer to branch [dwm-flexipatch-1.0](https://github.com/bakkeby/dwm-flexipatch/tree/dwm-flexipatch-1.0).
 
 For example to include the `alpha` patch then you would only need to flip this setting from 0 to 1 in [patches.h](https://github.com/bakkeby/dwm-flexipatch/blob/master/patches.def.h):
 ```c
@@ -18,6 +18,18 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 ---
 
 ### Changelog:
+
+2025-10-30 - Added the movecenter patch
+
+2025-09-21 - Added the games patch
+
+2025-06-27 - Added the banish patch
+
+2025-06-15 - Added the always on top patch
+
+2025-02-25 - Added the xresources patch
+
+2024-10-30 - Added the border rule patch
 
 2024-07-11 - Added variant of the launcher patch
 
@@ -264,6 +276,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
    - [~alwaysfullscreen~](https://dwm.suckless.org/patches/alwaysfullscreen/)
       - ~prevents the focus to drift from the active fullscreen client when using focusstack\(\)~
 
+   - [alwaysontop](https://dwm.suckless.org/patches/alwaysontop/)
+      - allows for floating windows to be toggled to be always on top of other windows
+
    - [anybar](https://dwm.suckless.org/patches/anybar/)
       - enables dwm to manage external status bars such as lemonbar and polybar
       - dwm treats the external bar as it would its own, so all regular dwm commands such as
@@ -295,6 +310,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
       - enhanced taskbar that allows focus / hiding / unhiding of windows by clicking on the status
         bar
 
+   - [banish](https://github.com/bakkeby/patches/wiki/banish/)
+      - hides cursor when using the keyboard, akin to xbanish
+
    - [bar_border](https://codemadness.org/paste/dwm-border-bar.patch)
       - adds a border around the bar similarly to how client windows have borders
 
@@ -313,6 +331,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 
    - [bidi](https://dwm.suckless.org/patches/bidi/)
       - adds proper support for Right-To-Left (RTL) languages (such as Farsi, Arabic or Hebrew)
+
+   - [borderrule](https://dwm.suckless.org/patches/borderrule/)
+      - adds a client rule option to set border width on a per client basis
 
    - [center](https://dwm.suckless.org/patches/center/)
       - adds an iscentered rule to automatically center clients on the current monitor
@@ -482,6 +503,11 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
       - when pressed again it shows the bar and restores the layout that was active before going
         fullscreen
 
+   - [games](https://github.com/bakkeby/patches/wiki/steam)
+      - adds a new client rule option to flag clients as a "game", the effect of which is that
+      - if the client is in fullscreen and it loses focus (e.g. by moving to another tag) then it will automatically be minimized
+      - and the window will automatically be unminimized when receving focus (e.g. by going back to its tag)
+
    - [hidevacanttags](https://dwm.suckless.org/patches/hide_vacant_tags/)
       - prevents dwm from drawing tags with no clients (i.e. vacant) on the bar
 
@@ -559,6 +585,13 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
       - always display the the monocle-symbol as defined in config.h if the monocle-layout is
         activated
       - do not display the number of open clients in the current tag
+
+   - [movecenter](https://dwm.suckless.org/patches/movecenter/)
+      - adds a keybinding to center the focused window
+
+   - [moveplace](https://dwm.suckless.org/patches/moveplace/)
+      - adds a function to place a window either centered or in one of 8 cardinal directions
+      - based on the exresize patch
 
    - [moveresize](https://dwm.suckless.org/patches/moveresize/)
       - allows you to move and resize dwm's clients using keyboard bindings
@@ -708,7 +741,7 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
    - [status2d](https://dwm.suckless.org/patches/status2d/)
       - allows colors and rectangle drawing in the dwm status bar
 
-   - [statusallmons](https://dwm.suckless.org/patches/statuspadding/)
+   - [statusallmons](https://dwm.suckless.org/patches/statusallmons/)
       - this patch draws and updates the statusbar on all monitors
 
    - [statusbutton](https://dwm.suckless.org/patches/statusbutton/)
@@ -881,6 +914,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 
    - [xrdb](http://dwm.suckless.org/patches/xrdb/)
       - allows dwm to read colors from xrdb (.Xresources) during runtime
+
+   - [xresources](https://dwm.suckless.org/patches/xresources/)
+      - allows dwm to read strings, integers and float values from xrdb (.Xresources) during runtime
 
    - [zoomfloating](https://www.reddit.com/r/suckless/comments/ie5fe3/zoomfloating_my_own_simple_original_patch/)
       - a simple patch that allows floating windows to be zoomed into the master stack position

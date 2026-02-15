@@ -1,0 +1,199 @@
+# vim:fileencoding=utf-8:foldmethod=marker
+
+
+font_size   13
+
+#: Color scheme {{{
+
+include themes/Dracula.conf
+background_opacity 0.8
+background_blur 20
+
+window_padding_width 0
+
+#: }}}
+
+
+#: Cursor {{{
+
+cursor none
+cursor_blink_interval -1 ease-in-out
+
+# cursor_trail 1
+# cursor_trail_decay 0.1 0.2
+# cursor_trail_start_threshold 10
+
+#: }}}
+
+
+#: Scrollback {{{
+
+scrollback_lines -1
+
+scrollback_fill_enlarged_window yes
+
+#: }}}
+
+
+#: Mouse {{{
+
+# url_color #0087bd
+# url_style curly
+
+url_prefixes file ftp ftps git http https mailto sftp ssh
+
+strip_trailing_spaces always
+
+select_by_word_characters @-./_~?&=%+#
+
+#: }}}
+
+
+#: Performance tuning {{{
+
+input_delay 0
+
+sync_to_monitor no
+
+#: }}}
+
+
+#: Window layout {{{
+
+remember_window_size  no
+initial_window_width  1080
+initial_window_height 720
+
+enabled_layouts splits, stack
+
+#: }}}
+
+
+#: Tab bar {{{
+
+bell_on_tab "🔔 "
+tab_bar_edge top
+tab_bar_margin_width 0.0
+#tab_bar_margin_height 0.0 0.0
+tab_bar_margin_height 5.0 0.0
+#tab_bar_style fade
+tab_bar_style separator
+#tab_fade 0.25 0.5 0.75 1
+tab_fade 0 0 0 0
+tab_bar_align center
+tab_bar_min_tabs 2
+tab_title_max_length 30
+tab_switch_strategy previous
+#tab_separator " ┇"
+tab_separator ""
+tab_powerline_style angled
+tab_activity_symbol none
+tab_title_template "{fmt.fg._5f5f5f}{fmt.bg.default}  {f'{title[:6]}…{title[-8:]}' if title.rindex(title[-1]) + 1 > 25 else ('Home' if title.rindex(title[-1]) + 1 < 2 else title)}{' []' if layout_name == 'stack' else ''} "
+active_tab_title_template "{fmt.fg._bf7fbf}{fmt.bg.default}  {f'{title[:10]}…{title[-12:]}' if title.rindex(title[-1]) + 1 > 25 else ('Home' if title.rindex(title[-1]) + 1 < 2 else title)}{' []' if layout_name == 'stack' else ''} "
+active_tab_foreground   #000
+active_tab_background   #eee
+active_tab_font_style   bold
+inactive_tab_foreground #444
+inactive_tab_background #999
+inactive_tab_font_style normal
+tab_bar_background none
+tab_bar_margin_color    none
+
+
+
+
+
+
+allow_remote_control yes
+
+#: }}}
+
+
+#: OS specific tweaks {{{
+
+macos_option_as_alt yes
+
+macos_quit_when_last_window_closed yes
+
+macos_show_window_title_in window
+
+macos_colorspace displayp3
+
+text_composition_strategy 1.2 20
+
+#: }}}
+kitty_mod   ctrl+shift
+clear_all_shortcuts yes
+
+map kitty_mod+equal             change_font_size all +1.0
+map kitty_mod+minus             change_font_size all -1.0
+map kitty_mod+escape            change_font_size all 0
+map kitty_mod+/                 change_font_size all 13
+
+map kitty_mod+f1                show_kitty_doc overview
+map kitty_mod+f2                edit_config_file
+map kitty_mod+f3                save_as_session
+map kitty_mod+f5                load_config_file
+
+map kitty_mod+p                 kitty_shell tab
+map kitty_mod+i                 kitten unicode_input
+
+#: }}}
+
+# 📋 Clipboard: {{{
+
+map kitty_mod+c                 combine : copy_to_clipboard : clear_selection
+map kitty_mod+v                 paste_from_clipboard
+map kitty_mod+b                 paste_from_selection
+
+# }}}
+
+
+
+# show output in pager
+map kitty_mod+s>s               show_scrollback
+map kitty_mod+s>c               show_last_command_output
+
+#: }}}
+
+# 📑 Tabs: {{{
+
+map kitty_mod+up                 next_tab
+map kitty_mod+down                  previous_tab
+map kitty_mod+enter             new_window
+map kitty_mod+left                next_window
+map kitty_mod+right              previous_window
+map ctrl+1                 goto_tab 1
+map ctrl+2                 goto_tab 2
+map ctrl+3                 goto_tab 3
+map ctrl+4                 goto_tab 4
+map ctrl+5                 goto_tab 5
+map ctrl+6                 goto_tab 6
+map kitty_mod+t     new_tab
+map kitty_mod+r    set_tab_title
+map kitty_mod+q     close_tab
+map kitty_mod+w>t               move_tab_forward
+map kitty_mod+w>e               move_tab_backward
+map kitty_mod+l   resize_window narrower 5
+map kitty_mod+h resize_window wider 5
+map kitty_mod+k resize_window taller 5
+map kitty_mod+j resize_window shorter 5
+# map kitty_mod+r   resize_window reset
+ #: }}}
+map kitty_mod+e kitten hints
+map kitty_mod+e>h kitten hints --program @
+map kitty_mod+e>c kitten hints --type path --program @
+map kitty_mod+e>p kitten hints --type path --program -
+map kitty_mod+e>shift+p kitten hints --multiple --type path --program -
+map kitty_mod+e>i kitten hints --type line --program -
+map kitty_mod+e>shift+i kitten hints --multiple --type line --program -
+map kitty_mod+e>y kitten hints --type line --program @
+map kitty_mod+e>shift+y kitten hints --multiple --type line --program @
+
+map kitty_mod+d pipe @text overlay nvim -c ':silent! %s#\($\n\s*\)\+\%$##' '+$' -
+# BEGIN_KITTY_FONTS
+font_family      family="GeistMono Nerd Font"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

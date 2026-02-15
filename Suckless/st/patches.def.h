@@ -152,7 +152,7 @@
 /* This patch makes the cursor color the inverse of the current cell color.
  * https://st.suckless.org/patches/dynamic-cursor-color/
  */
-#define DYNAMIC_CURSOR_COLOR_PATCH 0
+#define DYNAMIC_CURSOR_COLOR_PATCH 1
 
 /* This is a variant of the anysize patch that explicitly do not change the size increment hints,
  * i.e. only keeping the dynamic padding which is the main thing the anysize patch introduces.
@@ -163,7 +163,7 @@
  *
  * Note that this patch depends on ANYSIZE_PATCH being enabled to have an effect.
  */
-#define DYNAMIC_PADDING_PATCH 1
+#define DYNAMIC_PADDING_PATCH 0
 
 /* Reading and writing st's screen through a pipe, e.g. pass info to dmenu.
  * https://st.suckless.org/patches/externalpipe/
@@ -371,7 +371,7 @@
  * This variant depends on SCROLLBACK_PATCH being enabled.
  * https://st.suckless.org/patches/scrollback/
  */
-#define SCROLLBACK_MOUSE_ALTSCREEN_PATCH 0
+#define SCROLLBACK_MOUSE_ALTSCREEN_PATCH 1
 
 /* This patch adds the two color-settings selectionfg and selectionbg to config.def.h.
  * Those define the fore- and background colors which are used when text on the screen is selected
@@ -535,3 +535,10 @@
  * Depends on the XRESOURCES_PATCH.
  */
 #define XRESOURCES_RELOAD_PATCH 1
+
+/* This patch adds the ability to configure st via Xdefaults, in addition to Xresources,
+ * like the rxvt-unicode terminal. At startup, st will read and apply the system and user's
+ * local Xdefault files, the XServer's Xresources, and the screen and per-host Xdefaults.
+ * This patch depends on XRESOURCES_PATCH and is compatible with XRESOURCES_RELOAD_PATCH.
+ */
+#define XRESOURCES_XDEFAULTS_PATCH 1

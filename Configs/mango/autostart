@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+start(){
+  "$1" >/dev/null 2>&1 &
+}
+
+
+start dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots
+start swww-daemon
+start fnott
+start mpd
+start mpd-mpris
+qs -c ~/FromWeb/noctalia-shell >/dev/null 2>&1 &
+
