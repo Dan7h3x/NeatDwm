@@ -237,6 +237,7 @@ config.bind(
     ";pp", f"spawn --userscript {userscript('qute-pass')} --password-only", "insert"
 )
 config.bind("sd", f"spawn --userscript {userscript('open_download')}")
+config.bind("<Ctrl-o>", f"spawn --userscript {userscript('qutedmenu')} open")
 config.bind(";a", f"spawn --userscript {userscript('readability')}")
 config.bind(";B", f"spawn --userscript {userscript('getbib')}")
 config.bind("<Ctrl-m>", "hint links spawn mpv {hint-url}")
