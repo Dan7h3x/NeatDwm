@@ -1,44 +1,44 @@
 
 
 static char normfgcolor[] = "#00ffff";
-static char normbgcolor[] = "#1a1b26";
-static char normbordercolor[] = "#1a1b26";
-static char normfloatcolor[] = "#1a1b26";
+static char normbgcolor[] = "#f5f5f5";
+static char normbordercolor[] = "#f5f5f5";
+static char normfloatcolor[] = "#f5f5f5";
 
-static char selfgcolor[] = "#101010";
-static char selbgcolor[] = "#ededed";
+static char selfgcolor[] = "#f5f5f5";
+static char selbgcolor[] = "#192929";
 static char selbordercolor[] = "#7aa2f7";
 static char selfloatcolor[] = "#7aa2f7";
 
 static char titlenormfgcolor[] = "#bc7ad9";
-static char titlenormbgcolor[] = "#1a1b26";
-static char titlenormbordercolor[] = "#1a1b26";
-static char titlenormfloatcolor[] = "#1a1b26";
+static char titlenormbgcolor[] = "#f5f5f5";
+static char titlenormbordercolor[] = "#f5f5f5";
+static char titlenormfloatcolor[] = "#f5f5f5";
 
 static char titleselfgcolor[] = "#9ece6a";
-static char titleselbgcolor[] = "#1a1b26";
+static char titleselbgcolor[] = "#f5f5f5";
 static char titleselbordercolor[] = "#bc7ada";
 static char titleselfloatcolor[] = "#7aa2f7";
 
 static char tagsnormfgcolor[] = "#00ffff";
-static char tagsnormbgcolor[] = "#1a1b26";
-static char tagsnormbordercolor[] = "#1a1b26";
-static char tagsnormfloatcolor[] = "#1a1b26";
+static char tagsnormbgcolor[] = "#f5f5f5";
+static char tagsnormbordercolor[] = "#f5f5f5";
+static char tagsnormfloatcolor[] = "#f5f5f5";
 
 static char tagsselfgcolor[] = "#b7d97a";
-static char tagsselbgcolor[] = "#1a1b26";
+static char tagsselbgcolor[] = "#f5f5f5";
 static char tagsselbordercolor[] = "#7dcfff";
 static char tagsselfloatcolor[] = "#7dcfff";
 
-static char hidnormfgcolor[] = "#1a1b26";
+static char hidnormfgcolor[] = "#f8f8f8";
 static char hidselfgcolor[] = "#5c9900";
 static char hidnormbgcolor[] = "#f7768e";
 static char hidselbgcolor[] = "#7dcfff";
 
 static char urgfgcolor[] = "#f7768e";
-static char urgbgcolor[] = "#1a1b26";
+static char urgbgcolor[] = "#f8f8f8";
 static char urgbordercolor[] = "#f7768e";
-static char urgfloatcolor[] = "#1a1b26";
+static char urgfloatcolor[] = "#f8f8f8";
 
 #if RENAMED_SCRATCHPADS_PATCH
 static char scratchselfgcolor[] = "#FFF7D4";
@@ -53,39 +53,39 @@ static char scratchnormfloatcolor[] = "#77547E";
 #endif // RENAMED_SCRATCHPADS_PATCH
 
 #if BAR_FLEXWINTITLE_PATCH
-static char normTTBbgcolor[] = "#1a1b26";
-static char normLTRbgcolor[] = "#1a1b26";
-static char normMONObgcolor[] = "#1a1b26";
-static char normGRIDbgcolor[] = "#1a1b26";
-static char normGRD1bgcolor[] = "#1a1b26";
-static char normGRD2bgcolor[] = "#1a1b26";
-static char normGRDMbgcolor[] = "#1a1b26";
-static char normHGRDbgcolor[] = "#1a1b26";
-static char normDWDLbgcolor[] = "#1a1b26";
-static char normSPRLbgcolor[] = "#1a1b26";
-static char normfloatbgcolor[] = "#1a1b26";
-static char actTTBbgcolor[] = "#1a1b26";
-static char actLTRbgcolor[] = "#1a1b26";
-static char actMONObgcolor[] = "#1a1b26";
-static char actGRIDbgcolor[] = "#1a1b26";
-static char actGRD1bgcolor[] = "#1a1b26";
-static char actGRD2bgcolor[] = "#1a1b26";
-static char actGRDMbgcolor[] = "#1a1b26";
-static char actHGRDbgcolor[] = "#1a1b26";
-static char actDWDLbgcolor[] = "#1a1b26";
-static char actSPRLbgcolor[] = "#1a1b26";
-static char actfloatbgcolor[] = "#1a1b26";
-static char selTTBbgcolor[] = "#1a1b26";
-static char selLTRbgcolor[] = "#1a1b26";
-static char selMONObgcolor[] = "#1a1b26";
-static char selGRIDbgcolor[] = "#1a1b26";
-static char selGRD1bgcolor[] = "#1a1b26";
-static char selGRD2bgcolor[] = "#1a1b26";
-static char selGRDMbgcolor[] = "#1a1b26";
-static char selHGRDbgcolor[] = "#1a1b26";
-static char selDWDLbgcolor[] = "#1a1b26";
-static char selSPRLbgcolor[] = "#1a1b26";
-static char selfloatbgcolor[] = "#1a1b26";
+static char normTTBbgcolor[] = "#f8f8f8";
+static char normLTRbgcolor[] = "#f8f8f8";
+static char normMONObgcolor[] = "#f8f8f8";
+static char normGRIDbgcolor[] = "#f8f8f8";
+static char normGRD1bgcolor[] = "#f8f8f8";
+static char normGRD2bgcolor[] = "#f8f8f8";
+static char normGRDMbgcolor[] = "#f8f8f8";
+static char normHGRDbgcolor[] = "#f8f8f8";
+static char normDWDLbgcolor[] = "#f8f8f8";
+static char normSPRLbgcolor[] = "#f8f8f8";
+static char normfloatbgcolor[] = "#f8f8f8";
+static char actTTBbgcolor[] = "#f8f8f8";
+static char actLTRbgcolor[] = "#f8f8f8";
+static char actMONObgcolor[] = "#f8f8f8";
+static char actGRIDbgcolor[] = "#f8f8f8";
+static char actGRD1bgcolor[] = "#f8f8f8";
+static char actGRD2bgcolor[] = "#f8f8f8";
+static char actGRDMbgcolor[] = "#f8f8f8";
+static char actHGRDbgcolor[] = "#f8f8f8";
+static char actDWDLbgcolor[] = "#f8f8f8";
+static char actSPRLbgcolor[] = "#f8f8f8";
+static char actfloatbgcolor[] = "#f8f8f8";
+static char selTTBbgcolor[] = "#f8f8f8";
+static char selLTRbgcolor[] = "#f8f8f8";
+static char selMONObgcolor[] = "#f8f8f8";
+static char selGRIDbgcolor[] = "#f8f8f8";
+static char selGRD1bgcolor[] = "#f8f8f8";
+static char selGRD2bgcolor[] = "#f8f8f8";
+static char selGRDMbgcolor[] = "#f8f8f8";
+static char selHGRDbgcolor[] = "#f8f8f8";
+static char selDWDLbgcolor[] = "#f8f8f8";
+static char selSPRLbgcolor[] = "#f8f8f8";
+static char selfloatbgcolor[] = "#f8f8f8";
 #endif // BAR_FLEXWINTITLE_PATCH
 
 #if BAR_ALPHA_PATCH

@@ -212,7 +212,8 @@ static const char *fonts[] = {"GeistMono Nerd Font :size=13"};
 #endif // BAR_PANGO_PATCH
 static const char dmenufont[] = "GeistMono Nerd Font :size=13";
 
-#include "themes/theme.h"
+static char c000000[] = "#bc7ad9"; // placeholder value
+#include "themes/dark3.h"
 
 #if BAR_VTCOLORS_PATCH
 static const char title_bg_dark[] = "#30c030";
