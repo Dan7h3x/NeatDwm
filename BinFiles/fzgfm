@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+DIR=$(fd --strip-cwd-prefix . -H -t d 2> /dev/null |\
+  dmenu -fn "GeistMono Nerd Font" -nb "#232136"\
+  -nf "#e0def4" -sb "#c4a7e7" -sf "#232136" -W 600  -i -l 10 -p "Files (GUI): " )
+[ -z "$DIR" ] || pcmanfm "$DIR"

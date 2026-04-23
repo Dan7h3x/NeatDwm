@@ -34,18 +34,18 @@ size = 13
 
 builtin_box_drawing = true
 
-normal = { family = "Pragmasevka Nerd Font", style = "Regular" }
-bold = { family = "Pragmasevka Nerd Font", style = "Bold" }
-italic = { family = "Pragmasevka Nerd Font", style = "Italic" }
-bold_italic = { family = "Pragmasevka Nerd Font", style = "Bold Italic" }
-
+normal = { family = "GeistMono Nerd Font", style = "Regular" }
+bold = { family = "GeistMono Nerd Font", style = "Bold" }
+italic = { family = "GeistMono Nerd Font", style = "Italic" }
+bold_italic = { family = "GeistMono Nerd Font", style = "Bold Italic" }
+#
 [general]
 live_config_reload = true
 
 [cursor]
 blink_interval = 550
 unfocused_hollow = false
-thickness = 0.15
+thickness = 0.35
 
 [cursor.style]
 blinking = "On"

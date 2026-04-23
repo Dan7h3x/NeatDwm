@@ -550,7 +550,7 @@
 /* This patch adds the ability to reload the Xresources config when a SIGUSR1
  * signal is received e.g.: killall -USR1 st Depends on the XRESOURCES_PATCH.
  */
-#define XRESOURCES_RELOAD_PATCH 1
+#define XRESOURCES_RELOAD_PATCH 0
 
 /* This patch adds the ability to configure st via Xdefaults, in addition to
  * Xresources, like the rxvt-unicode terminal. At startup, st will read and
@@ -558,4 +558,4 @@
  * and the screen and per-host Xdefaults. This patch depends on XRESOURCES_PATCH
  * and is compatible with XRESOURCES_RELOAD_PATCH.
  */
-#define XRESOURCES_XDEFAULTS_PATCH 1
+#define XRESOURCES_XDEFAULTS_PATCH 0

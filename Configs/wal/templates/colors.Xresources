@@ -1,0 +1,102 @@
+! Xresources template for pywal
+! Place this in ~/.config/wal/templates/colors.Xresources
+
+*.font: GeistMono Nerd Font:pixelsize=16
+
+! Base colors
+*background: {background}
+*foreground: {foreground}
+*cursorColor: {cursor}
+
+! Standard 16 ANSI colors
+*.color0:  {color0}
+*.color1:  {color1}
+*.color2:  {color2}
+*.color3:  {color3}
+*.color4:  {color4}
+*.color5:  {color5}
+*.color6:  {color6}
+*.color7:  {color7}
+*.color8:  {color8}
+*.color9:  {color9}
+*.color10: {color10}
+*.color11: {color11}
+*.color12: {color12}
+*.color13: {color13}
+*.color14: {color14}
+*.color15: {color15}
+
+! st terminal
+st.background: {foreground}
+st.foreground: {background}
+st.cursorColor: {cursor}
+
+! dwm window manager colors
+! Normal window colors
+dwm.normfgcolor: {foreground}
+dwm.normbgcolor: {background}
+dwm.normbordercolor: {color8}
+dwm.normfloatcolor: {color8}
+
+! Selected window colors
+dwm.selfgcolor: {background}
+dwm.selbgcolor: {color4}
+dwm.selbordercolor: {color4}
+dwm.selfloatcolor: {color4}
+
+! Title bar colors (normal)
+dwm.titlenormfgcolor: {foreground}
+dwm.titlenormbgcolor: {background}
+dwm.titlenormbordercolor: {background}
+dwm.titlenormfloatcolor: {background}
+
+! Title bar colors (selected)
+dwm.titleselfgcolor: {background}
+dwm.titleselbgcolor: {foreground}
+dwm.titleselbordercolor: {foreground}
+dwm.titleselfloatcolor: {foreground}
+
+! Tags colors (normal)
+dwm.tagsnormfgcolor: {foreground}
+dwm.tagsnormbgcolor: {background}
+dwm.tagsnormbordercolor: {background}
+dwm.tagsnormfloatcolor: {background}
+
+! Tags colors (selected)
+dwm.tagsselfgcolor: {background}
+dwm.tagsselbgcolor: {color4}
+dwm.tagsselbordercolor: {color4}
+dwm.tagsselfloatcolor: {color4}
+
+! Hidden tags colors
+dwm.hidnormfgcolor: {color8}
+dwm.hidnormbgcolor: {background}
+dwm.hidselfgcolor: {foreground}
+dwm.hidselbgcolor: {color8}
+
+! Urgent window colors
+dwm.urgfgcolor: {background}
+dwm.urgbgcolor: {color1}
+dwm.urgbordercolor: {color1}
+dwm.urgfloatcolor: {color1}
+
+! Scratchpad colors
+dwm.scratchnormfgcolor: {foreground}
+dwm.scratchnormbgcolor: {color0}
+dwm.scratchnormbordercolor: {foreground}
+dwm.scratchnormfloatcolor: {foreground}
+dwm.scratchselfgcolor: {foreground}
+dwm.scratchselbgcolor: {color4}
+dwm.scratchselbordercolor: {foreground}
+dwm.scratchselfloatcolor: {foreground}
+
+! Layout symbol colors
+dwm.ltsymbolfgcolor: {color4}
+dwm.ltsymbolbgcolor: {background}
+
+! dmenu (dynamic menu)
+dmenu.font: GeistMono Nerd Font
+dmenu.background: {background}
+dmenu.foreground: {foreground}
+dmenu.selbackground: {color4}
+dmenu.selforeground: {background}

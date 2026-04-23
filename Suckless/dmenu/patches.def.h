@@ -74,7 +74,7 @@
  * Refer to https://github.com/DAFF0D11/dafmenu/ for documentation and example use cases.
  * https://github.com/DAFF0D11/dafmenu/blob/master/patches/dmenu-fzfexpect-5.1.diff
  */
-#define FZFEXPECT_PATCH 0
+#define FZFEXPECT_PATCH 1
 
 /* Allows dmenu's entries to be rendered in a grid by adding a new -g flag to specify
  * the number of grid columns. The -g and -l options can be used together to create a
@@ -98,12 +98,12 @@
  * https://tools.suckless.org/dmenu/patches/highlight/
  * https://tools.suckless.org/dmenu/patches/fuzzyhighlight/
  */
-#define HIGHLIGHT_PATCH 0
+#define HIGHLIGHT_PATCH 1
 
 /* This will automatically sort the search result so that high priority items are shown first.
  * https://tools.suckless.org/dmenu/patches/highpriority/
  */
-#define HIGHPRIORITY_PATCH 0
+#define HIGHPRIORITY_PATCH 1
 
 /* This patch causes dmenu to print out the current text each time a key is pressed.
  * https://tools.suckless.org/dmenu/patches/incremental/
@@ -119,13 +119,13 @@
  * keyboard layout while dmenu is open.
  * https://github.com/bakkeby/dmenu-flexipatch/pull/22
  */
-#define INPUTMETHOD_PATCH 1
+#define INPUTMETHOD_PATCH 0
 
 /* This patch adds a flag which will cause dmenu to select an item immediately if there
  * is only one matching option left.
  * https://tools.suckless.org/dmenu/patches/instant/
  */
-#define INSTANT_PATCH 0
+#define INSTANT_PATCH 1
 
 /* This patch adds a '-h' option which sets the minimum height of a dmenu line. This helps
  * integrate dmenu with other UI elements that require a particular vertical size.
@@ -140,7 +140,7 @@
  * treat dmenu more as a "window" rather than as an overlay.
  * https://tools.suckless.org/dmenu/patches/managed/
  */
-#define MANAGED_PATCH 0
+#define MANAGED_PATCH 1
 
 /* This patch adds an additional color scheme for highlighting entries adjacent to the current
  * selection.
@@ -151,12 +151,12 @@
 /* This patch adds basic mouse support for dmenu.
  * https://tools.suckless.org/dmenu/patches/mouse-support/
  */
-#define MOUSE_SUPPORT_PATCH 1
+#define MOUSE_SUPPORT_PATCH 0
 
 /* Expands the above to support mouse hovering.
  * https://tools.suckless.org/dmenu/patches/mouse-support/
  */
-#define MOTION_SUPPORT_PATCH 1
+#define MOTION_SUPPORT_PATCH 0
 
 /* Without this patch when you press Ctrl+Enter dmenu just outputs current item and it is not
  * possible to undo that.
@@ -169,7 +169,7 @@
  *
  * https://tools.suckless.org/dmenu/patches/multi-selection/
  */
-#define MULTI_SELECTION_PATCH 0
+#define MULTI_SELECTION_PATCH 1
 
 /* This patch provides dmenu the ability for history navigation similar to that of bash.
  *
@@ -263,7 +263,7 @@
 /* This patch changes the behaviour of matched items and the Tab key to allow tab completion.
  * https://tools.suckless.org/dmenu/patches/prefix-completion/
  */
-#define PREFIXCOMPLETION_PATCH 0
+#define PREFIXCOMPLETION_PATCH 1
 
 /* This patch adds an option -ps to specify an item by providing the index that should be
  * pre-selected.
@@ -362,7 +362,7 @@
  *
  * https://tools.suckless.org/dmenu/patches/vi-mode/
  */
-#define VI_MODE_PATCH 1
+#define VI_MODE_PATCH 0
 
 /* Adds extended window manager hints such as _NET_WM_WINDOW_TYPE and _NET_WM_WINDOW_TYPE_DOCK.
  * https://github.com/Baitinq/dmenu/blob/master/patches/dmenu-wm_type.diff
@@ -381,7 +381,7 @@
  *
  * https://tools.suckless.org/dmenu/patches/xresources/
  */
-#define XRESOURCES_PATCH 0
+#define XRESOURCES_PATCH 1
 
 /* This patch adds options for specifying dmenu window position and width.
  * The center patch takes precedence over the XYW patch if enabled.

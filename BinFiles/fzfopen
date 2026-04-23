@@ -1,0 +1,288 @@
+#!/usr/bin/env bash
+
+# Configuration
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/file-finder"
+HISTORY_FILE="$CACHE_DIR/history"
+RECENT_EXTENSIONS="$CACHE_DIR/recent_exts"
+PREVIEW_SCRIPT="${PREVIEW_SCRIPT:-prevme}"  # Custom preview script
+MAX_HISTORY=100
+
+# Create cache directory
+mkdir -p "$CACHE_DIR"
+
+# Color definitions for better UI
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Common file extensions with categories
+declare -A EXT_CATEGORIES=(
+    ["Documents"]="pdf|doc|docx|txt|md|rtf|odt"
+    ["Code"]="py|js|rs|go|c|cpp|java|rb|php|lua|sh|bash|zsh|fish"
+    ["Web"]="html|css|scss|jsx|tsx|vue|svelte"
+    ["Images"]="jpg|jpeg|png|gif|bmp|svg|webp|ico"
+    ["Audio"]="mp3|wav|flac|ogg|m4a|aac"
+    ["Video"]="mp4|mkv|avi|mov|wmv|flv|webm"
+    ["Archives"]="zip|tar|gz|bz2|7z|rar"
+    ["Config"]="json|yaml|yml|toml|ini|conf|cfg"
+    ["Data"]="csv|tsv|jsonl|parquet|feather|arrow"
+)
+
+# Function to show category selection
+select_category() {
+    local categories=$(printf "%s\n" "${!EXT_CATEGORIES[@]}" | sort)
+    echo -e "${CYAN}Select category (or 'custom' for manual input):${NC}"
+    echo -e "$categories\ncustom\nall" | fzf --height=10 --layout=reverse --prompt="Category: "
+}
+
+# Function to select extension from category
+select_extension_from_category() {
+    local category="$1"
+    if [[ "$category" == "custom" ]]; then
+        echo -n | dmenu -p "Enter extension (without dot):"
+    elif [[ "$category" == "all" ]]; then
+        echo "all"
+    else
+        echo "${EXT_CATEGORIES[$category]}" | tr '|' '\n' | sort | \
+            dmenu -i -l 10 -p "Select extension:"
+    fi
+}
+
+# Function to get recent extensions
+get_recent_extensions() {
+    if [[ -f "$RECENT_EXTENSIONS" ]]; then
+        tail -n 10 "$RECENT_EXTENSIONS"
+    fi
+}
+
+# Function to save extension to history
+save_extension() {
+    local ext="$1"
+    [[ -z "$ext" ]] && return
+
+    # Remove existing entry and add to top
+    grep -v "^$ext$" "$RECENT_EXTENSIONS" 2>/dev/null > "$RECENT_EXTENSIONS.tmp"
+    echo "$ext" >> "$RECENT_EXTENSIONS.tmp"
+    tail -n 20 "$RECENT_EXTENSIONS.tmp" > "$RECENT_EXTENSIONS"
+    rm -f "$RECENT_EXTENSIONS.tmp"
+}
+
+# Function to get file count
+count_files() {
+    local ext="$1"
+    if [[ "$ext" == "all" ]]; then
+        fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --follow 2>/dev/null | wc -l
+    else
+        fd --type f --extension "$ext" --hidden --exclude .git --exclude node_modules --exclude .cache --follow 2>/dev/null | wc -l
+    fi
+}
+
+# Function to show preview with syntax highlighting
+preview_file() {
+    local file="$1"
+    local ext="${file##*.}"
+
+    # Use custom preview script if available
+    if command -v "$PREVIEW_SCRIPT" &>/dev/null; then
+        "$PREVIEW_SCRIPT" "$file"
+        return
+    fi
+
+    # Built-in preview based on file type
+    case "$ext" in
+        pdf) pdftotext "$file" - 2>/dev/null | head -n 50 ;;
+        py|rs|go|c|cpp|java|js|html|css|sh|bash)
+            bat --style=numbers --color=always "$file" 2>/dev/null || cat "$file" ;;
+        jpg|jpeg|png|gif)
+            echo -e "${YELLOW}[Image: $file]${NC}"
+            file "$file" ;;
+        mp3|wav|flac|ogg)
+            echo -e "${MAGENTA}[Audio: $file]${NC}"
+            ffprobe -v quiet -print_format json -show_format "$file" 2>/dev/null | jq '.format' || file "$file" ;;
+        *)
+            head -n 50 "$file" 2>/dev/null || file "$file" ;;
+    esac
+}
+
+# Function to open file with appropriate application
+open_file() {
+    local file="$1"
+
+    # Check if file exists
+    if [[ ! -f "$file" ]]; then
+        echo -e "${RED}Error: File not found: $file${NC}"
+        return 1
+    fi
+
+    # Try different open commands based on OS
+    if command -v xdg-open &>/dev/null; then
+        nohup xdg-open "$file" >/dev/null 2>&1 &
+    elif command -v open &>/dev/null; then  # macOS
+        nohup open "$file" >/dev/null 2>&1 &
+    elif command -v start &>/dev/null; then  # Windows (WSL/Cygwin)
+        nohup start "$file" >/dev/null 2>&1 &
+    else
+        echo -e "${RED}Error: No suitable file opener found${NC}"
+        return 1
+    fi
+
+    disown  # Detach from shell
+    echo -e "${GREEN}✓ Opened:${NC} $file"
+
+    # Add to history
+    echo "$(date '+%Y-%m-%d %H:%M:%S') | $file" >> "$HISTORY_FILE"
+    tail -n "$MAX_HISTORY" "$HISTORY_FILE" > "$HISTORY_FILE.tmp"
+    mv "$HISTORY_FILE.tmp" "$HISTORY_FILE"
+}
+
+# Main menu
+main_menu() {
+    echo -e "${BLUE}╔════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║     Enhanced File Finder v2.0      ║${NC}"
+    echo -e "${BLUE}╚════════════════════════════════════╝${NC}"
+
+    local choice=$(echo -e "🔍 Search files\n📂 Select by category\n🕒 Recent extensions\n📜 Open history\n⚙️  Settings\n❌ Exit" | \
+        fzf --height=10 --layout=reverse --prompt="Choose action: ")
+
+    case "$choice" in
+        *Search*) search_files ;;
+        *category*) select_category_mode ;;
+        *Recent*) recent_extensions_mode ;;
+        *history*) show_history ;;
+        *Settings*) configure_settings ;;
+        *Exit*) exit 0 ;;
+        *) return ;;
+    esac
+}
+
+# Search files with selected extension
+search_files() {
+    local ext="$1"
+    local mode="${2:-normal}"  # normal or recent
+
+    if [[ -z "$ext" ]]; then
+        ext=$(get_recent_extensions | dmenu -i -l 10 -p "Select/recent or type extension:")
+        [[ -z "$ext" ]] && return
+    fi
+
+    save_extension "$ext"
+
+    # Count files
+    echo -e "${CYAN}Counting files...${NC}"
+    local count=$(count_files "$ext")
+
+    if [[ "$count" -eq 0 ]]; then
+        echo -e "${RED}No files found with extension: $ext${NC}"
+        read -p "Press Enter to continue..."
+        return
+    fi
+
+    echo -e "${GREEN}Found $count files${NC}"
+
+    # Build fd command
+    if [[ "$ext" == "all" ]]; then
+        fd_cmd="fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache --follow 2>/dev/null"
+    else
+        fd_cmd="fd --type f --extension $ext --hidden --exclude .git --exclude node_modules --exclude .cache --follow 2>/dev/null"
+    fi
+
+    # FZF with advanced features
+    while true; do
+        selected=$(eval "$fd_cmd" | \
+            fzf -i --layout=reverse \
+                --header="Extension: $ext | Files: $count | Ctrl-A: all | Ctrl-R: recent | Ctrl-X: clear" \
+                --preview="$PREVIEW_SCRIPT {}" \
+                --preview-window='right:60%:wrap' \
+                --bind "ctrl-a:reload($fd_cmd)" \
+                --bind "ctrl-r:reload(ls -t $(cat $HISTORY_FILE 2>/dev/null | cut -d'|' -f2 | head -n 20))" \
+                --bind "ctrl-x:reload($fd_cmd)" \
+                --bind "ctrl-d:preview-page-down" \
+                --bind "ctrl-u:preview-page-up" \
+                --prompt="Find Files (ESC to exit, Enter to open): ")
+
+        if [[ -n "$selected" ]]; then
+            open_file "$selected"
+            echo
+            read -p "Press Enter to continue searching..."
+        else
+            break
+        fi
+    done
+}
+
+# Category selection mode
+select_category_mode() {
+    local category=$(select_category)
+    [[ -z "$category" ]] && return
+
+    local ext=$(select_extension_from_category "$category")
+    [[ -z "$ext" ]] && return
+
+    search_files "$ext" "category"
+}
+
+# Recent extensions mode
+recent_extensions_mode() {
+    local ext=$(get_recent_extensions | dmenu -i -l 10 -p "Recent extensions:")
+    [[ -z "$ext" ]] && return
+    search_files "$ext" "recent"
+}
+
+# Show history
+show_history() {
+    if [[ ! -f "$HISTORY_FILE" ]]; then
+        echo -e "${YELLOW}No history yet${NC}"
+        read -p "Press Enter to continue..."
+        return
+    fi
+
+    local selected=$(tail -n 50 "$HISTORY_FILE" | \
+        fzf --height=20 --layout=reverse \
+            --preview="echo {} | cut -d'|' -f2 | xargs $PREVIEW_SCRIPT" \
+            --preview-window=right:60%:wrap \
+            --prompt="Select file to reopen: ")
+
+    if [[ -n "$selected" ]]; then
+        local file=$(echo "$selected" | cut -d'|' -f2 | xargs)
+        open_file "$file"
+    fi
+}
+
+# Settings menu
+configure_settings() {
+    echo -e "${CYAN}Settings:${NC}"
+    local setting=$(echo -e "Set preview script\nClear cache\nShow stats\nBack" | \
+        fzf --height=10 --layout=reverse --prompt="Choose setting: ")
+
+    case "$setting" in
+        *preview*)
+            echo -n | dmenu -p "Enter preview script name:" > /tmp/new_preview
+            export PREVIEW_SCRIPT=$(cat /tmp/new_preview)
+            rm -f /tmp/new_preview
+            ;;
+        *cache*)
+            rm -f "$RECENT_EXTENSIONS" "$HISTORY_FILE"
+            echo -e "${GREEN}Cache cleared${NC}"
+            read -p "Press Enter to continue..."
+            ;;
+        *stats*)
+            echo -e "${YELLOW}Statistics:${NC}"
+            echo "Recent extensions: $(wc -l < "$RECENT_EXTENSIONS" 2>/dev/null || echo 0)"
+            echo "History entries: $(wc -l < "$HISTORY_FILE" 2>/dev/null || echo 0)"
+            read -p "Press Enter to continue..."
+            ;;
+    esac
+}
+
+# Trap Ctrl+C for clean exit
+trap 'echo -e "\n${RED}Exiting...${NC}"; exit 0' INT
+
+# Main loop
+while true; do
+    clear
+    main_menu
+done

@@ -15,7 +15,7 @@ static int fuzzy = 1;                       /* -F  option; if 0, dmenu doesn't u
 static int incremental = 0;                 /* -r  option; if 1, outputs text each time a key is pressed */
 #endif // INCREMENTAL_PATCH
 #if INSTANT_PATCH
-static int instant = 0;                     /* -n  option; if 1, selects matching item without the need to press enter */
+static int instant = 1;                     /* -n  option; if 1, selects matching item without the need to press enter */
 #endif // INSTANT_PATCH
 #if CENTER_PATCH
 static int center = 1;                      /* -c  option; if 0, dmenu won't be centered on the screen */
@@ -30,15 +30,15 @@ static int restrict_return = 0;             /* -1 option; if 1, disables shift-r
 #endif // RESTRICT_RETURN_PATCH
 /* -fn option overrides fonts[0]; default X11 font or font set */
 #if PANGO_PATCH
-static char *font = "AdwaitaMono Nerd Font 12";
+static char *font = "GeistMono Nerd Font 12";
 #else
 #if XRESOURCES_PATCH
 static char *fonts[] =
 #else
-static const char *fonts[] =
+static const char *fonts[] ={"GeistMono Nerd Font 12"};
 #endif // XRESOURCES_PATCH
 {
-	"AdwaitaMono Nerd Font:size=12"
+	"GeistMono Nerd Font:size=12"
 };
 #endif // PANGO_PATCH
 #if MANAGED_PATCH

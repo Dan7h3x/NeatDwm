@@ -86,6 +86,9 @@ static char selSPRLbgcolor[] = "#ff4d80";
 static char selfloatbgcolor[] = "#ff4d80";
 #endif // BAR_FLEXWINTITLE_PATCH
 
+static char ltsymbolfgcolor[] = "#070707";
+static char ltsymbolbgcolor[] = "#77f777";
+
 #if BAR_ALPHA_PATCH
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;

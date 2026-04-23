@@ -73,6 +73,7 @@ ZSH_THEME="agnoster" # set by `omz`
 plugins=(git zsh-autosuggestions zsh-interactive-cd zsh-navigation-tools)
 
 source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
 
@@ -109,6 +110,9 @@ alias lt="l --level=3"
 alias ipython="ipython --colors=linux"
 alias get="git clone --depth 1"
 alias lzvim="NVIM_APPNAME=nvim-lazy nvim"
+alias tvim="NVIM_APPNAME=nvim-test nvim"
+alias fvim="NVIM_APPNAME=nvim-fzf nvim"
+alias surf='xembed -e surf'
 
 
 cdf() {
@@ -121,13 +125,58 @@ cdf() {
 }
 
 
+
 sf() {
-  selected_file=$(fd --type f  --extension $1 --hidden --exclude \
-    .git --exclude node_modules --exclude .cache --follow |
-    fzf -i --layout=reverse \
+  while true; do
+    selected_file=$(fd --type f --extension "$1" --hidden --exclude \
+      .git --exclude node_modules --exclude .cache --follow --full-path "$2" |
+      fzf -i --layout=reverse \
       --preview="prevme {}" \
-      --preview-window=right\
-      --prompt='Find Files: ') && [[ -n "$selected_file" ]] && xdg-open "${selected_file}" 2>/dev/null
+      --preview-window=right \
+      --prompt='Find Files (Ctrl+C to exit | Ctrl+R clear tabbed): ' \
+      --bind "ctrl-r:execute(rm -rf /tmp/tabpdf.txt)")
+    if [[ -f "/tmp/tabpdf.txt" || -s "/tmp/tabpdf.txt" ]] && [[ -n "$selected_file" ]];then
+      # notify-send "The tabbed session" "$(cat /tmp/tabpdf.txt)"
+      ( nohup zathura --reparent="$(cat /tmp/tabpdf.txt)" "$selected_file" >/dev/null 2>&1 & ) &
+      clear
+      continue
+    else
+      if [[ -n "$selected_file" ]]; then
+        # Launch file completely detached
+        (
+          nohup xdg-open "$selected_file" > /dev/null 2>&1 &
+          ) &
+
+          # Clear screen and restart
+          clear
+          echo "File opened. Select another file..."
+          continue
+        else
+          # No file selected, exit
+          break
+      fi
+      break
+    fi
+
+    done
+}
+
+txsf(){
+  cd "/usr/local/texlive/2025/texmf-dist/"
+  sf pdf
+  cd
+}
+
+tabpdf(){
+  TABBED_XID=$(tabbed -cd zathura -e)
+  selected_file=$(fd --type f --extension pdf --hidden --exclude \
+      .git --exclude node_modules --exclude .cache --follow --full-path "$1" |
+      fzf -m -i --layout=reverse \
+        --preview="prevme {}" \
+        --preview-window=right \
+        --prompt='Find Files (Ctrl+C to exit): ')
+
+  zathura --reparent="$TABBED_XID" "$selected_file"
 }
 
 y() {
@@ -138,6 +187,12 @@ y() {
 	rm -f -- "$tmp"
 }
 
+# nsx(){
+#   OPENER='printf "%s\0"' SIZE=768 nsxiv-thumb -e "$TABBED_XID" | xargs -r0 realpath -sm -- | while IFS= read -r i; do
+#         lf -remote "send $id select '$i'" && lf -remote "send $id toggle"
+#     done
+#     lf -remote "send $id select '$f'"
+# }
 
 if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
   export TERMINAL="st"
@@ -145,4 +200,5 @@ else
   export TERMINAL="foot"
 fi
 export QUTE_BIB_FILEPATH="/home/kratos/Desktop/MyBibs/qute.bib"
+
 

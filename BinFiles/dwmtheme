@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+THEME_DIR="$HOME/.config/wal/colorschemes"
+DARK="$THEME_DIR/dark"
+LIGHT="$THEME_DIR/light"
+WALLDIR="$HOME/.config/Wallpaper"
+ROFITHEME="$HOME/.config/rofi/walls.rasi"
+SELECTED_MODE=$(echo -e "Wallpaper\nLight\nDark" | rofi -dmenu )
+COLMETHOD=$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | rofi -dmenu )
+ICONS=""
+COLORSDIR="$HOME/.cache/wal"
+
+if [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
+  while IFS= read -r WALL; do
+    FILE=$(basename "$WALL")  # Fixed: use WALL, not file
+    ICONS+="${FILE}\0icon\x1f${WALL}\n"
+  done <<<"$(fd . "$WALLDIR")"
+
+  THEME=$(echo -e "$ICONS" | rofi -dmenu -show-icons -p "Select Wallpaper:" -theme "$ROFITHEME" -markup-rows)
+  THEME_BASENAME=$(basename "$THEME")
+  CMD=$(wal -i "$WALLDIR/$THEME" --cols16 "$COLMETHOD")
+
+elif [[ "$SELECTED_MODE" = "Dark" ]]; then
+  THEME=$(ls -w 1 "$DARK" | rofi -dmenu -p "Choose dark theme:" )
+  THEME_BASENAME="${THEME%.*}"
+  CMD=$(wal --theme "$THEME_BASENAME" --cols16 "$COLMETHOD")
+
+else  # Light mode
+  THEME=$(ls -w 1 "$LIGHT" | rofi -dmenu -p "Choose light theme:" )
+  THEME_BASENAME="${THEME%.*}"
+  CMD=$(wal -l --theme "$THEME_BASENAME" --cols16 "$COLMETHOD")
+fi
+
+dwm-msg run_command xrdb
+cp -rf "$COLORSDIR/colors-zathurarc" "$HOME/.config/zathura/zathurarc"
+
+# Improved notification with better fallback
+if [[ -n "$THEME_BASENAME" ]]; then
+  notify-send "DWM" "Theme '${THEME_BASENAME}' Applied"
+else
+  notify-send "DWM" "Theme Failed to Apply"
+fi

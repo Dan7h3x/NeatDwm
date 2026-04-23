@@ -1,15 +1,13 @@
 
 * {
-    font:   "JetBrainsMono Nerd Font 12";
+    font:   "GeistMono Nerd Font 12";
 
-    bg0:     #F5F5F5BF;
-    bg1:     #7E7E7E80;
-    bg2:     #0860F2E6;
-
-    fg0:     #242424;
-    fg1:     #FFFFFF;
-    fg2:     #24242480;
-
+    bg0:     #1E1D2FFF;
+    bg1:      #282839FF;
+    bg2:      #000B83FF;
+    fg0:      #D9E0EEFF;
+    fg1:      #7AA2F7FF;
+    fg2:      #ABE9B3FF;
     background-color:   transparent;
     text-color:         @fg0;
 
@@ -29,7 +27,7 @@ window {
 }
 
 inputbar {
-    font:       "JetBrainsMono Nerd Font 20";
+    font:       "GeistMono Nerd Font 20";
     padding:    12px;
     spacing:    12px;
     children:   [ icon-search, entry ];
@@ -93,7 +91,7 @@ element-icon {
 }
 
 element-text {
-  font: "JetBrainsMono Nerd Font 10";
+  font: "GeistMono Nerd Font 10";
     text-color: inherit;
     vertical-align: 0.5;
     horizontal-align: 0.5;

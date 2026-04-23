@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [[ ! -f "/tmp/tabpdf.txt" || ! -s "/tmp/tabpdf.txt" ]]; then
+  tabbed -cd zathura -e > /tmp/tabpdf.txt
+fi

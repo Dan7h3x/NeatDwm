@@ -1,0 +1,101 @@
+! dwm color resources
+! Normal window colors
+dwm.normfgcolor: #bbbbbb
+dwm.normbgcolor: #222222
+dwm.normbordercolor: #444444
+dwm.normfloatcolor: #333333
+
+! Selected window colors
+dwm.selfgcolor: #eeeeee
+dwm.selbgcolor: #005577
+dwm.selbordercolor: #005577
+dwm.selfloatcolor: #005577
+
+! Title bar colors (normal)
+dwm.titlenormfgcolor: #bbbbbb
+dwm.titlenormbgcolor: #222222
+dwm.titlenormbordercolor: #444444
+dwm.titlenormfloatcolor: #333333
+
+! Title bar colors (selected)
+dwm.titleselfgcolor: #eeeeee
+dwm.titleselbgcolor: #005577
+dwm.titleselbordercolor: #005577
+dwm.titleselfloatcolor: #005577
+
+! Tags colors (normal)
+dwm.tagsnormfgcolor: #bbbbbb
+dwm.tagsnormbgcolor: #222222
+dwm.tagsnormbordercolor: #444444
+dwm.tagsnormfloatcolor: #333333
+
+! Tags colors (selected)
+dwm.tagsselfgcolor: #eeeeee
+dwm.tagsselbgcolor: #005577
+dwm.tagsselbordercolor: #005577
+dwm.tagsselfloatcolor: #005577
+
+! Hidden tags colors
+dwm.hidnormfgcolor: #bbbbbb
+dwm.hidnormbgcolor: #222222
+dwm.hidselfgcolor: #eeeeee
+dwm.hidselbgcolor: #005577
+
+! Urgent window colors
+dwm.urgfgcolor: #ffffff
+dwm.urgbgcolor: #ff0000
+dwm.urgbordercolor: #ff0000
+dwm.urgfloatcolor: #ff0000
+
+! Scratchpad colors (if RENAMED_SCRATCHPADS_PATCH is enabled)
+dwm.scratchnormfgcolor: #bbbbbb
+dwm.scratchnormbgcolor: #222222
+dwm.scratchnormbordercolor: #444444
+dwm.scratchnormfloatcolor: #333333
+dwm.scratchselfgcolor: #eeeeee
+dwm.scratchselbgcolor: #005577
+dwm.scratchselbordercolor: #005577
+dwm.scratchselfloatcolor: #005577
+
+! Layout indicator colors (if BAR_FLEXWINTITLE_PATCH is enabled)
+dwm.normTTBbgcolor: #222222
+dwm.normLTRbgcolor: #222222
+dwm.normMONObgcolor: #222222
+dwm.normGRIDbgcolor: #222222
+dwm.normGRD1bgcolor: #222222
+dwm.normGRD2bgcolor: #222222
+dwm.normGRDMbgcolor: #222222
+dwm.normHGRDbgcolor: #222222
+dwm.normDWDLbgcolor: #222222
+dwm.normSPRLbgcolor: #222222
+dwm.normfloatbgcolor: #222222
+
+dwm.actTTBbgcolor: #005577
+dwm.actLTRbgcolor: #005577
+dwm.actMONObgcolor: #005577
+dwm.actGRIDbgcolor: #005577
+dwm.actGRD1bgcolor: #005577
+dwm.actGRD2bgcolor: #005577
+dwm.actGRDMbgcolor: #005577
+dwm.actHGRDbgcolor: #005577
+dwm.actDWDLbgcolor: #005577
+dwm.actSPRLbgcolor: #005577
+dwm.actfloatbgcolor: #005577
+
+dwm.selTTBbgcolor: #005577
+dwm.selLTRbgcolor: #005577
+dwm.selMONObgcolor: #005577
+dwm.selGRIDbgcolor: #005577
+dwm.selGRD1bgcolor: #005577
+dwm.selGRD2bgcolor: #005577
+dwm.selGRDMbgcolor: #005577
+dwm.selHGRDbgcolor: #005577
+dwm.selDWDLbgcolor: #005577
+dwm.selSPRLbgcolor: #005577
+dwm.selfloatbgcolor: #005577
+
+! Layout symbol colors (if BAR_LTSYMBOL_SCHEME_PATCH is enabled)
+dwm.ltsymbolfgcolor: #bbbbbb
+dwm.ltsymbolbgcolor: #222222
+
+

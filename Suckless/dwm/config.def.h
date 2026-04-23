@@ -36,12 +36,12 @@ static int nomodbuttons =
     1; /* allow client mouse button bindings that have no modifier */
 #endif // NO_MOD_BUTTONS_PATCH
 #if VANITYGAPS_PATCH
-static const unsigned int gappih = 2; /* horiz inner gap between windows */
-static const unsigned int gappiv = 2; /* vert inner gap between windows */
+static const unsigned int gappih = 5; /* horiz inner gap between windows */
+static const unsigned int gappiv = 5; /* vert inner gap between windows */
 static const unsigned int gappoh =
-    2; /* horiz outer gap between windows and screen edge */
+    4; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov =
-    2; /* vert outer gap between windows and screen edge */
+    4; /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact =
     0; /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer
           gaps */
@@ -83,8 +83,8 @@ static const int bar_height =
     27; /* 0 means derive from font, >= 1 explicit height */
 #endif  // BAR_HEIGHT_PATCH
 #if BAR_PADDING_PATCH
-static const int vertpad = 1; /* vertical padding of bar */
-static const int sidepad = 1; /* horizontal padding of bar */
+static const int vertpad = 0; /* vertical padding of bar */
+static const int sidepad = 8; /* horizontal padding of bar */
 #endif                        // BAR_PADDING_PATCH
 #if BAR_WINICON_PATCH
 #define ICONSIZE 20   /* icon size */
@@ -121,14 +121,14 @@ static const int statusmon = 0;
 static const int statusmon = 'A';
 #endif // BAR_STATUSALLMONS_PATCH | BAR_STATICSTATUS_PATCH
 #if BAR_STATUSPADDING_PATCH
-static const int horizpadbar = 2; /* horizontal padding for statusbar */
+static const int horizpadbar = 8; /* horizontal padding for statusbar */
 static const int vertpadbar = 0;  /* vertical padding for statusbar */
 #endif                            // BAR_STATUSPADDING_PATCH
 #if BAR_STATUSBUTTON_PATCH
-static const char buttonbar[] = "⚡";
+static const char buttonbar[] = "";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
-static const unsigned int systrayspacing = 1; /* systray spacing */
+static const unsigned int systrayspacing = 4; /* systray spacing */
 static const int showsystray = 1;             /* 0 means no systray */
 #endif                                        // BAR_SYSTRAY_PATCH
 #if BAR_TAGLABELS_PATCH
@@ -138,7 +138,7 @@ static const int lcaselbl = 0;         /* 1 means make tag label lowercase */
 #endif                                 // BAR_TAGLABELS_PATCH
 #if BAR_UNDERLINETAGS_PATCH
 static const unsigned int ulinepad =
-    5; /* horizontal padding between the underline and tag */
+    4; /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke =
     2; /* thickness / height of the underline */
 static const unsigned int ulinevoffset =
@@ -161,7 +161,7 @@ static const int ulineall =
 /* The command to run (via popen). This can be tailored by adding a prompt,
  * passing other command line arguments or providing name options. Optionally
  * you can use other dmenu like alternatives like rofi -dmenu. */
-#define NAMETAG_COMMAND "dmenu < /dev/null"
+#define NAMETAG_COMMAND "dmenu  < /dev/null"
 #endif // NAMETAG_PATCH
 
 #if ALT_TAB_PATCH
@@ -206,11 +206,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "GeistMono Nerd Font :size=13";
+static const char font[] = "IosevkaTermSlab Nerd Font :size=14";
 #else
-static const char *fonts[] = {"GeistMono Nerd Font :size=13"};
+static const char *fonts[] = {"IosevkaTermSlab Nerd Font :size=14"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "GeistMono Nerd Font :size=13";
+static const char dmenufont[] = "IosevkaTermSlab Nerd Font :size=14";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -355,11 +355,12 @@ static const char *layoutmenu_cmd = "layoutmenu.sh";
 #if BAR_LAUNCHER_PATCH
 static const Launcher launchers[] = {
     /* icon to display      command        */
-    {"^c#9457EB^^d^", CMD("qutebrowser")},
-    {"^c#39FF14^^d^", CMD("st", "-c", "'floating'", "-n", "'spfile'", "-T",
+    {" ",CMD("")},
+    {"^c#6246ea^^d^", CMD("qutebrowser")},
+    {"^c#ffb86b^^d^", CMD("st", "-c", "'floating'", "-n", "'spfile'", "-T",
                              "Files", "-g", "80x35", "-e", "yazi")},
-    {"^c#F6890A^^d^", CMD("Telegram")},
-    {"^c#9C04D1^󰊠^d^", CMD("kitty")},
+    {"^c#a7b0e0^^d^", CMD("Telegram")},
+    {"^c#7dab73^^d^", CMD("kitty")},
 };
 #endif // BAR_LAUNCHER_PATCH
 
@@ -388,6 +389,9 @@ const char *spnotes[] = {"n", "st", "-c", "'floating'", "-n",
                          "'spnotes'", "-T", "Notes", "-g", "100x35",
                          "-e", "fznote", NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
+const char *spfzf[] = {"d", "st", "-c", "'floating'", "-n",
+                         "'spfzf'", "-T", "FilesFzf", "-g", "100x35",
+                         "-e", "fzfopen", NULL};
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "'spterm'", NULL};
@@ -477,13 +481,13 @@ static const int tagrows = 2;
  * depending on the patches you enable.
  */
 static const Rule rules[] = {
-    /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
-     *	WM_WINDOW_ROLE(STRING) = role
-     *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
-     */
-    RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
+  /* xprop(1):
+   *	WM_CLASS(STRING) = instance, class
+   *	WM_NAME(STRING) = title
+   *	WM_WINDOW_ROLE(STRING) = role
+   *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
+   */
+  RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
     RULE(.wintype = WTYPE "UTILITY",.isfloating =1)
     RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
     RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
@@ -498,7 +502,7 @@ static const Rule rules[] = {
     RULE(.class = "Figure", .isfloating = 1)
     RULE(.class = "Lxappearance", .isfloating = 1)
     RULE(.class = "TelegramDesktop", .isfloating = 1)
-    RULE(.class = "pavucontrol", .isfloating = 2)
+    RULE(.class = "pavucontrol", .isfloating = 1)
     RULE(.class = "Blueman-manager", .isfloating = 1)
     RULE(.class = "Windscribe2", .isfloating = 1)
     RULE(.class = "Goodvibes", .isfloating = 1)
@@ -511,6 +515,7 @@ static const Rule rules[] = {
     RULE(.instance = "Floatterm", .isfloating = 1)
     RULE(.instance = "spfiles", .isfloating = 1)
     RULE(.instance = "v2rayN", .isfloating = 1)
+    RULE(.title = "Chat", .isfloating = 1)
 
 #if RENAMED_SCRATCHPADS_PATCH
     RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
@@ -519,6 +524,7 @@ static const Rule rules[] = {
     RULE(.instance = "spfiles", .scratchkey = 'e', .isfloating = 1)
     RULE(.instance = "spradio", .scratchkey = 'r', .isfloating = 1)
     RULE(.instance = "spnotes", .scratchkey = 'n', .isfloating = 1)
+    RULE(.instance = "spfzf", .scratchkey = 'd', .isfloating = 1)
     RULE(.instance = "Fsearch", .scratchkey = 'f', .isfloating = 1)
 #elif SCRATCHPADS_PATCH
     RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
@@ -948,7 +954,7 @@ static const char *dmenucmd[] = {"dmenu_run",
                                  topbar ? NULL : "-b",
 #endif // BAR_DMENUMATCHTOP_PATCH
                                  NULL};
-static const char *termcmd[] = {"st", "-n", "terminal", NULL};
+static const char *termcmd[] = {"st", NULL};
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -973,13 +979,11 @@ static const char *statuscmd[] = {"/bin/sh", "-c", NULL, NULL};
 static const char *browsercmd[] = {"qutebrowser", NULL};
 static const char *filescmd[] = {"pcmanfm", NULL};
 static const char *telegramcmd[] = {"Telegram", NULL};
-static const char *gterm[] = {"ghostty", NULL};
 static const Key on_empty_keys[] = {
     /* modifier key            function                argument */
     {0, XK_f, spawn, {.v = browsercmd}},
     {0, XK_t, spawn, {.v = telegramcmd}},
     {0, XK_e, spawn, {.v = filescmd}},
-    {0, XK_g, spawn, {.v = gterm}},
 };
 #endif // ON_EMPTY_KEYS_PATCH
 
@@ -1107,6 +1111,10 @@ static const char *floatterm[] = {"st", "-c", "floating", "-T", "TermFloat","-g"
 static const char *pdfs[] = {"pdfmenu", NULL};
 static const char *kitty[] = {"kitty", NULL};
 static const char *kitty_session[] = {"psps", NULL};
+static const char *sttabs[] = {"tabbed","-cr","2","st","-w","''","$@",NULL};
+static const char *pdftabs[] = {"pdftabs",NULL};
+static const char *guifilefzf[] = {"fzgfm", NULL};
+static const char *dwmtheme[] = {"dwmtheme", NULL};
 
 static const Key keys[] = {
 /* modifier                     key            function                argument
@@ -1129,10 +1137,14 @@ static const Key keys[] = {
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_r, spawn, SHCMD("launcher")},
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
+    {MODKEY, XK_t, spawn, {.v = dwmtheme}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
     {ALTKEY, XK_k, spawn, {.v = kitty_session}},
+    {ALTKEY, XK_g, spawn, {.v = guifilefzf}},
     {ALTKEY, XK_p, spawn, {.v = pdfs}},
+    {ALTKEY, XK_t, spawn, {.v = sttabs}},
+    {ALTKEY, XK_y, spawn, {.v = pdftabs}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},
 
@@ -1237,8 +1249,8 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_space, togglealwaysontop, {0}},
 #endif // ALWAYSONTOP_PATCH
 #if MAXIMIZE_PATCH
-    {MODKEY | ControlMask, XK_h, togglehorizontalmax, {0}},
-    {MODKEY | ControlMask, XK_j, toggleverticalmax, {0}},
+    {MODKEY | ControlMask, XK_Left, togglehorizontalmax, {0}},
+    {MODKEY | ControlMask, XK_Right, toggleverticalmax, {0}},
     {MODKEY | ControlMask, XK_m, togglemax, {0}},
 #endif // MAXIMIZE_PATCH
 #if NO_MOD_BUTTONS_PATCH
@@ -1252,6 +1264,7 @@ static const Key keys[] = {
     {ALTKEY, XK_e, togglescratch, {.v = spfiles}},
     {ALTKEY, XK_r, togglescratch, {.v = spradio}},
     {ALTKEY, XK_n, togglescratch, {.v = spnotes}},
+    {ALTKEY, XK_d, togglescratch, {.v = spfzf}},
     {MODKEY | ControlMask, XK_grave, setscratch, {.v = spcmd1}},
     {MODKEY | ShiftMask, XK_grave, removescratch, {.v = spcmd1}},
 #elif SCRATCHPADS_PATCH
@@ -1278,7 +1291,7 @@ static const Key keys[] = {
 #if SCRATCHPAD_ALT_1_PATCH
     {MODKEY, XK_minus, scratchpad_show, {0}},
     {MODKEY | ShiftMask, XK_minus, scratchpad_hide, {0}},
-    {MODKEY, XK_equal, scratchpad_remove, {0}},
+    {MODKEY|ControlMask, XK_minus, scratchpad_remove, {0}},
 #elif SCRATCHPADS_PATCH && !RENAMED_SCRATCHPADS_PATCH
     {MODKEY, XK_0, view, {.ui = ~SPTAGMASK}},
     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~SPTAGMASK}},
@@ -1286,10 +1299,10 @@ static const Key keys[] = {
     {MODKEY, XK_0, view, {.ui = ~0}},
     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
 #endif // SCRATCHPAD_ALT_1_PATCH
-    {MODKEY | ControlMask, XK_comma, focusmon, {.i = -1}},
-    {MODKEY | ControlMask, XK_period, focusmon, {.i = +1}},
-    {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
-    {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+    // {MODKEY | ControlMask, XK_comma, focusmon, {.i = -1}},
+    // {MODKEY | ControlMask, XK_period, focusmon, {.i = +1}},
+    // {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
+    // {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
 #if TAGALL_PATCH
     {MODKEY | ShiftMask, XK_F1, tagall, {.v = "F1"}},
     {MODKEY | ShiftMask, XK_F2, tagall, {.v = "F2"}},

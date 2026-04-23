@@ -6,7 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font =
-    "GeistMono Nerd Font:pixelsize=16:antialias=true:autohint=true";
+    "IosevkaTermSlab Nerd Font:pixelsize=18:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
