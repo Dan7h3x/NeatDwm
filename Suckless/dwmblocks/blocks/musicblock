@@ -47,35 +47,25 @@ case $BLOCK_BUTTON in
   ;; # scroll down, next
 esac
 
-red="#FF3131"
-purple="#9457EB"
-green="#39FF14"
-blue="#4D4DFF"
-bblue="#89CFF0"
-orange="#F6890A"
-yellow="#CCFF00"
-cyan="#00FEFC"
-teal="#43BBB6"
-black="#000000"
 online=$(timeout 2 mpc 2>/dev/null)
 
 if [ ! "$online" = "" ]; then
   title=$(mpc -f "%title%" | head -n 1)
   if [[ -n "$playing_player" ]]; then
     if [[ $playing_player = "Goodvibes" ]]; then
-      echo -e "^b$purple^^c$black^ ${Info:0:20}^d^"
+      colorbox -i " " -t "{${Info:0:20}}" -f color11
     else
-      echo -e "^b$teal^^c$black^ ${Info:0:20}^d^"
+      colorbox -i " " -t "{${Info:0:20}}" -f color11
     fi
   fi
 
   if [ "$(echo "$online" | wc -l)" -le 1 ]; then
-    echo -e "^b$blue^^c$black^󰝚 On^d^"
+    colorbox -i "󰝚 " -t "{###}" -f color7
   elif [ ! "$title" = "" ]; then
-    echo -e "^b$cyan^^c$black^󰝚 ${title:0:14}^d^"
+    colorbox -i "󰝚 " -t "{${title:0:20}}" -f color12
   else
-    echo -e "^b$cyan^^c$black^󰝚 $(mpc -f "%artist%" | head -n 1)^d^"
+    colorbox -i "󰝚 " -t "{$(mpc -f "%artist%" | head -n 1)}" -f color12
   fi
 else
-  echo -e "^c$black^b$red^ﳌ Off^d^"
+  colorbox -i "ﳌ" -t "{Offline}" -f color3
 fi

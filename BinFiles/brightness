@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
-## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
-
-## Script To Manage Brightness For Archcraft.
 
 # icons
-iDIR='/home/mahdi/.config/dunst/icons/dunst'
+iDIR="$HOME/.config/dunst/icons/dunst"
 
 # Graphics card
 CARD=`ls /sys/class/backlight | head -n 1`
@@ -39,7 +35,7 @@ get_icon() {
 	fi
 }
 
-# Notify 
+# Notify
 notify_bl() {
 	get_icon && dunstify -u low --replace=69 -i "$icon" "Brightness : $(get_backlight)"
 }

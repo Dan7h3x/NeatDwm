@@ -34,10 +34,10 @@ size = 13
 
 builtin_box_drawing = true
 
-normal = { family = "GeistMono Nerd Font", style = "Regular" }
-bold = { family = "GeistMono Nerd Font", style = "Bold" }
-italic = { family = "GeistMono Nerd Font", style = "Italic" }
-bold_italic = { family = "GeistMono Nerd Font", style = "Bold Italic" }
+normal = { family = "Maple Mono", style = "Regular" }
+bold = { family = "Maple Mono", style = "Bold" }
+italic = { family = "Maple Mono", style = "Italic" }
+bold_italic = { family = "Maple Mono", style = "Bold Italic" }
 #
 [general]
 live_config_reload = true
@@ -45,7 +45,7 @@ live_config_reload = true
 [cursor]
 blink_interval = 550
 unfocused_hollow = false
-thickness = 0.35
+thickness = 0.85
 
 [cursor.style]
 blinking = "On"

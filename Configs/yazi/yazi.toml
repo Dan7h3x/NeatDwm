@@ -1,0 +1,13 @@
+[mgr]
+ratio = [1,3,4]
+title_format = "Files: {cwd}"
+
+[[opener.set-wallpaper]]
+run  = "feh --bg-scale %s1"
+for  = "linux"
+desc = "Set as wallpaper"
+
+# yazi.toml
+[[open.prepend_rules]]
+mime = "image/*"
+use  = ["open", "set-wallpaper"]

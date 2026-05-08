@@ -1,0 +1,81 @@
+(
+  max_notifications: 0,
+  timeout: 4000,
+  poll_interval: 16,
+  // idle_threshold: 3600,
+  replacing_enabled: true,
+  replacing_resets_timeout: true,
+  debug: false,
+
+  layout_blocks: [
+    (
+      name: "root",
+      parent: "",
+      hook: Hook(parent_anchor: TR, self_anchor: TR),
+      offset: Vec2(x: -5.0, y: 40.0),
+      params: NotificationBlock((
+        background_color: Color(hex: "#202534"),
+        border_color: Color(hex: "#551e68"),
+        border_rounding: 4.0,
+        border_width: 1.0,
+        gap: Vec2(x: 1.0, y: 1.0),
+        monitor: 0,
+        notification_hook: Hook(parent_anchor: BR, self_anchor: TR),
+      )),
+    ),
+
+    (
+      name: "image",
+      parent: "root",
+      hook: Hook(parent_anchor: TL, self_anchor: TL),
+      offset: Vec2(x: 10.0, y: 0.0),
+      params: ImageBlock((
+        filter_mode: Lanczos3,
+        image_type: Hint,
+        padding: Padding(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
+        rounding: 4.0,
+        scale_width: 90,
+        scale_height: 60,
+      )),
+    ),
+
+    (
+      name: "summary",
+      parent: "image",
+      hook: Hook(parent_anchor: MR, self_anchor: BL),
+      offset: Vec2(x: 1.0, y: 0.0),
+      params: TextBlock((
+        color: Color(hex: "#0eb712"),
+        dimensions: (width: (min: 150, max: 300), height: (min: 0, max: 0)),
+        ellipsize: End,
+        font: "GeistMono Nerd Font 12",
+        padding: Padding(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
+        text: "%s",
+      )),
+    ),
+
+    (
+      name: "body",
+      parent: "summary",
+      hook: Hook(parent_anchor: BL, self_anchor: TL),
+      offset: Vec2(x: 0.0, y: 0.0),
+      params: ScrollingTextBlock((
+        color: Color(hex: "#90a1ef"),
+        font: "GeistMono Nerd Font 11",
+        lhs_dist: 15.0,
+        padding: Padding(left: 1.0, right: 1.0, top: 2.5, bottom: 10.0),
+        rhs_dist: 15.0,
+        scroll_speed: 0.1,
+        scroll_t: 1.0,
+        text: "%b",
+        width: (min: 150, max: 300),
+      )),
+    ),
+  ],
+
+  shortcuts: ShortcutsConfig (
+    notification_interact: 1,
+    notification_close: 2,
+    notification_action1: 3,
+  ),
+)

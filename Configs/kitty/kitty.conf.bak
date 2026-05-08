@@ -1,14 +1,14 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
 
-font_size   12
+font_size   13
 
 #: Color scheme {{{
 
-include themes/Dracula.conf
+include ~/.cache/wal/colors-kitty.conf
 background_opacity 0.9
 background_blur 20
-
+hide_window_decorations yes
 window_padding_width 0
 
 #: }}}
@@ -90,11 +90,11 @@ tab_powerline_style angled
 tab_activity_symbol none
 tab_title_template "{fmt.fg._5f5f5f}{fmt.bg.default}  {f'{title[:6]}…{title[-8:]}' if title.rindex(title[-1]) + 1 > 25 else ('Home' if title.rindex(title[-1]) + 1 < 2 else title)}{' []' if layout_name == 'stack' else ''} "
 active_tab_title_template "{fmt.fg._bf7fbf}{fmt.bg.default}  {f'{title[:10]}…{title[-12:]}' if title.rindex(title[-1]) + 1 > 25 else ('Home' if title.rindex(title[-1]) + 1 < 2 else title)}{' []' if layout_name == 'stack' else ''} "
-active_tab_foreground   #000
-active_tab_background   #eee
-active_tab_font_style   bold
-inactive_tab_foreground #444
-inactive_tab_background #999
+# active_tab_foreground   #000
+# active_tab_background   #eee
+# active_tab_font_style   bold
+# inactive_tab_foreground #444
+# inactive_tab_background #999
 inactive_tab_font_style normal
 tab_bar_background none
 tab_bar_margin_color    none
@@ -136,6 +136,7 @@ map kitty_mod+f3                save_as_session
 map kitty_mod+f5                load_config_file
 
 map kitty_mod+p                 kitty_shell tab
+map kitty_mod+[                 command_pallete
 map kitty_mod+i                 kitten unicode_input
 
 #: }}}
@@ -174,10 +175,14 @@ map kitty_mod+r    set_tab_title
 map kitty_mod+q     close_tab
 map kitty_mod+w>t               move_tab_forward
 map kitty_mod+w>e               move_tab_backward
+map kitty_mod+w>d               detach_tab
 map kitty_mod+l   resize_window narrower 5
 map kitty_mod+h resize_window wider 5
 map kitty_mod+k resize_window taller 5
 map kitty_mod+j resize_window shorter 5
+
+map alt+/ kitten window.py +split bottom
+map alt+\ kitten window.py +split right
 # map kitty_mod+r   resize_window reset
  #: }}}
 map kitty_mod+e kitten hints
@@ -192,7 +197,7 @@ map kitty_mod+e>shift+y kitten hints --multiple --type line --program @
 
 map kitty_mod+d pipe @text overlay nvim -c ':silent! %s#\($\n\s*\)\+\%$##' '+$' -
 # BEGIN_KITTY_FONTS
-font_family      family="GeistMono Nerd Font Regular"
+font_family      family="IosevkaTermSlab Nerd Font"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto

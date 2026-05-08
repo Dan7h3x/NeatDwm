@@ -1,0 +1,1765 @@
+/* Base16 color variables */
+:root {
+  --base00: {background};  /* background */
+  --base01: {color0};  /* lighter background */
+  --base02: {color1};  /* selection background */
+  --base03: {color2};  /* comments, invisibles */
+  --base04: {color3};  /* dark foreground */
+  --base05: {foreground};  /* default foreground */
+  --base06: {color5};  /* light foreground */
+  --base07: {color6};  /* light background */
+  --base08: {color7};  /* red */
+  --base09: {color9};  /* orange */
+  --base0A: {color10};  /* yellow */
+  --base0B: {color11};  /* green */
+  --base0C: {color12};  /* cyan */
+  --base0D: {color13};  /* blue */
+  --base0E: {color14};  /* violet */
+  --base0F: {color15};  /* magenta */
+}
+
+* {
+  border-color: var(--base04) !important;
+}
+a {
+  color: var(--base0D) !important;
+}
+a:visited {
+  color: var(--base0E) !important;
+}
+body {
+  background-color: var(--base00) !important;
+  color: var(--base07) !important;
+}
+html {
+  background-color: var(--base01) !important;
+}
+input,
+textarea {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+blockquote,
+pre {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.post-actions {
+  background-color: var(--base01) !important;
+}
+.textarea-wrapper {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.search--adv {
+  background-color: var(--base01) !important;
+}
+.search__autocomplete > .acp-wrap {
+  background-color: var(--base01) !important;
+}
+.search__autocomplete > .acp-wrap > .acp--highlight {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.search__autocomplete > .acp-wrap strong {
+  color: var(--base06) !important;
+}
+.site-wrapper > #header_wrapper {
+  background-color: var(--base01) !important;
+}
+.site-wrapper > #header_wrapper > #header {
+  background-color: var(--base01) !important;
+}
+.search--header {
+  background-color: var(--base01) !important;
+}
+.zci {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.tile--info {
+  background-color: var(--base01) !important;
+}
+.tile--info__expand {
+  background-color: var(--base04) !important;
+}
+.tile--c {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.module__text {
+  color: var(--base05) !important;
+}
+.about-info-box__heading {
+  color: var(--base06) !important;
+}
+.result.highlight {
+  background-color: var(--base01) !important;
+}
+.result__snippet {
+  color: var(--base05) !important;
+}
+.result__snippet b {
+  color: var(--base06) !important;
+}
+.btn--top {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.btn--top:hover {
+  background-color: var(--base04) !important;
+}
+.result--sep--hr:before {
+  background-color: var(--base04) !important;
+}
+* {
+  border-color: var(--base01) !important;
+}
+.news .alert .pull-info {
+  background-color: var(--base02) !important;
+}
+.link-gray-dark,
+.text-gray-dark {
+  color: var(--base05) !important;
+}
+.bg-white {
+  background-color: var(--base01) !important;
+}
+.border {
+  border-color: var(--base04) !important;
+}
+.breadcrumb .repo-root.js-repo-root a {
+  color: var(--base0D) !important;
+}
+.breadcrumb strong.final-path {
+  color: var(--base05) !important;
+}
+button.ajax-pagination-btn {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+button.ajax-pagination-btn:hover {
+  background-color: var(--base04) !important;
+}
+.comment-reactions .btn-link {
+  color: var(--base05) !important;
+}
+.comment-reactions .user-has-reacted {
+  background-color: var(--base01) !important;
+}
+.text-gray-dark {
+  color: var(--base05) !important;
+}
+.contrib-number {
+  color: var(--base06) !important;
+}
+.counter {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.diffstat-bar {
+  color: var(--base05) !important;
+}
+.file-header {
+  background-color: var(--base01) !important;
+}
+.file-history-tease .participation {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.file-history-tease .participation .quickstat strong {
+  color: var(--base05) !important;
+}
+.file-history-tease .participation a {
+  color: var(--base04) !important;
+}
+.file-history-tease .author a {
+  color: var(--base05) !important;
+}
+.file-history-tease-header {
+  background-color: var(--base01) !important;
+}
+.file-info-divider {
+  background-color: var(--base04) !important;
+}
+.file-wrap {
+  color: var(--base05) !important;
+}
+.file-wrap * {
+  background-color: transparent !important;
+}
+.filter-bar {
+  background-color: var(--base02) !important;
+}
+a.filter-item,
+.filter-item {
+  color: var(--base05) !important;
+}
+a.filter-item.selected,
+.filter-item.selected {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+a.filter-item:hover,
+.filter-item:hover {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.flash {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.gh-header {
+  background-color: var(--base01) !important;
+}
+.gh-header-number {
+  color: var(--base04) !important;
+}
+.ellipsis-expander,
+.hidden-text-expander a {
+  background-color: var(--base01) !important;
+}
+.issue-meta {
+  color: var(--base04) !important;
+}
+.issues-listing a {
+  color: var(--base05) !important;
+}
+.muted-link {
+  color: var(--base05) !important;
+}
+.new-user-avatar-cta {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.overall-summary {
+  border-color: var(--base04) !important;
+}
+.pinned-repo-item.border {
+  border-color: var(--base04) !important;
+}
+.progress-bar {
+  background-color: var(--base04) !important;
+}
+.simple-box {
+  background-color: var(--base01) !important;
+}
+.social-count {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.scope-badge {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.stats-switcher-wrapper {
+  background-color: var(--base01) !important;
+}
+.stats-switcher-wrapper .numbers-summary li a {
+  color: var(--base05) !important;
+}
+.table-list-header-toggle .btn-link {
+  color: var(--base04) !important;
+}
+.table-list-header-toggle .btn-link.selected {
+  color: var(--base05) !important;
+}
+.text-emphasized {
+  color: var(--base06) !important;
+}
+.text-diff-added {
+  color: var(--base0B) !important;
+}
+.text-diff-deleted {
+  color: var(--base08) !important;
+}
+.avatar,
+.timeline-comment-avatar {
+  filter: opacity(75%);
+}
+.blob-code {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.blob-code-addition {
+  background-color: rgba(232, 255, 77, 0.1) !important;
+}
+.blob-code-addition .x {
+  background-color: #647300 !important;
+  color: #c1cacb !important;
+}
+.blob-code-deletion {
+  background-color: rgba(220, 50, 47, 0.2) !important;
+}
+.blob-code-deletion .x {
+  background-color: #721513 !important;
+  color: #c1cacb !important;
+}
+.blob-code-hunk {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.blob-code-inner {
+  color: var(--base05) !important;
+}
+.blob-num {
+  background-color: var(--base01) !important;
+  color: var(--base04) !important;
+}
+.file {
+  color: var(--base05) !important;
+}
+.form-control {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.pl-c {
+  color: var(--base04) !important;
+}
+.pl-c1 {
+  color: var(--base0D) !important;
+}
+.pl-e {
+  color: var(--base0A) !important;
+}
+.pl-en {
+  color: var(--base0D) !important;
+}
+.pl-k {
+  color: var(--base0B) !important;
+  font-weight: bold !important;
+}
+.pl-pds {
+  color: var(--base0C) !important;
+}
+.pl-s {
+  color: var(--base0C) !important;
+}
+.pl-smi {
+  color: var(--base05) !important;
+}
+.pl-v {
+  color: var(--base0B) !important;
+  font-weight: bold !important;
+}
+.pl-mi1 {
+  color: var(--base0B) !important;
+  background-color: transparent !important;
+}
+.pl-md {
+  color: var(--base08) !important;
+  background-color: transparent !important;
+}
+.border-bottom,
+.border-top {
+  border-color: var(--base01) !important;
+}
+.boxed-group * {
+  border-color: var(--base04) !important;
+}
+.boxed-group article {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.boxed-group > h3 {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.more-repos {
+  background-color: var(--base02) !important;
+  box-shadow: inset 0 1px 0 var(--base04) !important;
+}
+.boxed-group-inner {
+  background-color: var(--base01) !important;
+}
+.branch-action-body {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.branch-action-body div {
+  border-color: var(--base04) !important;
+}
+.branch-action-state-clean .branch-action-icon {
+  background-color: var(--base0B) !important;
+}
+.branch-action-state-dirty .branch-action-icon,
+.branch-action-state-unstable .branch-action-icon,
+.branch-action-state-unknown .branch-action-icon {
+  background-color: var(--base0A) !important;
+  color: #fff !important;
+}
+.text-shadow-light,
+.branch-group-name,
+.branch-summary {
+  color: var(--base05) !important;
+  text-shadow: none !important;
+}
+.branch-a-b-count .meter {
+  background-color: var(--base0A) !important;
+}
+.more-branches,
+.branch-group-heading,
+.branch-infobar,
+.branch-name {
+  border-color: var(--base04) !important;
+  background-color: var(--base01) !important;
+}
+.State,
+.State:visited {
+  color: #fff !important;
+}
+.State--red {
+  background-color: var(--base08) !important;
+  color: var(--base01) !important;
+}
+.State--green {
+  background-color: var(--base0B) !important;
+  color: var(--base01) !important;
+}
+.select-menu-filters {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.js-select-menu-tab {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.select-menu-tabs a.selected,
+.select-menu-tab-nav.selected {
+  background-color: var(--base04) !important;
+  color: var(--base01) !important;
+}
+.signed-commit-header {
+  background-color: var(--base01) !important;
+}
+.build-status-item {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.build-status-item .build-status-details {
+  color: var(--base0D) !important;
+}
+.capped-card h3 {
+  background-color: var(--base02) !important;
+}
+.capped-card h3 a {
+  color: var(--base06) !important;
+}
+.capped-card-content {
+  background-color: var(--base01) !important;
+}
+.capped-list th {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.capped-list tr:nth-child(2n) {
+  background-color: var(--base01) !important;
+}
+.commit,
+.commit-meta,
+.commit-icon .octicon,
+.commit-group-title .octicon-git-commit {
+  background-color: var(--base01) !important;
+}
+.commit *,
+.commit-meta *,
+.commit-icon .octicon *,
+.commit-group-title .octicon-git-commit * {
+  border-color: var(--base04) !important;
+}
+.commit-author {
+  color: var(--base05) !important;
+}
+.commit-author-section {
+  color: var(--base05) !important;
+}
+.commit-meta {
+  color: var(--base04) !important;
+}
+.commit-meta .sha-block {
+  color: var(--base04) !important;
+}
+.commit-meta .sha-block .sha {
+  color: var(--base05) !important;
+}
+.commit-ref,
+code.commit-sha {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.commit-ref .user,
+code.commit-sha .user {
+  color: var(--base0C) !important;
+}
+.commit-branches *,
+.commit-tease,
+.commit-title {
+  background-color: rgba(190, 255, 255, 0.2) !important;
+  border: none !important;
+}
+.commit-branches * *,
+.commit-tease *,
+.commit-title * {
+  color: var(--base06) !important;
+}
+.commit-tease-contributors {
+  background-color: var(--base01) !important;
+}
+div.commit-branches,
+div.commit.full-commit p.commit-title,
+qul.branches-list {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+div.commit-branches *,
+div.commit.full-commit p.commit-title *,
+qul.branches-list * {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.commit-meta {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.commits-listing:before {
+  background-color: var(--base01) !important;
+}
+.full-commit {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.full-commit * {
+  text-shadow: none !important;
+}
+.commit-desc pre {
+  background-color: transparent !important;
+  color: var(--base05) !important;
+}
+.commit.table-list-item {
+  border-color: var(--base01) !important;
+}
+.commit-meta.commit-author-section {
+  background-color: transparent !important;
+  color: var(--base05) !important;
+}
+.table-list-cell .commit-title {
+  background-color: transparent !important;
+  color: var(--base05) !important;
+}
+.completeness-indicator-success {
+  background-color: var(--base0B) !important;
+}
+.completeness-indicator-problem {
+  background-color: var(--base0A) !important;
+  color: #fff !important;
+}
+.copyable-terminal {
+  background-color: var(--base01) !important;
+}
+.blankslate {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.comment-form-head.tabnav {
+  background-color: var(--base01) !important;
+}
+.conversation-list-heading .inner {
+  background-color: var(--base01) !important;
+}
+.discussion-item-closed .discussion-item-icon {
+  background-color: var(--base08) !important;
+  color: var(--base06) !important;
+}
+.discussion-item-icon {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.discussion-item-icon.octicon {
+  color: var(--base06) !important;
+}
+.discussion-item-entity,
+.discussion-item .renamed-was,
+.discussion-item .renamed-is {
+  color: var(--base06) !important;
+}
+.discussion-timeline:before {
+  background-color: var(--base04) !important;
+}
+.discussion-timeline-actions {
+  background-color: var(--base01) !important;
+}
+.drag-and-drop {
+  background-color: var(--base01) !important;
+}
+.new-discussion-timeline .closed-banner {
+  background-color: var(--base04) !important;
+  border-color: var(--base01) !important;
+}
+.timeline-comment {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.timeline-comment-header {
+  background-color: var(--base01) !important;
+}
+.timeline-comment-wrapper {
+  border-color: var(--base01) !important;
+}
+.donut-chart > .pending {
+  fill: var(--base0A) !important;
+}
+.dropdown-divider {
+  background-color: var(--base04) !important;
+}
+.dropdown-item {
+  color: var(--base05) !important;
+}
+.dropdown-item:hover {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.dropdown-menu {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+  border-color: var(--base04) !important;
+}
+.files * {
+  color: var(--base05) !important;
+}
+.files tbody tr {
+  border-color: var(--base01) !important;
+}
+.files tbody tr:nth-child(even) {
+  background-color: var(--base03) !important;
+}
+.files tbody tr:nth-child(odd) {
+  background-color: var(--base01) !important;
+}
+.files tbody tr:hover * {
+  background-color: var(--base02) !important;
+}
+.btn {
+  background-image: linear-gradient(to bottom, var(--base04), var(--base01)) !important;
+  border-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.btn:hover {
+  background-color: var(--base02) !important;
+}
+.btn-primary,
+.issues-listing .btn-primary {
+  background-color: var(--base0B) !important;
+  background-image: linear-gradient(var(--base0B), #424d00) !important;
+  color: #000 !important;
+  filter: opacity(62.5%);
+}
+.entry-title a {
+  color: var(--base0D) !important;
+}
+.Header {
+  background-color: var(--base02) !important;
+  border-bottom-color: var(--base04) !important;
+}
+.Header a {
+  color: var(--base06) !important;
+}
+.lang {
+  color: var(--base06) !important;
+}
+.reponav-item,
+.pagehead-tabs-item {
+  background-color: var(--base01) !important;
+  border-color: transparent !important;
+  color: var(--base05) !important;
+}
+.reponav-item:visited,
+.pagehead-tabs-item:visited {
+  color: var(--base05) !important;
+}
+.reponav-item.selected,
+.pagehead-tabs-item.selected {
+  background-color: var(--base01) !important;
+  border-color: var(--base08) var(--base02) transparent !important;
+}
+.site-footer-links * {
+  color: var(--base05) !important;
+}
+.Box-row--focus-gray.navigation-focus {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.js-directory-link {
+  color: var(--base0D) !important;
+}
+.js-site-search-form input,
+.js-chromeless-input-container {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+a.label {
+  color: #000 !important;
+  filter: opacity(75%);
+}
+.notifications-list a {
+  color: var(--base05) !important;
+}
+.notifications-list li {
+  background-color: var(--base01) !important;
+}
+.octicon-repo {
+  color: var(--base06) !important;
+}
+.type-icon-state-closed {
+  color: rgba(255, 54, 43, 0.65) !important;
+}
+.type-icon-state-merged {
+  color: var(--base0E) !important;
+}
+.type-icon-state-open {
+  color: rgba(205, 212, 0, 0.65) !important;
+}
+.octicon-alert {
+  color: #fff !important;
+}
+.octicon-x {
+  color: var(--base08) !important;
+}
+.octicon-check {
+  color: var(--base0B) !important;
+}
+.octicon-primitive-dot {
+  color: var(--base0A) !important;
+}
+.octicon-clippy {
+  color: var(--base06) !important;
+}
+.octicon-diff {
+  color: #fff !important;
+}
+.octicon-markdown {
+  color: var(--base04) !important;
+}
+.orghead {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+  border-bottom: 0px !important;
+  color: var(--base06) !important;
+}
+.org-name {
+  color: var(--base06) !important;
+}
+.pagehead.orghead {
+  background-color: var(--base01) !important;
+}
+.outline-box-highlighted {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.pagination .current {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.pagination .disabled {
+  background-color: var(--base01) !important;
+  color: var(--base04) !important;
+}
+.pagination .disabled:hover {
+  background-color: var(--base01) !important;
+}
+.pagination .gap {
+  background-color: var(--base01) !important;
+  color: var(--base04) !important;
+}
+.pagination a {
+  background-color: var(--base01) !important;
+  border-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.pagination a:hover {
+  background-color: var(--base04) !important;
+  color: var(--base01) !important;
+}
+.empty-cell,
+.diffbar {
+  background-color: var(--base01) !important;
+}
+.merge-status-item {
+  background-color: var(--base02) !important;
+}
+.merge-message {
+  background-color: var(--base02) !important;
+}
+.pr-toolbar {
+  background-color: var(--base01) !important;
+}
+.review-thread-reply {
+  background-color: var(--base01) !important;
+}
+.review-thread-reply .inline-comment-form {
+  background-color: var(--base01) !important;
+}
+.merged.octicon,
+.octicon-git-merge {
+  color: var(--base0E) !important;
+}
+.uploaded-files {
+  background-color: var(--base01) !important;
+}
+.upload-progress {
+  background-color: var(--base01) !important;
+  box-shadow: 1px 0px 0px var(--base01) inset;
+}
+#readme .plain {
+  background-color: var(--base01) !important;
+}
+.markdown-body,
+.markdown-body table * {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+  color: var(--base05) !important;
+}
+.markdown-body a,
+.markdown-body table * a {
+  color: var(--base0D) !important;
+}
+.markdown-body code,
+.markdown-body table * code,
+.markdown-body pre,
+.markdown-body table * pre {
+  background-color: var(--base01) !important;
+}
+.markdown-body hr,
+.markdown-body table * hr {
+  background-color: var(--base04) !important;
+}
+.markdown-body img,
+.markdown-body table * img {
+  background-color: var(--base01) !important;
+}
+.task-list-item.hovered {
+  background-color: var(--base01) !important;
+}
+.range-editor {
+  background-color: var(--base01) !important;
+}
+.compare-pr-placeholder {
+  background-color: var(--base02) !important;
+}
+ul.comparison-list > li.title {
+  background-color: var(--base02) !important;
+}
+ul.comparison-list {
+  background-color: var(--base02) !important;
+}
+.repository-description {
+  color: var(--base05) !important;
+}
+.repository-meta .edit-repository-meta label {
+  color: var(--base05) !important;
+}
+.pagehead.repohead {
+  background-color: var(--base01) !important;
+}
+.repository-content .RecentBranches {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.repohead-details-container a {
+  color: var(--base05) !important;
+}
+.select-menu-modal {
+  border-color: var(--base05) !important;
+}
+.select-menu-modal * {
+  color: var(--base05) !important;
+}
+.select-menu-header,
+.select-menu-header * {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+  text-shadow: none !important;
+}
+.select-menu-item {
+  background-color: var(--base01) !important;
+}
+.select-menu-item.navigation-focus,
+.select-menu-item.navigation-focus.selected,
+.select-menu-item.navigation-focus.select-menu-action,
+.select-menu-item-text.navigation-focus {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.repository-sidebar {
+  background-color: var(--base01) !important;
+}
+.thread-subscription-status {
+  background-color: var(--base01) !important;
+}
+.sunken-menu {
+  background-image: linear-gradient(
+    to right,
+    var(--base01) 0%,
+    var(--base01) 8px
+  ) !important;
+  box-shadow: 1px 0px 0px var(--base01) inset;
+}
+.sunken-menu:before {
+  background-image: linear-gradient(var(--base01), transparent) !important;
+}
+.sunken-menu:after {
+  background-image: linear-gradient(transparent, var(--base01)) !important;
+}
+.sunken-menu-item {
+  border-color: var(--base01) !important;
+}
+.sunken-menu-item.selected {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.sunken-menu-item.selected:after {
+  background-color: var(--base09) !important;
+}
+.sunken-menu-separator:before {
+  background-image: linear-gradient(
+    to right,
+    var(--base01) 70%,
+    var(--base01) 100%
+  ) !important;
+}
+.state {
+  color: var(--base06) !important;
+}
+.state-closed {
+  background-color: var(--base08) !important;
+}
+.state-open {
+  background-color: var(--base0B) !important;
+}
+.subnav-item {
+  color: var(--base05) !important;
+}
+.subnav-item:hover {
+  background-color: var(--base02) !important;
+}
+.subnav-item:visited {
+  color: var(--base05) !important;
+}
+.subnav-item.selected {
+  background-color: var(--base01) !important;
+}
+.subnav-links a:hover {
+  background-color: var(--base01) !important;
+}
+.subnav-search input {
+  border-color: var(--base04) !important;
+}
+.right .tabnav-extra {
+  color: var(--base04) !important;
+}
+a.tabnav-tab,
+.tabnav-tab {
+  border-color: transparent !important;
+  color: var(--base04) !important;
+}
+a.tabnav-tab.selected,
+.tabnav-tab.selected {
+  background-color: var(--base01) !important;
+  background-image: linear-gradient(var(--base01), var(--base01)) !important;
+  border-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.table-list tr,
+.table-list li {
+  background-color: var(--base01) !important;
+}
+.table-list tr:hover,
+.table-list li:hover {
+  background-color: var(--base02) !important;
+}
+.table-list-header {
+  background-color: var(--base01) !important;
+}
+.text-pending {
+  color: var(--base0A) !important;
+}
+.text-pending .octicon-primitive-dot {
+  color: var(--base0A) !important;
+}
+.text-red {
+  color: var(--base08) !important;
+}
+.timeline-commits .commit-meta {
+  background-color: var(--base01) !important;
+}
+.timeline-commits .commit-meta .commit-id {
+  color: var(--base04) !important;
+}
+.topic-tag.topic-tag-link {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.underline-nav-item {
+  color: var(--base05) !important;
+}
+.underline-nav-item.selected {
+  border-bottom-color: var(--base08) !important;
+  color: var(--base05) !important;
+}
+.user-profile-nav {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.user-profile-sticky-bar:after {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+}
+.graphs .area {
+  fill: var(--base0B);
+}
+.summary-stats li .num {
+  color: var(--base06) !important;
+}
+.viz {
+  background-color: var(--base02) !important;
+}
+.facebox-popup {
+  color: var(--base05) !important;
+  background-color: var(--base01) !important;
+}
+.facebox-popup .octicon {
+  color: #fff !important;
+}
+.facebox-popup .owner-select-target {
+  color: var(--base05) !important;
+  background-color: var(--base01) !important;
+}
+.facebox-popup .owner-select-target:hover {
+  background-color: var(--base04) !important;
+}
+.suggester {
+  background-color: var(--base02) !important;
+}
+.suggester li.navigation-focus {
+  background-color: var(--base04) !important;
+}
+.menu {
+  background-color: var(--base01) !important;
+}
+.menu-item.selected {
+  background-color: var(--base02) !important;
+}
+.menu-item:hover {
+  background-color: var(--base04) !important;
+}
+.Box {
+  background-color: var(--base01) !important;
+}
+.Box-header {
+  background-color: var(--base01) !important;
+}
+svg > * text {
+  color: var(--base05) !important;
+  fill: var(--base05) !important;
+}
+.insertions {
+  color: var(--base0B) !important;
+}
+.deletions {
+  color: var(--base08) !important;
+}
+.sfbgg {
+  background-color: var(--base01) !important;
+}
+.sbib_a {
+  background: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+input#lst-ib,
+#sb_ifc0.sbib_b,
+#gs_taif0 {
+  background: transparent !important;
+}
+#lst-ib,
+.sbsb_a {
+  background-color: var(--base01) !important;
+}
+.kpbb {
+  background-image: linear-gradient(to bottom, #59a9e1, var(--base0D)) !important;
+}
+#hdtbSum {
+  background-color: var(--base01) !important;
+}
+#hdtbMenus.hdtb-td-o {
+  background-color: var(--base01) !important;
+}
+#hdtb-tls.hdtb-tl {
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+#hdtb-tls.hdtb-tl.hdtb-tl-sel {
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+#abar_button_opt.ab_button {
+  background: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+#appbar {
+  background-color: var(--base01) !important;
+}
+cite {
+  color: var(--base0B) !important;
+}
+.ab_dropdown {
+  background-color: var(--base01) !important;
+}
+div.crp {
+  background-color: var(--base01) !important;
+}
+#fbar {
+  background-color: var(--base01) !important;
+}
+tr.Even {
+  background-color: var(--base01) !important;
+}
+.BigQuote {
+  background-color: var(--base01) !important;
+  color: var(--base09) !important;
+}
+.Cat1HL {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.Cat2HL {
+  background-color: var(--base02) !important;
+}
+.Cat3HL {
+  background-color: var(--base02) !important;
+}
+.FeatureByline {
+  background-color: var(--base01) !important;
+  border: none !important;
+}
+.Headline {
+  background-color: var(--base02) !important;
+}
+.QuotedText {
+  color: var(--base0E) !important;
+}
+DIV.GAByline {
+  background-color: var(--base01) !important;
+  border: none !important;
+}
+table.OddEven tr:nth-child(even) {
+  background-color: var(--base03) !important;
+}
+table.OddEven tr:nth-child(odd) {
+  background-color: var(--base01) !important;
+}
+DIV.CommentBox {
+  border-color: var(--base01) !important;
+}
+DIV.CommentBox P.CommentTitle {
+  background-color: var(--base02) !important;
+}
+#menu,
+.topnav-container {
+  background-color: var(--base01) !important;
+}
+.navmenu ul {
+  background-color: var(--base01) !important;
+}
+body * {
+  border-color: var(--base02) !important;
+}
+#content {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+#mw-head,
+#mw-panel {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+#mw-head div.portal,
+#mw-panel div.portal {
+  background-image: none !important;
+}
+#mw-head {
+  background-color: var(--base01) !important;
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+#mw-panel,
+#p-logo {
+  background-image: linear-gradient(to right, var(--base01), var(--base01)) !important;
+}
+div.vectorTabs {
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+div.vectorTabs ul {
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+div.vectorTabs ul li {
+  background-color: var(--base01) !important;
+  background-image: none !important;
+  padding: 0px 1px 0px 1px !important;
+}
+div.vectorTabs span {
+  background-color: var(--base01) !important;
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+div.vectorTabs li.selected,
+div.vectorTabs li.selected span {
+  background-color: transparent !important;
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01)) !important;
+}
+.mw-wiki-logo {
+  filter: opacity(50%);
+}
+div#simpleSearch #searchInput {
+  background-color: var(--base01) !important;
+  padding: 0.05em 0px 0.2em 0.2em !important;
+}
+.ambox,
+.infobox,
+#toc,
+#toctitle,
+.toclevel-1 {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.catlinks {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.navbox {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.navbox .th,
+.navbox .navbox-title {
+  background-color: var(--base02) !important;
+}
+.navbox-abovebelow,
+th.navbox-group,
+.navbox-subgroup,
+.navbox-title {
+  background-color: var(--base02) !important;
+}
+.navbox-even {
+  background-color: var(--base01) !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+code {
+  background-color: var(--base02) !important;
+  border-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+div.thumbinner {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+}
+img {
+  filter: opacity(99%);
+}
+img.thumbimage {
+  border-color: var(--base02) !important;
+}
+.mw-body .external {
+  opacity: 0.5 !important;
+}
+table.wikitable {
+  background-color: var(--base01) !important;
+  border-color: var(--base02) !important;
+  color: var(--base05) !important;
+}
+table.wikitable > * > tr > th {
+  background-color: var(--base01) !important;
+}
+table {
+  background-color: var(--base01) !important;
+}
+#hnmain
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  > td:nth-child(1)
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  > td:nth-child(1)
+  > table,
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table {
+  background-color: var(--base09) !important;
+}
+#hnmain
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  > td:nth-child(1)
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  a,
+#hnmain > tbody:nth-child(1) > tr:nth-child(1) a {
+  color: #000 !important;
+}
+#hnmain
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  > td:nth-child(1)
+  > tbody:nth-child(1)
+  > tr:nth-child(2),
+#hnmain > tbody:nth-child(1) > tr:nth-child(2) {
+  background-color: var(--base01) !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(2) {
+  background-color: var(--base01) !important;
+}
+.title a {
+  color: var(--base05) !important;
+}
+.title a:visited {
+  color: var(--base04) !important;
+}
+a.storylink {
+  color: var(--base06) !important;
+  font-weight: bold;
+}
+.sitestr {
+  color: var(--base0D) !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) {
+  background-color: var(--base01) !important;
+}
+#hnmain .comhead {
+  color: var(--base06) !important;
+}
+#hnmain .c00 {
+  color: var(--base05) !important;
+}
+#hnmain a.hnuser {
+  color: var(--base0A) !important;
+}
+#hnmain span.age a {
+  color: var(--base04) !important;
+}
+.cdd {
+  color: rgba(255, 54, 43, 0.65) !important;
+}
+.comment i {
+  color: var(--base0E) !important;
+}
+#hnmain > tbody:nth-child(1) > tr:nth-child(4) {
+  background-color: var(--base01) !important;
+}
+#hnmain
+  > tbody:nth-child(1)
+  > tr:nth-child(4)
+  > td:nth-child(1)
+  > table:nth-child(2)
+  > tbody:nth-child(1)
+  > tr:nth-child(1)
+  > td:nth-child(1) {
+  background-color: var(--base09) !important;
+}
+div#page div#header {
+  background-color: var(--base01) !important;
+}
+div#page div#header a {
+  color: var(--base0E) !important;
+}
+.post {
+  background-color: var(--base01) !important;
+}
+.post * {
+  overflow: auto !important;
+}
+.post h2 {
+  background-color: var(--base01) !important;
+}
+.post h2 a {
+  color: var(--base06) !important;
+}
+.post div.entry {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.post div.entry blockquote {
+  background-color: var(--base01) !important;
+}
+.post div.entry kbd {
+  background-color: var(--base01) !important;
+  border-color: var(--base04) !important;
+  box-shadow: none !important;
+  color: var(--base06) !important;
+  text-shadow: 0px 1px 0px #000 !important;
+}
+.post pre.mode-line {
+  overflow: visible !important;
+}
+#sr-header-area {
+  background-color: var(--base01) !important;
+}
+#sr-header-area .srdrop .selected {
+  color: var(--base05) !important;
+}
+#sr-header-area #sr-more-link {
+  background-color: var(--base01) !important;
+}
+.link.promotedlink.promoted {
+  background-color: var(--base01) !important;
+}
+.link .usertext .md {
+  background-color: var(--base01) !important;
+}
+.linkinfo {
+  background-color: var(--base01) !important;
+}
+.linklisting .odd {
+  background-color: var(--base01) !important;
+}
+.thing .title {
+  color: var(--base05) !important;
+}
+div.md {
+  color: var(--base05) !important;
+}
+body.comment {
+  background-color: var(--base01) !important;
+}
+.commentarea > .usertext {
+  background-color: var(--base01) !important;
+}
+.commentarea .menuarea {
+  background-color: var(--base01) !important;
+}
+.comments-page .panestack-title {
+  background-color: var(--base01) !important;
+}
+.listing-chooser {
+  background-color: var(--base01) !important;
+}
+.listing-chooser .intro {
+  background-color: var(--base04) !important;
+  color: var(--base06) !important;
+}
+.listing-chooser .grippy {
+  background-color: var(--base01) !important;
+}
+.listing-chooser .grippy:after {
+  border-right: none !important;
+}
+.listing-chooser li {
+  background-color: var(--base01) !important;
+}
+.listing-chooser li.selected {
+  background-color: var(--base04) !important;
+  box-shadow: none;
+}
+.listing-chooser li a {
+  color: var(--base05) !important;
+}
+.listing-chooser li a .description {
+  color: var(--base06) !important;
+}
+.titlebox {
+  background-color: var(--base01) !important;
+}
+.titlebox form.toggle {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+.side .usertext-body .md {
+  background-color: var(--base01) !important;
+}
+.side {
+  background-color: var(--base01) !important;
+}
+.sidebox .spacer {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.tabmenu li a {
+  background-color: var(--base01) !important;
+}
+#header-bottom-right {
+  background-color: var(--base01) !important;
+}
+.morelink .nub {
+  background-color: var(--base01) !important;
+}
+* {
+  border-color: var(--base04) !important;
+}
+a {
+  color: var(--base0D) !important;
+}
+a:visited {
+  color: var(--base0E) !important;
+}
+body {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+html {
+  background-color: var(--base01) !important;
+}
+input,
+textarea {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+tr:hover,
+blockquote,
+pre {
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+}
+#toolMenu li {
+  background-color: var(--base01) !important;
+}
+.navPanel,
+.navIntraTool {
+  background-color: var(--base01) !important;
+}
+.instruction,
+.sakaiCopyrightInfo {
+  color: var(--base05) !important;
+}
+.listHier th {
+  background-color: var(--base02) !important;
+}
+ul.makeMenu {
+  background-color: var(--base02) !important;
+  border: 1px solid var(--base02) !important;
+}
+tr.external {
+  background-color: var(--base02) !important;
+}
+hr {
+  background-color: var(--base02) !important;
+  color: var(--base02) !important;
+}
+.bounty-indicator,
+.bounty-indicator-tab {
+  background-color: var(--base0E) !important;
+}
+.bottom-notice {
+  background-color: var(--base01) !important;
+}
+.comments-link {
+  color: var(--base0B) !important;
+}
+.page-numbers {
+  background-color: var(--base0B) !important;
+  color: var(--base06) !important;
+}
+.page-numbers.current {
+  background-color: var(--base09) !important;
+  color: var(--base01) !important;
+}
+.post-menu a {
+  color: var(--base0E) !important;
+}
+.question-status {
+  background-color: var(--base01) !important;
+}
+.bg-black-050 {
+  background-color: transparent !important;
+}
+.val-info {
+  background-color: transparent !important;
+  color: var(--base05) !important;
+}
+.s-label {
+  color: var(--base05) !important;
+}
+pre code {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+pre code .atn {
+  color: var(--base0D) !important;
+}
+pre code .atv {
+  color: var(--base0C) !important;
+}
+pre code .com {
+  color: var(--base04) !important;
+}
+pre code .kwd {
+  color: var(--base0B) !important;
+}
+pre code .lit {
+  color: var(--base0F) !important;
+}
+pre code .pln,
+pre code .pun {
+  color: var(--base05) !important;
+}
+pre code .str {
+  color: var(--base0C) !important;
+}
+pre code .tag {
+  color: var(--base0B) !important;
+}
+pre code .typ {
+  color: var(--base0A) !important;
+}
+#footer {
+  background-color: var(--base02) !important;
+  color: var(--base05) !important;
+}
+#footer #footer-sites th {
+  color: var(--base06) !important;
+}
+.top-footer-links a {
+  color: var(--base0B) !important;
+}
+.so-header {
+  background-color: var(--base02) !important;
+  color: var(--base06) !important;
+}
+.so-header a {
+  color: var(--base0B) !important;
+}
+.so-header .navigation .-list .-item :hover {
+  background-color: var(--base0B) !important;
+  color: #fdf6e3 !important;
+}
+.topbar-dialog {
+  background-color: var(--base01) !important;
+  box-shadow: var(--base04) 5px 5px 5px;
+}
+.topbar-dialog .current-site-container {
+  background-color: var(--base01) !important;
+}
+.topbar-dialog .header {
+  background-color: var(--base01) !important;
+}
+.topbar-dialog .header a {
+  color: var(--base06) !important;
+}
+.topbar-dialog .site-link {
+  color: var(--base06) !important;
+}
+#header {
+  background-color: var(--base02) !important;
+}
+#question-header .question-hyperlink {
+  color: var(--base06) !important;
+}
+#hlogo a {
+  filter: opacity(75%);
+}
+.new-post-activity {
+  background-color: var(--base01) !important;
+}
+.tagged-interesting {
+  background-color: var(--base02) !important;
+}
+div.answered-accepted {
+  background-color: var(--base0B) !important;
+  color: var(--base06) !important;
+}
+div.answered-accepted .mini-counts {
+  background-color: var(--base0B) !important;
+  color: var(--base06) !important;
+}
+.answered .mini-counts span {
+  color: var(--base0B) !important;
+}
+.unanswered .mini-counts span {
+  color: var(--base05) !important;
+}
+#hot-network-questions a {
+  color: var(--base0C) !important;
+}
+#hot-network-questions h4 a.js-gps-track {
+  color: var(--base06) !important;
+}
+#sidebar .community-bulletin .bulletin-item-content a {
+  color: var(--base06) !important;
+}
+#sidebar .module.community-bulletin {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+#sidebar .question-hyperlink {
+  color: var(--base0C) !important;
+}
+.newuser {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.label-key {
+  color: var(--base05) !important;
+}
+.label-key b {
+  color: var(--base06) !important;
+}
+#h-chat-link {
+  color: var(--base06) !important;
+}
+.ad502-room {
+  background-color: var(--base01) !important;
+  box-shadow: var(--base04) 0px 1px 3px;
+  color: var(--base06) !important;
+}
+#tabs a {
+  background-color: transparent !important;
+  background-image: linear-gradient(to bottom, var(--base01), var(--base01));
+  color: var(--base06) !important;
+}
+#tabs a.youarehere {
+  background-image: linear-gradient(to bottom, var(--base09), var(--base01));
+  color: #fdf6e3 !important;
+}
+.post-tag {
+  background-color: var(--base04) !important;
+  color: var(--base01) !important;
+}
+.post-tag::before {
+  background-color: var(--base01) !important;
+}
+a.comment-user.owner {
+  background-color: var(--base0B) !important;
+  color: var(--base06) !important;
+}
+.post-signature {
+  background-color: var(--base01) !important;
+  color: var(--base06) !important;
+}
+.post-signature a {
+  color: var(--base0C) !important;
+}
+.post-signature.owner .user-info .user-details a {
+  color: var(--base0B) !important;
+}
+.post-signature span.relativetime {
+  color: var(--base06) !important;
+}
+.vote {
+  background-color: var(--base01) !important;
+}
+.vote .star-off {
+  filter: opacity(75%);
+}
+.vote .star-on {
+  filter: opacity(50%) !important;
+}
+.vote .vote-down-off,
+.vote .vote-up-off {
+  filter: opacity(50%);
+}
+.answer-votes {
+  background-color: var(--base04) !important;
+  color: var(--base01) !important;
+}

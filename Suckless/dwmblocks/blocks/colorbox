@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+usage() {
+    echo "Usage: colorbox -t \"text\" [-f color] [-b color]"
+    echo "  -t text    : The text to display"
+    echo "  -f color   : Foreground color (like foreground/color4)"
+    echo "  -h         : Show this help"
+    exit 1
+}
+
+fg_color="$(xrdb -get foreground)"  # default white
+bg_color="$(xrdb -get background)"
+text=""
+while getopts "i:t:f:h" opt; do
+  case $opt in
+    i) icon="$OPTARG";;
+    t) text="$OPTARG" ;;
+    f) fg_color="$(xrdb -get "$OPTARG")" ;;
+    h) usage ;;
+    *) usage ;;
+  esac
+done
+
+[ -z "$text" ] && usage
+
+# Build output
+output=""
+[ -n "$fg_color" ] && output+="^c$fg_color^"
+output+="$icon^d^^b$bg_color^^c$fg_color^$text"
+
+echo "$output^d^"

@@ -1,0 +1,99 @@
+
+
+* {
+    font:   "GeistMono Nerd Font 12";
+
+    bg0:     #1E1D2FFF;
+    bg1:      #282839FF;
+    bg2:      #000B83FF;
+    fg0:      #D9E0EEFF;
+    fg1:      #7AA2F7FF;
+    fg2:      #ABE9B3FF;
+    background-color:   transparent;
+    text-color:         @fg0;
+
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+    background-color:   @bg0;
+  prefer-icon-theme:  true;
+
+    location:       center;
+    width:          1340;
+    y-offset:       0;
+    border-radius:  8;
+}
+
+inputbar {
+    font:       "GeistMono Nerd Font 20";
+    padding:    12px;
+    spacing:    12px;
+    children:   [ icon-search, entry ];
+}
+
+icon-search {
+    expand:     false;
+    filename:   "search";
+    size: 28px;
+}
+
+
+
+entry {
+    font:   inherit;
+
+    placeholder         : "Wallpapers.............";
+    placeholder-color   : @fg2;
+}
+
+message {
+    border:             2px 0 0;
+    border-color:       @bg1;
+    background-color:   @bg1;
+}
+
+textbox {
+    padding:    8px 24px;
+}
+
+listview {
+    lines:      1;
+    columns:    2;
+
+    fixed-height:   false;
+    border:         1px 0 0;
+    border-color:   @bg1;
+    cycle:          false;
+    layout:         Vertical;
+    flow:           Vertical;
+}
+
+element {
+  orientation: vertical;
+    padding:            1px 1px;
+    spacing:            16px;
+    background-color:   transparent;
+}
+
+element normal active {
+    text-color: @bg2;
+}
+
+element selected normal, element selected active {
+    background-color:   @bg2;
+    text-color:         @fg1;
+}
+
+element-icon {
+    size:   800px;
+}
+
+element-text {
+  font: "GeistMono Nerd Font 10";
+    text-color: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}

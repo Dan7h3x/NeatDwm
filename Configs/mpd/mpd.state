@@ -1,17 +1,17 @@
-sw_volume: 100
+sw_volume: 72
 audio_device_state:1:PipeWire Sound Server
 audio_device_state:1:Visualizer feed
 state: pause
-current: 621
-time: 25.045
+current: 398
+time: 1.186
 random: 1
-repeat: 0
+repeat: 1
 single: 0
 consume: 0
 crossfade: 0
 mixrampdb: 0
 mixrampdelay: -1
-lastloadedplaylist: 
+lastloadedplaylist: Radios/Pop2.m3u
 playlist_begin
 0:adamlar/Adamlar  Hikaye.mp3
 1:adamlar/Adamlar - Acının İlacı.mp3
@@ -389,252 +389,314 @@ playlist_begin
 373:Mugham/4_5886280987297448283.mp3
 374:Mugham/4_594184613455200538.mp3
 375:Mugham/83844117.mp3
-376:Mugham/DAGLARDA_DUMAN_GOZALDIR.mp3
-377:Mugham/Elibaba Memmedov - Bayati Shiraz Tesnifi (Alibaba Mammadov).mp3
-378:Mugham/Əlibaba_Məmmədov_-_Gözəl_sənə_məlum_olsun_320k.mp3
-379:Mugham/GAL-GAL_ADI_CEYRAN.mp3
-380:Mugham/golchin.mugamat (5).mp3
-381:Mugham/Hamidan gozel menem.mp3
-382:Mugham/Huseynaga Hadiyev Al menden guluslerini Tekce umid q-audio_1.mp3
-383:Mugham/Huseynaga Hadiyev Al menden guluslerini Tekce umid q-audio.mp3
-384:Mugham/Islam-Rzayev-Sen-de-hemdemmen-de-hemdem_1960927.mp3
-385:Mugham/Könül_Qəmbərova_Humayun_muğami_Azərbaycan_radiosu_105_FM_.mp3
-386:Mugham/libaba_Məmmədov_Bayatı_Şiraz_təs.mp3
-387:Mugham/Mansum ibrahimov Bayati Shiraz destgahi.m4a
-388:Mugham/Mələkxanım_Eyubova_Dağların_Başı_Qışda_Qar_Olar_Zaurla_Günaydın.mp3
-389:Mugham/NEZAKET._T_-_NEYCHUN_GELMEZ_-_DAGLARIN_BASHI.mp3
-390:Mugham/Nəzakət teymurova - Dilbərim.mp3
-391:Mugham/onlymp3_to_Kamile_Nebiyeva_Kime_yalvarimMugham_wALMZuDKKpE_192k.mp3
-392:Mugham/Sahib Kərimov Almanı atdım xarala_1.mp3
-393:Mugham/Sahib Kərimov Almanı atdım xarala.mp3
-394:Mugham/shovket-elekberova-axsham-mahnisi.mp3
-395:Mugham/shovket-elekberova-tez-gel.mp3
-396:Mugham/tarkaman.mp3
-397:Mugham/yt1s.com - Rubabe Muradova Heyder babaya salam.mp3
-398:Mugham/Züleyxa Mirismayilova - Dedin onu bilmirəm.mp3
-399:Mugham/Javid Tabrizli - Dashligala.mp3
-400:Mugham/(A45)(joyamusic).mp3
-401:Mugham/(A49)(joyamusic).mp3
-402:Mugham/Mugham Qatâr(joyamusic).mp3
-403:Mugham/4_476891526207641010.mp3
-404:Mugham/Əlibaba Məmmədov  - Muxalif Təsnifi.mp3
-405:Mugham/Javid Tabrizli - Intizar.mp3
-406:Mugham/Javid Tabrizli - Durnam.mp3
-407:Mugham/Rashid-Behbudov-Gulabatin.mp3
-408:Mugham/Erdal_Erzincan_Türkü_288_Bölüm_Güldür_Güldür_Show_w1pXamSqwHo.mp3
-409:Mugham/Əlibaba_Məmmədov_İnandır_məni_5ZuyvnYdSBA_140.mp3
-410:Mugham/Əlibaba_Məmmədov_Şən_mahnı_Səni_gözlər_mus_Əlibaba_M_KVvqc0OHYAk.mp3
-411:Mugham/Əlibaba_Məmmədov_Vətən_yaxşıdır_Xudayar_təsnifi_wNNbvVHl4ik_140.mp3
-412:Mugham/02 Qatar Muğamı.MP3
-413:Mugham/Mənsum İbrahimov _ Axtararsınız (Rəsmi Audio)(M4A_128K).m4a
-414:Mugham/Mənsum_İbrahimov_yeri_ha_yeri_ha_küsmüşəm_səndən_k6UT4gGeV4Y_140.mp3
-415:Mugham/NEZAKET._T_-_QAL_SENE_QURBAN.mp3
-416:Mugham/Rəvan_Qachayev_Qaragilə_Dilkeş_Muğam_müsabiqəsi_7_14_0_Zjtqxhr6riQ.mp3
-417:Mugham/Rashid Behbudov - Bahar sensiz.mp3
-418:Mugham/coban gizi.mp3
-419:Mugham/saribulbul.mp3
-420:Mugham/Javid-Tabrizli-Ayrilik.mp3
-421:Persian/هایده-اشاره.mp3
-422:Persian/هایده-ای زندگی سلام.mp3
-423:Persian/هایده-بهونه.mp3
-424:Persian/هایده-پریشون.mp3
-425:Persian/هایده-راوی.mp3
-426:Persian/هایده-زمونه.mp3
-427:Persian/هایده-ساقی.mp3
-428:Persian/هایده-سوغاتی.mp3
-429:Persian/هایده-سوگند.mp3
-430:Persian/هایده-سیاه چشمون.mp3
-431:Persian/هایده-شانه هایت.mp3
-432:Persian/هایده-شب عشق.mp3
-433:Persian/هایده-عروسک.mp3
-434:Persian/هایده-مستی.mp3
-435:Persian/هایده-نگو نمیام.mp3
-436:Persian/مهستی - میخونه بی شراب.mp3
-437:Persian/مهستی - دلم تنگه.mp3
-438:Persian/مهستی -  الهی بمونی.mp3
-439:Persian/مهستی - آسمون با منو تو قهره دیگه.mp3
-440:Persian/مهستی - اسیر.mp3
-441:Persian/مهستی - بازیچه.mp3
-442:Persian/مهستی - دو رنگی.mp3
-443:Persian/دلکش - یاد کودکی.mp3
-444:Persian/هایده-پاییز.mp3
-445:Persian/دلکش - امید جانم.mp3
-446:Persian/مهستی - بیا بنویسیم.mp3
-447:Persian/مهستی - طعنه.mp3
-448:Persian/هایده-زندگی.mp3
-449:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/01. Made In Heaven.mp3
-450:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/02. A Kind Of Magic.mp3
-451:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/03. Too Much Love Will Kill You.mp3
-452:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/04. Bohemian Rhapsody.mp3
-453:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/05. Another One Bites The Dust.mp3
-454:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/06. Under Pressure.mp3
-455:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/07. Killer Queen.mp3
-456:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/08. Radio Ga Ga.mp3
-457:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/09. Fat Bottomed Girls.mp3
-458:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/10. I Want It All.mp3
-459:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/11. Bicycle Race.mp3
-460:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/12. I Want To Break Free.mp3
-461:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/13. Innuendo.mp3
-462:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/14. You're My Best Friend.mp3
-463:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/15. Don't Stop Me Now.mp3
-464:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/16. It's A Hard Life.mp3
-465:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/17. Breakthru.mp3
-466:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/18. Save Me.mp3
-467:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/19. We Will Rock You.mp3
-468:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/20. Crazy Little Thing Called Love.mp3
-469:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/21. Who Wants To Live Forever.mp3
-470:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/22. Headlong.mp3
-471:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/23. Somebody To Love.mp3
-472:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/24. Now I'm Here.mp3
-473:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/25. The Miracle.mp3
-474:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/26. Good Old Fashioned Lover Boy.mp3
-475:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/27. I'm Going Slightly Mad.mp3
-476:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/28. Play The Game.mp3
-477:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/29. The Invisible Man.mp3
-478:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/30. Flash.mp3
-479:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/31. Hammer To Fall.mp3
-480:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/32. Friends Will Be Friends.mp3
-481:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/33. Seven Seas Of Rhye.mp3
-482:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/34. One Vision.mp3
-483:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/35. The Show Must Go On.mp3
-484:Rap/Allame - Fil İnadı ft Aspova - GuncelMp3Indir.Com.mp3
-485:Rap/Allame - Poz (Tirat) - GuncelMp3Indir.Com.mp3
-486:Rap/Allame-Dilsiz-1.mp3
-487:Rap/Ceza - Suspus.mp3
-488:Rap/Ceza - Yerli Plaka.mp3
-489:Rap/Ezhel - Bazen.mp3
-490:Rap/Gazapizm - Heyecanı Yok.mp3
-491:Rap/Gazapizm - İzaf - GuncelMp3Indir.Com.mp3
-492:Rap/Hayki-Ruzgar-feat-Ceza-26.mp3
-493:Rap/Mp3indirco-ceza-fark-var.mp3
-494:Rap/Mp3indirco-ceza-gelsin-hayat-bildigi-gibi-feat-sezen-aksu.mp3
-495:Rap/mp3indirdur-Ceza-Turk-Marsi.mp3
-496:Rap/mp3indirdur-Norm-Ender-Deli.mp3
-497:Rap/mp3indirdur-Norm-Ender-Sozler-Serefsiz-Oldu.mp3
-498:Rap/Ozbi - feat Melek Mosso-Hadi Gittik.mp3
-499:Rap/Ozbi - Sana Sormam.mp3
-500:Rap/mp3indirdur-Dj-Sivo-Baskin-ft-Ceza--Gazapizm.mp3
-501:Rap/Ozbi-Asi.mp3
-502:Rap/Gazapizm - Çöplük.mp3
-503:Rap/Gazapizm - Pisliğin Üstüne Basmışlar.mp3
-504:Rap/Gazapizm - Sağı Solu Kes.mp3
-505:Rap/Gazapizm - Unutulacak Dünler.mp3
-506:Rap/Gazapizm - Yol.mp3
-507:Rap/5. Allame - Kopyala Yapıştır (128).mp3
-508:Rap/Allame - Lades.mp3
-509:Rap/mp3indirdur-Norm-Ender-Mekanin-Sahibi.mp3
-510:Rap/Gazapizm-Olur-Mu-66.mp3
-511:Rap/Allame - Kambur.mp3
-512:Rap/Allame-Hayalin-Yeri-Yok.mp3
-513:Rap/Allame - Yaz Baştan.mp3
-514:Telegram/@ah_Chillmusic.mp3
-515:Telegram/113018671.mp3
-516:Telegram/15073028553375mp3_94_5.mp3
-517:Telegram/48643902.mp3
-518:Telegram/667967SIMl.mp3
-519:Telegram/99988972.mp3
-520:Telegram/Celine Dion - Thats The Way It Is www.my-free-mp3.net  (1).mp3
-521:Telegram/Chaka Chiki Bum – Cuban Pete.mp3
-522:Telegram/Coffee and cigarettes - Kirli   Ah Aman Aman.mp3
-523:Telegram/Kate Bush Running Up That Hill.mp3
-524:Telegram/Levent-Yüksel-Sultanım_2008916.mp3
-525:Telegram/Marino-Devil-In-Disguise-Official-Lyric-Video.m4a
-526:Telegram/MFÖ-ALi-Desidero_242982.mp3
-527:Telegram/NF-FEAR.m4a
-528:Telegram/Rag'n'Bone Man - Pocket (Official Video).mp3
-529:Telegram/Rick Astley – Never Gonna Give You Up.mp3
-530:Telegram/sunstroke_project_feat_olia_-_runaway_(z3.fm).mp3
-531:Telegram/Suzane - Je t'accuse (Clip officiel).mp3
-532:Telegram/Taylor Swift The Fate of Ophelia.mp3
-533:Telegram/Tennessee Ernie Ford - Sixteen Tons.mp3
-534:Telegram/The Riddle.mp3
-535:Telegram/Toto - Africa (Official HD Video).mp3
-536:Telegram/Bee Gees - Stayin' Alive.mp3
-537:Telegram/12  Ask.mp3
-538:Telegram/Deniz Seki - Askima Ait korkmuyorum seni kaybetmekten.mp3
-539:Telegram/09. Sakinim (Akustik).mp3
-540:Telegram/@ey_elahe_naz (2).mp3
-541:Telegram/@ey_elahe_naz (3).mp3
-542:Telegram/@ey_elahe_naz (4).mp3
-543:Telegram/@ey_elahe_naz (5).mp3
-544:Telegram/Yuzyuzeyken Konusuruz - Burokrat.mp3
-545:Telegram/Ol Bana Razi.mp3
-546:Telegram/Burcu Güneş - Oflaya Oflaya.mp3
-547:Telegram/@ey_elahe_naz.mp3
-548:Telegram/@eyelahenazz (6).mp3
-549:Telegram/@eyelahenazz.mp3
-550:Telegram/Udo_Lindenberg_Apache_207_-_Komet.mp3
-551:Telegram/Ibrahim Tatlises - Yikilmisim Ben.mp3
-552:Telegram/A Flock Of Seagulls – I Ran.mp3
-553:Telegram/The Beatles Here Comes The Sun.mp3
-554:Telegram/Ac__t__r_gibi_severek_[_YouConvert.net_].mp3
-555:Telegram/Akhbarak Aye (320).mp3
-556:Telegram/Nico-Santos-All-Time-High-128.mp3
-557:Telegram/Arctic Monkeys – I Wanna Be Yours.mp3
-558:Telegram/Videoclub Amour Plastique.mp3
-559:Telegram/Asdis - Angel Eyes.mp3
-560:Telegram/Hande Yener- Askin Atesi.mp3
-561:Telegram/03 Goksel - Bi Seni Konuşurum.mp3
-562:Telegram/15 Kirli Kadeh (İlyas Yalçıntaş).flac
-563:Telegram/Mike Olfield & Maggie Reilly – Moonlight Shadow.mp3
-564:Telegram/EasyLover.mp3
-565:Telegram/Mor Ve Otesi - Kis Geliyor.mp3
-566:Telegram/NSYNC Bye Bye Bye.mp3
-567:Telegram/Claude - C est La Vie.mp3
-568:Telegram/Lady Gaga Bruno Mars Die With A Smile.mp3
-569:Telegram/Mor-Ve-Otesi-Deli-320.mp3
-570:Telegram/Gazapizm - Müşkül.mp3
-571:Telegram/SpotifyMate.com - End of the World - Miley Cyrus.mp3
-572:Telegram/01 - Shape Of My Heart.mp3
-573:Telegram/Y252zy252zeykenKonu351uruz-Ge231mi351tenGeri.mp3
-574:Telegram/03. Ink.mp3
-575:Telegram/Sia - Gimme Love.mp3
-576:Telegram/Görev Gibi Yaşa.mp3
-577:Telegram/Aerosmith Dream On.mp3
-578:Telegram/Eurythmics   - Sweet Dreams.mp3
-579:Telegram/Fools Garden – Lemon Tree.mp3
-580:Telegram/Linkin Park In The End.mp3
-581:Telegram/Teddy Swims - The Door.mp3
-582:Telegram/01. İçinde Tutma.mp3
-583:Telegram/2016062414400161585.mp3
-584:Telegram/Gene Kelly - Singing In The Rain mp3.mp3
-585:Telegram/11 - Lighter - Kyle Alessandro (320).mp3
-586:Telegram/The Beatles – Hey Jude!.mp3
-587:Telegram/05. Smoke On The Water.mp3
-588:Telegram/03. Somebody That I Used To Know.mp3
-589:Telegram/06 - how soon is now_.mp3
-590:Telegram/Lola Young Messy.mp3
-591:Telegram/1_5 - Champagne - Suzane (320).mp3
-592:Telegram/Miserere_mei_Deus_Allegri_Tenebrae_conducted_by_Nigel_S_H3v9unphfi0.mp3
-593:Telegram/Hande Yener - Acele Etme.mp3
-594:Telegram/Allame - Muskul.mp3
-595:Telegram/Soner Sarikabadayi - NERESI1.mp3
-596:Telegram/Dolu Kadehi Ters Tut - Ölene Dek.mp3
-597:Telegram/mp3indirdur-Allame-Girdap.mp3
-598:Telegram/Allame - Ömür.mp3
-599:Telegram/13. Birds.mp3
-600:Telegram/06 Team.mp3
-601:Telegram/949a61a9f0bb15a0d13eeca5c2b45a75.mp3
-602:Telegram/Emre Fel - Sallan1.mp3
-603:Telegram/Emre Fel Sana El Pence Durmam.mp3
-604:Telegram/09 Grup Yorum - Uğurlama.mp3
-605:Telegram/Buray - Senin Yüzünden.mp3
-606:Telegram/@Music1_Turk    - Feride Hilal Akın   Buray - Rampapapam.mp3
-607:Telegram/4_5904685961542900165.mp3
-608:Telegram/Benson Boone Mystical Magical.mp3
-609:Telegram/Rosa Linn Snap.mp3
-610:Telegram/Bill Withers - Just The Two Of Us.mp3
-611:Telegram/The Smiths - There Is A Light That Never Goes Out.mp3
-612:Telegram/09_-_heaven_knows_im_miserable_now.mp3
-613:Telegram/The Three Tenors - In Concert - Rome 1990 CD 1 TRACK 17 (320.mp3
-614:Telegram/13 Naber.mp3
-615:Telegram/Candan Ercetin – Elbette (3 серия).mp3
-616:Telegram/1_3 - Mor Yazma - Umut Kaya (320).mp3
-617:Telegram/Lucio Corsi - Volevo essere un duro.mp3
-618:Telegram/Voyage (1).mp3
-619:Telegram/You're the Voice.mp3
-620:Telegram/cant get you out of my head.mp3
-621:Telegram/Yüzyüzeyken_Konuşuruz_Yine_De_hEF-9HKjP3Y_140.mp3
-622:Telegram/Bendeniz - Ihtiyacim Var.mp3
-623:Rain1.ogg
+376:Mugham/AGLARSAN_AGLARAM_GULEREM_GU.MP3
+377:Mugham/ALMANI_ATDIM_KHARALA.MP3
+378:Mugham/BAKHTEVER_OLDUM.MP3
+379:Mugham/BERY_BAKH.MP3
+380:Mugham/CHUCHELERE_SU_SEPBISHEM.MP3
+381:Mugham/DAGLARDA_DUMAN_GOZALDIR.mp3
+382:Mugham/DEDIM_BIR_BUSE_VER.MP3
+383:Mugham/DURNA.MP3
+384:Mugham/DURYIE_DUST_BELA.MP3
+385:Mugham/Elibaba Memmedov - Bayati Shiraz Tesnifi (Alibaba Mammadov).mp3
+386:Mugham/ERENLER_AY_ERENLER.MP3
+387:Mugham/EY_SIMY_BEDEN_MEHRY_DIREKHS.MP3
+388:Mugham/Əlibaba_Məmmədov_-_Gözəl_sənə_məlum_olsun_320k.mp3
+389:Mugham/Flora Kərimova - Saçlarına Gül Düzüm.mp3
+390:Mugham/GACHAKH_NEBI.MP3
+391:Mugham/GAL-GAL_ADI_CEYRAN.mp3
+392:Mugham/GALALI.MP3
+393:Mugham/GARA_TELLAR.MP3
+394:Mugham/GELSIN_BAGIMIZA_YAR.MP3
+395:Mugham/GENA_YAZ_GALIR.MP3
+396:Mugham/GEZSEM_CHAMANI.MP3
+397:Mugham/GEZSEM_CHEMENI.MP3
+398:Mugham/golchin.mugamat (5).mp3
+399:Mugham/GORDUM_UZUNU_BAGCHADAN_ALEM.MP3
+400:Mugham/GOY_GOL.MP3
+401:Mugham/GOZEL_YAR.MP3
+402:Mugham/GOZELDIR.MP3
+403:Mugham/GOZLERIN.MP3
+404:Mugham/GUL_JAMALIN.MP3
+405:Mugham/GULAR.MP3
+406:Mugham/Gülay Zeynalova - Anadır Arzulara Hər Zaman Qarabağ.mp3
+407:Mugham/GULE_GULE.MP3
+408:Mugham/Gülyaz - Bəyat-i Şiraz.mp3
+409:Mugham/Hamidan gozel menem.mp3
+410:Mugham/HASAN_GUL.MP3
+411:Mugham/HASHDERKHAN.MP3
+412:Mugham/Huseynaga Hadiyev Al menden guluslerini Tekce umid q-audio_1.mp3
+413:Mugham/Huseynaga Hadiyev Al menden guluslerini Tekce umid q-audio.mp3
+414:Mugham/Islam-Rzayev-Sen-de-hemdemmen-de-hemdem_1960927.mp3
+415:Mugham/JANIMA_QESD_ELIYEN.MP3
+416:Mugham/KHUMAR_OLDUM.MP3
+417:Mugham/Könül_Qəmbərova_Humayun_muğami_Azərbaycan_radiosu_105_FM_.mp3
+418:Mugham/KONULDE_ASHIYAN_ETMISH_KHEY.MP3
+419:Mugham/KUSMUSHEM_SENDEN_AY_DILBER.MP3
+420:Mugham/LEILY_VE_MAJNOON.MP3
+421:Mugham/libaba_Məmmədov_Bayatı_Şiraz_təs.mp3
+422:Mugham/Mansum ibrahimov Bayati Shiraz destgahi.m4a
+423:Mugham/MEHRIBANIM_DUR_OYNA_CHAL_OY.MP3
+424:Mugham/MENEM_O_SHEHE_MEANI_KI_FAZI.MP3
+425:Mugham/MENIM_ANAM_DEDIM_VETENIM_DE.MP3
+426:Mugham/Mələkxanım_Eyubova_Dağların_Başı_Qışda_Qar_Olar_Zaurla_Günaydın.mp3
+427:Mugham/NAFTCHI_MAHNISI.MP3
+428:Mugham/NE_DIR_KHEIALI.MP3
+429:Mugham/NEZAKET._T_-_NEYCHUN_GELMEZ_-_DAGLARIN_BASHI.mp3
+430:Mugham/Nəzakət teymurova - Dilbərim.mp3
+431:Mugham/NISAN_GULUNEN_SHOHRSI_BIR_B.MP3
+432:Mugham/NOLAY_DI.MP3
+433:Mugham/OGUL_O_KESDIR_KI.MP3
+434:Mugham/OKHUMA_GOZEL.MP3
+435:Mugham/OLKEM.MP3
+436:Mugham/onlymp3_to_Kamile_Nebiyeva_Kime_yalvarimMugham_wALMZuDKKpE_192k.mp3
+437:Mugham/OZUM_OZUNE_QURBAN_GOZUM_GOZ.MP3
+438:Mugham/Sahib Kərimov Almanı atdım xarala_1.mp3
+439:Mugham/Sahib Kərimov Almanı atdım xarala.mp3
+440:Mugham/SEBRINEN_HALVA_PISHER_EY_GO.MP3
+441:Mugham/SEN_BEZEYI_NEILERSEN.MP3
+442:Mugham/SENSEN_SHEIRIMDEKI_O_DERIN_.MP3
+443:Mugham/SENSIZ.MP3
+444:Mugham/SEVGILY_JANAN.MP3
+445:Mugham/shovket-elekberova-axsham-mahnisi.mp3
+446:Mugham/shovket-elekberova-tez-gel.mp3
+447:Mugham/tarkaman.mp3
+448:Mugham/YAKHAN_DUMELE.MP3
+449:Mugham/YARDAN_AYRILARMI.MP3
+450:Mugham/YAZ_MAHNISI.MP3
+451:Mugham/YRI_CHAGIRDIM_BAG_ICHINDE.MP3
+452:Mugham/yt1s.com - Leyli və Məcnun Operası  Arif Babayev və Rübabə Muradova.mp3
+453:Mugham/yt1s.com - Rubabe Muradova Heyder babaya salam.mp3
+454:Mugham/Züleyxa Mirismayilova - Dedin onu bilmirəm.mp3
+455:Mugham/Javid Tabrizli - Dashligala.mp3
+456:Mugham/(A45)(joyamusic).mp3
+457:Mugham/(A49)(joyamusic).mp3
+458:Mugham/Mugham Qatâr(joyamusic).mp3
+459:Mugham/4_476891526207641010.mp3
+460:Mugham/Əlibaba Məmmədov  - Muxalif Təsnifi.mp3
+461:Mugham/Javid Tabrizli - Intizar.mp3
+462:Mugham/Javid Tabrizli - Durnam.mp3
+463:Mugham/Rashid-Behbudov-Gulabatin.mp3
+464:Mugham/Erdal_Erzincan_Türkü_288_Bölüm_Güldür_Güldür_Show_w1pXamSqwHo.mp3
+465:Mugham/Əlibaba_Məmmədov_İnandır_məni_5ZuyvnYdSBA_140.mp3
+466:Mugham/Əlibaba_Məmmədov_Şən_mahnı_Səni_gözlər_mus_Əlibaba_M_KVvqc0OHYAk.mp3
+467:Mugham/Əlibaba_Məmmədov_Vətən_yaxşıdır_Xudayar_təsnifi_wNNbvVHl4ik_140.mp3
+468:Mugham/02 Qatar Muğamı.MP3
+469:Mugham/Mənsum İbrahimov _ Axtararsınız (Rəsmi Audio)(M4A_128K).m4a
+470:Mugham/Mənsum_İbrahimov_yeri_ha_yeri_ha_küsmüşəm_səndən_k6UT4gGeV4Y_140.mp3
+471:Mugham/NEZAKET._T_-_QAL_SENE_QURBAN.mp3
+472:Mugham/Rəvan_Qachayev_Qaragilə_Dilkeş_Muğam_müsabiqəsi_7_14_0_Zjtqxhr6riQ.mp3
+473:Mugham/Rashid Behbudov - Bahar sensiz.mp3
+474:Mugham/coban gizi.mp3
+475:Mugham/saribulbul.mp3
+476:Mugham/Javid-Tabrizli-Ayrilik.mp3
+477:Persian/هایده-اشاره.mp3
+478:Persian/هایده-ای زندگی سلام.mp3
+479:Persian/هایده-بهونه.mp3
+480:Persian/هایده-پریشون.mp3
+481:Persian/هایده-راوی.mp3
+482:Persian/هایده-زمونه.mp3
+483:Persian/هایده-ساقی.mp3
+484:Persian/هایده-سوغاتی.mp3
+485:Persian/هایده-سوگند.mp3
+486:Persian/هایده-سیاه چشمون.mp3
+487:Persian/هایده-شانه هایت.mp3
+488:Persian/هایده-شب عشق.mp3
+489:Persian/هایده-عروسک.mp3
+490:Persian/هایده-مستی.mp3
+491:Persian/هایده-نگو نمیام.mp3
+492:Persian/مهستی - میخونه بی شراب.mp3
+493:Persian/مهستی - دلم تنگه.mp3
+494:Persian/مهستی -  الهی بمونی.mp3
+495:Persian/مهستی - آسمون با منو تو قهره دیگه.mp3
+496:Persian/مهستی - اسیر.mp3
+497:Persian/مهستی - بازیچه.mp3
+498:Persian/مهستی - دو رنگی.mp3
+499:Persian/دلکش - یاد کودکی.mp3
+500:Persian/هایده-پاییز.mp3
+501:Persian/دلکش - امید جانم.mp3
+502:Persian/مهستی - بیا بنویسیم.mp3
+503:Persian/مهستی - طعنه.mp3
+504:Persian/هایده-زندگی.mp3
+505:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/01. Made In Heaven.mp3
+506:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/02. A Kind Of Magic.mp3
+507:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/03. Too Much Love Will Kill You.mp3
+508:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/04. Bohemian Rhapsody.mp3
+509:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/05. Another One Bites The Dust.mp3
+510:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/06. Under Pressure.mp3
+511:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/07. Killer Queen.mp3
+512:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/08. Radio Ga Ga.mp3
+513:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/09. Fat Bottomed Girls.mp3
+514:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/10. I Want It All.mp3
+515:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/11. Bicycle Race.mp3
+516:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/12. I Want To Break Free.mp3
+517:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/13. Innuendo.mp3
+518:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/14. You're My Best Friend.mp3
+519:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/15. Don't Stop Me Now.mp3
+520:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/16. It's A Hard Life.mp3
+521:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/17. Breakthru.mp3
+522:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/18. Save Me.mp3
+523:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/19. We Will Rock You.mp3
+524:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/20. Crazy Little Thing Called Love.mp3
+525:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/21. Who Wants To Live Forever.mp3
+526:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/22. Headlong.mp3
+527:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/23. Somebody To Love.mp3
+528:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/24. Now I'm Here.mp3
+529:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/25. The Miracle.mp3
+530:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/26. Good Old Fashioned Lover Boy.mp3
+531:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/27. I'm Going Slightly Mad.mp3
+532:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/28. Play The Game.mp3
+533:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/29. The Invisible Man.mp3
+534:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/30. Flash.mp3
+535:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/31. Hammer To Fall.mp3
+536:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/32. Friends Will Be Friends.mp3
+537:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/33. Seven Seas Of Rhye.mp3
+538:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/34. One Vision.mp3
+539:Queen - The Ultimate Best Of Queen (2011) [mp3][www.lokotorrents.com]/35. The Show Must Go On.mp3
+540:Rap/Allame - Fil İnadı ft Aspova - GuncelMp3Indir.Com.mp3
+541:Rap/Allame - Poz (Tirat) - GuncelMp3Indir.Com.mp3
+542:Rap/Allame-Dilsiz-1.mp3
+543:Rap/Ceza - Suspus.mp3
+544:Rap/Ceza - Yerli Plaka.mp3
+545:Rap/Ezhel - Bazen.mp3
+546:Rap/Gazapizm - Heyecanı Yok.mp3
+547:Rap/Gazapizm - İzaf - GuncelMp3Indir.Com.mp3
+548:Rap/Hayki-Ruzgar-feat-Ceza-26.mp3
+549:Rap/Mp3indirco-ceza-fark-var.mp3
+550:Rap/Mp3indirco-ceza-gelsin-hayat-bildigi-gibi-feat-sezen-aksu.mp3
+551:Rap/mp3indirdur-Ceza-Turk-Marsi.mp3
+552:Rap/mp3indirdur-Norm-Ender-Deli.mp3
+553:Rap/mp3indirdur-Norm-Ender-Sozler-Serefsiz-Oldu.mp3
+554:Rap/Ozbi - feat Melek Mosso-Hadi Gittik.mp3
+555:Rap/Ozbi - Sana Sormam.mp3
+556:Rap/mp3indirdur-Dj-Sivo-Baskin-ft-Ceza--Gazapizm.mp3
+557:Rap/Ozbi-Asi.mp3
+558:Rap/Gazapizm - Çöplük.mp3
+559:Rap/Gazapizm - Pisliğin Üstüne Basmışlar.mp3
+560:Rap/Gazapizm - Sağı Solu Kes.mp3
+561:Rap/Gazapizm - Unutulacak Dünler.mp3
+562:Rap/Gazapizm - Yol.mp3
+563:Rap/5. Allame - Kopyala Yapıştır (128).mp3
+564:Rap/Allame - Lades.mp3
+565:Rap/mp3indirdur-Norm-Ender-Mekanin-Sahibi.mp3
+566:Rap/Gazapizm-Olur-Mu-66.mp3
+567:Rap/Allame - Kambur.mp3
+568:Rap/Allame-Hayalin-Yeri-Yok.mp3
+569:Rap/Allame - Yaz Baştan.mp3
+570:Telegram/@ah_Chillmusic.mp3
+571:Telegram/113018671.mp3
+572:Telegram/15073028553375mp3_94_5.mp3
+573:Telegram/48643902.mp3
+574:Telegram/667967SIMl.mp3
+575:Telegram/99988972.mp3
+576:Telegram/Celine Dion - Thats The Way It Is www.my-free-mp3.net  (1).mp3
+577:Telegram/Chaka Chiki Bum – Cuban Pete.mp3
+578:Telegram/Coffee and cigarettes - Kirli   Ah Aman Aman.mp3
+579:Telegram/Kate Bush Running Up That Hill.mp3
+580:Telegram/Levent-Yüksel-Sultanım_2008916.mp3
+581:Telegram/Marino-Devil-In-Disguise-Official-Lyric-Video.m4a
+582:Telegram/MFÖ-ALi-Desidero_242982.mp3
+583:Telegram/NF-FEAR.m4a
+584:Telegram/Rag'n'Bone Man - Pocket (Official Video).mp3
+585:Telegram/Rick Astley – Never Gonna Give You Up.mp3
+586:Telegram/sunstroke_project_feat_olia_-_runaway_(z3.fm).mp3
+587:Telegram/Suzane - Je t'accuse (Clip officiel).mp3
+588:Telegram/Taylor Swift The Fate of Ophelia.mp3
+589:Telegram/Tennessee Ernie Ford - Sixteen Tons.mp3
+590:Telegram/The Riddle.mp3
+591:Telegram/Toto - Africa (Official HD Video).mp3
+592:Telegram/Bee Gees - Stayin' Alive.mp3
+593:Telegram/12  Ask.mp3
+594:Telegram/Deniz Seki - Askima Ait korkmuyorum seni kaybetmekten.mp3
+595:Telegram/09. Sakinim (Akustik).mp3
+596:Telegram/@ey_elahe_naz (2).mp3
+597:Telegram/@ey_elahe_naz (3).mp3
+598:Telegram/@ey_elahe_naz (4).mp3
+599:Telegram/@ey_elahe_naz (5).mp3
+600:Telegram/Yuzyuzeyken Konusuruz - Burokrat.mp3
+601:Telegram/Ol Bana Razi.mp3
+602:Telegram/Burcu Güneş - Oflaya Oflaya.mp3
+603:Telegram/@ey_elahe_naz.mp3
+604:Telegram/@eyelahenazz (6).mp3
+605:Telegram/@eyelahenazz.mp3
+606:Telegram/4_5987950387976476128.mp3
+607:Telegram/Udo_Lindenberg_Apache_207_-_Komet.mp3
+608:Telegram/Ibrahim Tatlises - Yikilmisim Ben.mp3
+609:Telegram/A Flock Of Seagulls – I Ran.mp3
+610:Telegram/The Beatles Here Comes The Sun.mp3
+611:Telegram/Ac__t__r_gibi_severek_[_YouConvert.net_].mp3
+612:Telegram/Akhbarak Aye (320).mp3
+613:Telegram/Nico-Santos-All-Time-High-128.mp3
+614:Telegram/Arctic Monkeys – I Wanna Be Yours.mp3
+615:Telegram/Videoclub Amour Plastique.mp3
+616:Telegram/Asdis - Angel Eyes.mp3
+617:Telegram/Hande Yener- Askin Atesi.mp3
+618:Telegram/03 Goksel - Bi Seni Konuşurum.mp3
+619:Telegram/15 Kirli Kadeh (İlyas Yalçıntaş).flac
+620:Telegram/Mike Olfield & Maggie Reilly – Moonlight Shadow.mp3
+621:Telegram/EasyLover.mp3
+622:Telegram/Mor Ve Otesi - Kis Geliyor.mp3
+623:Telegram/NSYNC Bye Bye Bye.mp3
+624:Telegram/Claude - C est La Vie.mp3
+625:Telegram/Lady Gaga Bruno Mars Die With A Smile.mp3
+626:Telegram/Mor-Ve-Otesi-Deli-320.mp3
+627:Telegram/Gazapizm - Müşkül.mp3
+628:Telegram/SpotifyMate.com - End of the World - Miley Cyrus.mp3
+629:Telegram/01 - Shape Of My Heart.mp3
+630:Telegram/Y252zy252zeykenKonu351uruz-Ge231mi351tenGeri.mp3
+631:Telegram/03. Ink.mp3
+632:Telegram/Sia - Gimme Love.mp3
+633:Telegram/Görev Gibi Yaşa.mp3
+634:Telegram/Aerosmith Dream On.mp3
+635:Telegram/Eurythmics   - Sweet Dreams.mp3
+636:Telegram/Fools Garden – Lemon Tree.mp3
+637:Telegram/Linkin Park In The End.mp3
+638:Telegram/Teddy Swims - The Door.mp3
+639:Telegram/01. İçinde Tutma.mp3
+640:Telegram/2016062414400161585.mp3
+641:Telegram/Gene Kelly - Singing In The Rain mp3.mp3
+642:Telegram/11 - Lighter - Kyle Alessandro (320).mp3
+643:Telegram/The Beatles – Hey Jude!.mp3
+644:Telegram/05. Smoke On The Water.mp3
+645:Telegram/03. Somebody That I Used To Know.mp3
+646:Telegram/06 - how soon is now_.mp3
+647:Telegram/Lola Young Messy.mp3
+648:Telegram/1_5 - Champagne - Suzane (320).mp3
+649:Telegram/Miserere_mei_Deus_Allegri_Tenebrae_conducted_by_Nigel_S_H3v9unphfi0.mp3
+650:Telegram/Hande Yener - Acele Etme.mp3
+651:Telegram/Allame - Muskul.mp3
+652:Telegram/Soner Sarikabadayi - NERESI1.mp3
+653:Telegram/Dolu Kadehi Ters Tut - Ölene Dek.mp3
+654:Telegram/mp3indirdur-Allame-Girdap.mp3
+655:Telegram/Allame - Ömür.mp3
+656:Telegram/13. Birds.mp3
+657:Telegram/06 Team.mp3
+658:Telegram/949a61a9f0bb15a0d13eeca5c2b45a75.mp3
+659:Telegram/Emre Fel - Sallan1.mp3
+660:Telegram/Emre Fel Sana El Pence Durmam.mp3
+661:Telegram/09 Grup Yorum - Uğurlama.mp3
+662:Telegram/Buray - Senin Yüzünden.mp3
+663:Telegram/@Music1_Turk    - Feride Hilal Akın   Buray - Rampapapam.mp3
+664:Telegram/4_5904685961542900165.mp3
+665:Telegram/Benson Boone Mystical Magical.mp3
+666:Telegram/Rosa Linn Snap.mp3
+667:Telegram/Bill Withers - Just The Two Of Us.mp3
+668:Telegram/The Smiths - There Is A Light That Never Goes Out.mp3
+669:Telegram/09_-_heaven_knows_im_miserable_now.mp3
+670:Telegram/The Three Tenors - In Concert - Rome 1990 CD 1 TRACK 17 (320.mp3
+671:Telegram/13 Naber.mp3
+672:Telegram/Candan Ercetin – Elbette (3 серия).mp3
+673:Telegram/1_3 - Mor Yazma - Umut Kaya (320).mp3
+674:Telegram/Lucio Corsi - Volevo essere un duro.mp3
+675:Telegram/Voyage (1).mp3
+676:Telegram/You're the Voice.mp3
+677:Telegram/cant get you out of my head.mp3
+678:Telegram/Yüzyüzeyken_Konuşuruz_Yine_De_hEF-9HKjP3Y_140.mp3
+679:Telegram/Bendeniz - Ihtiyacim Var.mp3
+song_begin: https://radio.9craft.ir:7443/pop1
+song_end
+song_begin: https://radio.9craft.ir:7443/pop2
+song_end
+song_begin: https://radio.9craft.ir:7443/lofi
+song_end
 playlist_end

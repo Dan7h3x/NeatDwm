@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
 
-# Color definitions
-RED="#FF3131"
-PURPLE="#9457EB"
-GREEN="#39FF14"
-BLUE="#4D4DFF"
-LIGHT_BLUE="#89CFF0"
-ORANGE="#F6890A"
-YELLOW="#CCFF00"
-CYAN="#00FEFC"
-TEAL="#43BBB6"
-BLACK="#000000"
-
 # Configuration
 TEMP_STEP=200
 DEFAULT_TEMP=4500
@@ -76,7 +64,7 @@ else
 fi
 
 # Output current status
-echo -e "^c$BLACK^^b$YELLOW^$icon$current_temp^d^"
+colorbox -i "$icon" -t "$current_temp" -f color11
 
 # Handle button events
 case "$BLOCK_BUTTON" in
@@ -84,4 +72,19 @@ case "$BLOCK_BUTTON" in
 3) stop ;;     # Right click
 4) increase ;; # Scroll up
 5) decrease ;; # Scroll down
+esac
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  increase)
+    increase
+    ;;
+  decrease)
+    decrease
+    ;;
 esac

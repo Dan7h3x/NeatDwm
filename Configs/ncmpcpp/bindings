@@ -378,8 +378,8 @@
 #def_key "alt-l"
 #  toggle_fetching_lyrics_in_background
 #
-#def_key "ctrl-l"
-#  toggle_screen_lock
+def_key "ctrl-alt-l"
+ toggle_screen_lock
 #
 #def_key "`"
 #  toggle_library_tag_type

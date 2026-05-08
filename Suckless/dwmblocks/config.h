@@ -24,7 +24,7 @@ static const Block blocks[] = {
 	// {"",	"sb-internet",	5,	4},
 	// /* {"",	"sb-iplocate", 0,	27}, */
 	// {"",	"sb-help-icon",	0,	15},
-  {"", "wallpaperblock",0,11},
+  {"", "wallpaperblock",3,11},
   {"",	"volumeblock",	1,	7},
   // {"",  "brightnessblock",1,6},
   {"",	"redshiftblock",	1,	8},
@@ -32,13 +32,13 @@ static const Block blocks[] = {
   {"",	"cpublock",	1,	18},
   {"",	"memoryblock",	1,	15},
   {"",	"storageblock",	1,	16},
-  {"",	"musicblock",	1,	3},
+  {"",	"musicblock",	2,	3},
   {"",	"clockblock",	1,	1},
   // {"",  "batteryblock",2,5},
 };
 
 //Sets delimiter between status commands. NULL character ('\0') means no delimiter.
-static char *delim = " ";
+static char *delim = "|";
 
 // Have dwmblocks automatically recompile and run when you edit this file in
 // vim with the following line in your vimrc/init.vim:

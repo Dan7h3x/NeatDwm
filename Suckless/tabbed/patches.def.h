@@ -105,4 +105,4 @@
  *
  * https://tools.suckless.org/tabbed/patches/xresources-with-reload-signal/
  */
-#define XRESOURCES_RELOAD_PATCH 1
+#define XRESOURCES_RELOAD_PATCH 0

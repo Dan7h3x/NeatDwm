@@ -1209,8 +1209,10 @@ buttonpress(XEvent *e)
 
 	if (c) {
 		#if FOCUSONCLICK_PATCH
-		if (focusonwheel || (ev->button != Button4 && ev->button != Button5))
+		if (focusonwheel || (ev->button != Button4 && ev->button != Button5)){
 			focus(c);
+      restack(c->mon);
+    }
 		#else
 		focus(c);
 		restack(selmon);
@@ -1266,8 +1268,10 @@ buttonpress(XEvent *e)
 	#if !BANISH_PATCH
 	if (click == ClkRootWin && (c = wintoclient(ev->window))) {
 		#if FOCUSONCLICK_PATCH
-		if (focusonwheel || (ev->button != Button4 && ev->button != Button5))
+		if (focusonwheel || (ev->button != Button4 && ev->button != Button5)){
 			focus(c);
+      restack(c->mon);
+    }
 		#else
 		focus(c);
 		restack(selmon);
@@ -1464,7 +1468,7 @@ clientmessage(XEvent *e)
 			/* use parents background color */
 			swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 			XChangeWindowAttributes(dpy, c->win, CWBackPixel, &swa);
-			sendevent(c->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_EMBEDDED_NOTIFY, 0 , systray->win, XEMBED_EMBEDDED_VERSION);
+			sendevent(c->win, xatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_EMBEDDED_NOTIFY, 0 , systray->win, XEMBED_EMBEDDED_VERSION);
 			XSync(dpy, False);
 			setclientstate(c, NormalState);
 		}
@@ -1946,7 +1950,7 @@ void
 drawbar(Monitor *m)
 {
 	Bar *bar;
-	
+
 	#if !BAR_FLEXWINTITLE_PATCH
 	if (m->showbar)
 	#endif // BAR_FLEXWINTITLE_PATCH
@@ -2794,7 +2798,7 @@ maprequest(XEvent *e)
 	#if BAR_SYSTRAY_PATCH
 	Client *i;
 	if (showsystray && systray && (i = wintosystrayicon(ev->window))) {
-		sendevent(i->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win, XEMBED_EMBEDDED_VERSION);
+		sendevent(i->win, xatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win, XEMBED_EMBEDDED_VERSION);
 		drawbarwin(systray->bar);
 	}
 	#endif // BAR_SYSTRAY_PATCH
@@ -3495,68 +3499,77 @@ scan(void)
 	#endif // SWALLOW_PATCH
 }
 
-void
+  void
 sendmon(Client *c, Monitor *m)
 {
-	#if EXRESIZE_PATCH
-	Monitor *oldm = selmon;
-	#endif // EXRESIZE_PATCH
-	if (c->mon == m)
-		return;
-	#if SENDMON_KEEPFOCUS_PATCH && !EXRESIZE_PATCH
-	int hadfocus = (c == selmon->sel);
-	#endif // SENDMON_KEEPFOCUS_PATCH
-	unfocus(c, 1, NULL);
-	detach(c);
-	detachstack(c);
-	#if SENDMON_KEEPFOCUS_PATCH && !EXRESIZE_PATCH
-	arrange(c->mon);
-	#endif // SENDMON_KEEPFOCUS_PATCH
-	c->mon = m;
-	#if SCRATCHPADS_PATCH && !RENAMED_SCRATCHPADS_PATCH
-	if (!(c->tags & SPTAGMASK))
-	#endif // SCRATCHPADS_PATCH
-	#if EMPTYVIEW_PATCH
-	c->tags = (m->tagset[m->seltags] ? m->tagset[m->seltags] : 1);
-	#else
-	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-	#endif // EMPTYVIEW_PATCH
-	#if SENDMON_CENTER_PATCH
-	c->x = m->mx + (m->mw - WIDTH(c)) / 2;
-	c->y = m->my + (m->mh - HEIGHT(c)) / 2;
-	#if SAVEFLOATS_PATCH
-	c->sfx = m->mx + (m->mw - c->sfw - 2 * c->bw) / 2;
-	c->sfy = m->my + (m->mh - c->sfh - 2 * c->bw) / 2;
-	#endif // SAVEFLOATS_PATCH
-	#endif // SENDMON_CENTER_PATCH
-	#if ATTACHABOVE_PATCH || ATTACHASIDE_PATCH || ATTACHBELOW_PATCH || ATTACHBOTTOM_PATCH
-	attachx(c);
-	#else
-	attach(c);
-	#endif
-	attachstack(c);
-	#if EXRESIZE_PATCH
-	if (oldm != m)
-		arrange(oldm);
-	arrange(m);
-	focus(c);
-	restack(m);
-	#elif SENDMON_KEEPFOCUS_PATCH
-	arrange(m);
-	if (hadfocus) {
-		focus(c);
-		restack(m);
-	} else {
-		focus(NULL);
-	}
-	#else
-	arrange(NULL);
-	focus(NULL);
-	#endif // EXRESIZE_PATCH / SENDMON_KEEPFOCUS_PATCH
-	#if SWITCHTAG_PATCH
-	if (c->switchtag)
-		c->switchtag = 0;
-	#endif // SWITCHTAG_PATCH
+#if EXRESIZE_PATCH
+  Monitor *oldm = selmon;
+#endif // EXRESIZE_PATCH
+  if (c->mon == m)
+    return;
+#if SENDMON_KEEPFOCUS_PATCH && !EXRESIZE_PATCH
+  int hadfocus = (c == selmon->sel);
+#endif // SENDMON_KEEPFOCUS_PATCH
+  unfocus(c, 1, NULL);
+  detach(c);
+  detachstack(c);
+#if SENDMON_KEEPFOCUS_PATCH && !EXRESIZE_PATCH
+  arrange(c->mon);
+#endif // SENDMON_KEEPFOCUS_PATCH
+  c->mon = m;
+#if SCRATCHPADS_PATCH && !RENAMED_SCRATCHPADS_PATCH
+  if (!(c->tags & SPTAGMASK))
+#endif // SCRATCHPADS_PATCH
+#if EMPTYVIEW_PATCH
+    c->tags = (m->tagset[m->seltags] ? m->tagset[m->seltags] : 1);
+#else
+  c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+#endif // EMPTYVIEW_PATCH
+#if SENDMON_CENTER_PATCH
+  c->x = m->mx + (m->mw - WIDTH(c)) / 2;
+  c->y = m->my + (m->mh - HEIGHT(c)) / 2;
+#if SAVEFLOATS_PATCH
+  c->sfx = m->mx + (m->mw - c->sfw - 2 * c->bw) / 2;
+  c->sfy = m->my + (m->mh - c->sfh - 2 * c->bw) / 2;
+#endif // SAVEFLOATS_PATCH
+#endif // SENDMON_CENTER_PATCH
+#if ATTACHABOVE_PATCH || ATTACHASIDE_PATCH || ATTACHBELOW_PATCH || ATTACHBOTTOM_PATCH
+  attachx(c);
+#else
+  attach(c);
+#endif
+  attachstack(c);
+#if !FAKEFULLSCREEN_PATCH
+#if FAKEFULLSCREEN_CLIENT_PATCH
+  if (c->isfullscreen && c->fakefullscreen != 1)
+    resizeclient(c,m->mx,m->my,m->mw,m->mh);
+#else
+  if (c->isfullscreen)
+    resizeclient(c,m->mx,m->my,m->mw,m->mh);
+#endif // FAKEFULLSCREEN_CLIENT_PATCH
+#endif // FAKEFULLSCREEN_PATCH
+#if EXRESIZE_PATCH
+  if (oldm != m)
+    arrange(oldm);
+  arrange(m);
+  focus(c);
+  restack(m);
+#elif SENDMON_KEEPFOCUS_PATCH
+  arrange(m);
+  if (hadfocus) {
+    focus(c);
+    restack(m);
+  } else {
+    focus(NULL);
+  }
+#else
+  arrange(NULL);
+  focus(NULL);
+#endif // EXRESIZE_PATCH / SENDMON_KEEPFOCUS_PATCH
+#if SWITCHTAG_PATCH
+  if (c->switchtag)
+    c->switchtag = 0;
+#endif // SWITCHTAG_PATCH
 }
 
 void

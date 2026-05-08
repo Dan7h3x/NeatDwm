@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-red="#FF3131"
-purple="#9457EB"
-green="#39FF14"
-blue="#4D4DFF"
-bblue="#89CFF0"
-orange="#F6890A"
-yellow="#CCFF00"
-cyan="#00FEFC"
-teal="#43BBB6"
-black="#000000"
 
 vol=$(pamixer --get-volume)
 
@@ -33,7 +23,7 @@ $((vol >= 1))) icon=" " ;;
 *) echo "" && exit ;;
 esac
 
-echo -e "^c$black^^b$blue^$icon$vol%^d^"
+colorbox -i "$icon" -t "$vol%" -f color10
 # echo "$ICON$VOL%"
 
 case $BLOCK_BUTTON in

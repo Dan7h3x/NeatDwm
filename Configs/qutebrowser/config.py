@@ -1,4 +1,6 @@
 import os
+import json
+from pathlib import Path
 
 c = c  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
 config = config  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
@@ -9,28 +11,53 @@ def userscript(script_name: str):
     return os.path.join(os.path.join(config.configdir, "userscripts"), script_name)
 
 
+def load_pywal_colors_json():
+    """Load colors from Pywal's JSON cache file"""
+    wal_json = Path.home() / ".cache" / "wal" / "colors.json"
+
+    if wal_json.exists():
+        with open(wal_json, "r") as f:
+            data = json.load(f)
+            return data.get("colors", {}), data.get("special", {})
+    return {}, {}
+
+
+# Load colors
+colors, special = load_pywal_colors_json()
+
+# Access colors
+background = special.get("background", "#1e1e2e")
+foreground = special.get("foreground", "#cdd6f4")
+
+# color0-color15 are available as 'color0', 'color1', etc.
+base = background
+text = foreground
+mantle = background
+surface0 = colors.get("color0", "#313244")
+surface1 = colors.get("color8", "#45475a")
+red = colors.get("color1", "#f38ba8")
+green = colors.get("color2", "#a6e3a1")
+yellow = colors.get("color3", "#f9e2af")
+blue = colors.get("color4", "#89b4fa")
+mauve = colors.get("color5", "#cba6f7")
+teal = colors.get("color6", "#94e2d5")
+rosewater = colors.get("color7", "#f5e0dc")  # or color15
+peach = colors.get("color11", "#fab387")
+sapphire = colors.get("color12", "#74c7ec")
+pink = colors.get("color13", "#f5c2e7")
+sky = colors.get("color14", "#89dceb")
+
 ################
 #    Themes    #
 ################
 
 
 # Font #
-c.fonts.default_family = ["Liberation Mono"]
-c.fonts.default_size = "11pt"
+c.fonts.default_family = ["Maple Mono"]
+c.fonts.default_size = "10pt"
 
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
+
 sapphire = "#74c7ec"
-blue = "#89b4fa"
 lavender = "#b4befe"
 text = "#cdd6f4"
 subtext1 = "#bac2de"
@@ -48,7 +75,7 @@ crust = "#11111b"
 # Setting themes #
 
 c.colors.completion.category.bg = (
-    f"qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 {base}, stop:1 {surface0})"
+    f"qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 {base}, stop:1 {overlay2})"
 )
 c.colors.completion.category.border.bottom = base
 c.colors.completion.category.border.top = sky
@@ -123,9 +150,9 @@ c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.fg
 c.colors.tooltip.bg = surface0
 c.colors.tooltip.fg = sapphire
 c.colors.webpage.bg = mantle
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.policy.images = "never"
-c.colors.webpage.preferred_color_scheme = "dark"
+c.colors.webpage.preferred_color_scheme = "light"
 c.completion.open_categories = [
     "searchengines",
     "quickmarks",
@@ -140,7 +167,7 @@ c.completion.open_categories = [
 c.url.start_pages = "https://github.com/"
 
 c.url.searchengines = {
-    "DEFAULT": "https://google.com/search?q={}",
+    "DEFAULT": "https://www.google.com/search?q={}",
     "g": "https://google.com/search?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
@@ -197,9 +224,11 @@ c.hints.selectors["code"] = [
 ################
 css_dark = os.path.expanduser("~/.config/qutebrowser/solarized_dark.css")
 css_light = os.path.expanduser("~/.config/qutebrowser/solarized_light.css")
+css_wall = os.path.expanduser("~/.cache/wal/qute.css")
 
 config.bind(",m", f'config-cycle content.user_stylesheets {css_dark} ""')
 config.bind(",l", f'config-cycle content.user_stylesheets {css_light} ""')
+config.bind(",.", f'config-cycle content.user_stylesheets {css_wall} ""')
 config.bind(
     ",n",
     "config-cycle colors.webpage.darkmode.enabled true false",
@@ -230,14 +259,14 @@ config.bind("<Ctrl+k>", "prompt-item-focus prev", "prompt")
 config.bind("<Ctrl+g>", "fake-key -g /", "prompt")
 config.bind(";c", "hint code userscript code_select")
 config.bind("O", "cmd-set-text -s :open -t")
-config.bind(
-    ";pu", f"spawn --userscript {userscript('qute-pass')} --username-only", "insert"
-)
-config.bind(
-    ";pp", f"spawn --userscript {userscript('qute-pass')} --password-only", "insert"
-)
+# config.bind(
+#     ";pu", f"spawn --userscript {userscript('qute-pass')} --username-only", "insert"
+# )
+# config.bind(
+#     ";pp", f"spawn --userscript {userscript('qute-pass')} --password-only", "insert"
+# )
 config.bind("sd", f"spawn --userscript {userscript('open_download')}")
-config.bind("<Ctrl-o>", f"spawn --userscript {userscript('qutedmenu')} open")
+config.bind("<Ctrl-o>", f"spawn --userscript {userscript('qutedmenu')} tab")
 config.bind(";a", f"spawn --userscript {userscript('readability')}")
 config.bind(";B", f"spawn --userscript {userscript('getbib')}")
 config.bind("<Ctrl-m>", "hint links spawn mpv {hint-url}")

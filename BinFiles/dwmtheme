@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+
 THEME_DIR="$HOME/.config/wal/colorschemes"
 DARK="$THEME_DIR/dark"
 LIGHT="$THEME_DIR/light"
 WALLDIR="$HOME/.config/Wallpaper"
 ROFITHEME="$HOME/.config/rofi/walls.rasi"
-SELECTED_MODE=$(echo -e "Wallpaper\nLight\nDark" | rofi -dmenu )
-COLMETHOD=$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | rofi -dmenu )
+SELECTED_MODE=${1:-$(echo -e "Wallpaper\nLight\nDark" | rofi -dmenu )}
+COLMETHOD=${2:-$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | rofi -dmenu )}
 ICONS=""
 COLORSDIR="$HOME/.cache/wal"
 
@@ -19,24 +20,35 @@ if [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
   THEME=$(echo -e "$ICONS" | rofi -dmenu -show-icons -p "Select Wallpaper:" -theme "$ROFITHEME" -markup-rows)
   THEME_BASENAME=$(basename "$THEME")
   CMD=$(wal -i "$WALLDIR/$THEME" --cols16 "$COLMETHOD")
+  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
+  cp "$HOME/.config/qt6ct/colors/mocha.conf" "$HOME/.config/qt6ct/colors/ssss.conf"
 
 elif [[ "$SELECTED_MODE" = "Dark" ]]; then
   THEME=$(ls -w 1 "$DARK" | rofi -dmenu -p "Choose dark theme:" )
   THEME_BASENAME="${THEME%.*}"
   CMD=$(wal --theme "$THEME_BASENAME" --cols16 "$COLMETHOD")
-
+  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
+  cp "$HOME/.config/qt6ct/colors/mocha.conf" "$HOME/.config/qt6ct/colors/ssss.conf"
 else  # Light mode
   THEME=$(ls -w 1 "$LIGHT" | rofi -dmenu -p "Choose light theme:" )
   THEME_BASENAME="${THEME%.*}"
   CMD=$(wal -l --theme "$THEME_BASENAME" --cols16 "$COLMETHOD")
+  echo "vim.o.background = "light"" > "$HOME/.config/nvim/theme.lua"
+  cp "$HOME/.config/qt6ct/colors/latte.conf" "$HOME/.config/qt6ct/colors/ssss.conf"
 fi
 
 dwm-msg run_command xrdb
-cp -rf "$COLORSDIR/colors-zathurarc" "$HOME/.config/zathura/zathurarc"
 
 # Improved notification with better fallback
 if [[ -n "$THEME_BASENAME" ]]; then
-  notify-send "DWM" "Theme '${THEME_BASENAME}' Applied"
+  if [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
+    notify-send -i "$WALLDIR/$THEME" "DWM" "Theme Applied"
+  else
+    notify-send "DWM" "Theme '${THEME_BASENAME}' Applied"
+  fi
 else
   notify-send "DWM" "Theme Failed to Apply"
 fi
+
+
+

@@ -1,17 +1,25 @@
 #!/bin/bash
 
-#Notifications and statusbar
-killall -9 dwmblocks mpd dunst
+# Ultra simple autostart
 
-dunst &
-mpd &
-ksuperkey -e 'Super_L=Alt_L|F1' &
-#Nice Ones
-xsetroot -cursor_name left_ptr
-#Apps
-picom &
-feh --bg-fill -z ~/.config/Wallpaper/ &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-setxkbmap us,ir -option 'grp:alt_shift_toggle' &
+start() {
+    killall "$1" 2>/dev/null
+    "$@" >/dev/null 2>&1 &
+}
 
-dwmblocks &
+
+# System
+xrdb -merge ~/.cache/wal/colors.Xresources
+# X settings
+start xsetroot -cursor_name left_ptr
+start setxkbmap us,ir -option 'grp:alt_shift_toggle'
+# start xset r rate 200 50
+# Apps
+start mpd
+start mpd-mpris
+start picom
+start feh --bg-fill  ~/.config/Wallpaper/Grey.jpg
+start dwmblocks
+start wired
+
+

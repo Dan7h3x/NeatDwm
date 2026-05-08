@@ -27,7 +27,7 @@ get_icon() {
 
 # Notify
 notify_vol() {
-	get_icon && dunstify -u low --replace=69 -i "$icon" "Volume : $(get_volume)"
+	get_icon && notify-send -u low -i "$icon" "Volume : $(get_volume)"
 }
 
 # Increase Volume
@@ -44,9 +44,9 @@ dec_volume() {
 toggle_mute() {
 	amixer --get-volume | grep '\[on\]' &>/dev/null
 	if [[ "$?" == 0 ]]; then
-		pamixer -t && dunstify -u low --replace=69 -i "$iDIR/volume-mute.png" "Mute"
+		pamixer -t && notify-send -u low -i "$iDIR/volume-mute.png" "Mute"
 	else
-		pamixer -t && get_icon && dunstify -u low --replace=69 -i "$icon" "Unmute"
+		pamixer -t && get_icon && notify-send -u low -i "$icon" "Unmute"
 	fi
 }
 
@@ -54,9 +54,9 @@ toggle_mute() {
 toggle_mic() {
 	amixer get Capture | grep '\[on\]' &>/dev/null
 	if [[ "$?" == 0 ]]; then
-		amixer -D pulse sset Capture toggle && dunstify -u low --replace=69 -i "$iDIR/microphone-mute.png" "Microphone Switched OFF"
+		amixer -D pulse sset Capture toggle && notify-send -u low -i "$iDIR/microphone-mute.png" "Microphone Switched OFF"
 	else
-		amixer -D pulse sset Capture toggle && dunstify -u low --replace=69 -i "$iDIR/microphone.png" "Microphone Switched ON"
+		amixer -D pulse sset Capture toggle && notify-send -u low -i "$iDIR/microphone.png" "Microphone Switched ON"
 	fi
 }
 

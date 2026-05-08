@@ -7,4 +7,6 @@
 config_version: 2
 settings:
   colors.webpage.darkmode.enabled:
-    global: true
+    global: false
+  content.user_stylesheets:
+    global: null

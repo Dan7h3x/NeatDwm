@@ -1,0 +1,12 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "19dc890"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "19dc890"
+hash = "ce67445ebb1bf3d97b8e44f50904b2c5"
+
+[flavor]
+deps = []

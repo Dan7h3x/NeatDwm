@@ -2,4 +2,7 @@
 
 if [[ ! -f "/tmp/tabpdf.txt" || ! -s "/tmp/tabpdf.txt" ]]; then
   tabbed -cd zathura -e > /tmp/tabpdf.txt
+else
+  rm -f /tmp/tabpdf.txt >/dev/null
+  pdftabs
 fi

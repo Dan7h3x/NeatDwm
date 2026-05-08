@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+pop1="https://radio.9craft.ir:7443/pop1"
+pop2="https://radio.9craft.ir:7443/pop2"
+lofi="https://radio.9craft.ir:7443/lofi"
+relx="https://radio.9craft.ir:7443/relax"
+rock="https://radio.9craft.ir:7443/rock"
+
+SOCKET="/tmp/mpvsocket"
+CURRENT_STATION="/tmp/current_station"
+
+killit() {
+  pkill -f "mpv --no-video.*mpvsocket" > /dev/null 2>&1
+  rm -f "$SOCKET" "$CURRENT_STATION"
+}
+
+get_url() {
+  case "$1" in
+    "pop1") echo "$pop1" ;;
+    "pop2") echo "$pop2" ;;
+    "lofi") echo "$lofi" ;;
+    "relx") echo "$relx" ;;
+    "rock") echo "$rock" ;;
+    *) echo "" ;;
+  esac
+}
+
+notify() {
+  if command -v notify-send > /dev/null 2>&1; then
+    notify-send -t 1500 "Radio Player" "$1"
+  else
+    echo "$1"
+  fi
+}
+
+control_player() {
+  if ! command -v playerctl > /dev/null 2>&1; then
+    notify "playerctl not installed."
+    return 1
+  fi
+
+  case "$1" in
+    "play-pause")
+      playerctl play-pause 2>/dev/null
+      status=$(playerctl status 2>/dev/null)
+      notify "Player: $status"
+      ;;
+    "stop")
+      playerctl stop 2>/dev/null
+      killit
+      notify "Player stopped"
+      ;;
+    "next")
+      killit
+      sleep 0.5
+      select_station
+      ;;
+    "volume-up")
+      playerctl volume 0.05+ 2>/dev/null
+      volume=$(playerctl volume 2>/dev/null | awk '{print int($1*100)}')
+      notify "Volume: ${volume}%"
+      ;;
+    "volume-down")
+      playerctl volume 0.05- 2>/dev/null
+      volume=$(playerctl volume 2>/dev/null | awk '{print int($1*100)}')
+      notify "Volume: ${volume}%"
+      ;;
+    *)
+      echo "Unknown command"
+      ;;
+  esac
+}
+
+# Function to select and play a station
+select_station() {
+  selected=$(echo -e "pop1\npop2\nlofi\nrelx\nrock" | dmenu -i -l 8 -p "Station:")
+
+  [[ -z "$selected" ]] && exit 0
+
+  url=$(get_url "$selected")
+
+  if [[ -n "$url" ]]; then
+    # Save current station name
+    echo "$selected" > "$CURRENT_STATION"
+
+    # Start mpv with the selected station
+    mpv --no-video --input-ipc-server="$SOCKET" "$url" > /dev/null 2>&1 &
+    sleep 1
+    notify "Now playing: $selected"
+  else
+    notify "Error: Invalid station selected"
+    exit 1
+  fi
+}
+
+show_main_menu() {
+  current=""
+  if [[ -f "$CURRENT_STATION" ]]; then
+    current=$(cat "$CURRENT_STATION")
+    current=" [🎵 $current]"
+  fi
+
+  choice=$(echo -e "▶️ Play/Pause\n⏹️ Stop/Close\n🔄 Change Station\n🔊 Volume Up\n🔉 Volume Down\n❌ Exit"\
+    | dmenu -i -l 10 -p  "<3 $current:" -W 500x40)
+
+  case "$choice" in
+    "▶️ Play/Pause")
+      control_player "play-pause"
+      ;;
+    "⏹️ Stop/Close")
+      control_player "stop"
+      ;;
+    "🔄 Change Station")
+      control_player "next"
+      ;;
+    "🔊 Volume Up")
+      control_player "volume-up"
+      ;;
+    "🔉 Volume Down")
+      control_player "volume-down"
+      ;;
+    "❌ Exit")
+      exit 0
+      ;;
+    *)
+      exit 0
+      ;;
+  esac
+}
+
+if ! command -v playerctl > /dev/null 2>&1; then
+  notify "Warning: no playerctl no fun."
+fi
+
+if [[ ! -f "$SOCKET" ]] && ! pgrep -f "mpv --no-video.*mpvsocket" > /dev/null; then
+  select_station
+else
+  show_main_menu
+fi

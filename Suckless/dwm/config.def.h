@@ -12,10 +12,10 @@
 
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
-static const unsigned int borderpx = 0; /* border pixel of windows */
+static const unsigned int borderpx = 2; /* border pixel of windows */
 static const int corner_radius = 4;
 #else
-static const unsigned int borderpx = 1; /* border pixel of windows */
+static const unsigned int borderpx = 2; /* border pixel of windows */
 #endif // ROUNDED_CORNERS_PATCH
 #if BAR_BORDER_PATCH
 /* This allows the bar border size to be explicitly set separately from
@@ -25,8 +25,7 @@ static const unsigned int barborderpx = 0; /* border pixel of bar */
 #endif                                     // BAR_BORDER_PATCH
 static const unsigned int snap = 32;       /* snap pixel */
 #if SWALLOW_PATCH
-static const int swallowfloating =
-    0; /* 1 means swallow floating windows by default */
+static const int swallowfloating = 0; /* 1 means swallow floating windows by default */
 #endif // SWALLOW_PATCH
 #if BAR_TAGPREVIEW_PATCH
 static const int scalepreview = 4; /* Tag preview scaling */
@@ -206,11 +205,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "IosevkaTermSlab Nerd Font :size=14";
+static const char font[] = "Maple Mono :size=13";
 #else
-static const char *fonts[] = {"IosevkaTermSlab Nerd Font :size=14"};
+static const char *fonts[] = {"Maple Mono :size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "IosevkaTermSlab Nerd Font :size=14";
+static const char dmenufont[] = "Maple Mono :size=13";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -357,8 +356,7 @@ static const Launcher launchers[] = {
     /* icon to display      command        */
     {" ",CMD("")},
     {"^c#6246ea^^d^", CMD("qutebrowser")},
-    {"^c#ffb86b^^d^", CMD("st", "-c", "'floating'", "-n", "'spfile'", "-T",
-                             "Files", "-g", "80x35", "-e", "yazi")},
+    {"^c#ffb86b^^d^", CMD("st", "-c", "'floating'", "-T", "Files", "-g", "80x35", "-e", "yazi")},
     {"^c#a7b0e0^^d^", CMD("Telegram")},
     {"^c#7dab73^^d^", CMD("kitty")},
 };
@@ -371,27 +369,14 @@ static const char *const autostart[] = {
 #endif // COOL_AUTOSTART_PATCH
 
 #if RENAMED_SCRATCHPADS_PATCH
-const char *spcmd1[] = {"s", "st", "-c", "'floating'",
-                        "-n", "'spterm'", "-T", "ScratchTerm",
-                        "-g", "85x35", NULL};
-const char *spmusic[] = {"m", "st", "-c", "'floating'", "-n", "'spmusic'",
-                         "-T", "Music", "-e", "ncmpcpp", NULL};
-const char *spproc[] = {"b", "st", "-c", "'floating'", "-n",
-                        "'spproc'", "-T", "Processes", "-g", "85x25",
-                        "-e", "btop", NULL};
-const char *spfiles[] = {"e", "st", "-c", "'floating'", "-n",
-                         "'spfiles'", "-T", "Files", "-g", "100x35",
-                         "-e", "yazi", NULL};
-const char *spradio[] = {"r", "st", "-c", "'floating'", "-n", "'spradio'",
-                         "-T", "Radio", "-g", "80x35", "-e", "sonicradio",
-                         NULL};
-const char *spnotes[] = {"n", "st", "-c", "'floating'", "-n",
-                         "'spnotes'", "-T", "Notes", "-g", "100x35",
-                         "-e", "fznote", NULL};
+const char *spcmd1[] = {"s", "st", "-c", "'floating'", "-T", "ScratchTerm", "-g", "85x35", NULL};
+const char *spmusic[] = {"m", "st", "-c", "'floating'", "-T", "Music", "-e", "ncmpcpp", NULL};
+const char *spproc[] = {"b", "st", "-c", "'floating'", "-T", "Processes", "-g", "85x25", "-e", "btop", NULL};
+const char *spfiles[] = {"e", "st", "-c", "'floating'", "-T", "Files", "-g", "100x35", "-e", "yazi", NULL};
+const char *spradio[] = {"r", "st", "-c", "'floating'", "-T", "Radio", "-g", "80x35", "-e", "sonicradio", NULL};
+const char *spnotes[] = {"n", "st", "-c", "'floating'", "-T", "Notes", "-g", "100x35", "-e", "fznote", NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
-const char *spfzf[] = {"d", "st", "-c", "'floating'", "-n",
-                         "'spfzf'", "-T", "FilesFzf", "-g", "100x35",
-                         "-e", "fzfopen", NULL};
+const char *spfzf[] = {"d", "st", "-c", "'floating'", "-T", "FilesFzf", "-g", "100x35", "-e", "fzfopen", NULL};
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "'spterm'", NULL};
@@ -444,8 +429,7 @@ static char *tagicons[][NUMTAGS] =
     {
         [DEFAULT_TAGS] = {"󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳","󰎶", "󰎹", "󰎼"},
         [ALTERNATIVE_TAGS] = {"A", "B", "C", "D", "E", "F", "G", "H", "I"},
-        [ALT_TAGS_DECORATION] = {"<1>", "<2>", "<3>", "<4>", "<5>", "<6>",
-                                 "<7>", "<8>", "<9>"},
+        [ALT_TAGS_DECORATION] = {"<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>"},
     };
 
 #if BAR_TAGGRID_PATCH
@@ -516,16 +500,17 @@ static const Rule rules[] = {
     RULE(.instance = "spfiles", .isfloating = 1)
     RULE(.instance = "v2rayN", .isfloating = 1)
     RULE(.title = "Chat", .isfloating = 1)
+    RULE(.title = "dorsandesk", .isfloating = 1)
 
 #if RENAMED_SCRATCHPADS_PATCH
-    RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
-    RULE(.instance = "spmusic", .scratchkey = 'm', .isfloating = 1)
-    RULE(.instance = "spproc", .scratchkey = 'b', .isfloating = 1)
-    RULE(.instance = "spfiles", .scratchkey = 'e', .isfloating = 1)
-    RULE(.instance = "spradio", .scratchkey = 'r', .isfloating = 1)
-    RULE(.instance = "spnotes", .scratchkey = 'n', .isfloating = 1)
-    RULE(.instance = "spfzf", .scratchkey = 'd', .isfloating = 1)
-    RULE(.instance = "Fsearch", .scratchkey = 'f', .isfloating = 1)
+    RULE(.title = "ScratchTerm", .scratchkey = 's', .isfloating = 1)
+    RULE(.title = "Music", .scratchkey = 'm', .isfloating = 1)
+    RULE(.title = "Processes", .scratchkey = 'b', .isfloating = 1)
+    RULE(.title = "Files", .scratchkey = 'e', .isfloating = 1)
+    RULE(.title = "Radio", .scratchkey = 'r', .isfloating = 1)
+    RULE(.title = "Notes", .scratchkey = 'n', .isfloating = 1)
+    RULE(.title = "FilesFzf", .scratchkey = 'd', .isfloating = 1)
+    RULE(.title = "Fsearch", .scratchkey = 'f', .isfloating = 1)
 #elif SCRATCHPADS_PATCH
     RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
     RULE(.instance = "spmusic", .tags = SPTAG(1), .isfloating = 1)
@@ -1111,10 +1096,14 @@ static const char *floatterm[] = {"st", "-c", "floating", "-T", "TermFloat","-g"
 static const char *pdfs[] = {"pdfmenu", NULL};
 static const char *kitty[] = {"kitty", NULL};
 static const char *kitty_session[] = {"psps", NULL};
-static const char *sttabs[] = {"tabbed","-cr","2","st","-w","''","$@",NULL};
+static const char *sttabs[] = {"tabbed","-cr","2","st","-w","''",NULL};
+static const char *alacrittytabs[] = {"tabbed","-c","alacritty","--embed",NULL};
+static const char *redshiftup[] = {"redshiftblock","increase",NULL};
+static const char *redshiftdown[] = {"redshiftblock","decrease",NULL};
 static const char *pdftabs[] = {"pdftabs",NULL};
 static const char *guifilefzf[] = {"fzgfm", NULL};
 static const char *dwmtheme[] = {"dwmtheme", NULL};
+static const char *mpvradio[] = {"mpvradio", NULL};
 
 static const Key keys[] = {
 /* modifier                     key            function                argument
@@ -1142,8 +1131,12 @@ static const Key keys[] = {
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
     {ALTKEY, XK_k, spawn, {.v = kitty_session}},
     {ALTKEY, XK_g, spawn, {.v = guifilefzf}},
+    {ALTKEY, XK_o, spawn, {.v = mpvradio}},
     {ALTKEY, XK_p, spawn, {.v = pdfs}},
     {ALTKEY, XK_t, spawn, {.v = sttabs}},
+    {ALTKEY|ControlMask, XK_t, spawn, {.v = alacrittytabs}},
+    {MODKEY, XK_Next, spawn, {.v = redshiftdown}},
+    {MODKEY, XK_Prior, spawn, {.v = redshiftup}},
     {ALTKEY, XK_y, spawn, {.v = pdftabs}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},

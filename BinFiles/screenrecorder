@@ -9,10 +9,10 @@ time=`date +%Y-%m-%d-%H-%M-%S`
 screen=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
 dir="`xdg-user-dir VIDEOS`/Screenrecorder"
 file="Capture_${time}.mp4"
-iDir='/home/mahdi/.config/dunst/icons/dunst'
+iDir='/home/kratos/.config/dunst/icons/dunst'
 # notify
 notify_user () {
-	notify_cmd="dunstify -u low --replace=699 -i $iDir/video.png"
+	notify_cmd="notify_send -u low -i $iDir/video.png"
 	if [[ -e "$dir/$file" ]]; then
 		${notify_cmd} "Saved in $dir"
 	else
@@ -23,7 +23,7 @@ notify_user () {
 # countdown
 countdown () {
 	for sec in `seq $1 -1 1`; do
-		dunstify -t 1000 --replace=699 -i $iDir/timer.png "Starting in : $sec"
+		notify-send -t 1000 -i $iDir/timer.png "Starting in : $sec"
 		sleep 1
 	done
 }
@@ -42,7 +42,7 @@ rec_screen() {
 rec_area() {
 	get_win_data=$(slop -f "%x %y %w %h %g %i") || exit 1
 	read -r X Y W H G ID < <(echo $get_win_data)
-	
+
 	countdown '5'
 	if [[ "$1" == "noaudio" ]]; then
 		ffmpeg -video_size ${W}x${H} -framerate 25 -f x11grab -i :0.0+${X},${Y} ${dir}/${file}

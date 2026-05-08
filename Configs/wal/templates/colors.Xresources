@@ -1,15 +1,15 @@
 ! Xresources template for pywal
 ! Place this in ~/.config/wal/templates/colors.Xresources
 
-*.font: GeistMono Nerd Font:pixelsize=16
 
 ! Base colors
 *background: {background}
 *foreground: {foreground}
 *cursorColor: {cursor}
+*.background: {background}
+*.foreground: {foreground} ! Standard 16 ANSI colors
+*.cursorColor: {cursor}    *.color0:  {color0}
 
-! Standard 16 ANSI colors
-*.color0:  {color0}
 *.color1:  {color1}
 *.color2:  {color2}
 *.color3:  {color3}
@@ -25,11 +25,29 @@
 *.color13: {color13}
 *.color14: {color14}
 *.color15: {color15}
+color0:  {color0}
+color1:  {color1}
+color2:  {color2}
+color3:  {color3}
+color4:  {color4}
+color5:  {color5}
+color6:  {color6}
+color7:  {color7}
+color8:  {color8}
+color9:  {color9}
+color10: {color10}
+color11: {color11}
+color12: {color12}
+color13: {color13}
+color14: {color14}
+color15: {color15}
+
 
 ! st terminal
 st.background: {foreground}
 st.foreground: {background}
 st.cursorColor: {cursor}
+
 
 ! dwm window manager colors
 ! Normal window colors
@@ -64,9 +82,9 @@ dwm.tagsnormfloatcolor: {background}
 
 ! Tags colors (selected)
 dwm.tagsselfgcolor: {background}
-dwm.tagsselbgcolor: {color4}
-dwm.tagsselbordercolor: {color4}
-dwm.tagsselfloatcolor: {color4}
+dwm.tagsselbgcolor: {color7}
+dwm.tagsselbordercolor: {color7}
+dwm.tagsselfloatcolor: {color7}
 
 ! Hidden tags colors
 dwm.hidnormfgcolor: {color8}
@@ -91,12 +109,19 @@ dwm.scratchselbordercolor: {foreground}
 dwm.scratchselfloatcolor: {foreground}
 
 ! Layout symbol colors
-dwm.ltsymbolfgcolor: {color4}
+dwm.ltsymbolfgcolor: {color8}
 dwm.ltsymbolbgcolor: {background}
 
 ! dmenu (dynamic menu)
-dmenu.font: GeistMono Nerd Font
+dmenu.font: Maple Mono
 dmenu.background: {background}
 dmenu.foreground: {foreground}
 dmenu.selbackground: {color4}
 dmenu.selforeground: {background}
+
+! tabbed colors
+tabbed.normbgcolor: {background}
+tabbed.normfgcolor: {foreground}
+tabbed.selfgcolor: {color4}
+tabbed.selbgcolor: {background}
+

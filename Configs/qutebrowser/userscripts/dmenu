@@ -57,7 +57,7 @@ parse_bookmarks() {
 COMBINED_LIST=$(parse_quickmarks && parse_bookmarks)
 
 # Display the list in dmenu and get the user's selection
-SELECTION=$(echo "$COMBINED_LIST" | dmenu -l 20 -p "Bookmarks:" | cut -f2)  # Extract URL from the tab-separated output
+SELECTION=$(echo "$COMBINED_LIST" | dmenu -fn "GeistMono Nerd Font" -nf "#ca00fa" -nb "#1a1a1a" -l 20 -p "Bookmarks:" | cut -f2)  # Extract URL from the tab-separated output
 
 # If no selection, exit
 if [ -z "$SELECTION" ]; then

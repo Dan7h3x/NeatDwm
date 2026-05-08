@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char *font         = "GeistMono Nerd Font:size=11";
+static char *font         = "Maple Mono :size=11";
 static char *normbgcolor  = "#0d0f1a";
 static char *normfgcolor  = "#c0e0ff";
 static char *selfgcolor   = "#ff4d80";
@@ -46,12 +46,12 @@ static int npisrelative = 0;
  */
 ResourcePref resources[] = {
 	{ "font",         STRING,  &font },
-	{ "color0",       STRING,  &normbgcolor },
-	{ "color4",       STRING,  &normfgcolor },
-	{ "color4",       STRING,  &selbgcolor },
-	{ "color7",       STRING,  &selfgcolor },
-	{ "color2",       STRING,  &urgbgcolor },
-	{ "color3",       STRING,  &urgfgcolor },
+	{ "normfgcolor",       STRING,  &normbgcolor },
+	{ "normbgcolor",       STRING,  &normfgcolor },
+	{ "selbgcolor",       STRING,  &selbgcolor },
+	{ "selfgcolor",       STRING,  &selfgcolor },
+	{ "urgbgcolor",       STRING,  &urgbgcolor },
+	{ "urgfgcolor",       STRING,  &urgfgcolor },
 	{ "before",       STRING,  &before },
 	{ "after",        STRING,  &after },
 	{ "titletrim",    STRING,  &titletrim },
