@@ -17,10 +17,10 @@ split() {
 vol="$(printf "%.0f" "$(split "$vol" ".")")"
 
 case 1 in
-$((vol >= 40))) icon=" " ;;
-$((vol >= 20))) icon=" " ;;
-$((vol >= 1))) icon=" " ;;
-*) echo "" && exit ;;
+$((vol >= 40))) icon="🔊" ;;
+$((vol >= 20))) icon="🔉" ;;
+$((vol >= 1))) icon="🔈" ;;
+*) echo "🔇 " && exit ;;
 esac
 
 colorbox -i "$icon" -t "$vol%" -f color10

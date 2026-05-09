@@ -53,19 +53,19 @@ if [ ! "$online" = "" ]; then
   title=$(mpc -f "%title%" | head -n 1)
   if [[ -n "$playing_player" ]]; then
     if [[ $playing_player = "Goodvibes" ]]; then
-      colorbox -i " " -t "{${Info:0:20}}" -f color11
+      colorbox -i "🌐" -t "{${Info:0:20}}" -f color11
     else
-      colorbox -i " " -t "{${Info:0:20}}" -f color11
+      colorbox -i "🌐" -t "{${Info:0:20}}" -f color11
     fi
   fi
 
   if [ "$(echo "$online" | wc -l)" -le 1 ]; then
-    colorbox -i "󰝚 " -t "{###}" -f color7
+    colorbox -i "🎵" -t "{###}" -f color7
   elif [ ! "$title" = "" ]; then
-    colorbox -i "󰝚 " -t "{${title:0:20}}" -f color12
+    colorbox -i "🎵 " -t "{${title:0:20}}" -f color12
   else
-    colorbox -i "󰝚 " -t "{$(mpc -f "%artist%" | head -n 1)}" -f color12
+    colorbox -i "🎵" -t "{$(mpc -f "%artist%" | head -n 1)}" -f color12
   fi
 else
-  colorbox -i "ﳌ" -t "{Offline}" -f color3
+  colorbox -i "✖️" -t "{Offline}" -f color3
 fi

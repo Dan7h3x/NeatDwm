@@ -56,11 +56,11 @@ decrease() {
 
 # Determine icon based on temperature
 if [ "$current_temp" -gt "$DEFAULT_TEMP" ]; then
-  icon="󰃞 "
+  icon="🌞"
 elif [ "$current_temp" -lt "$DEFAULT_TEMP" ]; then
-  icon="󰃜 "
+  icon="🌃"
 else
-  icon="󰃟 "
+  icon="🌃"
 fi
 
 # Output current status

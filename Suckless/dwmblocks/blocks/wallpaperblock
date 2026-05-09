@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-colorbox -i " " -t "Wall" -f color14
+colorbox -i "👾" -t "Wall" -f color14
 
 case "$BLOCK_BUTTON" in
 1)
