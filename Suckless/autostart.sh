@@ -18,8 +18,7 @@ start setxkbmap us,ir -option 'grp:alt_shift_toggle'
 start mpd
 start mpd-mpris
 start picom
-start feh --bg-fill  ~/.config/Wallpaper/Grey.jpg
 start dwmblocks
-start wired
+# start wired
 
 
