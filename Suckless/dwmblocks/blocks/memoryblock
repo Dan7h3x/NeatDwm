@@ -10,4 +10,4 @@ case $BLOCK_BUTTON in
 - Middle click to open htop." ;;
 6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-colorbox -i "⚡" -t " $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)" -f color4
+colorbox -i "⚡" -t " $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)" -f color5

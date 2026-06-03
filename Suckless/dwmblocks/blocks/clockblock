@@ -14,4 +14,4 @@ case $BLOCK_BUTTON in
 - Middle click opens calcurse if installed" ;;
 6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-colorbox -i "📆" -t "$(date '+%I:%M:%S')" -f color6
+colorbox -i "📆" -t "$(date '+%I:%M:%S')" -f color9

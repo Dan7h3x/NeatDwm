@@ -64,7 +64,7 @@ else
 fi
 
 # Output current status
-colorbox -i "$icon" -t "$current_temp" -f color11
+colorbox -i "$icon" -t "$current_temp" -f color2
 
 # Handle button events
 case "$BLOCK_BUTTON" in

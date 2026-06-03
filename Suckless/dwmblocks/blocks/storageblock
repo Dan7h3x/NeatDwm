@@ -7,4 +7,4 @@ case $BLOCK_BUTTON in
 - Click to show all disk info." ;;
 2) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-colorbox -i "💾" -t "$(df -h / | awk 'NR==2 { print $4 }' | sed s/i//g)" -f color9
+colorbox -i "💾" -t "$(df -h / | awk 'NR==2 { print $4 }' | sed s/i//g)" -f color6

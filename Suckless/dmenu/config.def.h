@@ -30,15 +30,15 @@ static int restrict_return = 0;             /* -1 option; if 1, disables shift-r
 #endif // RESTRICT_RETURN_PATCH
 /* -fn option overrides fonts[0]; default X11 font or font set */
 #if PANGO_PATCH
-static char *font = "GeistMono Nerd Font 12";
+static char *font = "Noto Color Emoji 12";
 #else
 #if XRESOURCES_PATCH
 static char *fonts[] =
 #else
-static const char *fonts[] ={"GeistMono Nerd Font 12"};
+static const char *fonts[] ={"Noto Color Emoji 12"};
 #endif // XRESOURCES_PATCH
 {
-	"GeistMono Nerd Font:size=12"
+	"Noto Color Emoji:size=12"
 };
 #endif // PANGO_PATCH
 #if MANAGED_PATCH

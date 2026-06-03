@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char *font         = "Maple Mono :size=11";
+static char *font         = "Maple Mono :size=12";
 static char *normbgcolor  = "#0d0f1a";
 static char *normfgcolor  = "#c0e0ff";
 static char *selfgcolor   = "#ff4d80";
@@ -34,7 +34,7 @@ static int npisrelative = 0;
         .v = (char *[]){ "/bin/sh", "-c", \
                 "prop=\"`xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "xargs -0 printf %b | dmenu -fn 'GeistMono Nerd Font :size=12' -nb '#0d0f1a' -nf '#c0e0ff' -p 'Open:' -l 10 -w $1`\" &&" \
+                "xargs -0 printf %b | dmenu -p 'Open:' -l 10 -w $1`\" &&" \
                 "xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
                 p, winid, NULL \
         } \
@@ -125,9 +125,9 @@ static const Key keys[] = {
 	{ MODKEY,               XK_9,         move,        { .i = 8 } },
 	{ MODKEY,               XK_0,         move,        { .i = 9 } },
 
-	{ MODKEY,               XK_q,         killclient,  { 0 } },
+	{ MODKEY|ALTKEY,               XK_q,         killclient,  { 0 } },
 
-	{ MODKEY,               XK_u,         focusurgent, { 0 } },
+	// { MODKEY|ALTKEY,               XK_u,         focusurgent, { 0 } },
 	{ MODKEY|ALTKEY,     XK_u,         toggle,      { .v = (void*) &urgentswitch } },
 
 	{ 0,                    XK_F11,       fullscreen,  { 0 } },

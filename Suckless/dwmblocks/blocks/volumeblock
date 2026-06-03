@@ -23,7 +23,7 @@ $((vol >= 1))) icon="🔈" ;;
 *) echo "🔇 " && exit ;;
 esac
 
-colorbox -i "$icon" -t "$vol%" -f color10
+colorbox -i "$icon" -t "$vol%" -f color1
 # echo "$ICON$VOL%"
 
 case $BLOCK_BUTTON in
