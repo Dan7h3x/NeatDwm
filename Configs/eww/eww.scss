@@ -1,0 +1,555 @@
+// =============================================================================
+// GLOBAL RESET & TYPOGRAPHY
+// =============================================================================
+@import "/home/kratos/.cache/wal/colors.scss";
+
+
+* {
+  all: unset;
+  font-family: "Maple Mono", "CaskaydiaCove Nerd Font", monospace;
+  font-size: 13px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// =============================================================================
+// MAIN BAR STRUCTURE
+// =============================================================================
+.Bar {
+  background: $bg_trans;
+  color: $foreground;
+  padding: 4px 4px;
+  border-radius: 6px;
+  border: 1px solid rgba($cursor, 0.3);
+
+  margin: 2px 2px;
+}
+
+.left-modules,
+.center-modules,
+.right-modules {
+  padding: 0px;
+  background-color: $bg_trans;
+  // gap: 6px;
+}
+
+// =============================================================================
+// WORKSPACE TAGS
+// =============================================================================
+.tag {
+  padding: 0px 4px;
+  margin: 3px 3px;
+  border-radius: 4px;
+  background: rgba($background, 0.4);
+  // backdrop-filter: blur(4px);
+  font-weight: 100;
+  // position: relative;
+
+  // &::before {
+  //   content: '';
+  //   // position: absolute;
+  //   bottom: 2px;
+  //   left: 50%;
+  //   transform: translateX(-50%) scaleX(0);
+  //   width: 60%;
+  //   height: 2px;
+  //   background: $color0;
+  //   border-radius: 2px;
+  //   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  // }
+
+  &.empty {
+    opacity: 0.3;
+    background: transparent;
+  }
+
+  &.occupied {
+    background: transparent;
+    opacity: 0.9;
+    color: $color1;
+  }
+
+  &.focused {
+    background: $bg_trans;
+    color: $color4;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba($color5, 0.4);
+    // transform: translateY(-1px);
+
+    // &::before {
+    //   // transform: translateX(-50%) scaleX(1);
+    //   background: $color0;
+    // }
+  }
+
+  &:hover:not(.focused) {
+    background: rgba($color4, 0.6);
+    // transform: translateY(-1px);
+    box-shadow: 0 4px 4px rgba(0, 100, 0, 0.2);
+  }
+}
+
+// =============================================================================
+// KEYMODE INDICATOR
+// =============================================================================
+.keymode {
+  padding: 0px 1px;
+  background: linear-gradient(135deg,
+      rgba($color0, 0.3),
+      rgba($color0, 0.2));
+  border: 1px solid rgba($color0, 0.4);
+  border-radius: 8px;
+  color: $color0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px rgba($color0, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+// @keyframes pulse-glow {
+//   0%, 100% { box-shadow: 0 0 5px rgba($color0, 0.2); }
+//   50% { box-shadow: 0 0 15px rgba($color0, 0.4); }
+// }
+
+// =============================================================================
+// CLIENT INFO
+// =============================================================================
+.client-info {
+  padding: 0px 6px;
+  background: $background;
+  border-radius: 4px;
+  color: $color6;
+  font-weight: 500;
+  border: 1px solid rgba($color6, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 100, 0.4);
+  // backdrop-filter: blur(5px);
+}
+
+// =============================================================================
+// MUSIC COMPACT WIDGET
+// =============================================================================
+.music-compact {
+  padding: 1px 5px;
+  background: rgba($background, 0.9);
+  border-radius: 4px;
+  // backdrop-filter: blur(4px);
+  border: 1px solid rgba($color7, 0.2);
+
+  &:hover {
+    background: rgba($color8, 0.9);
+    box-shadow: 0 4px 15px rgba($color0, 0.2);
+    // transform: translateY(-1px);
+  }
+
+  .music-icon {
+    color: $color2;
+    // filter: drop-shadow(0 0 8px rgba($color0, 0.5));
+  }
+
+  .music-text {
+    color: $color6;
+    font-style: italic;
+  }
+}
+
+// =============================================================================
+// SYSTEM TRAY
+// =============================================================================
+.system-tray {
+  padding: 0px 4px;
+  background: $background;
+  color: $foreground;
+  border-radius: 8px;
+  // gap: 4px;
+
+  label {
+    padding: 2px 4px;
+    background: rgba($background, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $color4;
+      background: rgba($color3, 0.15);
+      // transform: scale(1.1);
+      // filter: drop-shadow(0 0 8px rgba($color0, 0.4));
+    }
+  }
+}
+
+.tray {
+  background-color: $background;
+  color: $color3;
+  border: 1px solid $cursor;
+}
+
+// =============================================================================
+// CLOCK
+// =============================================================================
+.clock {
+  padding: 0px 15px;
+  background: $background;
+  border-radius: 4px;
+  color: $color4;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid rgba($color9, 0.3);
+  text-shadow: 0 0 4px rgba($color9, 0.3);
+}
+
+// =============================================================================
+// VOLUME
+// =============================================================================
+.volume {
+  background-color: $background;
+  padding: 2px;
+  color: $color11;
+  border-radius: 6px;
+  // filter: drop-shadow(0 0 5px rgba($color0, 0.3));
+
+  &:hover {
+    color: lighten($color1, 15%);
+  }
+}
+
+.sub_hub {
+  background: $bg_trans;
+  border-radius:4px;
+}
+
+// =============================================================================
+// POPUP WINDOWS
+// =============================================================================
+.music-player,
+.todo-manager,
+.wallpaper-selector {
+  background:  lighten($background,30%);
+  border: 2px solid rgba($color11, 0.3);
+  border-radius: 0px;
+  padding: 8px;
+
+
+  .title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $foreground;
+    letter-spacing: 1px;
+    // text-transform: uppercase;
+    padding-bottom: 1px;
+    border-bottom: 1px solid rgba($color1, 0.4);
+    margin-bottom: 1px;
+  }
+
+  .close-btn {
+    color: $color1;
+    font-size: 20px;
+    padding: 0px 20px;
+    border-radius: 50%;
+    background: rgba($color2, 0.5);
+
+    &:hover {
+      color: $color1;
+      background: rgba($color2, 0.2);
+      // transform: rotate(90deg);
+    }
+  }
+}
+
+// =============================================================================
+// MUSIC PLAYER
+// =============================================================================
+.music-player {
+  .music-cover {
+    background: linear-gradient(135deg,
+        rgba($color1, 0.1),
+        rgba($color4, 0.6));
+    border-radius: 2px;
+    padding: 4px;
+    border: 1px solid rgba($color13, 0.9);
+    box-shadow: 0 8px 32px $bg_trans;
+
+    .cover-placeholder {
+      font-size: 50px;
+      color: $color12;
+      // filter: drop-shadow(0 0 4px rgba($color0, 0.3));
+    }
+  }
+
+  .music-info {
+    .music-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: $color12;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-artist {
+      font-size: 14px;
+      color: $color12;
+      font-style: italic;
+    }
+  }
+
+  .music-progress {
+    scale {
+      background: rgba($color12, 0.1);
+      border-radius: 6px;
+      min-height: 6px;
+      padding: 2px;
+
+      trough {
+        min-height: 6px;
+        border-radius: 6px;
+        background: rgba($color12, 0.5);
+      }
+
+      highlight {
+        background: linear-gradient(90deg,
+            $color1,
+            $color12);
+        border-radius: 6px;
+        box-shadow: 0 0 4px rgba($color12, 0.5);
+      }
+
+      slider {
+        background: $color12;
+        border-radius: 90%;
+        min-width: 14px;
+        min-height: 14px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    label {
+      color: $color12;
+      padding: 1px 2px;
+      border-radius: 0%;
+      font-size: 12px;
+      border: 1px solid rgba($color12, 0.3);
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background: linear-gradient(135deg,
+            $color1,
+            lighten($color4, 10%));
+        color: $color13;
+        // transform: scale(1.1);
+        box-shadow: 0 8px 24px rgba($color12, 0.4);
+      }
+    }
+  }
+}
+
+// =============================================================================
+// TODO MANAGER
+// =============================================================================
+.todo-manager {
+  .todo-add {
+    input {
+      background: $background;
+      padding: 4px 6px;
+      border-radius: 8px;
+      color: $color14;
+      min-width: 250px;
+      border: 1px solid rgba($color14, 0.3);
+
+      &:focus {
+        border-color: $color14;
+        box-shadow: 0 0 0 2px rgba($color0, 0.2);
+      }
+    }
+
+    button {
+      background: linear-gradient(135deg,
+          $color1,
+          darken($color4, 5%));
+      color: $color14;
+      padding: 4px 18px;
+      border-radius: 18px;
+      font-weight: 600;
+
+      &:hover {
+        background: linear-gradient(135deg,
+            lighten($color1, 5%),
+            $color0);
+        box-shadow: 0 4px 12px rgba($color14, 0.4);
+        // transform: translateY(-1px);
+      }
+    }
+  }
+  .todo-input {
+    background: $foreground;
+    color:$background;
+  }
+
+  .todo-list {
+    .todo-item {
+      background: rgba($color1, 0.4);
+      padding: 12px;
+      border-radius: 8px;
+      margin: 4px 0;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+
+      &.done {
+        opacity: 0.6;
+        border-left-color: $color4;
+
+        .todo-text {
+          text-decoration: line-through;
+          color: $color3;
+        }
+      }
+
+      .todo-check {
+        color: $color5;
+        font-size: 18px;
+        padding: 0 4px;
+
+        &:hover {
+          color: $color7;
+          // transform: scale(1.2);
+        }
+      }
+
+      .todo-text {
+        color: $foreground;
+        font-size: 14px;
+      }
+
+      .todo-delete {
+        color: $color1;
+        padding: 0 4px;
+
+        &:hover {
+          color: $color2;
+          // transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// WALLPAPER SELECTOR
+// =============================================================================
+.wallpaper-selector {
+  .current-wallpaper {
+    color: $color4;
+    padding: 12px;
+    background: rgba($background, 0.4);
+    border-radius: 8px;
+    border: 1px solid rgba($color0, 0.3);
+  }
+
+  .wallpaper-grid {
+    .wallpaper-item {
+      background: rgba($background, 0.4);
+      padding: 20px;
+      border-radius: 4px;
+      margin: 6px 0;
+      border: 2px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      label {
+        color: $color4;
+        font-size: 42px;
+      }
+
+      &.active {
+        background: linear-gradient(135deg,
+            rgba($color0, 0.3),
+            rgba($color1, 0.2));
+        border-color: $color2;
+        box-shadow: 0 0 20px rgba($color0, 0.2);
+
+        label {
+          color: $color5;
+        }
+      }
+
+      &:hover:not(.active) {
+        background: rgba($color1, 0.5);
+        // transform: translateX(5px);
+        border-color: rgba($color1, 0.3);
+      }
+    }
+  }
+}
+
+// =============================================================================
+// CALENDAR
+// =============================================================================
+.calen {
+  background: darken($background,30%);
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba($color0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  // backdrop-filter: blur(20px);
+}
+
+.calen_in {
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.calen_in:selected {
+  background: $color2;
+  color: $background;
+  font-style: italic;
+  border: 1px solid rgba($color0, 0.4);
+  box-shadow: 0 0 15px rgba($color0, 0.3);
+}
+
+.calen_in.header {
+  border: none;
+  color: $foreground;
+  font-weight: 700;
+}
+
+.clock_expanded-time {
+  font-size: 52px;
+  padding-top: 12px;
+  color: $color4;
+  text-shadow: 0 0 20px rgba($color0, 0.3);
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+// =============================================================================
+// GRAPH BOX
+// =============================================================================
+.graphbox {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba($color4, 0.4);
+  border-radius: 12px;
+  color: $color4;
+  // backdrop-filter: blur(4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+// =============================================================================
+// UTILITY KEYFRAMES
+// =============================================================================
+// @keyframes fadeIn {
+//   from { opacity: 0; transform: translateY(-4px); }
+//   to { opacity: 1; transform: translateY(0); }
+// }
+//
+// @keyframes slideIn {
+//   from { transform: translateX(-20px); opacity: 0; }
+//   to { transform: translateX(0); opacity: 1; }
+// }
+
+// Apply animations
+.music-player,
+.todo-manager,
+.wallpaper-selector {
+  transition: all 0.3s ease;
+}
+
+.tag {
+  transition: all 0.3s ease;
+}

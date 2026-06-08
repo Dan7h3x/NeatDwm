@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char *font = "xenia:size=12";
+static char *font = "JetBrainsMono Nerd Font:size=13";
 static char *normbgcolor = "#0d0f1a";
 static char *normfgcolor = "#c0e0ff";
 static char *selfgcolor = "#ff4d80";

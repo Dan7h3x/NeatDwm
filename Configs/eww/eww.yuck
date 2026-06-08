@@ -1,0 +1,362 @@
+;; Variables
+
+
+(deflisten tags_literal :initial "(box)" "scripts/tags.sh")
+(defpoll current_keymode :interval "1s" "scripts/keymode.sh")
+(defpoll focused_client :interval "500ms" "scripts/client.sh")
+(defpoll music_status :interval "1s" "scripts/music.sh status")
+(defpoll music_title :interval "1s" "scripts/music.sh title")
+(defpoll music_artist :interval "1s" "scripts/music.sh artist")
+(defpoll music_position :interval "1s" "scripts/music.sh position")
+(defpoll music_duration :interval "1s" "scripts/music.sh duration")
+(defpoll todos :interval "1s" "scripts/todo.sh list")
+(defpoll wallpapers :interval "30s" "scripts/wallpaper.sh list")
+(defpoll current_wallpaper :interval "5s" "scripts/wallpaper.sh current")
+
+;; Windows
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "98%"
+                      :height "27px"
+                      :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  :reserve (struts :side "top" :distance "25px")
+  :wm-ignore false
+  :class "Bar"
+  (bar))
+
+(defwindow music-player
+  :monitor 0
+  :windowtype "normal"
+  :geometry (geometry :x "760px"
+                      :y "1px"
+                      :width "400px"
+                      :height "100px")
+  :stacking "overlay"
+  (music-widget))
+
+(defwindow todo-manager
+  :monitor 0
+  :windowtype "normal"
+  :geometry (geometry :x "1040px"
+                      :y "1px"
+                      :width "650px"
+                      :height "100px")
+  :stacking "overlay"
+  (todo-widget))
+
+(defwindow wallpaper-selector
+  :monitor 0
+  :windowtype "normal"
+  :geometry (geometry :x "360px"
+                      :y "1px"
+                      :width "1200px"
+                      :height "100px")
+  :stacking "overlay"
+  (wallpaper-widget))
+
+;; Main Bar Widget
+(defwidget bar []
+  (centerbox :class "Bar"
+    (box :class "left-modules"
+         :orientation "h"
+         :space-evenly false
+         :halign "start"
+         :spacing 1
+      (literal  :content tags_literal)
+      ;;(keymode)
+      (client-info)
+      )
+    (box :class "center-modules"
+         :orientation "h"
+         :halign "center"
+      (music-compact))
+    (box :class "right-modules"
+         :orientation "h"
+         :space-evenly false
+         :halign "end"
+         :spacing 1
+      ;;(notifications)
+      ;;(network)
+      (volume)
+      (system-tray)
+      (ram_perfs_hub)
+      (cpu_perfs_hub)
+      (clock))))
+
+
+
+;; Keymode Widget
+(defwidget keymode []
+  (box :class "keymode"
+    (label :text "󰌌 ${current_keymode}")))
+
+;; Client Info Widget
+(defwidget client-info []
+  (box :class "client-info"
+       :visible {focused_client != ""}
+    (label :text "🖥️ ${focused_client}"
+           :limit-width 50
+           :show-truncated true)))
+
+;; Compact Music Widget for Bar
+(defwidget music-compact []
+  (eventbox :onclick "eww open music-player"
+            :onrightclick "eww close music-player"
+    (box :class "music-compact"
+         :orientation "h"
+         :spacing 2
+         :space-evenly false
+         :visible {music_status != "stopped"}
+      (label :class "music-icon"
+             :text {music_status != "stopped" ? "󰝚" : "y"})
+      (label :class "music-text"
+             :text "${music_title}"
+             :limit-width 30
+             :show-truncated false))))
+
+;; Full Music Player Widget
+(defwidget music-widget []
+  (box :class "music-player"
+       :orientation "v"
+       :spacing 3
+    (box :class "music-cover"
+      (label :text "󰝚" :class "cover-placeholder"))
+    (box :class "music-info"
+         :orientation "v"
+         :spacing 3
+      (label :class "music-title"
+             :text "${music_title}"
+             :limit-width 35)
+      (label :class "music-artist"
+             :text "${music_artist}"
+             :limit-width 35))
+    (box :class "music-progress"
+         :orientation "v"
+         :spacing 5
+      (scale :min 0
+             :max {music_duration == "" ? 100 : music_duration}
+             :value {music_position == "" ? 0 : music_position}
+             :onchange "playerctl position {}")
+      (box :orientation "h"
+        (label :halign "start" :text "${music_position}")
+        (label :halign "end" :text "${music_duration}")))
+    (box :class "music-controls"
+         :orientation "h"
+         :halign "center"
+         :spacing 15
+      (button :onclick "scripts/music.sh prev" "⏮️")
+      (button :onclick "scripts/music.sh toggle"
+              {music_status == "playing" ? "󰏤" : "⏯️"})
+      (button :onclick "scripts/music.sh next" "⏭️"))))
+
+;; Todo Widget
+(defwidget todo-widget []
+  (box :class "todo-manager"
+       :orientation "v"
+       :space-evenly false
+       :spacing 10
+    (box :class "todo-header"
+         :orientation "h"
+      (label :text " Todo Manager" :class "title")
+      (button :class "close-btn"
+              :halign "end"
+              :onclick "eww close todo-manager"
+        ""))
+    (box :class "todo-add"
+         :orientation "h"
+         :spacing 5
+      (input :class "todo-input"
+             :onaccept "scripts/todo.sh add '{}' && eww update todos='$(scripts/todo.sh list)'")
+      (button :onclick "scripts/todo.sh add '$(xdotool getwindowname $(xdotool getactivewindow))'"
+        "xx"))
+    (scroll :class "todo-list"
+            :vscroll true
+            :height 300
+      (box :orientation "v"
+           :spacing 5
+        (for todo in todos
+          (box :class "todo-item ${todo.done ? 'done' : ''}"
+               :orientation "h"
+               :spacing 10
+            (button :class "todo-check"
+                    :onclick "scripts/todo.sh toggle ${todo.id}"
+              {todo.done ? "" : ""})
+            (label :class "todo-text"
+                   :text "${todo.text}"
+                   :halign "start"
+                   :hexpand true
+                   :limit-width 30)
+            (button :class "todo-delete"
+                    :onclick "scripts/todo.sh delete ${todo.id}"
+              "")))))))
+
+;; Wallpaper Selector Widget
+(defwidget wallpaper-widget []
+  (box :class "wallpaper-selector"
+       :orientation "h"
+       :spacing 1
+    (box :class "wallpaper-header"
+         :orientation "h"
+      (label :text "󰸉 Wallpaper Selector" :class "title")
+      (button :class "close-btn"
+              :halign "end"
+              :onclick "eww close wallpaper-selector"
+        ""))
+    (label :class "current-wallpaper"
+           :text "Current: ${current_wallpaper}")
+    (scroll :class "wallpaper-grid"
+            :vscroll true
+            :height 100
+      (box :orientation "v"
+           :spacing 10
+        (for wallpaper in wallpapers
+          (button :class "wallpaper-item ${wallpaper == current_wallpaper ? 'active' : ''}"
+                  :onclick "scripts/wallpaper.sh set '${wallpaper}'"
+            (box :orientation "v"
+                 :spacing 5
+              (label :text "󰋩")
+              (label :text "${wallpaper}"
+                     :limit-width 40))))))))
+
+;; System Tray
+(defwidget system-tray []
+  (box :class "system-tray"
+       :orientation "h"
+       :spacing 1
+       :space-evenly false
+    (eventbox :onclick "eww open todo-manager"
+              :onrightclick "eww close todo-manager"
+      (label :text "TODO"))
+    ;;(wallpaper_hub)
+    (eventbox :onclick "eww open wallpaper-selector"
+              :onrightclick "eww close wallpaper-selector"
+      (label :text "󰸉"))
+    (systray :space-evenly false :spacing 10 :orientation "h" :class "tray")
+    ;;(label :text "${system_info}")
+    ))
+
+
+
+(defwidget cpu_perfs_hub []
+  (box :space-evenly true :spacing 2 :orientation "h" :class "sub_hub" :width 27
+  (circular-progress :class "cpu_circle" :value {EWW_CPU.avg} :thickness 5  :vexpand true :hexpand true :valign "fill" :halign "fill" :start-at 1 :style "background-color: orange;"
+  (label :text "cpu" :style "font-size:9;color:cyan;"))
+  )
+  )
+
+(defwidget ram_perfs_hub []
+  (box :space-evenly true :spacing 2 :orientation "h" :class "sub_hub" :width 27
+  (circular-progress :class "ram_circle" :value {EWW_RAM.used_mem_perc} :thickness 5  :vexpand true :hexpand true :valign "fill" :halign "fill" :start-at 1 :style "background-color: purple;"
+  (label :text "ram" :style "font-size:9; color:cyan;"))
+  ))
+
+;; Clock Widget
+(defwidget clock []
+  (box :class "clock"
+  (button :onclick "eww open calen && eww update calen_rev=true"
+          :onrightclick "eww update calen_rev=false && (sleep 0.2 && eww close calen)"
+    (label :text "${formattime(EWW_TIME, '%H:%M:%S  %a %d %b')}"))))
+
+
+;; Network Widget
+(defpoll network_status :interval "3s"
+  "nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2 || echo 'Disconnected'")
+
+(defwidget network []
+  (box :class "network"
+    (label :text "󰖩 ${network_status}"
+           :limit-width 20)
+    (overlay
+    (graph :class "graphbox" :value {round(EWW_NET.enp0s31f6.NET_DOWN,1)} :time-range 3000 :dynamic true)
+    (graph :class "graphbox" :value {round(EWW_NET.enp0s31f6.NET_UP,1)} :time-range 3000 :dynamic true))
+    ))
+
+;; Volume Widget
+(defpoll volume :interval "1s"
+  "pamixer --get-volume")
+
+(defwidget volume []
+  (eventbox :onscroll "if [ '{}' = 'up' ]; then pamixer -i 5; else pamixer -d 5; fi"
+    (box :class "volume"
+         :spacing 2
+      (label :text {volume > 50 ? "󰕾" : volume > 0 ? "󰖀" : "󰝟"})
+      (label :text "${volume}%"))))
+
+;; Notification Center (using dunst)
+;;(defpoll notification_count :interval "2s"
+;;  "dunstctl count")
+
+;;(defwidget notifications []
+;;  (eventbox :onclick "dunstctl history-pop"
+;;    (box :class "notifications"
+;;         :visible {notification_count > 0}
+;;      (label :text " ${notification_count}"))))
+
+
+(defvar calen_rev false)
+(defwindow calen
+  :monitor 0
+  :geometry (geometry :x "1600px" :y "0px" :width "0px" :height "0px":anchor "left top")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :wm-ignore true
+  :namespace "eww_main"
+  (box :space-evenly false
+         (revealer :transition "slidedown"
+                   :reveal calen_rev
+                   :duration "350ms"
+                   (clock_expanded :class "calen"
+                    ))))
+
+(defpoll timehour
+  :interval "1s"
+  :initial "timedate"
+  `date +%H`)
+(defpoll timeday
+  :interval "1s"
+  :initial 1
+  `date +%d`)
+
+(defpoll timemin
+  :interval "1s"
+  :initial "timedate"
+  `date +%M`)
+
+(defpoll timesec
+  :interval "1s"
+  :initial "timedate"
+  `date +%S`)
+
+(defwidget clock_expanded []
+  (box :space-evenly false :spacing 10 :orientation "v" :halign "fill"
+    (label :text "${timehour}:${timemin}:${timesec}" :class "clock_expanded-time")
+    (calendar :class "calen_in" :day timeday)))
+
+
+;;(defvar wallpapers_path "~/.config/Wallpaper")
+;;(deflisten wallpapers_list
+;;  "bash -c '/home/kratos/.config/eww/scripts/get-wallpaper.sh'")
+;;(defvar current_wallpaper 0)
+;;
+;;(defwidget wallpaper_hub []
+;;
+;;  (box :space-evenly false :spacing 10 :orientation "v" :class "sub_hub" :height {round(400/5.2, 0)} :valign "center"
+;;  (box :orientation "h" :class "wallpaper_box" :space-evenly false :spacing 20 :halign "center" :hexpand true :valign "center" :style "padding:10;"
+;;  (eventbox :onclick "eww update current_wallpaper=${current_wallpaper == 0 ? arraylength(wallpapers_list.wallpapers) - 1 : current_wallpaper - 1}" :class "wallpaper_arrow"
+;;  (label :text "  " :style "font-size: 30; padding:0;"))
+;;  (box :space-evenly false :spacing 0 :orientation "h" :class "wallpaper_image"
+;;  (image :path {wallpapers_list.wallpapers[current_wallpaper]} :image-width 250 :image-height 140 :preserve-aspect-ratio false :style "border-radius: 10;"))
+;;  (eventbox :onclick "eww update current_wallpaper=${current_wallpaper == arraylength(wallpapers_list.wallpapers) - 1 ? 0 : current_wallpaper + 1}" :class "wallpaper_arrow"
+;;  (label :text "  " :style "font-size: 30; padding:0;  ")))
+;;  (box :orientation "h" :space-evenly false :spacing 20 :halign "center"
+;;  (eventbox :onclick "awww img ${wallpapers_list.wallpapers[current_wallpaper]} --transition-type wipe & ~/.config/eww/scripts/update-current-wallpaper-var.sh ${current_wallpaper}" :class "wallpaper_button"
+;;  (label :text "Set Wallpaper" :style "padding: 5 10 5 10;"))
+;;  (eventbox :onclick "bash -c ~/.config/eww/scripts/open-directory.sh ${wallpapers_path}" :class "wallpaper_button"
+;;  (label :text "Open Directory" :style "padding: 5 10 5 10;"))
+;;)))

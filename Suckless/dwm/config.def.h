@@ -205,11 +205,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "xenia:size=13";
+static const char font[] = "JetBrainsMono Nerd Font:size=13";
 #else
-static const char *fonts[] = {"xenia:size=13"};
+static const char *fonts[] = {"JetBrainsMono Nerd Font:size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "xenia:size=13";
+static const char dmenufont[] = "JetBrainsMono Nerd Font:size=13";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -471,121 +471,55 @@ static const int tagrows = 2;
  * depending on the patches you enable.
  */
 static const Rule rules[] = {
-    /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
-     *	WM_WINDOW_ROLE(STRING) = role
-     *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
-     */
-    RULE(.wintype = WTYPE "DIALOG", .isfloating = 1) RULE(
-            .wintype = WTYPE "UTILITY",
-            .isfloating =
-                1) RULE(.wintype = WTYPE "TOOLBAR",
-                        .isfloating =
-                            1) RULE(.wintype = WTYPE "SPLASH",
-                                    .isfloating =
-                                        1) RULE(.class = "MATLAB R2018b",
-                                                .isfloating =
-                                                    1) RULE(.class =
-                                                                "MATLAB R2024a",
-                                                            .isfloating = 1)
-        RULE(.class = "Matlab", .isfloating = 1) RULE(
-                .class =
-                    "sun-awt-X11-XFramePeer",
-                .isfloating = 1) RULE(.class = "python3", .isfloating = 1)
-            RULE(.class = "Matplotlib", .isfloating = 1) RULE(
-                    .class =
-                        "matplotlib",
-                    .isfloating = 1) RULE(.class = "Python3", .isfloating = 1)
-                RULE(.class = "Figure", .isfloating = 1) RULE(
-                        .class =
-                            "Lxappearance",
-                        .isfloating =
-                            1) RULE(.class = "TelegramDesktop", .isfloating = 1)
-                    RULE(.class = "pavucontrol", .isfloating = 1) RULE(
-                            .class =
-                                "Blueman-manager",
-                            .isfloating =
-                                1) RULE(.class = "Windscribe2", .isfloating = 1)
-                        RULE(.class = "Goodvibes", .isfloating = 1) RULE(
-                                .class =
-                                    "Fsearch",
-                                .isfloating =
-                                    1) RULE(.class = "Nwg-look", .isfloating = 1)
-                            RULE(.class = "Viewnior", .isfloating = 1) RULE(
-                                    .class =
-                                        "floating",
-                                    .isfloating =
-                                        1) RULE(.class = "octave-gui", .isfloating = 1)
-                                RULE(.class = "R_x11", .isfloating = 1) RULE(
-                                        .instance =
-                                            "Floatterm",
-                                        .isfloating =
-                                            1) RULE(.instance = "spfiles", .isfloating = 1)
-                                    RULE(.instance = "v2rayN", .isfloating = 1) RULE(
-                                            .title =
-                                                "Chat",
-                                            .isfloating =
-                                                1) RULE(.title = "dorsandesk",
-                                                        .isfloating = 1)
+  /* xprop(1):
+   *	WM_CLASS(STRING) = instance, class
+   *	WM_NAME(STRING) = title
+   *	WM_WINDOW_ROLE(STRING) = role
+   *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
+   */
+  RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
+  RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
+  RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
+  RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
+  RULE(.class = "MATLAB R2018b", .isfloating = 1)
+  RULE(.class = "MATLAB R2024a", .isfloating = 1)
+  RULE(.class = "Matlab", .isfloating = 1)
+  RULE(.class = "sun-awt-X11-XFramePeer", .isfloating = 1)
+  RULE(.class = "python3", .isfloating = 1)
+  RULE(.class = "Matplotlib", .isfloating = 1)
+  RULE(.class = "matplotlib", .isfloating = 1)
+  RULE(.class = "Python3", .isfloating = 1)
+  RULE(.class = "Figure", .isfloating = 1)
+  RULE(.class = "Lxappearance", .isfloating = 1)
+  RULE(.class = "TelegramDesktop", .isfloating = 1)
+  RULE(.class = "pavucontrol", .isfloating = 1)
+  RULE(.class = "Blueman-manager", .isfloating = 1)
+  RULE(.class = "Windscribe2", .isfloating = 1)
+  RULE(.class = "Goodvibes", .isfloating = 1)
+  RULE(.class = "Fsearch", .isfloating = 1)
+  RULE(.class = "Nwg-look", .isfloating = 1)
+  RULE(.class = "Viewnior", .isfloating = 1)
+  RULE(.class = "floating", .isfloating = 1)
+  RULE(.class = "octave-gui", .isfloating = 1)
+  RULE(.class = "R_x11", .isfloating = 1)
+  RULE(.instance = "Floatterm", .isfloating = 1)
+  RULE(.instance = "spfiles", .isfloating = 1)
+  RULE(.instance = "v2rayN", .isfloating = 1)
+  RULE(.title = "Chat", .isfloating = 1)
+  RULE(.title = "dorsandesk", .isfloating = 1)
 
 #if RENAMED_SCRATCHPADS_PATCH
-                                        RULE(.title = "ScratchTerm",
-                                             .scratchkey = 's',
-                                             .isfloating = 1)
-                                            RULE(.title = "Music",
-                                                 .scratchkey = 'm',
-                                                 .isfloating = 1)
-                                                RULE(.title = "Proce"
-                                                              "sses",
-                                                     .scratchkey = 'b',
-                                                     .isfloating = 1)
-                                                    RULE(.title = "F"
-                                                                  "i"
-                                                                  "l"
-                                                                  "e"
-                                                                  "s",
-                                                         .scratchkey = 'e',
-                                                         .isfloating = 1)
-                                                        RULE(.title = "R"
-                                                                      "a"
-                                                                      "d"
-                                                                      "i"
-                                                                      "o",
-                                                             .scratchkey = 'r',
-                                                             .isfloating = 1)
-                                                            RULE(.title = "Note"
-                                                                          "s",
-                                                                 .scratchkey =
-                                                                     'n',
-                                                                 .isfloating =
-                                                                     1)
-                                                                RULE(.title =
-                                                                         "File"
-                                                                         "sFz"
-                                                                         "f",
-                                                                     .scratchkey =
-                                                                         'd',
-                                                                     .isfloating =
-                                                                         1)
-                                                                    RULE(.title =
-                                                                             "F"
-                                                                             "s"
-                                                                             "e"
-                                                                             "a"
-                                                                             "r"
-                                                                             "c"
-                                                                             "h",
-                                                                         .scratchkey =
-                                                                             'f',
-                                                                         .isfloating =
-                                                                             1)
+  RULE(.title = "ScratchTerm", .scratchkey = 's', .isfloating = 1)
+  RULE(.title = "Music", .scratchkey = 'm', .isfloating = 1)
+  RULE(.title = "Processes", .scratchkey = 'b', .isfloating = 1)
+  RULE(.title = "Files", .scratchkey = 'e', .isfloating = 1)
+  RULE(.title = "Radio", .scratchkey = 'r', .isfloating = 1)
+  RULE(.title = "Notes", .scratchkey = 'n', .isfloating = 1)
+  RULE(.title = "FilesFzf", .scratchkey = 'd', .isfloating = 1)
+  RULE(.title = "Fsearch", .scratchkey = 'f', .isfloating = 1)
 #elif SCRATCHPADS_PATCH
-                                        RULE(.instance = "spterm",
-                                             .tags = SPTAG(0), .isfloating = 1)
-                                            RULE(.instance = "spmusic",
-                                                 .tags = SPTAG(1),
-                                                 .isfloating = 1)
+  RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+  RULE(.instance = "spmusic", .tags = SPTAG(1), .isfloating = 1)
 #endif // SCRATCHPADS_PATCH
 };
 
@@ -787,141 +721,110 @@ static const int scrollargs[][2] = {
 
 #if FLEXTILE_DELUXE_LAYOUT
 static const Layout layouts[] = {
-    /* symbol     arrange function, { nmaster, nstack, layout, master axis,
-       stack axis, secondary stack axis, symbol func } */
-    {"[]=",
-     flextile,
-     {-1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0,
-      NULL}}, // default tile layout
-    {"|M|",
-     flextile,
-     {-1, -1, SPLIT_CENTERED_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM,
-      TOP_TO_BOTTOM, NULL}}, // centeredmaster
-    {"[M]", flextile, {-1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL}}, // monocle
-    {"|||",
-     flextile,
-     {-1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0,
-      NULL}}, // columns (col) layout
-    {">M>",
-     flextile,
-     {-1, -1, FLOATING_MASTER, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,
-      NULL}}, // floating master
-    {"[D]",
-     flextile,
-     {-1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, MONOCLE, 0, NULL}}, // deck
-    {"TTT",
-     flextile,
-     {-1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0,
-      NULL}}, // bstack
-    {"===",
-     flextile,
-     {-1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0,
-      NULL}}, // bstackhoriz
-    {"-M-",
-     flextile,
-     {-1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT,
-      LEFT_TO_RIGHT, NULL}}, // centeredmaster horiz
-    {":::",
-     flextile,
-     {-1, -1, NO_SPLIT, GAPPLESSGRID, GAPPLESSGRID, 0, NULL}}, // gappless grid
-    {"[\\]",
-     flextile,
-     {-1, -1, NO_SPLIT, DWINDLE, DWINDLE, 0, NULL}}, // fibonacci dwindle
-    {"(@)",
-     flextile,
-     {-1, -1, NO_SPLIT, SPIRAL, SPIRAL, 0, NULL}}, // fibonacci spiral
-    {"[T]",
-     flextile,
-     {-1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TATAMI, 0, NULL}}, // tatami mats
-    {"><>", NULL, {0}}, /* no layout function means floating behavior */
+  /* symbol     arrange function, { nmaster, nstack, layout, master axis,
+     stack axis, secondary stack axis, symbol func } */
+  {"[]=", flextile, {-1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0, NULL}}, // default tile layout
+  {"|M|", flextile, {-1, -1, SPLIT_CENTERED_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, TOP_TO_BOTTOM, NULL}}, // centeredmaster
+  {"[M]", flextile, {-1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL}}, // monocle
+  {"|||", flextile, {-1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0, NULL}}, // columns (col) layout
+  {">M>", flextile, {-1, -1, FLOATING_MASTER, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL}}, // floating master
+  {"[D]", flextile, {-1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, MONOCLE, 0, NULL}}, // deck
+  {"TTT", flextile, {-1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL}}, // bstack
+  {"===", flextile, {-1, -1, SPLIT_HORIZONTAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0, NULL}}, // bstackhoriz
+  {"-M-", flextile, {-1, -1, SPLIT_CENTERED_HORIZONTAL, TOP_TO_BOTTOM, LEFT_TO_RIGHT, LEFT_TO_RIGHT, NULL}}, // centeredmaster horiz
+  {":::", flextile, {-1, -1, NO_SPLIT, GAPPLESSGRID, GAPPLESSGRID, 0, NULL}}, // gappless grid
+  {"[\\]", flextile, {-1, -1, NO_SPLIT, DWINDLE, DWINDLE, 0, NULL}}, // fibonacci dwindle
+  {"(@)", flextile, {-1, -1, NO_SPLIT, SPIRAL, SPIRAL, 0, NULL}}, // fibonacci spiral
+  {"[T]", flextile, {-1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TATAMI, 0, NULL}}, // tatami mats
+  {"><>", NULL, {0}}, /* no layout function means floating behavior */
 #if TILE_LAYOUT
-    {"[]=", tile, {0}},
+  {"[]=", tile, {0}},
 #endif
 #if MONOCLE_LAYOUT
-    {"[M]", monocle, {0}},
+  {"[M]", monocle, {0}},
 #endif
 #if BSTACK_LAYOUT
-    {"TTT", bstack, {0}},
+  {"TTT", bstack, {0}},
 #endif
 #if BSTACKHORIZ_LAYOUT
-    {"===", bstackhoriz, {0}},
+  {"===", bstackhoriz, {0}},
 #endif
 #if CENTEREDMASTER_LAYOUT
-    {"|M|", centeredmaster, {0}},
+  {"|M|", centeredmaster, {0}},
 #endif
 #if CENTEREDFLOATINGMASTER_LAYOUT
-    {">M>", centeredfloatingmaster, {0}},
+  {">M>", centeredfloatingmaster, {0}},
 #endif
 #if COLUMNS_LAYOUT
-    {"|||", col, {0}},
+  {"|||", col, {0}},
 #endif
 #if DECK_LAYOUT
-    {"[D]", deck, {0}},
+  {"[D]", deck, {0}},
 #endif
 #if FIBONACCI_SPIRAL_LAYOUT
-    {"(@)", spiral, {0}},
+  {"(@)", spiral, {0}},
 #endif
 #if FIBONACCI_DWINDLE_LAYOUT
-    {"[\\]", dwindle, {0}},
+  {"[\\]", dwindle, {0}},
 #endif
 #if GRIDMODE_LAYOUT
-    {"HHH", grid, {0}},
+  {"HHH", grid, {0}},
 #endif
 #if HORIZGRID_LAYOUT
-    {"---", horizgrid, {0}},
+  {"---", horizgrid, {0}},
 #endif
 #if GAPPLESSGRID_LAYOUT
-    {":::", gaplessgrid, {0}},
+  {":::", gaplessgrid, {0}},
 #endif
 #if NROWGRID_LAYOUT
-    {"###", nrowgrid, {0}},
+  {"###", nrowgrid, {0}},
 #endif
 };
 #else
 static const Layout layouts[] = {
-/* symbol     arrange function */
+  /* symbol     arrange function */
 #if TILE_LAYOUT
-    {"[]=", tile}, /* first entry is default */
+  {"[]=", tile}, /* first entry is default */
 #endif
-    {"><>", NULL}, /* no layout function means floating behavior */
+  {"><>", NULL}, /* no layout function means floating behavior */
 #if MONOCLE_LAYOUT
-    {"[M]", monocle},
+  {"[M]", monocle},
 #endif
 #if BSTACK_LAYOUT
-    {"TTT", bstack},
+  {"TTT", bstack},
 #endif
 #if BSTACKHORIZ_LAYOUT
-    {"===", bstackhoriz},
+  {"===", bstackhoriz},
 #endif
 #if CENTEREDMASTER_LAYOUT
-    {"|M|", centeredmaster},
+  {"|M|", centeredmaster},
 #endif
 #if CENTEREDFLOATINGMASTER_LAYOUT
-    {">M>", centeredfloatingmaster},
+  {">M>", centeredfloatingmaster},
 #endif
 #if COLUMNS_LAYOUT
-    {"|||", col},
+  {"|||", col},
 #endif
 #if DECK_LAYOUT
-    {"[D]", deck},
+  {"[D]", deck},
 #endif
 #if FIBONACCI_SPIRAL_LAYOUT
-    {"(@)", spiral},
+  {"(@)", spiral},
 #endif
 #if FIBONACCI_DWINDLE_LAYOUT
-    {"[\\]", dwindle},
+  {"[\\]", dwindle},
 #endif
 #if GRIDMODE_LAYOUT
-    {"HHH", grid},
+  {"HHH", grid},
 #endif
 #if HORIZGRID_LAYOUT
-    {"---", horizgrid},
+  {"---", horizgrid},
 #endif
 #if GAPPLESSGRID_LAYOUT
-    {":::", gaplessgrid},
+  {":::", gaplessgrid},
 #endif
 #if NROWGRID_LAYOUT
-    {"###", nrowgrid},
+  {"###", nrowgrid},
 #endif
 };
 #endif // FLEXTILE_DELUXE_LAYOUT
@@ -939,75 +842,75 @@ static const char *xkb_layouts[] = {
 #define ALTKEY Mod1Mask
 #if COMBO_PATCH && SWAPTAGS_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},        \
-      {MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
-      {MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
+{MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},        \
+{MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
+{MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
 #elif COMBO_PATCH && SWAPTAGS_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},
+{MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},
 #elif COMBO_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
-      {MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
+{MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
+{MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
 #elif COMBO_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
+{MODKEY, KEY, comboview, {.ui = 1 << TAG}},                                  \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, combotag, {.ui = 1 << TAG}},                   \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
 #elif SWAPTAGS_PATCH && TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},        \
-      {MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
-      {MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
+{MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},        \
+{MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
+{MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
 #elif SWAPTAGS_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},
+{MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask | ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},
 #elif TAGOTHERMONITOR_PATCH
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
-      {MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
-      {MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
+{MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},    \
+{MODKEY | Mod4Mask, KEY, tagnextmon, {.ui = 1 << TAG}},                  \
+{MODKEY | Mod4Mask | ControlMask, KEY, tagprevmon, {.ui = 1 << TAG}},
 #else
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
+{MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+{MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+{MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+{MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
 #endif // COMBO_PATCH / SWAPTAGS_PATCH / TAGOTHERMONITOR_PATCH
 
 #if STACKER_PATCH
 #define STACKKEYS(MOD, ACTION)                                                 \
-  {MOD, XK_j, ACTION##stack, {.i = INC(+1)}},                                  \
-      {MOD, XK_k, ACTION##stack, {.i = INC(-1)}},                              \
-      {MOD, XK_s, ACTION##stack, {.i = PREVSEL}},                              \
-      {MOD, XK_w, ACTION##stack, {.i = 0}},                                    \
-      {MOD, XK_e, ACTION##stack, {.i = 1}},                                    \
-      {MOD, XK_a, ACTION##stack, {.i = 2}},                                    \
-      {MOD, XK_z, ACTION##stack, {.i = -1}},
+{MOD, XK_j, ACTION##stack, {.i = INC(+1)}},                                  \
+{MOD, XK_k, ACTION##stack, {.i = INC(-1)}},                              \
+{MOD, XK_s, ACTION##stack, {.i = PREVSEL}},                              \
+{MOD, XK_w, ACTION##stack, {.i = 0}},                                    \
+{MOD, XK_e, ACTION##stack, {.i = 1}},                                    \
+{MOD, XK_a, ACTION##stack, {.i = 2}},                                    \
+{MOD, XK_z, ACTION##stack, {.i = -1}},
 #endif // STACKER_PATCH
 
 #if BAR_HOLDBAR_PATCH
@@ -1195,19 +1098,17 @@ static const char *shotin5[] = {"takeshot", "--in5", NULL};
 static const char *shotin10[] = {"takeshot", "--in10", NULL};
 static const char *shotwin[] = {"takeshot", "--win", NULL};
 static const char *shotarea[] = {"takeshot", "--area", NULL};
-static const char *floatterm[] = {"st",        "-c", "floating", "-T",
-                                  "TermFloat", "-g", "85x30",    NULL};
+static const char *floatterm[] = {"st",        "-c", "floating", "-T", "TermFloat", "-g", "85x30",    NULL};
 static const char *pdfs[] = {"pdfmenu", NULL};
 static const char *kitty[] = {"kitty", NULL};
 static const char *kitty_session[] = {"psps", NULL};
 static const char *sttabs[] = {"tabbed", "-cr", "2", "st", "-w", "''", NULL};
-static const char *alacrittytabs[] = {"tabbed", "-c", "alacritty", "--embed",
-                                      NULL};
+static const char *alacrittytabs[] = {"tabbed", "-c", "alacritty", "--embed", NULL};
 static const char *redshiftup[] = {"redshiftblock", "increase", NULL};
 static const char *redshiftdown[] = {"redshiftblock", "decrease", NULL};
 static const char *pdftabs[] = {"pdftabs", NULL};
 static const char *guifilefzf[] = {"fzgfm", NULL};
-static const char *dwmtheme[] = {"dwmtheme", NULL};
+static const char *theme[] = {"neatheme", NULL};
 static const char *mpvradio[] = {"mpvradio", NULL};
 
 static const Key keys[] = {
@@ -1231,7 +1132,7 @@ static const Key keys[] = {
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY, XK_r, spawn, SHCMD("launcher")},
     {MODKEY, XK_x, spawn, SHCMD("powermenu")},
-    {MODKEY, XK_t, spawn, {.v = dwmtheme}},
+    {MODKEY, XK_t, spawn, {.v = theme}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
     {ALTKEY, XK_k, spawn, {.v = kitty_session}},
@@ -1330,42 +1231,15 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_c, setlayout, {.v = &layouts[3]}},
 #endif // COLUMNS_LAYOUT
 #if FLEXTILE_DELUXE_LAYOUT
-    {MODKEY | ControlMask,
-     XK_t,
-     rotatelayoutaxis,
-     {.i = +1}}, /* flextile, 1 = layout axis */
-    {MODKEY | ControlMask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = +2}}, /* flextile, 2 = master axis */
-    {MODKEY | ControlMask | ShiftMask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = +3}}, /* flextile, 3 = stack axis */
-    {MODKEY | ControlMask | Mod1Mask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = +4}}, /* flextile, 4 = secondary stack axis */
-    {MODKEY | Mod5Mask,
-     XK_t,
-     rotatelayoutaxis,
-     {.i = -1}}, /* flextile, 1 = layout axis */
-    {MODKEY | Mod5Mask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = -2}}, /* flextile, 2 = master axis */
-    {MODKEY | Mod5Mask | ShiftMask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = -3}}, /* flextile, 3 = stack axis */
-    {MODKEY | Mod5Mask | Mod1Mask,
-     XK_Tab,
-     rotatelayoutaxis,
-     {.i = -4}}, /* flextile, 4 = secondary stack axis */
-    {MODKEY | ControlMask,
-     XK_Return,
-     mirrorlayout,
-     {0}}, /* flextile, flip master and stack areas */
+    {MODKEY | ControlMask, XK_t, rotatelayoutaxis, {.i = +1}}, /* flextile, 1 = layout axis */
+    {MODKEY | ControlMask, XK_Tab, rotatelayoutaxis, {.i = +2}}, /* flextile, 2 = master axis */
+    {MODKEY | ControlMask | ShiftMask, XK_Tab, rotatelayoutaxis, {.i = +3}}, /* flextile, 3 = stack axis */
+    {MODKEY | ControlMask | Mod1Mask, XK_Tab, rotatelayoutaxis, {.i = +4}}, /* flextile, 4 = secondary stack axis */
+    {MODKEY | Mod5Mask, XK_t, rotatelayoutaxis, {.i = -1}}, /* flextile, 1 = layout axis */
+    {MODKEY | Mod5Mask, XK_Tab, rotatelayoutaxis, {.i = -2}}, /* flextile, 2 = master axis */
+    {MODKEY | Mod5Mask | ShiftMask, XK_Tab, rotatelayoutaxis, {.i = -3}}, /* flextile, 3 = stack axis */
+    {MODKEY | Mod5Mask | Mod1Mask, XK_Tab, rotatelayoutaxis, {.i = -4}}, /* flextile, 4 = secondary stack axis */
+    {MODKEY | ControlMask, XK_Return, mirrorlayout, {0}}, /* flextile, flip master and stack areas */
 #endif     // FLEXTILE_DELUXE_LAYOUT
     {MODKEY, XK_space, togglefloating, {0}},
     {MODKEY | ShiftMask, XK_space, setlayout, {0}},

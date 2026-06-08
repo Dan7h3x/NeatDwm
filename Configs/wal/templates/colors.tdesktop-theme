@@ -1,0 +1,236 @@
+//
+// Telegram Desktop Theme based on pywal16 colors
+// Generated from wal/16 color palette
+//
+
+// Main colors
+windowBg: {background}
+windowBgOver: {color1}
+windowBgRipple: {color2}
+windowFg: {foreground}
+windowFgOver: {foreground}
+windowSubTextFg: {color8}
+windowSubTextFgOver: {color7}
+windowBoldFg: {foreground}
+windowBoldFgOver: {foreground}
+windowShadowFg: {color0}
+windowShadowFgOver: {color0}
+
+// Sidebar
+sidebarBg: {color0}
+sidebarBgOver: {color1}
+sidebarBgRipple: {color2}
+sidebarFg: {foreground}
+sidebarFgOver: {foreground}
+sidebarSubTextFg: {color8}
+sidebarSubTextFgOver: {color7}
+sidebarBoldFg: {foreground}
+sidebarBoldFgOver: {foreground}
+sidebarShadowFg: {color0}
+sidebarShadowFgOver: {color0}
+
+// Active/Selected elements
+activeButtonBg: {color4}
+activeButtonBgOver: {color3}
+activeButtonBgRipple: {color5}
+activeButtonFg: {background}
+activeButtonFgOver: {background}
+activeButtonSecondaryFg: {color4}
+activeButtonSecondaryFgOver: {color4}
+activeLineFg: {color4}
+activeLineFgError: {color1}
+activeLineFgOver: {color3}
+
+// Buttons
+attentionButtonFg: {color15}
+attentionButtonFgOver: {color15}
+attentionButtonBg: {color1}
+attentionButtonBgOver: {color9}
+attentionButtonBgRipple: {color1}
+outlineButtonBg: {color0}
+outlineButtonBgOver: {color1}
+outlineButtonOutlineFg: {color4}
+outlineButtonBgRipple: {color2}
+menuButtonBg: {color0}
+menuButtonBgOver: {color1}
+menuButtonBgRipple: {color2}
+
+// Messages
+msgServiceBg: {color0}
+msgServiceBgOver: {color1}
+msgServiceBgRipple: {color2}
+msgInBg: {color0}
+msgInBgOver: {color1}
+msgInBgRipple: {color2}
+msgInShadow: {color0}
+msgInDateFg: {color8}
+msgOutBg: {color4}
+msgOutBgOver: {color3}
+msgOutBgRipple: {color5}
+msgOutShadow: {color4}
+msgOutDateFg: {color15}
+
+// Message elements
+msgFile1Bg: {color4}
+msgFile1BgOver: {color3}
+msgFile1BgRipple: {color5}
+msgFile2Bg: {color6}
+msgFile2BgOver: {color7}
+msgFile2BgRipple: {color8}
+msgFile3Bg: {color2}
+msgFile3BgOver: {color3}
+msgFile3BgRipple: {color4}
+msgFile4Bg: {color5}
+msgFile4BgOver: {color6}
+msgFile4BgRipple: {color7}
+
+// Waveform/voice messages
+msgWaveformInActive: {color4}
+msgWaveformInActiveOver: {color3}
+msgWaveformInInactive: {color8}
+msgWaveformInInactiveOver: {color7}
+msgWaveformOutActive: {color6}
+msgWaveformOutActiveOver: {color5}
+msgWaveformOutInactive: {color15}
+msgWaveformOutInactiveOver: {color15}
+
+// Bot keyboard
+msgBotKbColor: {foreground}
+msgBotKbBg: {color0}
+msgBotKbBgOver: {color1}
+msgBotKbBgRipple: {color2}
+
+// History/chat
+historyTextInFg: {foreground}
+historyTextOutFg: {foreground}
+historyLinkInFg: {color4}
+historyLinkOutFg: {color6}
+historyFileNameInFg: {foreground}
+historyFileNameOutFg: {foreground}
+historyOutIconFg: {color15}
+historyOutIconFgOver: {color15}
+historyOutIconBg: {color4}
+historyOutIconBgOver: {color3}
+historyOutIconBgRipple: {color5}
+historySendingInIconFg: {color8}
+historySendingOutIconFg: {color15}
+historyToDownFg: {color8}
+historyToDownFgOver: {foreground}
+historyToDownBg: {color0}
+historyToDownBgOver: {color1}
+historyToDownBgRipple: {color2}
+historyComposeAreaBg: {color0}
+historyComposeAreaFg: {foreground}
+historyComposeAreaFgOver: {foreground}
+historyComposeAreaPlaceholderFg: {color8}
+historyScrollBarBg: {color0}
+historyScrollBarBgOver: {color1}
+historyScrollBarBgRipple: {color2}
+historyScrollBg: {color0}
+historyScrollBgOver: {color1}
+historyScrollBgRipple: {color2}
+
+// Mentions/Unread badges
+historyPeer1UserpicBg: {color3}
+historyPeer1UserpicBg2: {color4}
+historyPeer2UserpicBg: {color5}
+historyPeer2UserpicBg2: {color6}
+historyPeer3UserpicBg: {color1}
+historyPeer3UserpicBg2: {color2}
+historyPeer4UserpicBg: {color7}
+historyPeer4UserpicBg2: {color8}
+historyPeer5UserpicBg: {color9}
+historyPeer5UserpicBg2: {color10}
+historyPeer6UserpicBg: {color11}
+historyPeer6UserpicBg2: {color12}
+historyPeer7UserpicBg: {color13}
+historyPeer7UserpicBg2: {color14}
+historyPeer8UserpicBg: {color4}
+historyPeer8UserpicBg2: {color5}
+historyPeerUserpicFg: {color15}
+
+// Mentions badge
+historyPeer1NameFg: {color4}
+historyPeer1NameBg: {color0}
+historyPeer1NameBgOver: {color1}
+historyPeer1NameBgRipple: {color2}
+historyPeer2NameFg: {color6}
+historyPeer3NameFg: {color2}
+historyPeer4NameFg: {color8}
+historyPeer5NameFg: {color10}
+historyPeer6NameFg: {color12}
+historyPeer7NameFg: {color14}
+historyPeer8NameFg: {color5}
+
+// Title/Header
+titleBg: {color0}
+titleBgOver: {color1}
+titleBgRipple: {color2}
+titleFg: {foreground}
+titleFgOver: {foreground}
+titleShadow: {color0}
+
+// Menu/Dropdowns
+layerBg: {color0}
+layerBgOver: {color1}
+layerBgRipple: {color2}
+
+// Overlay/Modal
+overviewBg: {color0}
+overviewBgOver: {color1}
+overviewBgRipple: {color2}
+overviewFg: {foreground}
+overviewFgOver: {foreground}
+overviewSubTextFg: {color8}
+overviewSubTextFgOver: {color7}
+overviewBoldFg: {foreground}
+overviewBoldFgOver: {foreground}
+overviewFileFg: {color4}
+overviewFileFgOver: {color3}
+
+// Chat and photos
+photosOverlayFg: {color15}
+photosOverlayFgOver: {color15}
+photosOverlayBg: {color0}
+
+// Dialogs list
+dialogsMenuIconFg: {color8}
+dialogsMenuIconFgOver: {foreground}
+
+// Important buttons
+importantTooltipFg: {color15}
+importantTooltipBg: {color1}
+
+// Call
+callIconFg: {color2}
+callArrowFg: {color2}
+
+// Checkboxes
+checkboxFg: {color4}
+checkboxBg: {color0}
+
+// Radio buttons
+radioFg: {color4}
+radioBg: {color0}
+
+// Tooltips
+tooltipFg: {color15}
+tooltipBg: {color0}
+
+// Tray
+trayIconBg: {color0}
+trayIconBgMac: {color0}
+
+// Emoji panel
+emojiPanBg: {color0}
+emojiPanBgOver: {color1}
+emojiPanBgRipple: {color2}
+emojiPanCategories: {color8}
+emojiPanHeaderFg: {color8}
+emojiPanHeaderBg: {color0}
+
+// Stickers panel
+stickerPanBg: {color0}
+
+// Gif panel
+gifPanBg: {color0}

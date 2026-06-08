@@ -100,7 +100,7 @@ dwm.urgfloatcolor: {color1}
 
 ! Scratchpad colors
 dwm.scratchnormfgcolor: {foreground}
-dwm.scratchnormbgcolor: {color0}
+dwm.scratchnormbgcolor: {color1}
 dwm.scratchnormbordercolor: {foreground}
 dwm.scratchnormfloatcolor: {foreground}
 dwm.scratchselfgcolor: {foreground}
@@ -109,11 +109,10 @@ dwm.scratchselbordercolor: {foreground}
 dwm.scratchselfloatcolor: {foreground}
 
 ! Layout symbol colors
-dwm.ltsymbolfgcolor: {color8}
-dwm.ltsymbolbgcolor: {background}
+dwm.ltsymbolfgcolor: {color4}
+dwm.ltsymbolbgcolor: {foreground}
 
 ! dmenu (dynamic menu)
-dmenu.font: Maple Mono
 dmenu.background: {background}
 dmenu.foreground: {foreground}
 dmenu.selbackground: {color4}

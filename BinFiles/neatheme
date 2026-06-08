@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+
+readonly THEME_DIR="$HOME/.config/wal/colorschemes"
+readonly DARK="$THEME_DIR/dark"
+readonly LIGHT="$THEME_DIR/light"
+readonly WALLDIR="$HOME/.config/Wallpaper"
+readonly ROFITHEME="$HOME/.config/rofi/walls.rasi"
+readonly SELECTED_MODE=${1:-$(echo -e "Wallpaper\nLight\nDark" | rofi -dmenu )}
+readonly COLMETHOD=${2:-$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | rofi -dmenu )}
+ICONS=""
+
+if [[ -z "$SELECTED_MODE" ]]; then
+  exit 1
+elif [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
+  while IFS= read -r WALL; do
+    FILE=$(basename "$WALL")  # Fixed: use WALL, not file
+    ICONS+="${FILE}\0icon\x1f${WALL}\n"
+  done <<<"$(fd . "$WALLDIR")"
+
+  THEME=$(echo -e "$ICONS" | rofi -dmenu -show-icons -p "Select Wallpaper:" -theme "$ROFITHEME" -markup-rows)
+  THEME_BASENAME=$(basename "$THEME")
+  wal -i "$WALLDIR/$THEME" --cols16 "$COLMETHOD"
+  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
+  gsettings set org.gnome.desktop.interface gtk-theme Materia-dark
+
+elif [[ "$SELECTED_MODE" = "Dark" ]]; then
+  THEME=$(ls -w 1 "$DARK" | rofi -dmenu -p "Choose dark theme:" )
+  THEME_BASENAME="${THEME%.*}"
+  wal --theme "$THEME_BASENAME" --cols16 "$COLMETHOD"
+  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
+  gsettings set org.gnome.desktop.interface gtk-theme Materia-dark
+
+else  # Light mode
+  THEME=$(ls -w 1 "$LIGHT" | rofi -dmenu -p "Choose light theme:" )
+  THEME_BASENAME="${THEME%.*}"
+  wal -l --theme "$THEME_BASENAME" --cols16 "$COLMETHOD"
+  echo "vim.o.background = "light"" > "$HOME/.config/nvim/theme.lua"
+  gsettings set org.gnome.desktop.interface gtk-theme Materia-light
+fi
+
+if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
+  dwm-msg run_command xrdb
+fi
+
+if [[ -n "$(pgrep eww)" ]]; then
+  eww reload
+fi
+
+# Improved notification with better fallback
+if [[ -n "$THEME_BASENAME" ]]; then
+  if [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
+    notify-send -i "$WALLDIR/$THEME" "Neat" "Theme Applied"
+  else
+    notify-send "Neat" "Theme '${THEME_BASENAME}' Applied"
+  fi
+else
+  notify-send "Neat" "Theme Failed to Apply"
+fi

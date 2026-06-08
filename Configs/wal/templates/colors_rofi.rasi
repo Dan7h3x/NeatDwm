@@ -8,8 +8,8 @@ configuration {
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
+	// drun-display-format:        "{name}";
+	// window-format:              "{w} · {c} · {t}";
 }
 
 /*****----- Global Properties -----*****/
@@ -18,13 +18,13 @@ configuration {
     background: {background};
     foreground: {foreground};
     background-alt: {color0};
-    selected: {color2};
-    active: {color4};
-    urgent: {color7};
+    selected: {color8};
+    active: {color2};
+    urgent: {color3};
   }
 * {
-    border-colour:               {color5};
-    handle-colour:               {color6};
+    border-colour:               {color4};
+    handle-colour:               {color5};
     background-colour:           var(background);
     foreground-colour:           var(foreground);
     alternate-background:        var(background-alt);

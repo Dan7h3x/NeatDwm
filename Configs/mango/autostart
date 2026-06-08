@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+
+start() {
+  killall "$1" 2>/dev/null
+  "$@" >/dev/null 2>&1 &
+}
+
+start mpd
+systemctl --user --now enable mpd-mpris
+start /usr/lib/xdg-desktop-portal-wlr
+start awww-daemon
+start wired
+start wlsunset -T 4500
+
+start eww open bar
+
