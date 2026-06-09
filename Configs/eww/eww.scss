@@ -6,7 +6,7 @@
 
 * {
   all: unset;
-  font-family: "Maple Mono", "CaskaydiaCove Nerd Font", monospace;
+  font-family: "Maple Mono";
   font-size: 13px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -39,9 +39,9 @@
   padding: 0px 4px;
   margin: 3px 3px;
   border-radius: 4px;
-  background: rgba($background, 0.4);
+  background: rgba($foreground, 0.4);
   // backdrop-filter: blur(4px);
-  font-weight: 100;
+  font-weight: 300;
   // position: relative;
 
   // &::before {
@@ -63,14 +63,14 @@
   }
 
   &.occupied {
-    background: transparent;
+    background: grey;
     opacity: 0.9;
-    color: $color1;
+    color: $foreground;
   }
 
   &.focused {
-    background: $bg_trans;
-    color: $color4;
+    background: $background;
+    color: cyan;
     font-weight: 500;
     box-shadow: 0 2px 4px rgba($color5, 0.4);
     // transform: translateY(-1px);
@@ -222,7 +222,7 @@
 .music-player,
 .todo-manager,
 .wallpaper-selector {
-  background:  lighten($background,30%);
+  background:  $background;
   border: 2px solid rgba($color11, 0.3);
   border-radius: 0px;
   padding: 8px;
