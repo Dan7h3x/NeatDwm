@@ -231,8 +231,8 @@ unsigned int defaultfg = 258;
 unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
 #if SELECTION_COLORS_PATCH
-unsigned int selectionfg = 258;
-unsigned int selectionbg = 259;
+unsigned int selectionfg = 259;
+unsigned int selectionbg = 258;
 /* If 0 use selectionfg as foreground in order to have a uniform
  * foreground-color */
 /* Else if 1 keep original foreground-color of each cell => more colors :) */

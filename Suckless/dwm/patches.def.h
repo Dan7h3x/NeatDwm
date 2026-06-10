@@ -688,7 +688,7 @@
  * extension of windows similar to other WMs fill command.
  * https://dwm.suckless.org/patches/exresize/
  */
-#define EXRESIZE_PATCH 1
+#define EXRESIZE_PATCH 0
 
 /* Only allow clients to "fullscreen" into the space currently given to them.
  * As an example, this will allow you to view a fullscreen video in your browser
@@ -712,7 +712,7 @@
  * patches. The size and position can be specified using absolute, relative or
  * fixed co-ordinates and https://github.com/bakkeby/patches/wiki/floatpos/
  */
-#define FLOATPOS_PATCH 1
+#define FLOATPOS_PATCH 0
 
 /* Add-on functionality for the above: make the float positions respect outer
  * (vanity)gaps. */
@@ -888,7 +888,7 @@
  * directions depending on which key is pressed.
  * https://dwm.suckless.org/patches/moveplace/
  */
-#define MOVEPLACE_PATCH 1
+#define MOVEPLACE_PATCH 0
 
 /* This patch allows you to move and resize dwm's clients using keyboard
  * bindings. https://dwm.suckless.org/patches/moveresize/
@@ -1132,7 +1132,7 @@
 /* This alternative patch enables a scratchpad feature in dwm similar to the
  * scratchpad feature in i3wm. https://github.com/GasparVardanyan/dwm-scratchpad
  */
-#define SCRATCHPAD_ALT_1_PATCH 1
+#define SCRATCHPAD_ALT_1_PATCH 0
 
 /* This patch persists some settings across window manager restarts. These
  * include but are not limited to:
@@ -1312,7 +1312,7 @@
 /* Switch focus between the master and stack columns using a single keybinding.
  * https://dwm.suckless.org/patches/switchcol/
  */
-#define SWITCHCOL_PATCH 1
+#define SWITCHCOL_PATCH 0
 
 /* By default dwm allow you to set application specific rules so that you can
  * have your browser, for example, start up on tag 9 optionally on a given

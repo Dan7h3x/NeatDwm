@@ -1162,9 +1162,9 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_k, placedir, {.i = 2}}, // up
     {MODKEY | ControlMask, XK_j, placedir, {.i = 3}}, // down
 #endif                                                // PLACEDIR_PATCH
-#if SWITCHCOL_PATCH
-    {MODKEY, XK_v, switchcol, {0}},
-#endif // SWITCHCOL_PATCH
+// #if SWITCHCOL_PATCH
+//     {MODKEY, XK_v, switchcol, {0}},
+// #endif // SWITCHCOL_PATCH
 #if INPLACEROTATE_PATCH
     {MODKEY | ALTKEY, XK_j, inplacerotate, {.i = +2}}, // same as rotatestack
     {MODKEY | ALTKEY, XK_k, inplacerotate, {.i = -2}}, // same as reotatestack
@@ -1274,29 +1274,29 @@ static const Key keys[] = {
     {MODKEY | Mod4Mask, XK_space, unfloatvisible, {0}},
     {MODKEY | ShiftMask, XK_t, unfloatvisible, {.v = &layouts[0]}},
 #endif // UNFLOATVISIBLE_PATCH
-#if TOGGLEFULLSCREEN_PATCH
-    {MODKEY, XK_y, togglefullscreen, {0}},
-#endif // TOGGLEFULLSCREEN_PATCH
-#if !FAKEFULLSCREEN_PATCH && FAKEFULLSCREEN_CLIENT_PATCH
-    {MODKEY | ShiftMask, XK_y, togglefakefullscreen, {0}},
-#endif // FAKEFULLSCREEN_CLIENT_PATCH
+// #if TOGGLEFULLSCREEN_PATCH
+//     {MODKEY, XK_y, togglefullscreen, {0}},
+// #endif // TOGGLEFULLSCREEN_PATCH
+// #if !FAKEFULLSCREEN_PATCH && FAKEFULLSCREEN_CLIENT_PATCH
+//     {MODKEY | ShiftMask, XK_y, togglefakefullscreen, {0}},
+// #endif // FAKEFULLSCREEN_CLIENT_PATCH
 #if FULLSCREEN_PATCH
     {MODKEY, XK_f, fullscreen, {0}},
 #endif // FULLSCREEN_PATCH
 #if STICKY_PATCH
     {MODKEY | ShiftMask, XK_s, togglesticky, {0}},
 #endif // STICKY_PATCH
-#if SCRATCHPAD_ALT_1_PATCH
-    {MODKEY, XK_minus, scratchpad_show, {0}},
-    {MODKEY | ShiftMask, XK_minus, scratchpad_hide, {0}},
-    {MODKEY | ControlMask, XK_minus, scratchpad_remove, {0}},
-#elif SCRATCHPADS_PATCH && !RENAMED_SCRATCHPADS_PATCH
-    {MODKEY, XK_0, view, {.ui = ~SPTAGMASK}},
-    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~SPTAGMASK}},
-#else
-    {MODKEY, XK_0, view, {.ui = ~0}},
-    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
-#endif // SCRATCHPAD_ALT_1_PATCH
+// #if SCRATCHPAD_ALT_1_PATCH
+//     {MODKEY, XK_minus, scratchpad_show, {0}},
+//     {MODKEY | ShiftMask, XK_minus, scratchpad_hide, {0}},
+//     {MODKEY | ControlMask, XK_minus, scratchpad_remove, {0}},
+// #elif SCRATCHPADS_PATCH && !RENAMED_SCRATCHPADS_PATCH
+//     {MODKEY, XK_0, view, {.ui = ~SPTAGMASK}},
+//     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~SPTAGMASK}},
+// #else
+//     {MODKEY, XK_0, view, {.ui = ~0}},
+//     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
+// #endif // SCRATCHPAD_ALT_1_PATCH
        // {MODKEY | ControlMask, XK_comma, focusmon, {.i = -1}},
        // {MODKEY | ControlMask, XK_period, focusmon, {.i = +1}},
        // {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
@@ -1335,100 +1335,100 @@ static const Key keys[] = {
 #if NAMETAG_PATCH
     {MODKEY | ShiftMask, XK_n, nametag, {0}},
 #endif // NAMETAG_PATCH
-#if MOVEPLACE_PATCH
-    {ALTKEY, XK_1, moveplace, {.ui = WIN_NW}}, /* XK_KP_Home,  */
-    {ALTKEY, XK_2, moveplace, {.ui = WIN_N}},  /* XK_KP_Up,    */
-    {ALTKEY, XK_3, moveplace, {.ui = WIN_NE}}, /* XK_KP_Prior, */
-    {ALTKEY, XK_4, moveplace, {.ui = WIN_W}},  /* XK_KP_Left,  */
-    {ALTKEY, XK_5, moveplace, {.ui = WIN_C}},  /* XK_KP_Begin, */
-    {ALTKEY, XK_6, moveplace, {.ui = WIN_E}},  /* XK_KP_Right, */
-    {ALTKEY, XK_7, moveplace, {.ui = WIN_SW}}, /* XK_KP_End,   */
-    {ALTKEY, XK_8, moveplace, {.ui = WIN_S}},  /* XK_KP_Down,  */
-    {ALTKEY, XK_9, moveplace, {.ui = WIN_SE}}, /* XK_KP_Next,  */
-#endif                                         // MOVEPLACE_PATCH
-#if EXRESIZE_PATCH
-    {MODKEY | ALTKEY, XK_1, explace, {.ui = EX_NW}}, /* XK_KP_Home,  */
-    {MODKEY | ALTKEY, XK_2, explace, {.ui = EX_N}},  /* XK_KP_Up,    */
-    {MODKEY | ALTKEY, XK_3, explace, {.ui = EX_NE}}, /* XK_KP_Prior, */
-    {MODKEY | ALTKEY, XK_4, explace, {.ui = EX_W}},  /* XK_KP_Left,  */
-    {MODKEY | ALTKEY, XK_5, explace, {.ui = EX_C}},  /* XK_KP_Begin, */
-    {MODKEY | ALTKEY, XK_6, explace, {.ui = EX_E}},  /* XK_KP_Right, */
-    {MODKEY | ALTKEY, XK_7, explace, {.ui = EX_SW}}, /* XK_KP_End,   */
-    {MODKEY | ALTKEY, XK_8, explace, {.ui = EX_S}},  /* XK_KP_Down,  */
-    {MODKEY | ALTKEY, XK_9, explace, {.ui = EX_SE}}, /* XK_KP_Next,  */
+// #if MOVEPLACE_PATCH
+//     {ALTKEY, XK_1, moveplace, {.ui = WIN_NW}}, /* XK_KP_Home,  */
+//     {ALTKEY, XK_2, moveplace, {.ui = WIN_N}},  /* XK_KP_Up,    */
+//     {ALTKEY, XK_3, moveplace, {.ui = WIN_NE}}, /* XK_KP_Prior, */
+//     {ALTKEY, XK_4, moveplace, {.ui = WIN_W}},  /* XK_KP_Left,  */
+//     {ALTKEY, XK_5, moveplace, {.ui = WIN_C}},  /* XK_KP_Begin, */
+//     {ALTKEY, XK_6, moveplace, {.ui = WIN_E}},  /* XK_KP_Right, */
+//     {ALTKEY, XK_7, moveplace, {.ui = WIN_SW}}, /* XK_KP_End,   */
+//     {ALTKEY, XK_8, moveplace, {.ui = WIN_S}},  /* XK_KP_Down,  */
+//     {ALTKEY, XK_9, moveplace, {.ui = WIN_SE}}, /* XK_KP_Next,  */
+// #endif                                         // MOVEPLACE_PATCH
+// #if EXRESIZE_PATCH
+//     {MODKEY | ALTKEY, XK_1, explace, {.ui = EX_NW}}, /* XK_KP_Home,  */
+//     {MODKEY | ALTKEY, XK_2, explace, {.ui = EX_N}},  /* XK_KP_Up,    */
+//     {MODKEY | ALTKEY, XK_3, explace, {.ui = EX_NE}}, /* XK_KP_Prior, */
+//     {MODKEY | ALTKEY, XK_4, explace, {.ui = EX_W}},  /* XK_KP_Left,  */
+//     {MODKEY | ALTKEY, XK_5, explace, {.ui = EX_C}},  /* XK_KP_Begin, */
+//     {MODKEY | ALTKEY, XK_6, explace, {.ui = EX_E}},  /* XK_KP_Right, */
+//     {MODKEY | ALTKEY, XK_7, explace, {.ui = EX_SW}}, /* XK_KP_End,   */
+//     {MODKEY | ALTKEY, XK_8, explace, {.ui = EX_S}},  /* XK_KP_Down,  */
+//     {MODKEY | ALTKEY, XK_9, explace, {.ui = EX_SE}}, /* XK_KP_Next,  */
+//
+//     {ALTKEY | ControlMask,
+//      XK_2,
+//      exresize,
+//      {.v = (int[]){0, 25}}}, /* XK_KP_Up,    */
+//     {ALTKEY | ControlMask,
+//      XK_8,
+//      exresize,
+//      {.v = (int[]){0, -25}}}, /* XK_KP_Down,  */
+//     {ALTKEY | ControlMask,
+//      XK_6,
+//      exresize,
+//      {.v = (int[]){25, 0}}}, /* XK_KP_Right, */
+//     {ALTKEY | ControlMask,
+//      XK_4,
+//      exresize,
+//      {.v = (int[]){-25, 0}}}, /* XK_KP_Left,  */
+//     {ALTKEY | ControlMask,
+//      XK_5,
+//      exresize,
+//      {.v = (int[]){25, 25}}}, /* XK_KP_Begin, */
+//     {ALTKEY | ControlMask,
+//      XK_0,
+//      exresize,
+//      {.v = (int[]){-25, -25}}}, /* XK_KP_Begin, */
+//
+// #endif // EXRESIZE_PATCH
 
-    {ALTKEY | ControlMask,
-     XK_2,
-     exresize,
-     {.v = (int[]){0, 25}}}, /* XK_KP_Up,    */
-    {ALTKEY | ControlMask,
-     XK_8,
-     exresize,
-     {.v = (int[]){0, -25}}}, /* XK_KP_Down,  */
-    {ALTKEY | ControlMask,
-     XK_6,
-     exresize,
-     {.v = (int[]){25, 0}}}, /* XK_KP_Right, */
-    {ALTKEY | ControlMask,
-     XK_4,
-     exresize,
-     {.v = (int[]){-25, 0}}}, /* XK_KP_Left,  */
-    {ALTKEY | ControlMask,
-     XK_5,
-     exresize,
-     {.v = (int[]){25, 25}}}, /* XK_KP_Begin, */
-    {ALTKEY | ControlMask,
-     XK_0,
-     exresize,
-     {.v = (int[]){-25, -25}}}, /* XK_KP_Begin, */
-
-#endif // EXRESIZE_PATCH
-
-#if FLOATPOS_PATCH
-    /* Note that due to key limitations the below example kybindings are defined
-     * with a Mod3Mask, which is not always readily available. Refer to the
-     * patch wiki for more details. */
-    /* Client position is limited to monitor window area */
-    {Mod3Mask, XK_u, floatpos, {.v = "-26x -26y"}},      // ↖
-    {Mod3Mask, XK_i, floatpos, {.v = "  0x -26y"}},      // ↑
-    {Mod3Mask, XK_o, floatpos, {.v = " 26x -26y"}},      // ↗
-    {Mod3Mask, XK_j, floatpos, {.v = "-26x   0y"}},      // ←
-    {Mod3Mask, XK_l, floatpos, {.v = " 26x   0y"}},      // →
-    {Mod3Mask, XK_m, floatpos, {.v = "-26x  26y"}},      // ↙
-    {Mod3Mask, XK_comma, floatpos, {.v = "  0x  26y"}},  // ↓
-    {Mod3Mask, XK_period, floatpos, {.v = " 26x  26y"}}, // ↘
-    /* Absolute positioning (allows moving windows between monitors) */
-    {Mod3Mask | ControlMask, XK_u, floatpos, {.v = "-26a -26a"}},      // ↖
-    {Mod3Mask | ControlMask, XK_i, floatpos, {.v = "  0a -26a"}},      // ↑
-    {Mod3Mask | ControlMask, XK_o, floatpos, {.v = " 26a -26a"}},      // ↗
-    {Mod3Mask | ControlMask, XK_j, floatpos, {.v = "-26a   0a"}},      // ←
-    {Mod3Mask | ControlMask, XK_l, floatpos, {.v = " 26a   0a"}},      // →
-    {Mod3Mask | ControlMask, XK_m, floatpos, {.v = "-26a  26a"}},      // ↙
-    {Mod3Mask | ControlMask, XK_comma, floatpos, {.v = "  0a  26a"}},  // ↓
-    {Mod3Mask | ControlMask, XK_period, floatpos, {.v = " 26a  26a"}}, // ↘
-    /* Resize client, client center position is fixed which means that client
-       expands in all directions */
-    {Mod3Mask | ShiftMask, XK_u, floatpos, {.v = "-26w -26h"}},      // ↖
-    {Mod3Mask | ShiftMask, XK_i, floatpos, {.v = "  0w -26h"}},      // ↑
-    {Mod3Mask | ShiftMask, XK_o, floatpos, {.v = " 26w -26h"}},      // ↗
-    {Mod3Mask | ShiftMask, XK_j, floatpos, {.v = "-26w   0h"}},      // ←
-    {Mod3Mask | ShiftMask, XK_k, floatpos, {.v = "800W 800H"}},      // ·
-    {Mod3Mask | ShiftMask, XK_l, floatpos, {.v = " 26w   0h"}},      // →
-    {Mod3Mask | ShiftMask, XK_m, floatpos, {.v = "-26w  26h"}},      // ↙
-    {Mod3Mask | ShiftMask, XK_comma, floatpos, {.v = "  0w  26h"}},  // ↓
-    {Mod3Mask | ShiftMask, XK_period, floatpos, {.v = " 26w  26h"}}, // ↘
-    /* Client is positioned in a floating grid, movement is relative to client's
-       current position */
-    {Mod3Mask | Mod1Mask, XK_u, floatpos, {.v = "-1p -1p"}},      // ↖
-    {Mod3Mask | Mod1Mask, XK_i, floatpos, {.v = " 0p -1p"}},      // ↑
-    {Mod3Mask | Mod1Mask, XK_o, floatpos, {.v = " 1p -1p"}},      // ↗
-    {Mod3Mask | Mod1Mask, XK_j, floatpos, {.v = "-1p  0p"}},      // ←
-    {Mod3Mask | Mod1Mask, XK_k, floatpos, {.v = " 0p  0p"}},      // ·
-    {Mod3Mask | Mod1Mask, XK_l, floatpos, {.v = " 1p  0p"}},      // →
-    {Mod3Mask | Mod1Mask, XK_m, floatpos, {.v = "-1p  1p"}},      // ↙
-    {Mod3Mask | Mod1Mask, XK_comma, floatpos, {.v = " 0p  1p"}},  // ↓
-    {Mod3Mask | Mod1Mask, XK_period, floatpos, {.v = " 1p  1p"}}, // ↘
-#endif // FLOATPOS_PATCH
+// #if FLOATPOS_PATCH
+//     /* Note that due to key limitations the below example kybindings are defined
+//      * with a Mod3Mask, which is not always readily available. Refer to the
+//      * patch wiki for more details. */
+//     /* Client position is limited to monitor window area */
+//     {Mod3Mask, XK_u, floatpos, {.v = "-26x -26y"}},      // ↖
+//     {Mod3Mask, XK_i, floatpos, {.v = "  0x -26y"}},      // ↑
+//     {Mod3Mask, XK_o, floatpos, {.v = " 26x -26y"}},      // ↗
+//     {Mod3Mask, XK_j, floatpos, {.v = "-26x   0y"}},      // ←
+//     {Mod3Mask, XK_l, floatpos, {.v = " 26x   0y"}},      // →
+//     {Mod3Mask, XK_m, floatpos, {.v = "-26x  26y"}},      // ↙
+//     {Mod3Mask, XK_comma, floatpos, {.v = "  0x  26y"}},  // ↓
+//     {Mod3Mask, XK_period, floatpos, {.v = " 26x  26y"}}, // ↘
+//     /* Absolute positioning (allows moving windows between monitors) */
+//     {Mod3Mask | ControlMask, XK_u, floatpos, {.v = "-26a -26a"}},      // ↖
+//     {Mod3Mask | ControlMask, XK_i, floatpos, {.v = "  0a -26a"}},      // ↑
+//     {Mod3Mask | ControlMask, XK_o, floatpos, {.v = " 26a -26a"}},      // ↗
+//     {Mod3Mask | ControlMask, XK_j, floatpos, {.v = "-26a   0a"}},      // ←
+//     {Mod3Mask | ControlMask, XK_l, floatpos, {.v = " 26a   0a"}},      // →
+//     {Mod3Mask | ControlMask, XK_m, floatpos, {.v = "-26a  26a"}},      // ↙
+//     {Mod3Mask | ControlMask, XK_comma, floatpos, {.v = "  0a  26a"}},  // ↓
+//     {Mod3Mask | ControlMask, XK_period, floatpos, {.v = " 26a  26a"}}, // ↘
+//     /* Resize client, client center position is fixed which means that client
+//        expands in all directions */
+//     {Mod3Mask | ShiftMask, XK_u, floatpos, {.v = "-26w -26h"}},      // ↖
+//     {Mod3Mask | ShiftMask, XK_i, floatpos, {.v = "  0w -26h"}},      // ↑
+//     {Mod3Mask | ShiftMask, XK_o, floatpos, {.v = " 26w -26h"}},      // ↗
+//     {Mod3Mask | ShiftMask, XK_j, floatpos, {.v = "-26w   0h"}},      // ←
+//     {Mod3Mask | ShiftMask, XK_k, floatpos, {.v = "800W 800H"}},      // ·
+//     {Mod3Mask | ShiftMask, XK_l, floatpos, {.v = " 26w   0h"}},      // →
+//     {Mod3Mask | ShiftMask, XK_m, floatpos, {.v = "-26w  26h"}},      // ↙
+//     {Mod3Mask | ShiftMask, XK_comma, floatpos, {.v = "  0w  26h"}},  // ↓
+//     {Mod3Mask | ShiftMask, XK_period, floatpos, {.v = " 26w  26h"}}, // ↘
+//     /* Client is positioned in a floating grid, movement is relative to client's
+//        current position */
+//     {Mod3Mask | Mod1Mask, XK_u, floatpos, {.v = "-1p -1p"}},      // ↖
+//     {Mod3Mask | Mod1Mask, XK_i, floatpos, {.v = " 0p -1p"}},      // ↑
+//     {Mod3Mask | Mod1Mask, XK_o, floatpos, {.v = " 1p -1p"}},      // ↗
+//     {Mod3Mask | Mod1Mask, XK_j, floatpos, {.v = "-1p  0p"}},      // ←
+//     {Mod3Mask | Mod1Mask, XK_k, floatpos, {.v = " 0p  0p"}},      // ·
+//     {Mod3Mask | Mod1Mask, XK_l, floatpos, {.v = " 1p  0p"}},      // →
+//     {Mod3Mask | Mod1Mask, XK_m, floatpos, {.v = "-1p  1p"}},      // ↙
+//     {Mod3Mask | Mod1Mask, XK_comma, floatpos, {.v = " 0p  1p"}},  // ↓
+//     {Mod3Mask | Mod1Mask, XK_period, floatpos, {.v = " 1p  1p"}}, // ↘
+// #endif // FLOATPOS_PATCH
 #if CYCLELAYOUTS_PATCH
     {MODKEY | ControlMask, XK_comma, cyclelayout, {.i = -1}},
     {MODKEY | ControlMask, XK_period, cyclelayout, {.i = +1}},
@@ -1439,8 +1439,8 @@ static const Key keys[] = {
     {MODKEY, XK_slash, mpdcontrol, {0}},
 #endif // MPDCONTROL_PATCH
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8)};
+    TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
+    TAGKEYS(XK_9, 8)};
 
 #if KEYMODES_PATCH
 static const Key cmdkeys[] = {
