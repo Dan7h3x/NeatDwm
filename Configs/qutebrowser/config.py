@@ -2,8 +2,8 @@ import os
 import json
 from pathlib import Path
 
-c = c  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
-config = config  # noqa: F821  # pyright: ignore[reportUndefinedVariable]
+c = c
+config = config
 config.load_autoconfig(False)
 
 
@@ -18,34 +18,33 @@ def load_pywal_colors_json():
     if wal_json.exists():
         with open(wal_json, "r") as f:
             data = json.load(f)
-            return data.get("colors", {}), data.get("special", {})
+            return data.get("special", {}), data.get("colors", {})
     return {}, {}
 
 
 # Load colors
-colors, special = load_pywal_colors_json()
+special, colors = load_pywal_colors_json()
 
 # Access colors
 background = special.get("background", "#1e1e2e")
 foreground = special.get("foreground", "#cdd6f4")
-
-# color0-color15 are available as 'color0', 'color1', etc.
-base = background
-text = foreground
-mantle = background
-surface0 = colors.get("color0", "#313244")
-surface1 = colors.get("color8", "#45475a")
-red = colors.get("color1", "#f38ba8")
-green = colors.get("color2", "#a6e3a1")
-yellow = colors.get("color3", "#f9e2af")
-blue = colors.get("color4", "#89b4fa")
-mauve = colors.get("color5", "#cba6f7")
-teal = colors.get("color6", "#94e2d5")
-rosewater = colors.get("color7", "#f5e0dc")  # or color15
-peach = colors.get("color11", "#fab387")
-sapphire = colors.get("color12", "#74c7ec")
-pink = colors.get("color13", "#f5c2e7")
-sky = colors.get("color14", "#89dceb")
+cursor = special.get("cursor", "#9aca9a")
+color0 = colors.get("color0", "#313244")
+color1 = colors.get("color1", "#f38ba8")
+color2 = colors.get("color2", "#a6e3a1")
+color3 = colors.get("color3", "#f9e2af")
+color4 = colors.get("color4", "#89b4fa")
+color5 = colors.get("color5", "#cba6f7")
+color6 = colors.get("color6", "#94e2d5")
+color7 = colors.get("color7", "#f5e0dc")  # or color15
+color8 = colors.get("color8", "#45475a")
+color9 = colors.get("color9", "#fab387")
+color10 = colors.get("color10", "#74c7ec")
+color11 = colors.get("color11", "#f5c2e7")
+color12 = colors.get("color12", "#89dceb")
+color13 = colors.get("color13", "#89dceb")
+color14 = colors.get("color14", "#89dceb")
+color15 = colors.get("color15", "#89dceb")
 
 ################
 #    Themes    #
@@ -54,105 +53,89 @@ sky = colors.get("color14", "#89dceb")
 
 # Font #
 c.fonts.default_family = ["Maple Mono"]
-c.fonts.default_size = "10pt"
+c.fonts.default_size = "11pt"
 
-
-sapphire = "#74c7ec"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
 
 # Setting themes #
 
-c.colors.completion.category.bg = (
-    f"qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 {base}, stop:1 {overlay2})"
-)
-c.colors.completion.category.border.bottom = base
-c.colors.completion.category.border.top = sky
-c.colors.completion.category.fg = mauve
-c.colors.completion.even.bg = base
-c.colors.completion.fg = [text, sky, mauve]
-c.colors.completion.item.selected.bg = text
-c.colors.completion.item.selected.border.bottom = blue
-c.colors.completion.item.selected.border.top = blue
-c.colors.completion.item.selected.fg = crust
-c.colors.completion.item.selected.match.fg = surface1
-c.colors.completion.match.fg = peach
-c.colors.completion.odd.bg = base
-c.colors.completion.scrollbar.bg = base
-c.colors.completion.scrollbar.fg = mauve
-c.colors.contextmenu.disabled.bg = base
-c.colors.contextmenu.disabled.fg = text
-c.colors.contextmenu.menu.bg = base
-c.colors.contextmenu.menu.fg = mauve
-c.colors.contextmenu.selected.bg = surface0
-c.colors.contextmenu.selected.fg = blue
-c.colors.downloads.bar.bg = base
-c.colors.downloads.error.bg = base
-c.colors.downloads.error.fg = red
-c.colors.downloads.start.bg = base
-c.colors.downloads.start.fg = blue
-c.colors.downloads.stop.bg = base
-c.colors.downloads.stop.fg = green
-c.colors.hints.bg = base
-c.colors.hints.fg = mauve
-c.colors.hints.match.fg = green
-c.colors.keyhint.bg = surface0
-c.colors.keyhint.fg = mauve
-c.colors.keyhint.suffix.fg = green
-c.colors.messages.error.bg = red
-c.colors.messages.error.border = yellow
-c.colors.messages.error.fg = base
-c.colors.messages.info.bg = green
-c.colors.messages.info.border = yellow
-c.colors.messages.info.fg = base
-c.colors.messages.warning.bg = peach
-c.colors.messages.warning.border = yellow
-c.colors.messages.warning.fg = base
-c.colors.prompts.bg = mantle
-c.colors.prompts.border = surface0
-c.colors.prompts.fg = blue
-c.colors.prompts.selected.bg = surface0
-c.colors.prompts.selected.fg = sapphire
-c.colors.statusbar.caret.bg = surface0
-c.colors.statusbar.caret.fg = sapphire
-c.colors.statusbar.caret.selection.bg = mauve
-c.colors.statusbar.caret.selection.fg = text
-c.colors.statusbar.command.bg = mantle
-c.colors.statusbar.command.fg = mauve
-c.colors.statusbar.normal.bg = mantle
-c.colors.statusbar.normal.fg = blue
-c.colors.statusbar.progress.bg = green
-c.colors.statusbar.url.fg = rosewater
-c.colors.statusbar.url.hover.fg = sapphire
-c.colors.statusbar.url.success.http.fg = sky
-c.colors.statusbar.url.success.https.fg = mauve
-c.colors.statusbar.url.warn.fg = yellow
-c.colors.tabs.bar.bg = mauve
-c.colors.tabs.odd.bg = subtext0
-c.colors.tabs.even.bg = subtext0
-c.colors.tabs.odd.fg = base
-c.colors.tabs.even.fg = base
-c.colors.tabs.selected.even.bg = mantle
-c.colors.tabs.selected.even.fg = mauve
-c.colors.tabs.selected.odd.bg = c.colors.tabs.selected.even.bg
-c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.fg
-c.colors.tooltip.bg = surface0
-c.colors.tooltip.fg = sapphire
-c.colors.webpage.bg = mantle
-c.colors.webpage.darkmode.enabled = False
+c.colors.completion.category.bg = foreground
+c.colors.completion.category.fg = background
+c.colors.completion.category.border.bottom = color4
+c.colors.completion.category.border.top = color4
+c.colors.completion.even.bg = background
+c.colors.completion.odd.bg = background
+c.colors.completion.fg = [foreground, color4, color2]
+c.colors.completion.item.selected.bg = foreground
+c.colors.completion.item.selected.border.bottom = color1
+c.colors.completion.item.selected.border.top = color1
+c.colors.completion.item.selected.fg = background
+c.colors.completion.item.selected.match.fg = color4
+c.colors.completion.match.fg = color1
+c.colors.completion.scrollbar.bg = foreground
+c.colors.completion.scrollbar.fg = background
+c.colors.contextmenu.disabled.bg = background
+c.colors.contextmenu.disabled.fg = foreground
+c.colors.contextmenu.menu.bg = background
+c.colors.contextmenu.menu.fg = color6
+c.colors.contextmenu.selected.bg = foreground
+c.colors.contextmenu.selected.fg = background
+c.colors.downloads.bar.bg = foreground
+c.colors.downloads.error.bg = "#ea7a7a"
+c.colors.downloads.error.fg = background
+c.colors.downloads.start.bg = color4
+c.colors.downloads.start.fg = foreground
+c.colors.downloads.stop.bg = background
+c.colors.downloads.stop.fg = color7
+c.colors.hints.bg = background
+c.colors.hints.fg = color4
+c.colors.hints.match.fg = cursor
+c.colors.keyhint.bg = background
+c.colors.keyhint.fg = color5
+c.colors.keyhint.suffix.fg = cursor
+c.colors.messages.error.bg = color1
+c.colors.messages.error.border = color4
+c.colors.messages.error.fg = background
+c.colors.messages.info.bg = color9
+c.colors.messages.info.border = color4
+c.colors.messages.info.fg = background
+c.colors.messages.warning.bg = color10
+c.colors.messages.warning.border = color4
+c.colors.messages.warning.fg = background
+c.colors.prompts.bg = background
+c.colors.prompts.border = cursor
+c.colors.prompts.fg = cursor
+c.colors.prompts.selected.bg = foreground
+c.colors.prompts.selected.fg = background
+c.colors.statusbar.caret.bg = background
+c.colors.statusbar.caret.fg = color11
+c.colors.statusbar.caret.selection.bg = background
+c.colors.statusbar.caret.selection.fg = cursor
+c.colors.statusbar.command.bg = background
+c.colors.statusbar.command.fg = "#ba3cba"
+c.colors.statusbar.normal.bg = background
+c.colors.statusbar.normal.fg = foreground
+c.colors.statusbar.progress.bg = background
+c.colors.statusbar.url.fg = color4
+c.colors.statusbar.url.hover.fg = background
+c.colors.statusbar.url.success.http.fg = color14
+c.colors.statusbar.url.success.https.fg = color14
+c.colors.statusbar.url.warn.fg = color13
+c.colors.tabs.bar.bg = background
+# c.colors.tabs.odd.bg = color4
+# c.colors.tabs.even.bg = color4
+# c.colors.tabs.odd.fg = color4
+# c.colors.tabs.even.fg = background
+# c.colors.tabs.selected.even.bg = color4
+# c.colors.tabs.selected.even.fg = background
+# c.colors.tabs.selected.odd.bg = c.colors.tabs.selected.even.fg
+# c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.bg
+c.colors.tooltip.bg = background
+c.colors.tooltip.fg = color4
+c.colors.webpage.bg = background
+c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.policy.images = "never"
-c.colors.webpage.preferred_color_scheme = "light"
+config.set("colors.webpage.darkmode.enabled", False, "file://*")
+
 c.completion.open_categories = [
     "searchengines",
     "quickmarks",
@@ -170,7 +153,8 @@ c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "g": "https://google.com/search?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
-    "gh": "https://github.com/search?q={}",
+    "gh": "https://github.com/search?q={}&type=code",
+    "ghr": "https://github.com/search?q={}&type=repository",
     "yt": "https://youtube.com/results?search_query={}",
     "in": "https://invidious.nerdvpn.de/search?q={}",
     "re": "https://www.reddit.com/search/?q={}",
@@ -206,14 +190,22 @@ c.editor.command = [
     "-c",
     "normal {line}G{column0}l",
 ]
-c.tabs.indicator.width = 18
+c.tabs.indicator.width = 0
+c.tabs.width = "7%"
+c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
 c.tabs.position = "top"
 c.tabs.show = "multiple"
 c.tabs.title.alignment = "center"
 c.tabs.title.elide = "middle"
 c.window.hide_decoration = True
 c.window.title_format = "{perc}{current_title}"
-c.window.transparent = True
+
+config.set("content.webgl", False, "*")
+config.set("content.canvas_reading", False)
+config.set("content.geolocation", False)
+config.set("content.webrtc_ip_handling_policy", "default-public-interface-only")
+config.set("content.cookies.accept", "all")
+config.set("content.cookies.store", True)
 
 c.hints.selectors["code"] = [
     ":not(pre) > code",
@@ -246,8 +238,8 @@ config.bind("<Ctrl-9>", "tab-focus -1")
 config.bind("<Ctrl+e>", "edit-text", "insert")
 config.bind("<Ctrl+e>", "cmd-edit", "command")
 config.bind("<Ctrl+i>", "mode-enter normal ;; hint inputs", "insert")
-config.bind("j", "scroll-page 0 0.4", "normal")
-config.bind("k", "scroll-page 0 -0.4", "normal")
+config.bind("j", "scroll-page 0 0.3", "normal")
+config.bind("k", "scroll-page 0 -0.3", "normal")
 config.bind("<Ctrl+h>", "fake-key <left>", "insert")
 config.bind("<Ctrl+j>", "fake-key <down>", "insert")
 config.bind("<Ctrl+k>", "fake-key <up>", "insert")
@@ -259,12 +251,6 @@ config.bind("<Ctrl+k>", "prompt-item-focus prev", "prompt")
 config.bind("<Ctrl+g>", "fake-key -g /", "prompt")
 config.bind(";c", "hint code userscript code_select")
 config.bind("O", "cmd-set-text -s :open -t")
-# config.bind(
-#     ";pu", f"spawn --userscript {userscript('qute-pass')} --username-only", "insert"
-# )
-# config.bind(
-#     ";pp", f"spawn --userscript {userscript('qute-pass')} --password-only", "insert"
-# )
 config.bind("sd", f"spawn --userscript {userscript('open_download')}")
 config.bind("<Ctrl-o>", f"spawn --userscript {userscript('qutedmenu')} tab")
 config.bind(";a", f"spawn --userscript {userscript('readability')}")

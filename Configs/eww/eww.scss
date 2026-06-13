@@ -6,8 +6,8 @@
 
 * {
   all: unset;
-  font-family: "Maple Mono";
-  font-size: 13px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -17,11 +17,9 @@
 .Bar {
   background: $bg_trans;
   color: $foreground;
-  padding: 4px 4px;
+  padding: 1px 1px;
   border-radius: 6px;
-  border: 1px solid rgba($cursor, 0.3);
-
-  margin: 2px 2px;
+  margin: 1px 1px;
 }
 
 .left-modules,
@@ -37,7 +35,7 @@
 // =============================================================================
 .tag {
   padding: 0px 4px;
-  margin: 3px 3px;
+  margin: 2px 4px;
   border-radius: 4px;
   background: rgba($foreground, 0.4);
   // backdrop-filter: blur(4px);
@@ -114,7 +112,7 @@
 // CLIENT INFO
 // =============================================================================
 .client-info {
-  padding: 0px 6px;
+  padding: 0px 4px;
   background: $background;
   border-radius: 4px;
   color: $color6;
@@ -128,7 +126,7 @@
 // MUSIC COMPACT WIDGET
 // =============================================================================
 .music-compact {
-  padding: 1px 5px;
+  padding: 0px 4px;
   background: rgba($background, 0.9);
   border-radius: 4px;
   // backdrop-filter: blur(4px);
@@ -159,6 +157,7 @@
   background: $background;
   color: $foreground;
   border-radius: 8px;
+  border: 1px solid $color4;
   // gap: 4px;
 
   label {
@@ -179,21 +178,21 @@
 .tray {
   background-color: $background;
   color: $color3;
-  border: 1px solid $cursor;
 }
 
 // =============================================================================
 // CLOCK
 // =============================================================================
 .clock {
-  padding: 0px 15px;
+  padding: 0px 5px;
+  margin: 0px 2px;
   background: $background;
   border-radius: 4px;
   color: $color4;
   font-weight: 700;
   letter-spacing: 1px;
-  border: 1px solid rgba($color9, 0.3);
-  text-shadow: 0 0 4px rgba($color9, 0.3);
+  border: 1px solid rgba($color9, 0.7);
+  text-shadow: 0 0 4px rgba($color9, 0.7);
 }
 
 // =============================================================================
@@ -212,7 +211,9 @@
 }
 
 .sub_hub {
-  background: $bg_trans;
+  background: $background;
+  color: $foreground;
+  margin: 0px 2px;
   border-radius:4px;
 }
 
@@ -225,11 +226,11 @@
   background:  $background;
   border: 2px solid rgba($color11, 0.3);
   border-radius: 0px;
-  padding: 8px;
+  padding: 0px 2px;
 
 
   .title {
-    font-size: 16px;
+    font-size: 26px;
     font-weight: 700;
     color: $foreground;
     letter-spacing: 1px;
@@ -263,12 +264,12 @@
         rgba($color1, 0.1),
         rgba($color4, 0.6));
     border-radius: 2px;
-    padding: 4px;
+    padding:0px 4px;
     border: 1px solid rgba($color13, 0.9);
     box-shadow: 0 8px 32px $bg_trans;
 
     .cover-placeholder {
-      font-size: 50px;
+      font-size: 30px;
       color: $color12;
       // filter: drop-shadow(0 0 4px rgba($color0, 0.3));
     }
@@ -294,7 +295,7 @@
       background: rgba($color12, 0.1);
       border-radius: 6px;
       min-height: 6px;
-      padding: 2px;
+      padding:0px 2px;
 
       trough {
         min-height: 6px;
@@ -321,7 +322,7 @@
 
     label {
       color: $color12;
-      padding: 1px 2px;
+      padding: 0px 2px;
       border-radius: 0%;
       font-size: 12px;
       border: 1px solid rgba($color12, 0.3);
@@ -346,7 +347,7 @@
   .todo-add {
     input {
       background: $background;
-      padding: 4px 6px;
+      padding: 0px 6px;
       border-radius: 8px;
       color: $color14;
       min-width: 250px;
@@ -481,7 +482,7 @@
 // =============================================================================
 .calen {
   background: darken($background,30%);
-  padding: 8px;
+  padding:0px 8px;
   border-radius: 12px;
   border: 1px solid rgba($color0, 0.5);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -489,7 +490,7 @@
 }
 
 .calen_in {
-  padding: 6px;
+  padding:0px 6px;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
@@ -547,9 +548,9 @@
 .music-player,
 .todo-manager,
 .wallpaper-selector {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .tag {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
