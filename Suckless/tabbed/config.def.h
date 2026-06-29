@@ -1,17 +1,17 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char *font = "JetBrainsMono Nerd Font:size=13";
+static char *font = "JetBrainsMono Nerd Font:size=11";
 static char *normbgcolor = "#0d0f1a";
 static char *normfgcolor = "#c0e0ff";
 static char *selfgcolor = "#ff4d80";
 static char *selbgcolor = "#0d0f1a";
 static char *urgfgcolor = "#111111";
 static char *urgbgcolor = "#9effd9";
-static char before[] = "<";
-static char after[] = ">";
+static char before[] = "[";
+static char after[] = "]";
 static char titletrim[] = "...";
-static int tabwidth = 200;
+static int tabwidth = 300;
 static int foreground = 1;
 static int urgentswitch = 0;
 #if SEPARATOR_PATCH
@@ -77,12 +77,12 @@ ResourcePref resources[] = {
 #if KEYCODE_PATCH
 static const Key keys[] = {
     /* modifier             key           function     argument */
-    {MODKEY | ShiftMask, 36, focusonce, {0}},
-    {MODKEY | ShiftMask, 36, spawn, {0}},
-    {MODKEY | ShiftMask, 46, rotate, {.i = +1}},
-    {MODKEY | ShiftMask, 43, rotate, {.i = -1}},
-    {MODKEY | ShiftMask, 44, movetab, {.i = -1}},
-    {MODKEY | ShiftMask, 45, movetab, {.i = +1}},
+    {MODKEY | ALTKEY, 36, focusonce, {0}},
+    {MODKEY | ALTKEY, 36, spawn, {0}},
+    {MODKEY | ALTKEY, 46, rotate, {.i = +1}},
+    {MODKEY | ALTKEY, 43, rotate, {.i = -1}},
+    {MODKEY | ALTKEY, 44, movetab, {.i = -1}},
+    {MODKEY | ALTKEY, 45, movetab, {.i = +1}},
     {MODKEY, 23, rotate, {.i = 0}},
     {MODKEY, 49, spawn, SETPROP("_TABBED_SELECT_TAB")},
     {MODKEY, 10, move, {.i = 0}},

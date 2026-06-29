@@ -39,9 +39,9 @@ static int nomodbuttons =
 static const unsigned int gappih = 5; /* horiz inner gap between windows */
 static const unsigned int gappiv = 5; /* vert inner gap between windows */
 static const unsigned int gappoh =
-    4; /* horiz outer gap between windows and screen edge */
+    8; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov =
-    4; /* vert outer gap between windows and screen edge */
+    8; /* vert outer gap between windows and screen edge */
 static const int smartgaps_fact =
     0; /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer
           gaps */
@@ -1168,8 +1168,6 @@ static const Key keys[] = {
 #if INPLACEROTATE_PATCH
     {MODKEY | ALTKEY, XK_j, inplacerotate, {.i = +2}}, // same as rotatestack
     {MODKEY | ALTKEY, XK_k, inplacerotate, {.i = -2}}, // same as reotatestack
-    {MODKEY | ALTKEY | ControlMask, XK_j, inplacerotate, {.i = +1}},
-    {MODKEY | ALTKEY | ControlMask, XK_k, inplacerotate, {.i = -1}},
 #endif // INPLACEROTATE_PATCH
 #if FLEXTILE_DELUXE_LAYOUT
     {MODKEY | ControlMask, XK_i, incnstack, {.i = +1}},
