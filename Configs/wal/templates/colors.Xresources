@@ -9,7 +9,7 @@
 *.background: {background}
 *.foreground: {foreground} ! Standard 16 ANSI colors
 *.cursorColor: {cursor}    *.color0:  {color0}
-
+*.font: JetBrainsMono Nerd Font :pixelsize=16
 *.color1:  {color1}
 *.color2:  {color2}
 *.color3:  {color3}
@@ -113,14 +113,15 @@ dwm.ltsymbolfgcolor: {color4}
 dwm.ltsymbolbgcolor: {foreground}
 
 ! dmenu (dynamic menu)
+dmenu.font: JetBrainsMono Nerd Font :pixelsize=16
 dmenu.background: {background}
 dmenu.foreground: {foreground}
 dmenu.selbackground: {color4}
 dmenu.selforeground: {background}
 
 ! tabbed colors
-tabbed.normbgcolor: {background}
 tabbed.normfgcolor: {foreground}
+tabbed.normbgcolor: {color4}
 tabbed.selfgcolor: {color4}
 tabbed.selbgcolor: {background}
 
