@@ -15,10 +15,10 @@
 // MAIN BAR STRUCTURE
 // =============================================================================
 .Bar {
-  background: $bg_trans;
+  background: lighten($background,10%);
   color: $foreground;
   padding: 1px 1px;
-  border-radius: 6px;
+  border-radius: 0px;
   margin: 1px 1px;
 }
 

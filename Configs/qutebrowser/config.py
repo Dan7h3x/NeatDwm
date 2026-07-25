@@ -132,9 +132,9 @@ c.fonts.default_size = "11pt"
 c.colors.tooltip.bg = background
 c.colors.tooltip.fg = color4
 c.colors.webpage.bg = background
-c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.darkmode.policy.images = "never"
-config.set("colors.webpage.darkmode.enabled", False, "file://*")
+# c.colors.webpage.darkmode.enabled = True
+# c.colors.webpage.darkmode.policy.images = "never"
+# config.set("colors.webpage.darkmode.enabled", False, "file://*")
 
 c.completion.open_categories = [
     "searchengines",

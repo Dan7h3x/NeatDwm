@@ -1,9 +1,9 @@
-sw_volume: 72
+sw_volume: 96
 audio_device_state:1:PipeWire Sound Server
 audio_device_state:1:Visualizer feed
-state: pause
-current: 398
-time: 1.186
+state: play
+current: 576
+time: 104.95700000000001
 random: 1
 repeat: 1
 single: 0
@@ -11,7 +11,7 @@ consume: 0
 crossfade: 0
 mixrampdb: 0
 mixrampdelay: -1
-lastloadedplaylist: Radios/Pop2.m3u
+lastloadedplaylist: 
 playlist_begin
 0:adamlar/Adamlar  Hikaye.mp3
 1:adamlar/Adamlar - Acının İlacı.mp3
@@ -592,111 +592,130 @@ playlist_begin
 576:Telegram/Celine Dion - Thats The Way It Is www.my-free-mp3.net  (1).mp3
 577:Telegram/Chaka Chiki Bum – Cuban Pete.mp3
 578:Telegram/Coffee and cigarettes - Kirli   Ah Aman Aman.mp3
-579:Telegram/Kate Bush Running Up That Hill.mp3
-580:Telegram/Levent-Yüksel-Sultanım_2008916.mp3
-581:Telegram/Marino-Devil-In-Disguise-Official-Lyric-Video.m4a
-582:Telegram/MFÖ-ALi-Desidero_242982.mp3
-583:Telegram/NF-FEAR.m4a
-584:Telegram/Rag'n'Bone Man - Pocket (Official Video).mp3
-585:Telegram/Rick Astley – Never Gonna Give You Up.mp3
-586:Telegram/sunstroke_project_feat_olia_-_runaway_(z3.fm).mp3
-587:Telegram/Suzane - Je t'accuse (Clip officiel).mp3
-588:Telegram/Taylor Swift The Fate of Ophelia.mp3
-589:Telegram/Tennessee Ernie Ford - Sixteen Tons.mp3
-590:Telegram/The Riddle.mp3
-591:Telegram/Toto - Africa (Official HD Video).mp3
-592:Telegram/Bee Gees - Stayin' Alive.mp3
-593:Telegram/12  Ask.mp3
-594:Telegram/Deniz Seki - Askima Ait korkmuyorum seni kaybetmekten.mp3
-595:Telegram/09. Sakinim (Akustik).mp3
-596:Telegram/@ey_elahe_naz (2).mp3
-597:Telegram/@ey_elahe_naz (3).mp3
-598:Telegram/@ey_elahe_naz (4).mp3
-599:Telegram/@ey_elahe_naz (5).mp3
-600:Telegram/Yuzyuzeyken Konusuruz - Burokrat.mp3
-601:Telegram/Ol Bana Razi.mp3
-602:Telegram/Burcu Güneş - Oflaya Oflaya.mp3
-603:Telegram/@ey_elahe_naz.mp3
-604:Telegram/@eyelahenazz (6).mp3
-605:Telegram/@eyelahenazz.mp3
-606:Telegram/4_5987950387976476128.mp3
-607:Telegram/Udo_Lindenberg_Apache_207_-_Komet.mp3
-608:Telegram/Ibrahim Tatlises - Yikilmisim Ben.mp3
-609:Telegram/A Flock Of Seagulls – I Ran.mp3
-610:Telegram/The Beatles Here Comes The Sun.mp3
-611:Telegram/Ac__t__r_gibi_severek_[_YouConvert.net_].mp3
-612:Telegram/Akhbarak Aye (320).mp3
-613:Telegram/Nico-Santos-All-Time-High-128.mp3
-614:Telegram/Arctic Monkeys – I Wanna Be Yours.mp3
-615:Telegram/Videoclub Amour Plastique.mp3
-616:Telegram/Asdis - Angel Eyes.mp3
-617:Telegram/Hande Yener- Askin Atesi.mp3
-618:Telegram/03 Goksel - Bi Seni Konuşurum.mp3
-619:Telegram/15 Kirli Kadeh (İlyas Yalçıntaş).flac
-620:Telegram/Mike Olfield & Maggie Reilly – Moonlight Shadow.mp3
-621:Telegram/EasyLover.mp3
-622:Telegram/Mor Ve Otesi - Kis Geliyor.mp3
-623:Telegram/NSYNC Bye Bye Bye.mp3
-624:Telegram/Claude - C est La Vie.mp3
-625:Telegram/Lady Gaga Bruno Mars Die With A Smile.mp3
-626:Telegram/Mor-Ve-Otesi-Deli-320.mp3
-627:Telegram/Gazapizm - Müşkül.mp3
-628:Telegram/SpotifyMate.com - End of the World - Miley Cyrus.mp3
-629:Telegram/01 - Shape Of My Heart.mp3
-630:Telegram/Y252zy252zeykenKonu351uruz-Ge231mi351tenGeri.mp3
-631:Telegram/03. Ink.mp3
-632:Telegram/Sia - Gimme Love.mp3
-633:Telegram/Görev Gibi Yaşa.mp3
-634:Telegram/Aerosmith Dream On.mp3
-635:Telegram/Eurythmics   - Sweet Dreams.mp3
-636:Telegram/Fools Garden – Lemon Tree.mp3
-637:Telegram/Linkin Park In The End.mp3
-638:Telegram/Teddy Swims - The Door.mp3
-639:Telegram/01. İçinde Tutma.mp3
-640:Telegram/2016062414400161585.mp3
-641:Telegram/Gene Kelly - Singing In The Rain mp3.mp3
-642:Telegram/11 - Lighter - Kyle Alessandro (320).mp3
-643:Telegram/The Beatles – Hey Jude!.mp3
-644:Telegram/05. Smoke On The Water.mp3
-645:Telegram/03. Somebody That I Used To Know.mp3
-646:Telegram/06 - how soon is now_.mp3
-647:Telegram/Lola Young Messy.mp3
-648:Telegram/1_5 - Champagne - Suzane (320).mp3
-649:Telegram/Miserere_mei_Deus_Allegri_Tenebrae_conducted_by_Nigel_S_H3v9unphfi0.mp3
-650:Telegram/Hande Yener - Acele Etme.mp3
-651:Telegram/Allame - Muskul.mp3
-652:Telegram/Soner Sarikabadayi - NERESI1.mp3
-653:Telegram/Dolu Kadehi Ters Tut - Ölene Dek.mp3
-654:Telegram/mp3indirdur-Allame-Girdap.mp3
-655:Telegram/Allame - Ömür.mp3
-656:Telegram/13. Birds.mp3
-657:Telegram/06 Team.mp3
-658:Telegram/949a61a9f0bb15a0d13eeca5c2b45a75.mp3
-659:Telegram/Emre Fel - Sallan1.mp3
-660:Telegram/Emre Fel Sana El Pence Durmam.mp3
-661:Telegram/09 Grup Yorum - Uğurlama.mp3
-662:Telegram/Buray - Senin Yüzünden.mp3
-663:Telegram/@Music1_Turk    - Feride Hilal Akın   Buray - Rampapapam.mp3
-664:Telegram/4_5904685961542900165.mp3
-665:Telegram/Benson Boone Mystical Magical.mp3
-666:Telegram/Rosa Linn Snap.mp3
-667:Telegram/Bill Withers - Just The Two Of Us.mp3
-668:Telegram/The Smiths - There Is A Light That Never Goes Out.mp3
-669:Telegram/09_-_heaven_knows_im_miserable_now.mp3
-670:Telegram/The Three Tenors - In Concert - Rome 1990 CD 1 TRACK 17 (320.mp3
-671:Telegram/13 Naber.mp3
-672:Telegram/Candan Ercetin – Elbette (3 серия).mp3
-673:Telegram/1_3 - Mor Yazma - Umut Kaya (320).mp3
-674:Telegram/Lucio Corsi - Volevo essere un duro.mp3
-675:Telegram/Voyage (1).mp3
-676:Telegram/You're the Voice.mp3
-677:Telegram/cant get you out of my head.mp3
-678:Telegram/Yüzyüzeyken_Konuşuruz_Yine_De_hEF-9HKjP3Y_140.mp3
-679:Telegram/Bendeniz - Ihtiyacim Var.mp3
-song_begin: https://radio.9craft.ir:7443/pop1
-song_end
-song_begin: https://radio.9craft.ir:7443/pop2
-song_end
-song_begin: https://radio.9craft.ir:7443/lofi
-song_end
+579:Telegram/dmc5_-_devil_trigger_k0yt.mp3
+580:Telegram/Evanescence-Afterlife-Devil-May-Cry.mp3
+581:Telegram/Kate Bush Running Up That Hill.mp3
+582:Telegram/Levent-Yüksel-Sultanım_2008916.mp3
+583:Telegram/Marino-Devil-In-Disguise-Official-Lyric-Video.m4a
+584:Telegram/MFÖ-ALi-Desidero_242982.mp3
+585:Telegram/NF-FEAR.m4a
+586:Telegram/Rag'n'Bone Man - Pocket (Official Video).mp3
+587:Telegram/Rick Astley – Never Gonna Give You Up.mp3
+588:Telegram/sunstroke_project_feat_olia_-_runaway_(z3.fm).mp3
+589:Telegram/Suzane - Je t'accuse (Clip officiel).mp3
+590:Telegram/Taylor Swift The Fate of Ophelia.mp3
+591:Telegram/Tennessee Ernie Ford - Sixteen Tons.mp3
+592:Telegram/The Riddle.mp3
+593:Telegram/Toto - Africa (Official HD Video).mp3
+594:Telegram/صبري_قليل_شيرين_ياسر_أيوب_Sabry_Aleel_Sherine_Yasser_Ayoub_Full.mp3
+595:Telegram/Bee Gees - Stayin' Alive.mp3
+596:Telegram/12  Ask.mp3
+597:Telegram/Deniz Seki - Askima Ait korkmuyorum seni kaybetmekten.mp3
+598:Telegram/09. Sakinim (Akustik).mp3
+599:Telegram/@ey_elahe_naz (2).mp3
+600:Telegram/@ey_elahe_naz (3).mp3
+601:Telegram/@ey_elahe_naz (4).mp3
+602:Telegram/@ey_elahe_naz (5).mp3
+603:Telegram/Yuzyuzeyken Konusuruz - Burokrat.mp3
+604:Telegram/Ol Bana Razi.mp3
+605:Telegram/Burcu Güneş - Oflaya Oflaya.mp3
+606:Telegram/@ey_elahe_naz.mp3
+607:Telegram/@eyelahenazz (6).mp3
+608:Telegram/@eyelahenazz.mp3
+609:Telegram/4_5987950387976476128.mp3
+610:Telegram/Udo_Lindenberg_Apache_207_-_Komet.mp3
+611:Telegram/Ibrahim Tatlises - Yikilmisim Ben.mp3
+612:Telegram/A Flock Of Seagulls – I Ran.mp3
+613:Telegram/The Beatles Here Comes The Sun.mp3
+614:Telegram/Ac__t__r_gibi_severek_[_YouConvert.net_].mp3
+615:Telegram/Akhbarak Aye (320).mp3
+616:Telegram/AURORA – Warrior.mp3
+617:Telegram/Aurora Runaway.mp3
+618:Telegram/Nico-Santos-All-Time-High-128.mp3
+619:Telegram/Arctic Monkeys – I Wanna Be Yours.mp3
+620:Telegram/Videoclub Amour Plastique.mp3
+621:Telegram/Asdis - Angel Eyes.mp3
+622:Telegram/Hande Yener- Askin Atesi.mp3
+623:Telegram/03 Goksel - Bi Seni Konuşurum.mp3
+624:Telegram/15 Kirli Kadeh (İlyas Yalçıntaş).flac
+625:Telegram/KAJ - Bara Bada Bastu.mp3
+626:Telegram/01. Aidan - Bella.mp3
+627:Telegram/Mike Olfield & Maggie Reilly – Moonlight Shadow.mp3
+628:Telegram/EasyLover.mp3
+629:Telegram/11 - Bluish - Father of Peace (320).mp3
+630:Telegram/Mor Ve Otesi - Kis Geliyor.mp3
+631:Telegram/NSYNC Bye Bye Bye.mp3
+632:Telegram/Claude - C est La Vie.mp3
+633:Telegram/01. Alexandra Căpitănescu - Choke Me.mp3
+634:Telegram/Lady Gaga Bruno Mars Die With A Smile.mp3
+635:Telegram/Mor-Ve-Otesi-Deli-320.mp3
+636:Telegram/Gazapizm - Müşkül.mp3
+637:Telegram/SpotifyMate.com - End of the World - Miley Cyrus.mp3
+638:Telegram/Akylas - Ferto.mp3
+639:Telegram/Napa - Deslocado.mp3
+640:Telegram/01 - Shape Of My Heart.mp3
+641:Telegram/Y252zy252zeykenKonu351uruz-Ge231mi351tenGeri.mp3
+642:Telegram/03. Ink.mp3
+643:Telegram/Sia - Gimme Love.mp3
+644:Telegram/Chappell Roan Good Luck Babe_1.mp3
+645:Telegram/Chappell Roan Good Luck Babe.mp3
+646:Telegram/Görev Gibi Yaşa.mp3
+647:Telegram/Aerosmith Dream On.mp3
+648:Telegram/Eurythmics   - Sweet Dreams.mp3
+649:Telegram/Fools Garden – Lemon Tree.mp3
+650:Telegram/Linkin Park In The End.mp3
+651:Telegram/Teddy Swims - The Door.mp3
+652:Telegram/01. İçinde Tutma.mp3
+653:Telegram/2016062414400161585.mp3
+654:Telegram/Gene Kelly - Singing In The Rain mp3.mp3
+655:Telegram/Alessia Cara - Scars To Your Beautiful (1)_1.mp3
+656:Telegram/Alessia Cara - Scars To Your Beautiful (1).mp3
+657:Telegram/Laura Thorn - La poupée monte le son.mp3
+658:Telegram/11 - Lighter - Kyle Alessandro (320).mp3
+659:Telegram/The Beatles – Hey Jude!.mp3
+660:Telegram/05. Smoke On The Water.mp3
+661:Telegram/03. Somebody That I Used To Know.mp3
+662:Telegram/06 - how soon is now_.mp3
+663:Telegram/Lola Young Messy.mp3
+664:Telegram/1_5 - Champagne - Suzane (320).mp3
+665:Telegram/15 - Champagne - Suzane (320).mp3
+666:Telegram/Miserere_mei_Deus_Allegri_Tenebrae_conducted_by_Nigel_S_H3v9unphfi0.mp3
+667:Telegram/01. Eva Marija - Mother Nature.mp3
+668:Telegram/Hande Yener - Acele Etme.mp3
+669:Telegram/Allame - Muskul.mp3
+670:Telegram/Soner Sarikabadayi - NERESI1.mp3
+671:Telegram/Dolu Kadehi Ters Tut - Ölene Dek.mp3
+672:Telegram/mp3indirdur-Allame-Girdap.mp3
+673:Telegram/Allame - Ömür.mp3
+674:Telegram/13. Birds.mp3
+675:Telegram/06 Team.mp3
+676:Telegram/949a61a9f0bb15a0d13eeca5c2b45a75.mp3
+677:Telegram/02_Quiet_Times.mp3
+678:Telegram/Emre Fel - Sallan1.mp3
+679:Telegram/Emre Fel Sana El Pence Durmam.mp3
+680:Telegram/09 Grup Yorum - Uğurlama.mp3
+681:Telegram/Buray - Senin Yüzünden.mp3
+682:Telegram/@Music1_Turk    - Feride Hilal Akın   Buray - Rampapapam.mp3
+683:Telegram/4_5904685961542900165.mp3
+684:Telegram/Benson Boone Mystical Magical.mp3
+685:Telegram/Slide.mp3
+686:Telegram/Rosa Linn Snap.mp3
+687:Telegram/Abor   Tynna - Baller.mp3
+688:Telegram/Bill Withers - Just The Two Of Us.mp3
+689:Telegram/The Smiths - There Is A Light That Never Goes Out.mp3
+690:Telegram/AURORA - The Seed.mp3
+691:Telegram/09_-_heaven_knows_im_miserable_now.mp3
+692:Telegram/The Three Tenors - In Concert - Rome 1990 CD 1 TRACK 17 (320.mp3
+693:Telegram/13 Naber.mp3
+694:Telegram/04 Oh Woman Oh Man.mp3
+695:Telegram/Candan Ercetin – Elbette (3 серия).mp3
+696:Telegram/1_3 - Mor Yazma - Umut Kaya (320).mp3
+697:Telegram/Lucio Corsi - Volevo essere un duro.mp3
+698:Telegram/Voyage (1).mp3
+699:Telegram/You're the Voice.mp3
+700:Telegram/cant get you out of my head.mp3
+701:Telegram/Yüzyüzeyken_Konuşuruz_Yine_De_hEF-9HKjP3Y_140.mp3
+702:Telegram/Bendeniz - Ihtiyacim Var.mp3
+703:Telegram/Evanescence-Afterlife-Devil-May-Cry.mp3
+704:Telegram/Evanescence Lithium.mp3
 playlist_end
