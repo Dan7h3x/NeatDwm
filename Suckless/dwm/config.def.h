@@ -180,9 +180,9 @@ static const unsigned int maxhtab = 200; /* tab menu height */
 #endif                                   // ALT_TAB_PATCH
 
 /* Indicators: see patch/bar_indicators.h for options */
-static int tagindicatortype = INDICATOR_TOP_LEFT_SQUARE;
-static int tiledindicatortype = INDICATOR_NONE;
-static int floatindicatortype = INDICATOR_TOP_RIGHT_SQUARE;
+static int tagindicatortype = INDICATOR_CLIENT_DOTS;
+static int tiledindicatortype = INDICATOR_BOTTOM_BAR;
+static int floatindicatortype = INDICATOR_TOP_BAR;
 #if FAKEFULLSCREEN_CLIENT_PATCH && !FAKEFULLSCREEN_PATCH
 static int fakefsindicatortype = INDICATOR_PLUS;
 static int floatfakefsindicatortype = INDICATOR_PLUS_AND_LARGER_SQUARE;
@@ -205,11 +205,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "JetBrainsMono Nerd Font:size=13";
+static const char font[] = "IoskeleyTermMono Nerd Font:size=13";
 #else
-static const char *fonts[] = {"JetBrainsMono Nerd Font:size=13"};
+static const char *fonts[] = {"IoskeleyTermMono Nerd Font:size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "JetBrainsMono Nerd Font:size=13";
+static const char dmenufont[] = "IoskeleyTermMono Nerd Font:size=13";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -517,25 +517,24 @@ static const Rule rules[] = {
                                         "floating",
                                     .isfloating =
                                         1) RULE(.class = "octave-gui", .isfloating = 1)
-                                RULE(.class = "R_x11", .isfloating = 1) RULE(
-                                        .instance =
-                                            "Floatterm",
-                                        .isfloating =
-                                            1) RULE(.instance = "spfiles", .isfloating = 1)
-                                    RULE(.instance = "v2rayN", .isfloating = 1) RULE(
-                                            .title =
-                                                "Chat",
-                                            .isfloating =
-                                                1) RULE(.title = "dorsandesk",
-                                                        .isfloating = 1)
+                                RULE(.class = "R_x11",
+                                     .isfloating = 1) RULE(.instance =
+                                                               "Floatterm",
+                                                           .isfloating = 1)
+                                    RULE(.instance = "spfiles", .isfloating = 1) RULE(
+                                            .instance =
+                                                "v2rayN",
+                                            .isfloating = 1) RULE(.title =
+                                                                      "Chat",
+                                                                  .isfloating = 1)
+                                        RULE(.class = "Poddr", .isfloating = 1)
 
 #if RENAMED_SCRATCHPADS_PATCH
-                                        RULE(.title = "ScratchTerm",
-                                             .scratchkey = 's',
-                                             .isfloating = 1)
-                                            RULE(.title = "Music",
-                                                 .scratchkey = 'm',
-                                                 .isfloating = 1)
+                                            RULE(.title = "ScratchTerm",
+                                                 .scratchkey = 's',
+                                                 .isfloating = 1) RULE(.title = "Music",
+                                                                       .scratchkey = 'm',
+                                                                       .isfloating = 1)
                                                 RULE(.title = "Proce"
                                                               "sses",
                                                      .scratchkey = 'b',
@@ -581,11 +580,12 @@ static const Rule rules[] = {
                                                                          .isfloating =
                                                                              1)
 #elif SCRATCHPADS_PATCH
-                                        RULE(.instance = "spterm",
-                                             .tags = SPTAG(0), .isfloating = 1)
-                                            RULE(.instance = "spmusic",
-                                                 .tags = SPTAG(1),
+                                            RULE(.instance = "spterm",
+                                                 .tags = SPTAG(0),
                                                  .isfloating = 1)
+                                                RULE(.instance = "spmusic",
+                                                     .tags = SPTAG(1),
+                                                     .isfloating = 1)
 #endif // SCRATCHPADS_PATCH
 };
 
@@ -1380,13 +1380,13 @@ static const Key keys[] = {
 #endif // NO_MOD_BUTTONS_PATCH
 #if RENAMED_SCRATCHPADS_PATCH
     {MODKEY, XK_grave, togglescratch, {.v = spcmd1}},
-    {ALTKEY, XK_m, togglescratch, {.v = spmusic}},
-    {ALTKEY, XK_b, togglescratch, {.v = spproc}},
-    {ALTKEY, XK_f, togglescratch, {.v = spfile}},
-    {ALTKEY, XK_e, togglescratch, {.v = spfiles}},
-    {ALTKEY, XK_r, togglescratch, {.v = spradio}},
-    {ALTKEY, XK_n, togglescratch, {.v = spnotes}},
-    {ALTKEY, XK_d, togglescratch, {.v = spfzf}},
+    {MODKEY | ALTKEY, XK_m, togglescratch, {.v = spmusic}},
+    {MODKEY | ALTKEY, XK_b, togglescratch, {.v = spproc}},
+    {MODKEY | ALTKEY, XK_f, togglescratch, {.v = spfile}},
+    {MODKEY | ALTKEY, XK_e, togglescratch, {.v = spfiles}},
+    {MODKEY | ALTKEY, XK_r, togglescratch, {.v = spradio}},
+    {MODKEY | ALTKEY, XK_n, togglescratch, {.v = spnotes}},
+    {MODKEY | ALTKEY, XK_d, togglescratch, {.v = spfzf}},
     {MODKEY | ControlMask, XK_grave, setscratch, {.v = spcmd1}},
     {MODKEY | ShiftMask, XK_grave, removescratch, {.v = spcmd1}},
 #elif SCRATCHPADS_PATCH
