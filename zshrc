@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster" # set by `omz`
+ZSH_THEME="gentoo" # set by `omz`
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,17 +70,17 @@ ZSH_THEME="agnoster" # set by `omz`
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-interactive-cd zsh-navigation-tools)
+plugins=(git zsh-interactive-cd zsh-navigation-tools fzf archlinux pip docker emoji emoji-clock eza cp)
 
 source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -103,80 +103,84 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export MANPAGER='nvim +Man!'
 
-alias l="eza -T -L 2 -G --icons --color=always"
-alias ls="l -a"
-alias lt="l --level=3"
+
+alias l='eza --icons=always -G -L 2 --color=always'
+alias ls='l -a'
 alias ipython="ipython --colors=linux"
 alias get="git clone --depth 1"
 alias lzvim="NVIM_APPNAME=nvim-lazy nvim"
-alias tvim="NVIM_APPNAME=nvim-test nvim"
-alias fvim="NVIM_APPNAME=nvim-fzf nvim"
-alias surf='xembed -e surf'
+alias mivim="NVIM_APPNAME=nvim-mini nvim"
+alias tvim="NVIM_APPNAME=nvim-clean nvim"
+alias fvim="NVIM_APPNAME=nvim-fun nvim"
+alias colx="bat -l conf -p"
 
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 cdf() {
   selected_dir=$(fd --type d --hidden --exclude \
-    .git --exclude node_modules --exclude .cache --follow |
+    .git --exclude node_modules --exclude .cache --follow --full-path "$1" |
     fzf -i --layout=reverse \
       --preview='exa -T -L 2 -G --icons --git-ignore --color=always {}' \
       --preview-window=up\
-      --prompt='Change Dir: ') && [[ -n "$selected_dir" ]] && cd "$selected_dir"
+      --prompt='Change Dir: ') && [[ -n "$selected_dir" ]] && cd "$selected_dir" || return
 }
-
 
 
 sf() {
   while true; do
-    selected_file=$(fd --type f --extension "$1" --hidden --exclude \
-      .git --exclude node_modules --exclude .cache --follow --full-path "$2" |
-      fzf -i --layout=reverse \
+    selected_file=("${(ps:\n:)$(fd --type f --extension "$1" --hidden --exclude \
+      .git --exclude node_modules --exclude .cache --follow --full-path . |
+      fzf -i -m --layout=reverse \
       --preview="prevme {}" \
       --preview-window=right \
-      --prompt='Find Files (Ctrl+C to exit | Ctrl+R clear tabbed): ' \
-      --bind "ctrl-r:execute(rm -rf /tmp/tabpdf.txt)")
-    if [[ -f "/tmp/tabpdf.txt" || -s "/tmp/tabpdf.txt" ]] && [[ -n "$selected_file" ]];then
-      # notify-send "The tabbed session" "$(cat /tmp/tabpdf.txt)"
-      ( nohup zathura --reparent="$(cat /tmp/tabpdf.txt)" "$selected_file" >/dev/null 2>&1 & ) &
+      --prompt='Find:' \
+      --bind "ctrl-r:execute(rm -rf /tmp/tabpdf.txt)")}")
+    if [[ -n "$selected_file" ]] && [[ "$1" == "pdf" ]];then
+      ( nohup lektra "${selected_file[@]}" >/dev/null 2>&1  ) &
       clear
       continue
     else
       if [[ -n "$selected_file" ]]; then
-        # Launch file completely detached
         (
           nohup xdg-open "$selected_file" > /dev/null 2>&1 &
           ) &
-
-          # Clear screen and restart
           clear
           echo "File opened. Select another file..."
           continue
         else
-          # No file selected, exit
           break
       fi
       break
     fi
-
     done
 }
 
 txsf(){
-  cd "/usr/local/texlive/2025/texmf-dist/"
+  cd "/usr/local/texlive/2025/texmf-dist/" || exit
   sf pdf
-  cd
+  cd || exit
 }
 
-tabpdf(){
-  TABBED_XID=$(tabbed -cd zathura -e)
-  selected_file=$(fd --type f --extension pdf --hidden --exclude \
-      .git --exclude node_modules --exclude .cache --follow --full-path "$1" |
-      fzf -m -i --layout=reverse \
-        --preview="prevme {}" \
-        --preview-window=right \
-        --prompt='Find Files (Ctrl+C to exit): ')
 
-  zathura --reparent="$TABBED_XID" "$selected_file"
+fzc() {
+  cd "$HOME" || exit
+  selected_file=("${(ps:\n:)$(fd --type f --extension "$1" --hidden --exclude \
+      .git --exclude node_modules --exclude .cache --follow --full-path . |
+      fzf -i -m --layout=reverse \
+      --preview="prevme {}" \
+      --preview-window=right \
+      --prompt='Find:' )}")
+  cp "${selected_file[@]}" "$2" || notify-send "Fuzzy Copy" "Failed to copy files"
+
+}
+
+mf() {
+  man "$(man -k . | awk '{print $1}' | fzf -i --layout=reverse \
+    --preview='man {} | bat -l man' \
+    --preview-window=up \
+    --prompt='Search Man: ')"
 }
 
 y() {
@@ -187,18 +191,23 @@ y() {
 	rm -f -- "$tmp"
 }
 
-# nsx(){
-#   OPENER='printf "%s\0"' SIZE=768 nsxiv-thumb -e "$TABBED_XID" | xargs -r0 realpath -sm -- | while IFS= read -r i; do
-#         lf -remote "send $id select '$i'" && lf -remote "send $id toggle"
-#     done
-#     lf -remote "send $id select '$f'"
-# }
+frg() {
+  [ "$#" -ne 0 ] && nvim "$@" || rg --files --hidden \
+    | fzf --print0 --multi --height 50% --layout=reverse \
+    --preview="prevme {}" \
+    --preview-window=right | xargs -0 -r nvim
+
+}
 
 if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
   export TERMINAL="st"
 else
   export TERMINAL="foot"
 fi
+
+cat ~/.cache/wal/sequences
 export QUTE_BIB_FILEPATH="/home/kratos/Desktop/MyBibs/qute.bib"
+
+export zylokey="sk-zy-da3892f6476804ec0569a2b270c9eb323641a64acdef9d79"
 
 
