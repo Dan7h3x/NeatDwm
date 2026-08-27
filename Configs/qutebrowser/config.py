@@ -7,44 +7,12 @@ config = config
 config.load_autoconfig(False)
 
 
+
+config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version} Edg/{upstream_browser_version}', 'https://accounts.google.com/*')
+
 def userscript(script_name: str):
     return os.path.join(os.path.join(config.configdir, "userscripts"), script_name)
 
-
-def load_pywal_colors_json():
-    """Load colors from Pywal's JSON cache file"""
-    wal_json = Path.home() / ".cache" / "wal" / "colors.json"
-
-    if wal_json.exists():
-        with open(wal_json, "r") as f:
-            data = json.load(f)
-            return data.get("special", {}), data.get("colors", {})
-    return {}, {}
-
-
-# Load colors
-special, colors = load_pywal_colors_json()
-
-# Access colors
-background = special.get("background", "#1e1e2e")
-foreground = special.get("foreground", "#cdd6f4")
-cursor = special.get("cursor", "#9aca9a")
-color0 = colors.get("color0", "#313244")
-color1 = colors.get("color1", "#f38ba8")
-color2 = colors.get("color2", "#a6e3a1")
-color3 = colors.get("color3", "#f9e2af")
-color4 = colors.get("color4", "#89b4fa")
-color5 = colors.get("color5", "#cba6f7")
-color6 = colors.get("color6", "#94e2d5")
-color7 = colors.get("color7", "#f5e0dc")  # or color15
-color8 = colors.get("color8", "#45475a")
-color9 = colors.get("color9", "#fab387")
-color10 = colors.get("color10", "#74c7ec")
-color11 = colors.get("color11", "#f5c2e7")
-color12 = colors.get("color12", "#89dceb")
-color13 = colors.get("color13", "#89dceb")
-color14 = colors.get("color14", "#89dceb")
-color15 = colors.get("color15", "#89dceb")
 
 ################
 #    Themes    #
@@ -52,89 +20,14 @@ color15 = colors.get("color15", "#89dceb")
 
 
 # Font #
-c.fonts.default_family = ["Maple Mono"]
+c.fonts.default_family = ["CaskaydiaCove Nerd Font"]
 c.fonts.default_size = "11pt"
 
 
 # Setting themes #
 
-# c.colors.completion.category.bg = foreground
-# c.colors.completion.category.fg = background
-# c.colors.completion.category.border.bottom = color4
-# c.colors.completion.category.border.top = color4
-# c.colors.completion.even.bg = background
-# c.colors.completion.odd.bg = background
-# c.colors.completion.fg = [foreground, color4, color2]
-# c.colors.completion.item.selected.bg = foreground
-# c.colors.completion.item.selected.border.bottom = color1
-# c.colors.completion.item.selected.border.top = color1
-# c.colors.completion.item.selected.fg = background
-# c.colors.completion.item.selected.match.fg = color4
-# c.colors.completion.match.fg = color1
-# c.colors.completion.scrollbar.bg = foreground
-# c.colors.completion.scrollbar.fg = background
-# c.colors.contextmenu.disabled.bg = background
-# c.colors.contextmenu.disabled.fg = foreground
-# c.colors.contextmenu.menu.bg = background
-# c.colors.contextmenu.menu.fg = color6
-# c.colors.contextmenu.selected.bg = foreground
-# c.colors.contextmenu.selected.fg = background
-# c.colors.downloads.bar.bg = foreground
-# c.colors.downloads.error.bg = "#ea7a7a"
-# c.colors.downloads.error.fg = background
-# c.colors.downloads.start.bg = color4
-# c.colors.downloads.start.fg = foreground
-# c.colors.downloads.stop.bg = background
-# c.colors.downloads.stop.fg = color7
-# c.colors.hints.bg = background
-# c.colors.hints.fg = color4
-# c.colors.hints.match.fg = cursor
-# c.colors.keyhint.bg = background
-# c.colors.keyhint.fg = color5
-# c.colors.keyhint.suffix.fg = cursor
-# c.colors.messages.error.bg = color1
-# c.colors.messages.error.border = color4
-# c.colors.messages.error.fg = background
-# c.colors.messages.info.bg = color9
-# c.colors.messages.info.border = color4
-# c.colors.messages.info.fg = background
-# c.colors.messages.warning.bg = color10
-# c.colors.messages.warning.border = color4
-# c.colors.messages.warning.fg = background
-# c.colors.prompts.bg = background
-# c.colors.prompts.border = cursor
-# c.colors.prompts.fg = cursor
-# c.colors.prompts.selected.bg = foreground
-# c.colors.prompts.selected.fg = background
-# c.colors.statusbar.caret.bg = background
-# c.colors.statusbar.caret.fg = color11
-# c.colors.statusbar.caret.selection.bg = background
-# c.colors.statusbar.caret.selection.fg = cursor
-# c.colors.statusbar.command.bg = background
-# c.colors.statusbar.command.fg = "#ba3cba"
-# c.colors.statusbar.normal.bg = background
-# c.colors.statusbar.normal.fg = foreground
-# c.colors.statusbar.progress.bg = background
-# c.colors.statusbar.url.fg = color4
-# c.colors.statusbar.url.hover.fg = background
-# c.colors.statusbar.url.success.http.fg = color14
-# c.colors.statusbar.url.success.https.fg = color14
-# c.colors.statusbar.url.warn.fg = color13
-# c.colors.tabs.bar.bg = background
-# # c.colors.tabs.odd.bg = color4
-# c.colors.tabs.even.bg = color4
-# c.colors.tabs.odd.fg = color4
-# c.colors.tabs.even.fg = background
-# c.colors.tabs.selected.even.bg = color4
-# c.colors.tabs.selected.even.fg = background
-# c.colors.tabs.selected.odd.bg = c.colors.tabs.selected.even.fg
-# c.colors.tabs.selected.odd.fg = c.colors.tabs.selected.even.bg
-c.colors.tooltip.bg = background
-c.colors.tooltip.fg = color4
-c.colors.webpage.bg = background
-# c.colors.webpage.darkmode.enabled = True
-# c.colors.webpage.darkmode.policy.images = "never"
-# config.set("colors.webpage.darkmode.enabled", False, "file://*")
+c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.policy.images = "never"
 
 c.completion.open_categories = [
     "searchengines",
