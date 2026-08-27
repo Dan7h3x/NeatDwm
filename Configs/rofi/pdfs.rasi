@@ -1,6 +1,6 @@
 
 * {
-    font:   "GeistMono Nerd Font 12";
+    font:   "IoskeleyMonoTerm Nerd Font 12";
 
     bg0:     #1E1D2FFF;
     bg1:      #282839FF;
@@ -27,7 +27,7 @@ window {
 }
 
 inputbar {
-    font:       "GeistMono Nerd Font 20";
+    font:       "IoskeleyMonoTerm Nerd Font 20";
     padding:    12px;
     spacing:    12px;
     children:   [ icon-search, entry ];
@@ -91,7 +91,7 @@ element-icon {
 }
 
 element-text {
-  font: "GeistMono Nerd Font 10";
+  font: "IoskeleyMonoTerm Nerd Font 10";
     text-color: inherit;
     vertical-align: 0.5;
     horizontal-align: 0.5;

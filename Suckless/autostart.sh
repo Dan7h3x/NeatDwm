@@ -9,7 +9,8 @@ start() {
 
 
 # System
-xrdb -merge ~/.cache/wal/colors.Xresources
+# xrdb -merge ~/.cache/wal/colors.Xresources
+feh --bg-scale ~/.config/Wallpaper/astro-jelly.jpg
 # X settings
 start xsetroot -cursor_name left_ptr
 start setxkbmap us,ir -option 'grp:alt_shift_toggle'

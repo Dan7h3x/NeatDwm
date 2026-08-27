@@ -8,10 +8,7 @@ ROFI_THEME="$HOME/.config/rofi/pdfs.rasi"
 # Ensure thumbnail directory exists
 mkdir -p "$THUMBNAIL_DIR"
 
-# Get session type (X11 or Wayland)
-SESSION_TYPE="${XDG_SESSION_TYPE:-x11}"
 
-# Get recent PDFs from Zathura history (more robust parsing)
 get_recent_pdfs() {
   [ -f "$HIST_FILE" ] &&
     grep -oP '\[\K[^]]*\.pdf(?=\])' "$HIST_FILE" 2>/dev/null |
@@ -38,7 +35,7 @@ generate_thumbnail() {
     if command -v pdftoppm >/dev/null; then
       pdftoppm -png -singlefile -scale-to-x 600 -scale-to-y 640 "$pdf" "$THUMBNAIL_DIR/$hash" 2>/dev/null
     elif command -v convert >/dev/null; then
-      convert -thumbnail 258x200 "$pdf[0]" "$thumb" 2>/dev/null
+      convert -thumbnail 258x200 "${pdf[0]}" "$thumb" 2>/dev/null
     fi
   fi
   echo "$thumb"
@@ -69,11 +66,7 @@ main() {
 
   # Open selected PDF
   if [ -n "$SEL" ] && [ -f "$SEL" ]; then
-    if [[ ! -f "/tmp/tabpdf.txt" ]]; then
-          zathura "$SEL"
-    else
-          zathura --reparent="$(cat /tmp/tabpdf.txt)" "$SEL"
-    fi
+          zathura "${SEL[@]}"
   fi
 }
 

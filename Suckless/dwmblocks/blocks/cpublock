@@ -2,7 +2,7 @@
 
 case $BLOCK_BUTTON in
 1)
-  setsid -f "$TERMINAL" -c 'floating' -T "Progress" -e btop
+  setsid -f "$TERMINAL" -c 'floating' -T "Progress" -g 120x40 -e btop
   ;;
 2) notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)\\n(100% per core)" ;;
 3) notify-send "🖥 CPU module " "\- Shows CPU temperature.

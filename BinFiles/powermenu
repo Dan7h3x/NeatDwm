@@ -1,4 +1,4 @@
 #!/bin/sh
 
 
-sh $HOME/.config/rofi/powermenu.sh
+sh "$HOME/.config/rofi/powermenu.sh"

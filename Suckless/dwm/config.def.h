@@ -205,11 +205,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "IoskeleyTermMono Nerd Font:size=13";
+static const char font[] = "CaskaydiaCove Nerd Font:size=13";
 #else
-static const char *fonts[] = {"IoskeleyTermMono Nerd Font:size=13"};
+static const char *fonts[] = {"CaskaydiaCove Nerd Font:size=13"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "IoskeleyTermMono Nerd Font:size=13";
+static const char dmenufont[] = "CaskaydiaCove Nerd Font:size=13";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -1205,7 +1205,6 @@ static const char *alacrittytabs[] = {"tabbed", "-c", "alacritty", "--embed",
                                       NULL};
 static const char *redshiftup[] = {"redshiftblock", "increase", NULL};
 static const char *redshiftdown[] = {"redshiftblock", "decrease", NULL};
-static const char *pdftabs[] = {"pdftabs", NULL};
 static const char *guifilefzf[] = {"fzgfm", NULL};
 static const char *theme[] = {"neatheme", NULL};
 static const char *mpvradio[] = {"mpvradio", NULL};
@@ -1234,15 +1233,14 @@ static const Key keys[] = {
     {MODKEY, XK_t, spawn, {.v = theme}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {ALTKEY, XK_Return, spawn, {.v = kitty}},
-    {ALTKEY, XK_k, spawn, {.v = kitty_session}},
-    {ALTKEY, XK_g, spawn, {.v = guifilefzf}},
-    {ALTKEY, XK_o, spawn, {.v = mpvradio}},
-    {ALTKEY, XK_p, spawn, {.v = pdfs}},
-    {ALTKEY, XK_t, spawn, {.v = sttabs}},
+    {MODKEY | ALTKEY, XK_k, spawn, {.v = kitty_session}},
+    {MODKEY | ALTKEY, XK_g, spawn, {.v = guifilefzf}},
+    {MODKEY | ALTKEY, XK_o, spawn, {.v = mpvradio}},
+    {MODKEY | ALTKEY, XK_p, spawn, {.v = pdfs}},
+    {MODKEY | ALTKEY, XK_t, spawn, {.v = sttabs}},
     {ALTKEY | ControlMask, XK_t, spawn, {.v = alacrittytabs}},
     {MODKEY, XK_Next, spawn, {.v = redshiftdown}},
     {MODKEY, XK_Prior, spawn, {.v = redshiftup}},
-    {ALTKEY, XK_y, spawn, {.v = pdftabs}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = floatterm}},
     {MODKEY, XK_b, togglebar, {0}},
 

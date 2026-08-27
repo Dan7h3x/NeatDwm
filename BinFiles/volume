@@ -2,11 +2,11 @@
 
 
 # icons
-iDIR='/home/kratos/.config/dunst/icons'
+iDIR="$HOME/.config/dunst/icons"
 
 # Get Volume
 get_volume() {
-	volume=`pamixer --get-volume`
+	volume=$( pamixer --get-volume )
 	echo "$volume"
 }
 

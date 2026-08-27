@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-wallpaper="/home/mehdi/.config/Wallpaper/main.png"
+wallpaper="$HOME/.config/Wallpaper/astro-jelly.jpg"
 
 image=$(mktemp --tmpdir --suffix=.png lock.XXXXXXXXXX)
 trap 'rm -f "$image"' SIGINT SIGTERM EXIT
@@ -25,7 +25,7 @@ done
 maim -u -m 1 |
   magick convert png:- -scale 10% -scale 1000% \
     -fill "#282828" -colorize 10% \
-    ${lines[*]} "$image"
+    "${lines[*]}" "$image"
 
 i3lock \
   --color=282828 \

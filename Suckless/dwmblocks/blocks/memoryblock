@@ -2,7 +2,7 @@
 
 case $BLOCK_BUTTON in
 1)
-  setsid -f "$TERMINAL" -c 'floating' -T "Progress" -e btop
+  setsid -f "$TERMINAL" -c 'floating' -T "Progress" -g 120x40 -e btop
   ;;
 2) notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
 3) notify-send "🧠 Memory module" "\- Shows Memory Used/Total.
@@ -10,4 +10,4 @@ case $BLOCK_BUTTON in
 - Middle click to open htop." ;;
 6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
-colorbox -i "🧠" -t " $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)" -f color5
+colorbox -i "🧠" -t "$(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)" -f color5

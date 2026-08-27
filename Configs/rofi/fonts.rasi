@@ -1,12 +1,3 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- *
- * Fonts
- *
- **/
-
 * {
-    font: "Maple Mono 14";
+    font: "IoskeleyMonoTerm Nerd Font 14";
 }
