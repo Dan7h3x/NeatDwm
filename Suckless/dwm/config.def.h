@@ -205,11 +205,11 @@ static void (*bartabmonfns[])(Monitor *) = {NULL /* , customlayoutfn */};
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[] = "CaskaydiaCove Nerd Font:size=13";
+static const char font[] = "IoskeleyMonoTerm Nerd Font:size=13";
 #else
-static const char *fonts[] = {"CaskaydiaCove Nerd Font:size=13"};
+static const char *fonts[] = {"IoskeleyMonoTerm Nerd Font:size=13","Sahel:size=12"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[] = "CaskaydiaCove Nerd Font:size=13";
+static const char dmenufont[] = "IoskeleyMonoTerm Nerd Font:size=13";
 
 static char c000000[] = "#bc7ad9"; // placeholder value
 #include "themes/dark3.h"
@@ -375,7 +375,7 @@ const char *spproc[] = {"b",  "st",    "-c", "'floating'", "-T", "Processes",
 const char *spfiles[] = {"e",  "st",     "-c", "'floating'", "-T", "Files",
                          "-g", "100x35", "-e", "yazi",       NULL};
 const char *spradio[] = {"r",  "st",    "-c", "'floating'", "-T", "Radio",
-                         "-g", "80x35", "-e", "sonicradio", NULL};
+                         "-g", "80x35", "-e", "termusic", NULL};
 const char *spnotes[] = {"n",  "st",     "-c", "'floating'", "-T", "Notes",
                          "-g", "100x35", "-e", "fznote",     NULL};
 const char *spfile[] = {"f", "fsearch", NULL};
@@ -471,63 +471,63 @@ static const int tagrows = 2;
  * depending on the patches you enable.
  */
 static const Rule rules[] = {
-    /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
-     *	WM_WINDOW_ROLE(STRING) = role
-     *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
-     */
-    RULE(.wintype = WTYPE "DIALOG", .isfloating = 1) RULE(
-            .wintype = WTYPE "UTILITY",
+  /* xprop(1):
+   *	WM_CLASS(STRING) = instance, class
+   *	WM_NAME(STRING) = title
+   *	WM_WINDOW_ROLE(STRING) = role
+   *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
+   */
+  RULE(.wintype = WTYPE "DIALOG", .isfloating = 1) RULE(
+      .wintype = WTYPE "UTILITY",
+      .isfloating =
+      1) RULE(.wintype = WTYPE "TOOLBAR",
+        .isfloating =
+        1) RULE(.wintype = WTYPE "SPLASH",
+          .isfloating =
+          1) RULE(.class = "MATLAB R2018b",
             .isfloating =
-                1) RULE(.wintype = WTYPE "TOOLBAR",
-                        .isfloating =
-                            1) RULE(.wintype = WTYPE "SPLASH",
-                                    .isfloating =
-                                        1) RULE(.class = "MATLAB R2018b",
-                                                .isfloating =
-                                                    1) RULE(.class =
-                                                                "MATLAB R2024a",
-                                                            .isfloating = 1)
-        RULE(.class = "Matlab", .isfloating = 1) RULE(
+            1) RULE(.class =
+              "MATLAB R2024a",
+              .isfloating = 1)
+            RULE(.class = "Matlab", .isfloating = 1) RULE(
                 .class =
-                    "sun-awt-X11-XFramePeer",
+                "sun-awt-X11-XFramePeer",
                 .isfloating = 1) RULE(.class = "python3", .isfloating = 1)
             RULE(.class = "Matplotlib", .isfloating = 1) RULE(
-                    .class =
-                        "matplotlib",
-                    .isfloating = 1) RULE(.class = "Python3", .isfloating = 1)
-                RULE(.class = "Figure", .isfloating = 1) RULE(
-                        .class =
-                            "Lxappearance",
-                        .isfloating =
-                            1) RULE(.class = "TelegramDesktop", .isfloating = 1)
-                    RULE(.class = "pavucontrol", .isfloating = 1) RULE(
-                            .class =
-                                "Blueman-manager",
-                            .isfloating =
-                                1) RULE(.class = "Windscribe2", .isfloating = 1)
-                        RULE(.class = "Goodvibes", .isfloating = 1) RULE(
-                                .class =
-                                    "Fsearch",
-                                .isfloating =
-                                    1) RULE(.class = "Nwg-look", .isfloating = 1)
-                            RULE(.class = "Viewnior", .isfloating = 1) RULE(
-                                    .class =
-                                        "floating",
-                                    .isfloating =
-                                        1) RULE(.class = "octave-gui", .isfloating = 1)
-                                RULE(.class = "R_x11",
-                                     .isfloating = 1) RULE(.instance =
-                                                               "Floatterm",
-                                                           .isfloating = 1)
-                                    RULE(.instance = "spfiles", .isfloating = 1) RULE(
-                                            .instance =
-                                                "v2rayN",
-                                            .isfloating = 1) RULE(.title =
-                                                                      "Chat",
-                                                                  .isfloating = 1)
-                                        RULE(.class = "Poddr", .isfloating = 1)
+                .class =
+                "matplotlib",
+                .isfloating = 1) RULE(.class = "Python3", .isfloating = 1)
+            RULE(.class = "Figure", .isfloating = 1) RULE(
+                .class =
+                "Lxappearance",
+                .isfloating =
+                1) RULE(.class = "TelegramDesktop", .isfloating = 1)
+            RULE(.class = "pavucontrol", .isfloating = 1) RULE(
+                .class =
+                "Blueman-manager",
+                .isfloating =
+                1) RULE(.class = "Windscribe2", .isfloating = 1)
+            RULE(.class = "Goodvibes", .isfloating = 1) RULE(
+                .class =
+                "Fsearch",
+                .isfloating =
+                1) RULE(.class = "Nwg-look", .isfloating = 1)
+            RULE(.class = "Viewnior", .isfloating = 1) RULE(
+                .class =
+                "floating",
+                .isfloating =
+                1) RULE(.class = "octave-gui", .isfloating = 1)
+            RULE(.class = "R_x11",
+                .isfloating = 1) RULE(.instance =
+                  "Floatterm",
+                  .isfloating = 1)
+                  RULE(.instance = "spfiles", .isfloating = 1) RULE(
+                      .instance =
+                      "v2rayN",
+                      .isfloating = 1) RULE(.title =
+                        "Chat",
+                        .isfloating = 1)
+                        RULE(.class = "Poddr", .isfloating = 1)
 
 #if RENAMED_SCRATCHPADS_PATCH
                                             RULE(.title = "ScratchTerm",
@@ -753,11 +753,11 @@ static const int refreshrate =
     120; /* refresh rate (per second) for client move/resize */
 #if PLACEMOUSE_PATCH
 static const int refreshrate_placemouse =
-    60; /* refresh rate (per second) for placemouse */
+    120; /* refresh rate (per second) for placemouse */
 #endif  // PLACEMOUSE_PATCH
 #if DRAGMFACT_PATCH
 static const int refreshrate_dragmfact =
-    40; /* refresh rate (per second) for dragmfact */
+    60; /* refresh rate (per second) for dragmfact */
 #endif  // DRAGMFACT_PATCH
 #if DRAGCFACT_PATCH
 static const int refreshrate_dragcfact =

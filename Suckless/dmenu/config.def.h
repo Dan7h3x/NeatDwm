@@ -41,7 +41,7 @@ static char *fonts[] =
 #else
 static const char *fonts[] = {"Noto Color Emoji 12"};
 #endif // XRESOURCES_PATCH
-    {"JetBrainsMono Nerd Font:size=12"};
+    {"IoskeleyMonoTerm Nerd Font:size=12"};
 #endif // PANGO_PATCH
 #if MANAGED_PATCH
 static char *prompt = NULL; /* -p  option; prompt to the left of input field */
