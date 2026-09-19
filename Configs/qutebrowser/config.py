@@ -1,14 +1,16 @@
 import os
-import json
-from pathlib import Path
 
-c = c
-config = config
+c = c  # noqa: F821
+config = config  # noqa: F821
 config.load_autoconfig(False)
 
 
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}; rv:135.0) Gecko/20100101 Firefox/135",
+    "https://accounts.google.com/*",
+)
 
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version} Edg/{upstream_browser_version}', 'https://accounts.google.com/*')
 
 def userscript(script_name: str):
     return os.path.join(os.path.join(config.configdir, "userscripts"), script_name)
@@ -20,7 +22,7 @@ def userscript(script_name: str):
 
 
 # Font #
-c.fonts.default_family = ["CaskaydiaCove Nerd Font"]
+c.fonts.default_family = ["IoskeleyMonoTerm Nerd Font"]
 c.fonts.default_size = "11pt"
 
 
@@ -43,7 +45,7 @@ c.completion.open_categories = [
 c.url.start_pages = "https://github.com/"
 
 c.url.searchengines = {
-    "DEFAULT": "https://www.google.com/search?q={}",
+    "DEFAULT": "https://duckduckgo.com/?q={}",
     "g": "https://google.com/search?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}&type=code",
@@ -93,12 +95,12 @@ c.tabs.title.elide = "middle"
 c.window.hide_decoration = True
 c.window.title_format = "{perc}{current_title}"
 
-config.set("content.webgl", False, "*")
-config.set("content.canvas_reading", False)
-config.set("content.geolocation", False)
-config.set("content.webrtc_ip_handling_policy", "default-public-interface-only")
-config.set("content.cookies.accept", "all")
-config.set("content.cookies.store", True)
+# config.set("content.webgl", False, "*")
+# config.set("content.canvas_reading", False)
+# config.set("content.geolocation", False)
+# config.set("content.webrtc_ip_handling_policy", "default-public-interface-only")
+# config.set("content.cookies.accept", "all")
+# config.set("content.cookies.store", True)
 
 c.hints.selectors["code"] = [
     ":not(pre) > code",
