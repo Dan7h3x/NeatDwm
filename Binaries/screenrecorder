@@ -3,16 +3,26 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-## Record Screen with slop and ffmpeg
-
 time=$(date +%Y-%m-%d-%H-%M-%S)
 screen=$(xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
 dir="$(xdg-user-dir VIDEOS)/Screenrecorder"
 file="Capture_${time}.mp4"
 iDir="$HOME/.config/dunst/icons/dunst"
-# notify
+
+# common ffmpeg output options for maximum compatibility
+OUT_OPTS=(
+	-c:v libx264
+	-preset ultrafast
+	-crf 23
+	-pix_fmt yuv420p
+	-r 25
+	-vsync cfr
+	-movflags +faststart
+	-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"
+)
+
 notify_user () {
-	notify_cmd="notify_send -u low -i $iDir/video.png"
+	notify_cmd="notify-send -u low -i $iDir/video.png"
 	if [[ -e "$dir/$file" ]]; then
 		${notify_cmd} "Saved in $dir"
 	else
@@ -20,7 +30,6 @@ notify_user () {
 	fi
 }
 
-# countdown
 countdown () {
 	for sec in $(seq "$1" -1 1); do
 		notify-send -t 1000 -i "$iDir/timer.png" "Starting in : $sec"
@@ -28,13 +37,15 @@ countdown () {
 	done
 }
 
-# capture
 rec_screen() {
 	countdown '5'
 	if [[ "$1" == "noaudio" ]]; then
-		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 "${dir}"/"${file}"
+		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 \
+			"${OUT_OPTS[@]}" "${dir}"/"${file}"
 	else
-		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default "${dir}"/"${file}"
+		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 \
+			-f pulse -ac 2 -i default \
+			"${OUT_OPTS[@]}" -c:a aac -b:a 192k "${dir}"/"${file}"
 	fi
 	notify_user
 }
@@ -45,9 +56,12 @@ rec_area() {
 
 	countdown '5'
 	if [[ "$1" == "noaudio" ]]; then
-		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" "${dir}"/"${file}"
+		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" \
+			"${OUT_OPTS[@]}" "${dir}"/"${file}"
 	else
-		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" -f pulse -ac 2 -i default "${dir}"/"${file}"
+		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" \
+			-f pulse -ac 2 -i default \
+			"${OUT_OPTS[@]}" -c:a aac -b:a 192k "${dir}"/"${file}"
 	fi
 	notify_user
 }
