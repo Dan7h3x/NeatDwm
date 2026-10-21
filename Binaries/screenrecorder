@@ -2,84 +2,183 @@
 
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+## Improved version with X11/Wayland support and reliable audio capture
 
+set -euo pipefail
+
+# --- Configuration ---
 time=$(date +%Y-%m-%d-%H-%M-%S)
-screen=$(xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
 dir="$(xdg-user-dir VIDEOS)/Screenrecorder"
 file="Capture_${time}.mp4"
 iDir="$HOME/.config/dunst/icons/dunst"
 
-# common ffmpeg output options for maximum compatibility
-OUT_OPTS=(
-	-c:v libx264
-	-preset ultrafast
-	-crf 23
-	-pix_fmt yuv420p
-	-r 25
-	-vsync cfr
-	-movflags +faststart
-	-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"
+# Ensure output directory exists
+mkdir -p "$dir"
+
+# --- Common ffmpeg video output options (for X11) ---
+VIDEO_OPTS=(
+    -c:v libx264
+    -preset ultrafast
+    -crf 23
+    -pix_fmt yuv420p
+    -r 25
+    -movflags +faststart
+    -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"
 )
 
-notify_user () {
-	notify_cmd="notify-send -u low -i $iDir/video.png"
-	if [[ -e "$dir/$file" ]]; then
-		${notify_cmd} "Saved in $dir"
-	else
-		${notify_cmd} "Video Deleted."
-	fi
+# --- Audio device detection ---
+get_audio_device() {
+    if command -v pactl &>/dev/null; then
+        local default_sink
+        default_sink=$(pactl get-default-sink 2>/dev/null || true)
+        if [[ -n "$default_sink" ]]; then
+            echo "${default_sink}.monitor"
+        else
+            echo "default.monitor"
+        fi
+    else
+        echo ""
+    fi
 }
 
-countdown () {
-	for sec in $(seq "$1" -1 1); do
-		notify-send -t 1000 -i "$iDir/timer.png" "Starting in : $sec"
-		sleep 1
-	done
+AUDIO_DEVICE=$(get_audio_device)
+
+# --- Notification function ---
+notify_user() {
+    local icon="$iDir/video.png"
+    if [[ -e "$dir/$file" ]]; then
+        notify-send -u low -i "$icon" "Video saved" "$dir/$file"
+    else
+        notify-send -u low -i "$icon" "Video deleted" "Recording produced no file"
+    fi
 }
 
-rec_screen() {
-	countdown '5'
-	if [[ "$1" == "noaudio" ]]; then
-		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 \
-			"${OUT_OPTS[@]}" "${dir}"/"${file}"
-	else
-		ffmpeg -video_size "${screen}" -framerate 25 -f x11grab -i :0.0+0,0 \
-			-f pulse -ac 2 -i default \
-			"${OUT_OPTS[@]}" -c:a aac -b:a 192k "${dir}"/"${file}"
-	fi
-	notify_user
+# --- Countdown function ---
+countdown() {
+    local sec="$1"
+    for ((i=sec; i>0; i--)); do
+        notify-send -t 1000 -i "$iDir/timer.png" "Starting in : $i"
+        sleep 1
+    done
 }
 
-rec_area() {
-	get_win_data=$(slop -f "%x %y %w %h %g %i") || exit 1
-	read -r X Y W H G ID < <(echo "$get_win_data")
+# --- X11 recording function ---
+rec_x11() {
+    local mode="$1"  # screen or area
+    local audio="$2" # audio or noaudio
 
-	countdown '5'
-	if [[ "$1" == "noaudio" ]]; then
-		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" \
-			"${OUT_OPTS[@]}" "${dir}"/"${file}"
-	else
-		ffmpeg -video_size "${W}"x"${H}" -framerate 25 -f x11grab -i :0.0+"${X}","${Y}" \
-			-f pulse -ac 2 -i default \
-			"${OUT_OPTS[@]}" -c:a aac -b:a 192k "${dir}"/"${file}"
-	fi
-	notify_user
+    # --- Input options for the video source ---
+    local video_in_args=()
+    if [[ "$mode" == "area" ]]; then
+        if ! command -v slop &>/dev/null; then
+            notify-send -u critical "Error" "Please install 'slop' to select an area."
+            exit 1
+        fi
+        local slop_out
+        slop_out=$(slop -f "%x %y %w %h %g %i") || exit 1
+        local X Y W H G ID
+        read -r X Y W H G ID < <(echo "$slop_out")
+        video_in_args=(-video_size "${W}x${H}" -framerate 25 -f x11grab -i ":0.0+${X},${Y}")
+    else
+        local screen_res
+        screen_res=$(xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
+        video_in_args=(-video_size "${screen_res}" -framerate 25 -f x11grab -i ":0.0+0,0")
+    fi
+
+    countdown 5
+
+    # --- Build the command: all inputs first, then output options ---
+    local cmd=(ffmpeg -y "${video_in_args[@]}")
+
+    # Add audio input (before any output options!)
+    if [[ "$audio" == "audio" ]] && [[ -n "$AUDIO_DEVICE" ]]; then
+        cmd+=(-f pulse -ac 2 -i "$AUDIO_DEVICE")
+    fi
+
+    # Now append output options (they apply to the output file)
+    cmd+=(
+        -c:v libx264
+        -preset ultrafast
+        -crf 23
+        -pix_fmt yuv420p
+        -r 25
+        -movflags +faststart
+        -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"
+    )
+
+    # Audio codec options (also output-side)
+    if [[ "$audio" == "audio" ]] && [[ -n "$AUDIO_DEVICE" ]]; then
+        cmd+=(-c:a aac -b:a 192k)
+    fi
+
+    # Finally, the output file
+    cmd+=("${dir}/${file}")
+
+    "${cmd[@]}"
+    notify_user
 }
 
-if [[ ! -d "$dir" ]]; then
-	mkdir -p "$dir"
-fi
+# --- Wayland recording function ---
+rec_wayland() {
+    local mode="$1"
+    local audio="$2"
 
-if [[ "$1" == "--screen" ]]; then
-	rec_screen
-elif [[ "$1" == "--area" ]]; then
-	rec_area
-elif [[ "$1" == "--screen-na" ]]; then
-	rec_screen noaudio
-elif [[ "$1" == "--area-na" ]]; then
-	rec_area noaudio
+    if ! command -v wf-recorder &>/dev/null; then
+        notify-send -u critical "Error" "Wayland recording requires 'wf-recorder'. Please install it."
+        exit 1
+    fi
+
+    local geometry_opt=()
+    if [[ "$mode" == "area" ]]; then
+        if ! command -v slurp &>/dev/null; then
+            notify-send -u critical "Error" "Please install 'slurp' to select an area."
+            exit 1
+        fi
+        geometry_opt=(-g "$(slurp)")
+    fi
+
+    countdown 5
+
+    local cmd=(wf-recorder -f "${dir}/${file}" "${geometry_opt[@]}")
+
+    if [[ "$audio" == "audio" ]] && [[ -n "$AUDIO_DEVICE" ]]; then
+        cmd+=(-a "$AUDIO_DEVICE")
+    fi
+
+    "${cmd[@]}"
+    notify_user
+}
+
+# --- Main logic ---
+if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+    SESSION_TYPE="wayland"
+elif [[ -n "${DISPLAY:-}" ]]; then
+    SESSION_TYPE="x11"
 else
-	echo -e "Available Options : --screen   --screen-na   --area   --area-na"
+    echo "Error: Neither Wayland nor X11 display server detected."
+    exit 1
 fi
+
+case "${1:-""}" in
+    --screen)
+        if [[ "$SESSION_TYPE" == "wayland" ]]; then rec_wayland screen audio; else rec_x11 screen audio; fi
+        ;;
+    --screen-na)
+        if [[ "$SESSION_TYPE" == "wayland" ]]; then rec_wayland screen noaudio; else rec_x11 screen noaudio; fi
+        ;;
+    --area)
+        if [[ "$SESSION_TYPE" == "wayland" ]]; then rec_wayland area audio; else rec_x11 area audio; fi
+        ;;
+    --area-na)
+        if [[ "$SESSION_TYPE" == "wayland" ]]; then rec_wayland area noaudio; else rec_x11 area noaudio; fi
+        ;;
+    *)
+        echo -e "Available Options :"
+        echo -e "  --screen       Record full screen (with audio)"
+        echo -e "  --screen-na    Record full screen (no audio)"
+        echo -e "  --area         Record area selection (with audio)"
+        echo -e "  --area-na      Record area selection (no audio)"
+        ;;
+esac
 
 exit 0
