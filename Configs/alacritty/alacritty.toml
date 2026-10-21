@@ -1,34 +1,3 @@
-# [colors.bright]
-# black = '#7081d0'
-# blue = '#a48cf2'
-# cyan = '#66e4fd'
-# green = '#69F8B3'
-# magenta = '#FD92CE'
-# red = '#f16c75'
-# white = '#ffffff'
-# yellow = '#f1fc79'
-#
-# [colors.cursor]
-# cursor = '#37f499'
-# text = '#f8f8f2'
-#
-# [colors.normal]
-# black = '#21222c'
-# blue = '#9071f4'
-# cyan = '#04d1f9'
-# green = '#37f499'
-# magenta = '#f265b5'
-# red = '#f9515d'
-# white = '#ebfafa'
-# yellow = '#e9f941'
-#
-# [colors.primary]
-# background = '#212337'
-# foreground = '#ebfafa'
-#
-# [colors.selection]
-# background = '#bf4f8e'
-# text = '#ebfafa'
 [general]
 live_config_reload = true
 [font]
@@ -36,10 +5,10 @@ size = 12
 
 builtin_box_drawing = true
 
-normal = { family = "Maple Mono", style = "Regular" }
-bold = { family = "Maple Mono", style = "Bold" }
-italic = { family = "Maple Mono", style = "Italic" }
-bold_italic = { family = "Maple Mono", style = "Bold Italic" }
+normal = { family = "IoskeleyMonoTerm Nerd Font", style = "Regular" }
+bold = { family = "IoskeleyMonoTerm Nerd Font", style = "Bold" }
+italic = { family = "IoskeleyMonoTerm Nerd Font", style = "Italic" }
+bold_italic = { family = "IoskeleyMonoTerm Nerd Font", style = "Bold Italic" }
 #
 
 

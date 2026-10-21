@@ -1,6 +1,12 @@
-! Xresources template for pywal
 ! Place this in ~/.config/wal/templates/colors.Xresources
 
+/*----------------General----------------*/
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba:   true
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
 
 ! Base colors
 *background: {background}

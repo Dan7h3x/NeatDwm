@@ -7,10 +7,9 @@ start() {
 }
 
 start mpd
-systemctl --user --now enable mpd-mpris
+start mpdris2-rs
 start /usr/lib/xdg-desktop-portal-wlr
 start awww-daemon
-start wired
 start wlsunset -T 4500
 
 start eww open bar

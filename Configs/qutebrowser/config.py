@@ -1,4 +1,5 @@
 import os
+import json
 
 c = c  # noqa: F821
 config = config  # noqa: F821
@@ -16,10 +17,25 @@ def userscript(script_name: str):
     return os.path.join(os.path.join(config.configdir, "userscripts"), script_name)
 
 
+colors_file = os.path.expanduser("~/.cache/wal/colors.json")
+with open(colors_file, "r") as file:
+    xres = json.load(file)
+
+special = xres["special"]
+colors = xres["colors"]
 ################
 #    Themes    #
 ################
-
+c.tabs.position = "top"
+c.colors.tabs.even.bg = special["foreground"]
+c.colors.tabs.odd.bg = special["foreground"]
+c.colors.tabs.bar.bg = special["foreground"]
+c.colors.tabs.even.fg = colors["color4"]
+c.colors.tabs.odd.fg = colors["color4"]
+c.colors.tabs.selected.even.bg = special["background"]
+c.colors.tabs.selected.odd.bg = special["background"]
+c.colors.tabs.selected.even.fg = colors["color3"]
+c.colors.tabs.selected.odd.fg = colors["color3"]
 
 # Font #
 c.fonts.default_family = ["IoskeleyMonoTerm Nerd Font"]
@@ -88,7 +104,6 @@ c.editor.command = [
 c.tabs.indicator.width = 0
 c.tabs.width = "7%"
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
-c.tabs.position = "top"
 c.tabs.show = "multiple"
 c.tabs.title.alignment = "center"
 c.tabs.title.elide = "middle"

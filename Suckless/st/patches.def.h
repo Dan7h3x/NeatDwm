@@ -353,7 +353,7 @@
  * made larger again. Text wraps when the terminal window is made smaller. Comes
  * with scrollback.
  */
-#define REFLOW_PATCH 0
+#define REFLOW_PATCH 1
 
 /* This patch allows you to specify a border that is relative in size to the
  * width of a cell in the terminal.

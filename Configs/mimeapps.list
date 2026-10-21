@@ -17,6 +17,9 @@ application/x-shellscript=nvim.desktop
 text/x-python=nvim.desktop
 image/svg+xml=viewnior.desktop
 image/jxl=viewnior.desktop
+audio/mpeg=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
@@ -37,3 +40,6 @@ application/x-trash=nvim.desktop;
 image/svg+xml=viewnior.desktop;
 application/x-ipynb+json=code.desktop;
 image/jxl=viewnior.desktop;
+audio/mpeg=mpv.desktop;
+video/x-matroska=mpv.desktop;
+video/webm=mpv.desktop;
