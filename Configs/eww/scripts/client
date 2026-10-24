@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+if [[ ! $(command -v mmsg) ]]; then
+  notify-send "Eww" "The mmsg is not available" && exit 0
+fi
+
+TITLE=$(mmsg get focusing-client 2>/dev/null)
+
+if [[ -z "$TITLE" || "$TITLE" = "null" ]]; then
+  TITLE="DESKTOP"
+  exit 0
+fi
+
+echo "$TITLE" | jq -r '.title // .app_id // ""' | head -c 50

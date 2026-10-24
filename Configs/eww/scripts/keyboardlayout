@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [[ ! $(command -v mmsg) ]]; then
+  notify-send "Eww" "The mmsg is not available" && exit 0
+fi
+
+# shellcheck disable=SC2005
+echo "$(mmsg watch keyboardlayout | awk '{ gsub(/[{}" layout:]/, ""); print $1 }')"
