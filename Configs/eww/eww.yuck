@@ -1,9 +1,11 @@
 ;; Main Config File
 ;;(include "./widgets/bluetooth.yuck")
 ;; Listening Ports
-(deflisten workspaces :initial "(box)" "scripts/workspaces")
-(deflisten kblayout :initial "" "scripts/keyboardlayout")
+(deflisten workspaces :initial "(box)" "bash scripts/workspaces")
+(deflisten kblayout :initial "-" "bash scripts/keyboardlayout")
 (defpoll client-title :interval "500ms" "scripts/client")
+(defpoll time :interval "1s" `date +'{"hour":"%H","min":"%M","sec":"%S","pretty":"%a, %e %b","day":"%A","month":"%B","dom":"%e","year":"%Y","day_num":"%d","month_num":"%m","year_num":"%y"}'`)
+
 
 ;; Main Bar Window
 (defwindow mainbar
@@ -37,37 +39,63 @@
                            :space-evenly false
                            :halign "center"
                            :spacing 2
-                           (title))
+                           (title)
+                           )
                       (box :class "right-module"
 
                            :orientation "h"
                            :space-evenly false
                            :halign "end"
                            :spacing 2
-                           (label :text "Hello")
+                           (kb-layout)
                            (system-tray)
-                           (kblayout))
+                           (timecal)
+                           )
 
 ))
 
 (defwidget title []
            (box :class "client-title"
-                (label :text "🖥️${client-title}"
-                       :limit-width 40
-                       :spacing 2
+           :space-evenly false
+(image :path "./icons/board.svg"
+               :image-width 20
+               :image-height 20)
+                (label :text "${client-title}"
+                       :limit-width 50
                        :show-truncated true))
 )
 
-(defwidget system-tray []
-  (box :class "system-tray"
-        :orientation "v"
-        :spacing 1
-        :space-evenly false
-        (systray :space-evenly false :orientation "v" :class "inside-tray"))
+
+
+
+(defwidget kb-layout []
+(box :orientation "h"
+      :class "kb-layout"
+          (label :text "${kblayout}"))
 )
 
+(defwidget timecal []
+(box :class "time-bar"
+           :orientation "h"
+           :space-evenly false
+           :spacing 0
+           :valign "center"
+           :vexpand false
+           (image :path "./icons/calendar.svg" :image-width 20
+               :image-height 20)
+        (label :class "time-text"
+               :valign "center"
+               :vexpand false
+               :text "${time.hour}:${time.min}:${time.sec}")
+      )
+)
 
-(defwidget kblayout []
-(box :orientation "h"
-          (label :text "${kblayout}"))
+(defwidget system-tray []
+  (box
+        :orientation "h"
+        :class "system-tray"
+       :spacing 1
+       :space-evenly false
+    (systray :space-evenly false :spacing 3 :orientation "h" :class "inside-tray")
+  )
 )

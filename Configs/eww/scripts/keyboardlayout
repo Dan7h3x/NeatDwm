@@ -4,4 +4,7 @@ if [[ ! $(command -v mmsg) ]]; then
 fi
 
 # shellcheck disable=SC2005
-echo "$(mmsg watch keyboardlayout | awk '{ gsub(/[{}" layout:]/, ""); print $1 }')"
+
+mmsg watch keyboardlayout | while read -r line; do
+  echo "$line" | awk '{ gsub(/[{}" layout:]/, ""); print $1 }'
+done
