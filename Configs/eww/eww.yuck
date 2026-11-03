@@ -1,11 +1,13 @@
 ;; Main Config File
 ;;(include "./widgets/bluetooth.yuck")
 ;; Listening Ports
-(deflisten workspaces :initial "(box)" "bash scripts/workspaces")
+(deflisten workspaces :initial "(box)" "scripts/workspaces")
 (deflisten kblayout :initial "-" "bash scripts/keyboardlayout")
 (defpoll client-title :interval "500ms" "scripts/client")
+(defpoll player-meta :interval "500ms" "scripts/player")
+(defpoll volume :initial "0" :interval "1s" "pamixer --get-volume")
+(defpoll volume-mute :interval "1s" "pamixer --get-mute")
 (defpoll time :interval "1s" `date +'{"hour":"%H","min":"%M","sec":"%S","pretty":"%a, %e %b","day":"%A","month":"%B","dom":"%e","year":"%Y","day_num":"%d","month_num":"%m","year_num":"%y"}'`)
-
 
 ;; Main Bar Window
 (defwindow mainbar
@@ -32,7 +34,9 @@
                            :space-evenly false
                            :halign "start"
                            :spacing 2
-                           (literal :content workspaces))
+                           (literal :content workspaces)
+                           (player-meta)
+                           )
                       (box :class "center-module"
 
                            :orientation "h"
@@ -47,12 +51,30 @@
                            :space-evenly false
                            :halign "end"
                            :spacing 2
+                           (_infogeneric :level {EWW_CPU.avg}
+                              :image "./icons/cpu.svg")
+                           (_infogeneric :level {EWW_DISK["/"].used_perc}
+                              :image "./icons/storage.svg")
+                           (_infogeneric :level {EWW_RAM.used_mem_perc}
+                              :image "./icons/ram.svg")
+                           (volume)
                            (kb-layout)
-                           (system-tray)
                            (timecal)
+                           (system-tray)
                            )
-
 ))
+
+;; Modules
+
+(defwidget _infogeneric [level image ?class]
+  (box :class "generic-box"
+       :space-evenly false
+       :spacing 2
+    (image :path image :image-width 20 :image-height 20)
+    (label :class "generic-label ${class}" :text "${round(level, 0)}%")))
+
+
+
 
 (defwidget title []
            (box :class "client-title"
@@ -71,7 +93,8 @@
 (defwidget kb-layout []
 (box :orientation "h"
       :class "kb-layout"
-          (label :text "${kblayout}"))
+          (image :path "./icons/keyboard.svg" :image-width 20 :image-height 20)
+          (label :text {substring("${kblayout}",0,2)}))
 )
 
 (defwidget timecal []
@@ -97,5 +120,35 @@
        :spacing 1
        :space-evenly false
     (systray :space-evenly false :spacing 3 :orientation "h" :class "inside-tray")
+  )
+)
+
+
+(defwidget volume []
+  (eventbox :onscroll "if [ '{}' = 'up' ]; then pamixer -i 3; else pamixer -d 3; fi"
+    (box :class "volume"
+          :space-evenly false
+(image :path {volume-mute ? "./icons/volume-mute.svg" : (volume > 60) ?
+    "./icons/volume-high.svg" : (volume > 30) ? "./icons/volume-norm.svg" :
+    "./icons/volume-down.svg"}
+    :image-width 20 :image-height 20)
+          (label :text {(volume-mute) ? "mute" : "${volume}%"})
+          )
+  )
+)
+
+
+(defwidget player-meta []
+  (eventbox :onscroll "./scripts/playctl {}"
+            :onclick "playerctl play-pause"
+  (box
+    :orientation "h"
+    :class "player-meta"
+    :spacing 1
+    :space-evenly false
+    :visible {player-meta != ""}
+    (image :path "./icons/headphones.svg" :image-width 20 :image-height 20)
+    (label :text "${player-meta}" :truncate true :limit-width 25)
+  )
   )
 )

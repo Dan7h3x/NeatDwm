@@ -2,7 +2,7 @@
 
 * {
     all: unset;
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "IoskeleyMonoTerm Nerd Font";
     font-size: 18px;
 }
 
@@ -56,16 +56,20 @@
 
 
 .system-tray {
-  background: rgba($background,0.5);
-  color:$color4;
+  background: rgba($background,0.1);
+
+
 }
 .inside-tray menu {
   background: rgba($background,0.99);
   border-radius: 8px;
   color: $color4;
+  margin: 10px 100px;
+
 
   > menuitem {
     color: $color4;
+    border-radius:8px;
     &:hover {
       background-color: $foreground;
       color: $background;
@@ -74,13 +78,26 @@
 }
 
 .kb-layout {
-  background: rgba($background, 0.7);
+  background: rgba($background, 0.8);
   color: $color6;
 }
 
 .time-bar {
-  background: rgba($background,0.7);
+  background: rgba($background,0.8);
 }
 .time-text{
   color: $color5;
+}
+.generic-box {
+  background: rgba($background,0.8);
+}
+
+
+.volume {
+  background: rgba($background,0.8);
+}
+.player-meta {
+  background: rgba($background,0.8);
+  color: $color5;
+  font-family: "Sahel Bold";
 }

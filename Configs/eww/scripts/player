@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+PLAYERS="$(playerctl -l 2>/dev/null)"
+CURRENT_PLAYER=""
+
+for player in $PLAYERS; do
+  status="$(playerctl --player="$player" status 2>/dev/null)"
+  if [[ "$status" == "Playing" ]]; then
+    CURRENT_PLAYER="$player"
+  fi
+done
+
+# shellcheck disable=SC2005
+META="$(playerctl --player="$CURRENT_PLAYER" metadata | grep "title" |
+  awk -F'xesam:title' '{gsub(/^[ \t]+|[ \t]+$/, "", $2);
+split($2, a, " - ");
+print a[1] "-" a[2]}')"
+
+if [[ -z "$META" ]]; then
+  META="$(mpc status | awk 'NR==1 {print}')"
+fi
+
+echo "$META"

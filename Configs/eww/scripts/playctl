@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+PLAYERS="$(playerctl -l 2>/dev/null)"
+CURRENT_PLAYER=""
+
+for player in $PLAYERS; do
+  status="$(playerctl --player="$player" status 2>/dev/null)"
+  if [[ "$status" == "Playing" ]]; then
+    CURRENT_PLAYER="$player"
+  fi
+done
+
+case "$1" in
+down)
+  playerctl --player="$CURRENT_PLAYER" next 2>/dev/null
+  ;;
+*)
+  playerctl --player="$CURRENT_PLAYER" previous 2>/dev/null
+  ;;
+esac
