@@ -1,0 +1,157 @@
+set nocompatible
+
+let mapleader = " "
+
+set encoding=utf-8
+
+set signcolumn=yes
+
+set number
+
+set updatetime=200
+
+set scrolloff=1
+
+
+set path+=**
+set wildmenu
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 15
+
+
+syntax on
+
+
+filetype plugin on
+filetype plugin indent on
+
+
+set numberwidth=4
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+set smartindent
+set autoindent
+
+set hidden
+
+set ignorecase
+set smartcase
+
+
+set noswapfile
+
+set laststatus=2
+
+set backspace=indent,eol,start
+
+set splitbelow
+set splitright
+
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+
+
+nnoremap <S-up> :m +1<CR>
+nnoremap <S-down> :m -2<CR>
+
+
+set complete+=kspell
+set completeopt=menuone,longest
+set shortmess+=c
+
+
+set autowriteall
+
+
+set undolevels=1000
+
+set cursorline  
+
+colorscheme catppuccin
+
+
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+call plug#end()
+
+
+if executable('ty')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ty',
+        \ 'cmd': {server_info->['ty','server']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+let g:python_highlight_all = 1
+
+" doge settings
+let g:doge_doc_standard_python = 'google'
+
+" fzf settings
+let g:fzf_preview_window = []
+nnoremap <C-F> :Files<CR>
+
+" italics in tmux
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+" vim-lsp
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_virtual_text_enabled = 1
+let g:lsp_signs_error = {'text': 'X'}
+let g:lsp_signs_warning = {'text': '!'}
+let g:lsp_signs_hint = {'text': '*'}
+
+
+inoremap <leader>f <c-o> :set keymap=persian<cr>
+inoremap <leader>e  <c-o> :set keymap= <cr>
