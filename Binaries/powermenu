@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
+OPTS="Logout\nReboot\nPowerOff"
+[[ "$XDG_SESSION_TYPE" == "x11" ]] && MENU="dmenu" || MENU="fuzzel -d"
 
-sh "$HOME/.config/rofi/powermenu.sh"
+SEL="$(echo -e "$OPTS" | $MENU -i -l 5 -p ":>" | awk '{print tolower($1)}')"
+
+case "$SEL" in
+"logout")
+  pkill "$XDG_CURRENT_DESKTOP"
+  ;;
+*)
+  loginctl "$SEL"
+  ;;
+esac
