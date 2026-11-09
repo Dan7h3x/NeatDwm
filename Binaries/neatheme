@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-menu(){
+menu() {
   local task="$1"
   if [[ $XDG_SESSION_TYPE == "x11" ]]; then
     dmenu -l 10 -W 500x100 -p "$task"
   else
-    wmenu -l 10 -p "$task"
+    fuzzel -d -l 10 -p "$task"
   fi
 }
 readonly THEME_DIR="$HOME/.config/wal/colorschemes"
@@ -14,39 +14,42 @@ readonly LIGHT="$THEME_DIR/light"
 readonly WALLDIR="$HOME/.config/Wallpaper"
 readonly ROFITHEME="$HOME/.config/rofi/walls.rasi"
 readonly SELECTED_MODE=${1:-$(echo -e "Wallpaper\nLight\nDark" | menu "Theme:")} || exit 0
-readonly COLMETHOD=${2:-$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | menu "Mode:" )} || exit 0
+readonly COLMETHOD=${2:-$(echo -e "darken\nlighten\ndual\nfoxify-darken\nfoxify-lighten\nfoxify-dual" | menu "Mode:")} || exit 0
 ICONS=""
 
 if [[ -z "$SELECTED_MODE" ]]; then
   exit 1
 elif [[ "$SELECTED_MODE" = "Wallpaper" ]]; then
   while IFS= read -r WALL; do
-    FILE=$(basename "$WALL")  # Fixed: use WALL, not file
+    FILE=$(basename "$WALL") # Fixed: use WALL, not file
     ICONS+="${FILE}\0icon\x1f${WALL}\n"
-  done <<<"$(fd . "$WALLDIR")"
+  done <<<"$(find "$WALLDIR")"
 
   THEME=$(echo -e "$ICONS" | rofi -dmenu -show-icons -p "Select Wallpaper:" -theme "$ROFITHEME" -markup-rows)
   THEME_BASENAME=$(basename "$THEME")
   wal -i "$WALLDIR/$THEME" --cols16 "$COLMETHOD"
-  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
-  cp -rf "$HOME/.config/qt6ct/colors/dark/base16-google-dark.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
-  gsettings set org.gnome.desktop.interface gtk-theme 'Materia-dark'
+  echo "vim.o.background = 'dark'" >"$HOME/.config/nvim/theme.lua"
+  cp -rf "$HOME/.config/qt6ct/colors/dark/gruvbox.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
+  cp -rf "$HOME/.config/Zeal/dark.css" "$HOME/.config/Zeal/colors.css"
+  gsettings set org.gnome.desktop.interface gtk-theme 'Orchis-Dark'
 
 elif [[ "$SELECTED_MODE" = "Dark" ]]; then
-  THEME=$(ls -w 1 "$DARK" | menu "Choose dark theme:" )
+  THEME=$(find "$DARK" | awk -F'/' '{print $NF}' | menu "Choose dark theme:")
   THEME_BASENAME="${THEME%.*}"
   wal --theme "$THEME_BASENAME" --cols16 "$COLMETHOD"
-  echo "vim.o.background = "dark"" > "$HOME/.config/nvim/theme.lua"
-  cp -rf "$HOME/.config/qt6ct/colors/dark/base16-google-dark.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
-  gsettings set org.gnome.desktop.interface gtk-theme 'Materia-dark'
+  echo "vim.o.background = 'dark'" >"$HOME/.config/nvim/theme.lua"
+  cp -rf "$HOME/.config/qt6ct/colors/dark/gruvbox.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
+  cp -rf "$HOME/.config/Zeal/dark.css" "$HOME/.config/Zeal/colors.css"
+  gsettings set org.gnome.desktop.interface gtk-theme 'Orchis-Dark'
 
-else  # Light mode
-  THEME=$(ls -w 1 "$LIGHT" | menu "Choose light theme:" )
+else # Light mode
+  THEME=$(find "$LIGHT" | awk -F'/' '{print $NF}' | menu "Choose light theme:")
   THEME_BASENAME="${THEME%.*}"
   wal -l --theme "$THEME_BASENAME" --cols16 "$COLMETHOD"
-  echo "vim.o.background = "light"" > "$HOME/.config/nvim/theme.lua"
-  cp -rf "$HOME/.config/qt6ct/colors/light/base16-google-light.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
-  gsettings set org.gnome.desktop.interface gtk-theme 'Materia-light'
+  echo "vim.o.background = 'light'" >"$HOME/.config/nvim/theme.lua"
+  cp -rf "$HOME/.config/qt6ct/colors/light/gruvbox.conf" "$HOME/.config/qt6ct/colors/pywal.conf"
+  cp -rf "$HOME/.config/Zeal/light.css" "$HOME/.config/Zeal/colors.css"
+  gsettings set org.gnome.desktop.interface gtk-theme 'Orchis-Light'
 fi
 
 if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
