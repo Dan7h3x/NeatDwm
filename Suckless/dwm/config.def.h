@@ -1208,6 +1208,7 @@ static const char *redshiftdown[] = {"redshiftblock", "decrease", NULL};
 static const char *guifilefzf[] = {"fzgfm", NULL};
 static const char *theme[] = {"neatheme", NULL};
 static const char *mpvradio[] = {"mpvradio", NULL};
+static const char *lockscreen[] = {"xflock4", NULL};
 
 static const Key keys[] = {
 /* modifier                     key            function                argument
@@ -1238,6 +1239,7 @@ static const Key keys[] = {
     {MODKEY | ALTKEY, XK_o, spawn, {.v = mpvradio}},
     {MODKEY | ALTKEY, XK_p, spawn, {.v = pdfs}},
     {MODKEY | ALTKEY, XK_t, spawn, {.v = sttabs}},
+    {ControlMask|ALTKEY, XK_l, spawn, {.v = lockscreen}},
     {ALTKEY | ControlMask, XK_t, spawn, {.v = alacrittytabs}},
     {MODKEY, XK_Next, spawn, {.v = redshiftdown}},
     {MODKEY, XK_Prior, spawn, {.v = redshiftup}},

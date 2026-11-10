@@ -52,11 +52,3 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 
-;; No white flash: paint the very first frame with pywal's colors.
-(let ((f (expand-file-name "~/.cache/wal/colors.json")))
-  (when (file-readable-p f)
-    (condition-case nil
-        (let ((sp (alist-get 'special (json-parse-file f :object-type 'alist))))
-          (push (cons 'background-color (alist-get 'background sp)) default-frame-alist)
-          (push (cons 'foreground-color (alist-get 'foreground sp)) default-frame-alist))
-      (error nil))))

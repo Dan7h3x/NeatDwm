@@ -2,21 +2,6 @@
 #+PROPERTY: header-args:emacs-lisp :tangle yes :comments no
 #+STARTUP: overview
 
-Literate config for *Emacs 30+*. Files: =early-init.el= (pre-frame speed tweaks),
-=init.el= (tangle/compile/load), this file, optional =emacs.service= (daemon).
-
-*How startup stays fast*
-- =init.el= loads =config.elc= (byte-compiled; Emacs native-compiles it in the background).
-  It re-tangles/re-compiles only when this file changed.
-- =package-quickstart= activates installed packages from one file. No network, no
-  archive refresh, no auto-update, ever, at startup.
-- Missing packages are installed once (a stamp file remembers the package list);
-  when everything is present it costs one tiny file read.
-- Everything heavy is lazy: hooks, =:commands=, idle timers.
-
-*Package commands* (=SPC q i= / =u= / =c=): install missing, update all (only on
-request), recompile config.
-
 *External tools*: =fzf rg git texlab tex-fmt latexmk zathura ty ruff uv sbcl
 bash-language-server shellcheck cmake libtool= (the last two for vterm).
 
@@ -40,7 +25,7 @@ bash-language-server shellcheck cmake libtool= (the last two for vterm).
 
 (defvar my/packages
   '(gcmh no-littering evil evil-collection evil-surround evil-commentary
-    rainbow-delimiters lispyville general vertico orderless marginalia consult
+    rainbow-delimiters general vertico orderless marginalia consult
     fzf corfu cape treesit-auto apheleia flymake-ruff auctex auctex-latexmk
     sly sly-asdf org-modern org-appear org-fragtog evil-org magit diff-hl
     restart-emacs vterm)
@@ -208,19 +193,8 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
   :config
   (evil-mode 1))
 
-(use-package evil-collection
-  :after evil
-  :demand t
-  :custom (evil-collection-setup-minibuffer t)
-  :config
-  ;; An explicit list is far faster than a bare (evil-collection-init), which
-  ;; registers ~100 modes. Add a name here when you need another one.
-  (evil-collection-init
-   '(dired magit corfu vertico consult flymake help info xref sly vterm
-     minibuffer eglot compile comint custom diff-mode ibuffer imenu man
-     outline tab-bar bookmark calendar package-menu))
-  ;; fzf runs inside a term buffer: pass every key straight through.
-  (evil-set-initial-state 'term-mode 'emacs))
+(with-eval-after-load 'evil
+  (defvar evil-mode-buffers '()))
 
 (use-package evil-surround
   :after evil
@@ -229,15 +203,6 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
 (use-package evil-commentary
   :after evil
   :config (evil-commentary-mode 1))   ; gcc / gc{motion}
-
-;; Lisp structural editing with vim operators (sly / elisp)
-(use-package rainbow-delimiters
-  :hook ((lisp-mode emacs-lisp-mode lisp-data-mode) . rainbow-delimiters-mode))
-
-(use-package lispyville
-  :hook ((lisp-mode emacs-lisp-mode lisp-data-mode) . lispyville-mode)
-  :config
-  (lispyville-set-key-theme '(operators c-w additional)))
 #+end_src
 
 ** Leader key (SPC)
@@ -371,167 +336,6 @@ sed -e '1d' -e 's|/.*||' /usr/share/hunspell/fa_IR.dic > ~/.config/emacs/dict/pe
 # or:  tr -s '[:space:][:punct:]' '\n' < corpus.txt | sort -u > ~/.config/emacs/dict/persian.txt
 #+end_src
 
-* Appearance: pywal theme
-Reads =~/.cache/wal/colors.json=, builds a theme from it, and re-applies it
-whenever =wal= rewrites that file. Pywal's 16 colors also feed =term-color-*=
-(fzf, vterm).
-#+begin_src emacs-lisp
-(require 'color)
-
-(defvar my/wal-file (expand-file-name "~/.cache/wal/colors.json"))
-
-(deftheme wal "Colors generated from pywal's colors.json.")
-
-(defun my/wal--mix (a b ratio)
-  "Mix hex colors A and B; RATIO is the share of B (0..1)."
-  (apply #'color-rgb-to-hex
-         (append (cl-mapcar (lambda (x y) (+ (* x (- 1 ratio)) (* y ratio)))
-                            (color-name-to-rgb a) (color-name-to-rgb b))
-                 '(2))))
-
-(defun my/wal-apply ()
-  "Read pywal's colors.json and (re)apply the `wal' theme."
-  (interactive)
-  (when (file-readable-p my/wal-file)
-    (let* ((json (json-parse-file my/wal-file :object-type 'alist))
-           (sp   (alist-get 'special json))
-           (cs   (alist-get 'colors json))
-           (col  (lambda (n) (alist-get (intern (format "color%d" n)) cs)))
-           (bg (alist-get 'background sp))
-           (fg (alist-get 'foreground sp))
-           (cur (or (alist-get 'cursor sp) fg))
-           (red (funcall col 1))  (green (funcall col 2))   (yellow (funcall col 3))
-           (blue (funcall col 4)) (magenta (funcall col 5)) (cyan (funcall col 6))
-           (dim (my/wal--mix bg fg 0.45))
-           (s1  (my/wal--mix bg fg 0.08))     ; subtle surface
-           (s2  (my/wal--mix bg fg 0.18))     ; stronger surface
-           (sel (my/wal--mix bg blue 0.30)))
-      (custom-theme-set-faces
-       'wal
-       `(default ((t (:background ,bg :foreground ,fg))))
-       `(cursor ((t (:background ,cur))))
-       `(region ((t (:background ,sel :extend t))))
-       `(secondary-selection ((t (:background ,s2))))
-       `(highlight ((t (:background ,s1))))
-       `(hl-line ((t (:background ,s1))))
-       `(fringe ((t (:background ,bg))))
-       `(vertical-border ((t (:foreground ,s2))))
-       `(window-divider ((t (:foreground ,s2))))
-       `(line-number ((t (:foreground ,dim :background ,bg))))
-       `(line-number-current-line ((t (:foreground ,yellow :background ,s1 :weight bold))))
-       `(minibuffer-prompt ((t (:foreground ,blue :weight bold))))
-       `(mode-line ((t (:background ,s1 :foreground ,fg :box nil))))
-       `(mode-line-inactive ((t (:background ,bg :foreground ,dim :box nil))))
-       `(mode-line-buffer-id ((t (:foreground ,blue :weight bold))))
-       `(header-line ((t (:background ,s1 :foreground ,fg))))
-       `(link ((t (:foreground ,blue :underline t))))
-       `(shadow ((t (:foreground ,dim))))
-       `(success ((t (:foreground ,green))))
-       `(warning ((t (:foreground ,yellow))))
-       `(error ((t (:foreground ,red))))
-       `(isearch ((t (:background ,yellow :foreground ,bg :weight bold))))
-       `(lazy-highlight ((t (:background ,s2 :foreground ,fg))))
-       `(match ((t (:background ,s2 :foreground ,yellow))))
-       `(show-paren-match ((t (:background ,s2 :foreground ,yellow :weight bold))))
-       `(show-paren-mismatch ((t (:background ,red :foreground ,bg))))
-       `(trailing-whitespace ((t (:background ,s2))))
-       ;; syntax
-       `(font-lock-comment-face ((t (:foreground ,dim :slant italic))))
-       `(font-lock-comment-delimiter-face ((t (:foreground ,dim))))
-       `(font-lock-doc-face ((t (:foreground ,(my/wal--mix green fg 0.25) :slant italic))))
-       `(font-lock-string-face ((t (:foreground ,green))))
-       `(font-lock-keyword-face ((t (:foreground ,magenta))))
-       `(font-lock-builtin-face ((t (:foreground ,cyan))))
-       `(font-lock-function-name-face ((t (:foreground ,blue))))
-       `(font-lock-function-call-face ((t (:foreground ,blue))))
-       `(font-lock-variable-name-face ((t (:foreground ,fg))))
-       `(font-lock-variable-use-face ((t (:foreground ,fg))))
-       `(font-lock-type-face ((t (:foreground ,yellow))))
-       `(font-lock-constant-face ((t (:foreground ,cyan))))
-       `(font-lock-number-face ((t (:foreground ,cyan))))
-       `(font-lock-property-name-face ((t (:foreground ,red))))
-       `(font-lock-property-use-face ((t (:foreground ,red))))
-       `(font-lock-operator-face ((t (:foreground ,dim))))
-       `(font-lock-punctuation-face ((t (:foreground ,dim))))
-       `(font-lock-bracket-face ((t (:foreground ,dim))))
-       `(font-lock-delimiter-face ((t (:foreground ,dim))))
-       `(font-lock-escape-face ((t (:foreground ,magenta))))
-       `(font-lock-preprocessor-face ((t (:foreground ,magenta))))
-       `(font-lock-warning-face ((t (:foreground ,red :weight bold))))
-       ;; diagnostics / eglot / git gutter
-       `(flymake-error ((t (:underline (:style wave :color ,red)))))
-       `(flymake-warning ((t (:underline (:style wave :color ,yellow)))))
-       `(flymake-note ((t (:underline (:style wave :color ,cyan)))))
-       `(eglot-highlight-symbol-face ((t (:background ,s2 :weight bold))))
-       `(eglot-inlay-hint-face ((t (:foreground ,dim :height 0.9))))
-       `(diff-hl-insert ((t (:foreground ,green :background ,green))))
-       `(diff-hl-change ((t (:foreground ,yellow :background ,yellow))))
-       `(diff-hl-delete ((t (:foreground ,red :background ,red))))
-       ;; completion UI
-       `(corfu-default ((t (:background ,s1 :foreground ,fg))))
-       `(corfu-current ((t (:background ,sel :foreground ,fg))))
-       `(corfu-bar ((t (:background ,blue))))
-       `(corfu-border ((t (:background ,s2))))
-       `(corfu-popupinfo ((t (:background ,s1 :foreground ,fg))))
-       `(vertico-current ((t (:background ,sel :extend t))))
-       `(orderless-match-face-0 ((t (:foreground ,blue :weight bold))))
-       `(orderless-match-face-1 ((t (:foreground ,magenta :weight bold))))
-       `(orderless-match-face-2 ((t (:foreground ,green :weight bold))))
-       `(orderless-match-face-3 ((t (:foreground ,yellow :weight bold))))
-       `(completions-common-part ((t (:foreground ,blue))))
-       `(completions-first-difference ((t (:foreground ,yellow :weight bold))))
-       ;; org
-       `(org-level-1 ((t (:foreground ,blue :weight bold :height 1.15))))
-       `(org-level-2 ((t (:foreground ,magenta :weight bold :height 1.08))))
-       `(org-level-3 ((t (:foreground ,green :weight bold))))
-       `(org-level-4 ((t (:foreground ,yellow :weight bold))))
-       `(org-level-5 ((t (:foreground ,cyan))))
-       `(org-level-6 ((t (:foreground ,red))))
-       `(org-document-title ((t (:foreground ,fg :weight bold :height 1.3))))
-       `(org-todo ((t (:foreground ,red :weight bold))))
-       `(org-done ((t (:foreground ,green :weight bold))))
-       `(org-date ((t (:foreground ,cyan))))
-       `(org-tag ((t (:foreground ,dim :weight normal))))
-       `(org-code ((t (:foreground ,yellow))))
-       `(org-verbatim ((t (:foreground ,green))))
-       `(org-link ((t (:foreground ,blue :underline t))))
-       `(org-table ((t (:foreground ,cyan))))
-       `(org-meta-line ((t (:foreground ,dim))))
-       `(org-block ((t (:background ,s1 :extend t))))
-       `(org-block-begin-line ((t (:background ,s1 :foreground ,dim :extend t))))
-       `(org-block-end-line ((t (:background ,s1 :foreground ,dim :extend t))))
-       `(org-quote ((t (:background ,s1 :slant italic :extend t))))
-       `(org-checkbox ((t (:foreground ,yellow :weight bold))))
-       `(org-ellipsis ((t (:foreground ,dim :underline nil)))))
-      ;; pywal 0..7 / 8..15 -> term colors (fzf, vterm)
-      (apply #'custom-theme-set-faces 'wal
-             (cl-loop for pair in '(("black" . 0) ("red" . 1) ("green" . 2) ("yellow" . 3)
-                                    ("blue" . 4) ("magenta" . 5) ("cyan" . 6) ("white" . 7))
-                      append (list
-                              (let ((c (funcall col (cdr pair))))
-                                `(,(intern (format "term-color-%s" (car pair)))
-                                  ((t (:foreground ,c :background ,c)))))
-                              (let ((c (funcall col (+ 8 (cdr pair)))))
-                                `(,(intern (format "term-color-bright-%s" (car pair)))
-                                  ((t (:foreground ,c :background ,c))))))))
-      (mapc #'disable-theme (remq 'wal custom-enabled-themes))
-      (enable-theme 'wal))))
-
-(if (file-readable-p my/wal-file)
-    (my/wal-apply)
-  (load-theme 'modus-vivendi t))        ; fallback when pywal never ran
-
-;; Live reload when `wal` rewrites colors.json (debounced).
-(require 'filenotify)
-(defvar my/wal--timer nil)
-(defun my/wal--on-change (event)
-  (when (string-match-p "colors\\.json" (format "%S" event))
-    (when (timerp my/wal--timer) (cancel-timer my/wal--timer))
-    (setq my/wal--timer (run-with-timer 0.4 nil #'my/wal-apply))))
-(when (file-directory-p (file-name-directory my/wal-file))
-  (file-notify-add-watch (file-name-directory my/wal-file) '(change) #'my/wal--on-change))
-#+end_src
-
 * Syntax highlighting: tree-sitter
 Python and Bash only; LaTeX stays on AUCTeX, Lisp on its classic modes. Grammars
 are offered for install the first time you open such a file.
@@ -618,8 +422,8 @@ across restarts), then the nearest =.venv= / =venv= above the file. It runs befo
 =eglot-ensure=, so =ty= starts inside the right environment and =ruff= comes from
 the venv when installed there.
 #+begin_src emacs-lisp
-(defvar my/venv-names '(".venv" "venv"))
-(defvar my/venv-search-dirs '("~/.virtualenvs" "~/.local/share/virtualenvs" "~/.conda/envs")
+(defvar my/venv-names '(".venv" "PyEnv"))
+(defvar my/venv-search-dirs '("~/PyEnv/" "~/.local/share/virtualenvs" "~/.conda/envs")
   "Extra directories whose children are offered as environments in the picker.")
 (defvar my/venv-choices nil
   "Alist (PROJECT-ROOT . VENV-DIR or \"none\"); persisted by savehist.")
@@ -886,7 +690,7 @@ language server restarts inside the new environment.
 * Org mode
 ** Core
 #+begin_src emacs-lisp
-(setq org-directory (expand-file-name "~/org/"))
+(setq org-directory (expand-file-name "~/Desktop/MyNotes/"))
 (unless (file-directory-p org-directory) (make-directory org-directory t))
 
 (use-package org
