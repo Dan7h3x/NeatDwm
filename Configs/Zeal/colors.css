@@ -1,0 +1,144 @@
+/* Core page background and text */
+html,
+body {
+  background-color: #002b36 !important;
+  color: #93a1a1 !important;
+}
+
+/* Links */
+a {
+  color: #268bd2 !important;
+}
+a:visited {
+  color: #6c71c4 !important;
+}
+
+/* Code blocks and inline code */
+pre,
+code {
+  background-color: #073642 !important;
+  color: #eee8d5 !important;
+  border: 1px solid #0a4350 !important;
+}
+
+/* Tables */
+table {
+  background-color: #002b36 !important;
+  border-color: #073642 !important;
+}
+th {
+  background-color: #073642 !important;
+  color: #eee8d5 !important;
+}
+td {
+  border-color: #073642 !important;
+}
+
+/* Blockquotes / notes */
+blockquote {
+  background-color: #073642 !important;
+  color: #93a1a1 !important;
+  border-left-color: #586e75 !important;
+}
+
+/* Horizontal rules */
+hr {
+  background-color: #073642 !important;
+  border-color: #073642 !important;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: #073642 !important;
+  color: #fdf6e3 !important;
+}
+
+/* Input fields */
+input,
+textarea {
+  background-color: #073642 !important;
+  color: #93a1a1 !important;
+  border-color: #586e75 !important;
+}
+
+/* Headers — brighter for hierarchy on dark bg */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #eee8d5 !important;
+  border-bottom-color: #073642 !important;
+}
+
+/* Scrollbar (WebKit-based, used by Zeal's QtWebEngine) */
+::-webkit-scrollbar {
+  background-color: #002b36 !important;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #586e75 !important;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #93a1a1 !important;
+}
+
+/* Syntax highlighting tokens (Solarized Dark accents) */
+pre .k,
+pre .kd,
+pre .kn {
+  color: #859900 !important;
+  font-weight: bold !important;
+} /* keyword */
+pre .s,
+pre .s1,
+pre .s2,
+pre .sb,
+pre .sc,
+pre .sd,
+pre .se,
+pre .sh,
+pre .si,
+pre .sx,
+pre .sr,
+pre .ss {
+  color: #2aa198 !important;
+} /* string */
+pre .c,
+pre .c1,
+pre .cm,
+pre .cs {
+  color: #586e75 !important;
+  font-style: italic !important;
+} /* comment */
+pre .n,
+pre .na,
+pre .nb,
+pre .nc,
+pre .nd,
+pre .ne,
+pre .nf,
+pre .ni,
+pre .nl,
+pre .nn,
+pre .no,
+pre .nt,
+pre .nv,
+pre .nx {
+  color: #268bd2 !important;
+} /* name/function/type */
+pre .m,
+pre .mf,
+pre .mh,
+pre .mi,
+pre .mo {
+  color: #d33682 !important;
+} /* number */
+pre .o,
+pre .ow {
+  color: #859900 !important;
+} /* operator */
+pre .p {
+  color: #93a1a1 !important;
+} /* punctuation */

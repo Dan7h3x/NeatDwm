@@ -1,0 +1,129 @@
+/* Core page background and text */
+html,
+body {
+  background-color: #fdf6e3 !important;
+  color: #657b83 !important;
+}
+
+/* Links */
+a {
+  color: #268bd2 !important;
+}
+a:visited {
+  color: #6c71c4 !important;
+}
+
+/* Code blocks and inline code */
+pre,
+code {
+  background-color: #eee8d5 !important;
+  color: #586e75 !important;
+  border: 1px solid #e9e1c8 !important;
+}
+
+/* Tables */
+table {
+  background-color: #fdf6e3 !important;
+  border-color: #e9e1c8 !important;
+}
+th {
+  background-color: #eee8d5 !important;
+  color: #586e75 !important;
+}
+
+/* Blockquotes / notes */
+blockquote {
+  background-color: #eee8d5 !important;
+  color: #657b83 !important;
+  border-left-color: #93a1a1 !important;
+}
+
+/* Horizontal rules */
+hr {
+  background-color: #e9e1c8 !important;
+  border-color: #e9e1c8 !important;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: #eee8d5 !important;
+  color: #073642 !important;
+}
+
+/* Input fields (if any search boxes exist inside the documentation page) */
+input,
+textarea {
+  background-color: #eee8d5 !important;
+  color: #657b83 !important;
+  border-color: #93a1a1 !important;
+}
+
+/* Headers — slightly darker for better hierarchy */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #586e75 !important;
+  border-bottom-color: #e9e1c8 !important;
+}
+
+/* Syntax highlighting tokens (common classes used by docsets) */
+pre .k,
+pre .kd,
+pre .kn {
+  color: #859900 !important;
+  font-weight: bold !important;
+} /* keyword */
+pre .s,
+pre .s1,
+pre .s2,
+pre .sb,
+pre .sc,
+pre .sd,
+pre .se,
+pre .sh,
+pre .si,
+pre .sx,
+pre .sr,
+pre .ss {
+  color: #2aa198 !important;
+} /* string */
+pre .c,
+pre .c1,
+pre .cm,
+pre .cs {
+  color: #93a1a1 !important;
+  font-style: italic !important;
+} /* comment */
+pre .n,
+pre .na,
+pre .nb,
+pre .nc,
+pre .nd,
+pre .ne,
+pre .nf,
+pre .ni,
+pre .nl,
+pre .nn,
+pre .no,
+pre .nt,
+pre .nv,
+pre .nx {
+  color: #268bd2 !important;
+} /* name/function/type */
+pre .m,
+pre .mf,
+pre .mh,
+pre .mi,
+pre .mo {
+  color: #d33682 !important;
+} /* number */
+pre .o,
+pre .ow {
+  color: #859900 !important;
+} /* operator */
+pre .p {
+  color: #657b83 !important;
+} /* punctuation */
