@@ -1,10 +1,5 @@
 ;;; early-init.el --- runs before the first frame  -*- lexical-binding: t; -*-
 
-;; ---------------------------------------------------------------------------
-;; Startup speed
-;; ---------------------------------------------------------------------------
-;; No GC, no file-name handlers and no redisplay while loading; all restored
-;; right after startup (see the hook at the bottom).
 (defvar my/file-name-handler-alist file-name-handler-alist)
 
 (setq gc-cons-threshold most-positive-fixnum
@@ -25,6 +20,8 @@
       package-native-compile t
       native-comp-async-report-warnings-errors 'silent
       native-comp-jit-compilation t)
+
+(setq byte-compile-warnings '(not byte-compile-free-vars-warn))
 
 (setq-default inhibit-redisplay t)
 

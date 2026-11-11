@@ -1,5 +1,5 @@
 #+TITLE: Emacs Configuration (Vim + Eglot + fzf + pywal + Org)
-#+PROPERTY: header-args:emacs-lisp :tangle yes :comments no
+#+PROPERTY: header-args:emacs-lisp :tangle no :comments no
 #+STARTUP: overview
 
 *External tools*: =fzf rg git texlab tex-fmt latexmk zathura ty ruff uv sbcl
@@ -160,7 +160,6 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
                                    (editorconfig-mode 1)))))
 
 ;; relative line numbers and hl-line in code
-(setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'hl-line-mode)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -230,6 +229,22 @@ Plain functions (no macros), so the config compiles identically in any session.
 * Completion and fuzzy workflow
 ** Minibuffer: vertico + orderless + marginalia + consult
 #+begin_src emacs-lisp
+(use-package company
+  :diminish company-mode
+  :general
+  (general-define-key :keymaps 'company-active-map
+                      "TAB" 'company-select-next
+                      "S-TAB" 'company-select-previous)
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-minimum-prefix-length 2
+        company-tooltip-limit 14
+        company-require-match 'never)
+  :config
+  (setq company-idle-delay 0.35)
+  )
+
+
 (use-package vertico
   :hook (after-init . vertico-mode)
   :custom (vertico-cycle t) (vertico-count 12)
@@ -664,6 +679,7 @@ language server restarts inside the new environment.
   :after tex
   :custom (auctex-latexmk-inherit-TeX-PDF-mode t)
   :config (auctex-latexmk-setup))
+
 #+end_src
 
 ** Common Lisp: SLY
@@ -723,7 +739,7 @@ language server restarts inside the new environment.
   ;; latex / export
   (org-latex-compiler "lualatex")
   (org-latex-pdf-process '("latexmk -lualatex -interaction=nonstopmode -output-directory=%o %f"))
-  (org-preview-latex-default-process 'dvisvgm)
+  (org-preview-latex-default-process 'dvipng)
   (org-image-actual-width '(600))
   (org-export-with-smart-quotes t)
   (org-capture-templates
