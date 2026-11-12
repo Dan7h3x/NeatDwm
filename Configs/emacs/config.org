@@ -1,9 +1,11 @@
 #+TITLE: Emacs Configuration (Vim + Eglot + fzf + pywal + Org)
-#+PROPERTY: header-args:emacs-lisp :tangle no :comments no
+#+PROPERTY: header-args:emacs-lisp
 #+STARTUP: overview
 
 *External tools*: =fzf rg git texlab tex-fmt latexmk zathura ty ruff uv sbcl
 bash-language-server shellcheck cmake libtool= (the last two for vterm).
+Optional: =chktex= (extra LaTeX lint through texlab).
+
 
 * Bootstrap
 ** Header and packages
@@ -23,12 +25,13 @@ bash-language-server shellcheck cmake libtool= (the last two for vterm).
       use-package-expand-minimally t
       use-package-compute-statistics nil)
 
+;; FIX: modus-themes added (required by pywal-modus.el, 4.0+).
 (defvar my/packages
   '(gcmh no-littering evil evil-collection evil-surround evil-commentary
     rainbow-delimiters general vertico orderless marginalia consult
     fzf corfu cape treesit-auto apheleia flymake-ruff auctex auctex-latexmk
     sly sly-asdf org-modern org-appear org-fragtog evil-org magit diff-hl
-    restart-emacs vterm)
+    restart-emacs vterm modus-themes)
   "Every non-built-in package this config uses.")
 
 (defvar my/package-stamp (expand-file-name ".packages-stamp" user-emacs-directory)
@@ -47,8 +50,8 @@ bash-language-server shellcheck cmake libtool= (the last two for vterm).
               ("melpa"  . "https://melpa.org/packages/"))
             package-archive-priorities '(("gnu" . 10) ("nongnu" . 9) ("melpa" . 0)))
       (package-refresh-contents)
-      (dolist (p missing) (package-install p))
-      (package-quickstart-refresh))
+      (dolist (p missing) (package-install p)))
+    (package-quickstart-refresh)
     (with-temp-file my/package-stamp (prin1 my/packages (current-buffer)))))
 
 (defun my/update-packages ()
@@ -86,6 +89,7 @@ bash-language-server shellcheck cmake libtool= (the last two for vterm).
 ** Performance
 #+begin_src emacs-lisp
 (use-package gcmh
+  :ensure t
   :demand t
   :custom
   (gcmh-idle-delay 5)
@@ -168,6 +172,10 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
   :hook (after-init . which-key-mode)
   :custom (which-key-idle-delay 0.4))
 
+;; FIX: rainbow-delimiters was installed but never enabled.
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (defun my/project-root ()
   "Root of the current project, else the current directory."
   (if-let* ((p (project-current))) (project-root p) default-directory))
@@ -191,6 +199,13 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
         evil-ex-search-vim-style-regexp t)
   :config
   (evil-mode 1))
+
+;; FIX: evil-collection was installed but never initialised.  With
+;; `evil-want-keybinding' nil this must run after evil, or many modes
+;; (magit, dired, help, ...) get no evil bindings at all.
+(use-package evil-collection
+  :after evil
+  :config (evil-collection-init))
 
 (with-eval-after-load 'evil
   (defvar evil-mode-buffers '()))
@@ -224,27 +239,13 @@ Plain functions (no macros), so the config compiles identically in any session.
          :states '(normal visual)
          :prefix "SPC m"
          args))
+
+(define-key evil-normal-state-map (kbd "SPC") nil)
 #+end_src
 
 * Completion and fuzzy workflow
 ** Minibuffer: vertico + orderless + marginalia + consult
 #+begin_src emacs-lisp
-(use-package company
-  :diminish company-mode
-  :general
-  (general-define-key :keymaps 'company-active-map
-                      "TAB" 'company-select-next
-                      "S-TAB" 'company-select-previous)
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-minimum-prefix-length 2
-        company-tooltip-limit 14
-        company-require-match 'never)
-  :config
-  (setq company-idle-delay 0.35)
-  )
-
-
 (use-package vertico
   :hook (after-init . vertico-mode)
   :custom (vertico-cycle t) (vertico-count 12)
@@ -300,7 +301,10 @@ Real =fzf= in a term buffer. Its colors follow pywal through the =term-color-*= 
 Corfu starts only in code and text buffers; nothing loads until you open one.
 #+begin_src emacs-lisp
 (use-package corfu
-  :hook ((prog-mode text-mode sly-mrepl-mode) . corfu-mode)
+  ;; LaTeX/BibTeX listed explicitly: do not rely on AUCTeX modes deriving
+  ;; from `text-mode' (that differs between AUCTeX versions / built-in tex-mode).
+  :hook ((prog-mode text-mode sly-mrepl-mode
+          LaTeX-mode latex-mode TeX-mode plain-TeX-mode bibtex-mode) . corfu-mode)
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.05)
@@ -329,26 +333,13 @@ Corfu starts only in code and text buffers; nothing loads until you open one.
                (list "/usr/share/dict/words"
                      (expand-file-name "dict/persian.txt" user-emacs-directory))))
   :init
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-dabbrev))
+  ;; Global fallbacks (appended). LaTeX buffers get their own ordered list,
+  ;; see `my/latex-capf-setup' in the LaTeX section.
+  (add-hook 'completion-at-point-functions #'cape-file t)
+  (add-hook 'completion-at-point-functions #'cape-keyword t)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block t)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev t))
 
-;; Word completion in every prose-like buffer (LaTeX, Org, Markdown, commit
-;; messages: all derive from `text-mode'). Appended last, so texlab/Eglot,
-;; AUCTeX and Org keep priority for commands, labels and citations.
-(defun my/text-completion-setup ()
-  (add-hook 'completion-at-point-functions #'cape-dict 90 t)
-  ;; ZWNJ (half-space) is a word char: Persian words are not split at it, for
-  ;; completion, dabbrev and evil's w/b/e motions.
-  (modify-syntax-entry #x200c "w" (syntax-table)))
-(add-hook 'text-mode-hook #'my/text-completion-setup)
-#+end_src
-
-Persian word list (once). From your distro's hunspell dictionary or any corpus;
-=cape-dabbrev= already learns Persian from open buffers regardless.
-#+begin_src sh :tangle no
-mkdir -p ~/.config/emacs/dict
-sed -e '1d' -e 's|/.*||' /usr/share/hunspell/fa_IR.dic > ~/.config/emacs/dict/persian.txt
-# or:  tr -s '[:space:][:punct:]' '\n' < corpus.txt | sort -u > ~/.config/emacs/dict/persian.txt
 #+end_src
 
 * Syntax highlighting: tree-sitter
@@ -385,8 +376,8 @@ Apheleia; =texlab= for LaTeX; =bash-language-server= runs =shellcheck= itself.
   :config
   (add-to-list 'eglot-server-programs
                '((python-mode python-ts-mode) . ("ty" "server")))
-  (add-to-list 'eglot-server-programs
-               '((LaTeX-mode tex-mode latex-mode bibtex-mode BibTeX-mode) . ("texlab")))
+   (add-to-list 'eglot-server-programs
+                '((LaTeX-mode tex-mode latex-mode bibtex-mode BibTeX-mode) . ("texlab")))
   (add-to-list 'eglot-server-programs
                '((sh-mode bash-ts-mode) . ("bash-language-server" "start")))
   ;; Vim-style hover (function form: no macro, compiles anywhere)
@@ -405,10 +396,11 @@ Enabled only in the modes that have a formatter configured.
     (setf (alist-get m apheleia-mode-alist) 'tex-fmt))
   (dolist (m '(python-mode python-ts-mode))
     (setf (alist-get m apheleia-mode-alist) '(ruff-isort ruff)))
-  ;; Apheleia maps shell modes to shfmt by default; drop it if not installed.
+  ;; FIX: `nil' leaves the entry in place and falls back to the default
+  ;; (shfmt).  `remove' actually drops it.
   (unless (executable-find "shfmt")
     (dolist (m '(sh-mode bash-ts-mode))
-      (setf (alist-get m apheleia-mode-alist) nil))))
+      (setf (alist-get m apheleia-mode-alist nil 'remove) nil))))
 #+end_src
 
 * Languages
@@ -525,6 +517,7 @@ language server restarts inside the new environment.
                                      "python" "list" "--only-installed"
                                      "--output-format" "json"))
             (goto-char (point-min))
+            (require 'json)
             (let (seen out)
               (dolist (o (json-parse-buffer :array-type 'list))
                 (let* ((path (gethash "path" o))
@@ -655,31 +648,87 @@ language server restarts inside the new environment.
     (message "Python env: %s" (if-let* ((v (my/venv--current))) (abbreviate-file-name v) "none"))))
 #+end_src
 
-** LaTeX: AUCTeX + texlab + tex-fmt
+** LaTeX: AUCTeX + texlab + corfu/cape + tex-fmt
+Division of labour: AUCTeX compiles, views (zathura + SyncTeX) and knows macros,
+environments, labels and citations; texlab (Eglot) adds project-wide
+references and diagnostics; tex-fmt formats on save (Apheleia).
 #+begin_src emacs-lisp
-(use-package tex                        ; package name: auctex
+(use-package tex                        ; feature of the `auctex' package
+  :ensure nil
   :defer t
   :custom
   (TeX-auto-save t)
-  (TeX-parse-self t)
+  (TeX-parse-self t)                    ; parse the file: feeds macro/label/cite completion
   (TeX-PDF-mode t)
   (TeX-save-query nil)
+  (TeX-show-compilation nil)
+  (TeX-error-overview-open-after-TeX-run nil)
   (TeX-view-program-selection '((output-pdf "Zathura")))
-  (TeX-source-correlate-mode t)
   (TeX-source-correlate-method 'synctex)
-  (TeX-source-correlate-start-server t)
+  (TeX-source-correlate-start-server nil)
+  (TeX-electric-sub-and-superscript t)
   (LaTeX-electric-left-right-brace t)
   :config
-  (setq-default TeX-master nil)
-  (add-hook 'LaTeX-mode-hook #'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
+  (setq-default TeX-master t)           ; single-file by default; use a file-local TeX-master for multi-file
+  (TeX-source-correlate-mode 1)
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
-(use-package auctex-latexmk
-  :after tex
-  :custom (auctex-latexmk-inherit-TeX-PDF-mode t)
-  :config (auctex-latexmk-setup))
+(use-package latex
+  :ensure nil
+  :defer t
+  :hook ((LaTeX-mode . visual-line-mode)
+         (LaTeX-mode . LaTeX-math-mode)
+         (LaTeX-mode . reftex-mode)))
 
+;; \ref / \cite helpers (C-c ) / C-c [) integrated with AUCTeX
+(use-package reftex
+  :ensure nil
+  :defer t
+  :custom
+  (reftex-plug-into-AUCTeX t)
+  (reftex-enable-partial-scans t)
+  (reftex-save-parse-info t)
+  (reftex-use-multiple-selection-buffers t))
+
+;; latexmk as the default build command (handles reruns, bibtex/biber)
+(use-package auctex-latexmk
+  :after latex
+  :custom (auctex-latexmk-inherit-TeX-PDF-mode t)
+  :config
+  (auctex-latexmk-setup)
+  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMk"))))
+
+(set-default 'preview-scale-function 2.0)
+
+(defun my/latex-capf-setup ()
+  (setq-local cape-file-prefix "{")
+  (setq-local completion-at-point-functions
+              (delq nil
+                    (list (and (fboundp 'LaTeX--arguments-completion-at-point)
+                               #'LaTeX--arguments-completion-at-point)
+                          (and (fboundp 'TeX--completion-at-point)
+                               #'TeX--completion-at-point)
+                          (and (fboundp 'eglot-managed-p) (eglot-managed-p)
+                               #'eglot-completion-at-point)
+                          #'cape-file
+                          #'cape-dabbrev
+                          #'cape-dict))))
+
+(defun my/latex-capf-setup-maybe ()
+  (when (derived-mode-p 'LaTeX-mode 'latex-mode 'plain-TeX-mode)
+    (my/latex-capf-setup)))
+
+(add-hook 'LaTeX-mode-hook #'my/latex-capf-setup)
+(add-hook 'eglot-managed-mode-hook #'my/latex-capf-setup-maybe)
+
+
+
+(defun my/latex-eglot-config ()
+  (setq-local eglot-workspace-configuration
+              `(:texlab (:build (:onSave :json-false)
+                         :chktex (:onOpenAndSave ,(if (executable-find "chktex") t :json-false)
+                                  :onEdit :json-false)))))
+(add-hook 'LaTeX-mode-hook #'my/latex-eglot-config)
 #+end_src
 
 ** Common Lisp: SLY
@@ -804,17 +853,19 @@ language server restarts inside the new environment.
 ** Re-tangle and recompile this file on save
 #+begin_src emacs-lisp
 (defun my/tangle-config ()
-  (when (equal (file-truename buffer-file-name)
-               (file-truename (expand-file-name "config.org" user-emacs-directory)))
+  "Re-tangle config.org into config.el and byte-compile it."
+  (when (and buffer-file-name
+             (equal (file-truename buffer-file-name)
+                    (file-truename (expand-file-name "config.org" user-emacs-directory))))
     (let ((org-confirm-babel-evaluate nil)
           (el (expand-file-name "config.el" user-emacs-directory)))
       (org-babel-tangle nil el "emacs-lisp")
       (set-file-times el))              ; tangle skips identical output; keep el newer than org
-    ;; compile once the save is done (this session has every macro defined)
     (run-with-idle-timer 1 nil #'my/compile-config)))
 
-(add-hook 'org-mode-hook
-          (lambda () (add-hook 'after-save-hook #'my/tangle-config nil t)))
+;; FIX: one global after-save-hook with a cheap filename guard, instead of
+;; adding a buffer-local hook in every Org buffer.
+(add-hook 'after-save-hook #'my/tangle-config)
 
 (defun my/open-config ()
   (interactive)
@@ -823,11 +874,14 @@ language server restarts inside the new environment.
 
 * Projects, git
 #+begin_src emacs-lisp
+;; FIX: the terminal entry is a lambda, so `my/term-toggle' need not be
+;; defined yet when project.el builds the dispatch menu.
 (setq project-vc-extra-root-markers '("pyproject.toml" ".project")   ; uv projects without git
-      project-switch-commands '((my/fzf-project-files "Find file" ?f)
-                                (my/fzf-project-grep "Grep" ?g)
-                                (magit-project-status "Magit" ?m)
-                                (my/term-toggle "Terminal" ?t)))
+      project-switch-commands
+      '((my/fzf-project-files "Find file" ?f)
+        (my/fzf-project-grep  "Grep"      ?g)
+        (magit-project-status "Magit"     ?m)
+        (lambda () (interactive) (my/term-toggle)) "Terminal" ?t))
 
 (use-package magit
   :defer t
@@ -861,6 +915,8 @@ magit/agenda keep their own maps), repeatable resizing, =winner= undo, zoom.
 
 ;; After the first resize key, keep pressing h/j/k/l (or =) with no prefix;
 ;; any other key ends it.
+;; NB: `:repeat t' in defvar-keymap needs Emacs 30.  On Emacs 29 the
+;; (put ... 'repeat-map ...) below is the portable form.
 (defvar-keymap my/window-resize-map
   :repeat t
   "h" #'my/win-narrower
@@ -938,9 +994,15 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
 (defun my/term-toggle ()
   "Hide the terminal if visible, else show the last project terminal (or create one)."
   (interactive)
-  (if-let* ((w (cl-find-if (lambda (w) (string-prefix-p "*vterm:" (buffer-name (window-buffer w))))
-                           (window-list))))
-      (if (cdr (window-list)) (delete-window w) (bury-buffer))
+  ;; FIX: burying is correct for side windows and for a lone window;
+  ;; delete-window is only safe when there is more than one normal window.
+  (if-let* ((w (cl-find-if
+                (lambda (w) (string-prefix-p "*vterm:" (buffer-name (window-buffer w))))
+                (window-list))))
+      (if (or (window-parameter w 'window-side)
+              (= (length (window-list)) 1))
+          (bury-buffer (window-buffer w))
+        (delete-window w))
     (if-let* ((b (car (my/term-list))))
         (pop-to-buffer b)
       (my/term-new))))
@@ -1056,7 +1118,6 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "t"   '(:ignore t :which-key "toggle")
   "tl"  '(display-line-numbers-mode :which-key "line numbers")
   "tw"  '(visual-line-mode :which-key "wrap")
-  "tc"  '(my/wal-apply :which-key "reload pywal")
 
   "T"   '(:ignore t :which-key "terminal")
   "Tt"  '(my/term-toggle :which-key "toggle popup")
@@ -1113,5 +1174,18 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "m" '(TeX-command-master :which-key "command menu")
   "v" '(TeX-view :which-key "view pdf")
   "e" '(LaTeX-environment :which-key "environment")
-  "s" '(LaTeX-section :which-key "section"))
+  "s" '(LaTeX-section :which-key "section")
+  "i" '(TeX-insert-macro :which-key "insert macro")
+  "r" '(reftex-reference :which-key "reference")
+  "k" '(reftex-citation :which-key "citation")
+  "t" '(reftex-toc :which-key "table of contents")
+  "l" '(TeX-recenter-output-buffer :which-key "compile log")
+  "f" '(LaTeX-fill-environment :which-key "fill environment"))
+#+end_src
+
+* ColorScheme
+#+begin_src emacs-lisp
+(with-demoted-errors "pywal-modus: %S"
+  (load (expand-file-name "pywal-modus.el" user-emacs-directory) nil t)
+  (pywal-modus-mode 1))
 #+end_src
