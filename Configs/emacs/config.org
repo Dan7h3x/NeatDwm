@@ -1,11 +1,12 @@
-#+TITLE: Emacs Configuration (Vim + Eglot + fzf + pywal + Org)
+#+TITLE: Emacs Config
+#+AUTHOR: Dan7h3x
 #+PROPERTY: header-args:emacs-lisp
 #+STARTUP: overview
 
-*External tools*: =fzf rg git texlab tex-fmt latexmk zathura ty ruff uv sbcl
-bash-language-server shellcheck cmake libtool= (the last two for vterm).
+* External tools
+=fzf rg git texlab tex-fmt latexmk zathura ty ruff uv sbcl
+bash-language-server shellcheck cmake libtool= (last two for vterm).
 Optional: =chktex= (extra LaTeX lint through texlab).
-
 
 * Bootstrap
 ** Header and packages
@@ -20,28 +21,27 @@ Optional: =chktex= (extra LaTeX lint through texlab).
 (require 'subr-x)
 (require 'seq)
 
-;; use-package only configures; it never installs or refreshes anything.
 (setq use-package-always-ensure nil
       use-package-expand-minimally t
       use-package-compute-statistics nil)
 
-;; FIX: modus-themes added (required by pywal-modus.el, 4.0+).
 (defvar my/packages
   '(gcmh no-littering evil evil-collection evil-surround evil-commentary
-    rainbow-delimiters general vertico orderless marginalia consult
-    fzf corfu cape treesit-auto apheleia flymake-ruff auctex auctex-latexmk
-    sly sly-asdf org-modern org-appear org-fragtog evil-org magit diff-hl
+    avy evil-avy general vertico orderless marginalia consult consult-eglot
+    embark embark-consult wgrep fzf corfu cape treesit-auto apheleia
+    flymake-ruff smartparens sly sly-asdf
+    org-modern org-appear org-fragtog evil-org magit diff-hl dirvish
     restart-emacs vterm modus-themes)
   "Every non-built-in package this config uses.")
 
 (defvar my/package-stamp (expand-file-name ".packages-stamp" user-emacs-directory)
-  "Records the `my/packages' list last installed, so startup can skip all checks.")
+  "Records the `my/packages' list last installed. Advisory only.")
 
 (defun my/install-missing-packages ()
   "Install packages from `my/packages' that are absent. Never upgrades anything."
   (interactive)
   (require 'package)
-  (package-initialize)
+  ;; (package-initialize)
   (let ((missing (seq-remove #'package-installed-p my/packages)))
     (when missing
       (setq package-archives
@@ -51,24 +51,24 @@ Optional: =chktex= (extra LaTeX lint through texlab).
             package-archive-priorities '(("gnu" . 10) ("nongnu" . 9) ("melpa" . 0)))
       (package-refresh-contents)
       (dolist (p missing) (package-install p)))
-    (package-quickstart-refresh)
+    (when package-quickstart (package-quickstart-refresh))
     (with-temp-file my/package-stamp (prin1 my/packages (current-buffer)))))
 
 (defun my/update-packages ()
   "Refresh archives and upgrade all packages. Only runs when you ask."
   (interactive)
   (require 'package)
-  (package-initialize)
+  ;; (package-initialize)
   (setq package-archives
         '(("gnu"    . "https://elpa.gnu.org/packages/")
           ("nongnu" . "https://elpa.nongnu.org/nongnu/")
           ("melpa"  . "https://melpa.org/packages/")))
   (package-refresh-contents)
   (package-upgrade-all)
-  (package-quickstart-refresh))
+  (when package-quickstart (package-quickstart-refresh)))
 
 (defun my/compile-config ()
-  "Byte-compile config.el in this session; Emacs native-compiles it in the background."
+  "Byte-compile config.el in this session; Emacs native-compiles in background."
   (interactive)
   (let ((el (expand-file-name "config.el" user-emacs-directory))
         (byte-compile-warnings '(not free-vars unresolved docstrings noruntime obsolete)))
@@ -76,14 +76,19 @@ Optional: =chktex= (extra LaTeX lint through texlab).
         (when (byte-compile-file el) (message "config.el compiled"))
       (error (message "config.el compile failed: %S" err)))))
 
-;; Install what is missing, once. Same list as last time => a single file read.
-(unless (equal (ignore-errors
-                 (with-temp-buffer
-                   (insert-file-contents my/package-stamp)
-                   (read (current-buffer))))
-               my/packages)
-  (condition-case err (my/install-missing-packages)
-    (error (message "Package install failed (offline?): %S -- M-x my/install-missing-packages" err))))
+;; FIX: verify packages actually exist, not just that the list is unchanged.
+;; ~35 `package-installed-p' calls is sub-millisecond; drop the stamp gate.
+(condition-case err (my/install-missing-packages)
+  (error (message "Package install failed (offline?): %S -- M-x my/install-missing-packages" err)))
+#+end_src
+
+** PATH for user-installed tools
+#+begin_src emacs-lisp
+(dolist (dir '("~/.local/bin" "~/.cargo/bin"))
+  (let ((d (expand-file-name dir)))
+    (when (file-directory-p d)
+      (add-to-list 'exec-path d)
+      (setenv "PATH" (concat d ":" (getenv "PATH"))))))
 #+end_src
 
 ** Performance
@@ -96,7 +101,7 @@ Optional: =chktex= (extra LaTeX lint through texlab).
   (gcmh-high-cons-threshold (* 128 1024 1024))
   :config (gcmh-mode 1))
 
-(setq read-process-output-max (* 4 1024 1024)   ; big LSP payloads
+(setq read-process-output-max (* 4 1024 1024)
       process-adaptive-read-buffering nil
       fast-but-imprecise-scrolling t
       redisplay-skip-fontification-on-input t)
@@ -104,17 +109,7 @@ Optional: =chktex= (extra LaTeX lint through texlab).
 (global-so-long-mode 1)
 #+end_src
 
-** PATH for user-installed tools
-GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-language-server.
-#+begin_src emacs-lisp
-(dolist (dir '("~/.local/bin" "~/.cargo/bin"))
-  (let ((d (expand-file-name dir)))
-    (when (file-directory-p d)
-      (add-to-list 'exec-path d)
-      (setenv "PATH" (concat d ":" (getenv "PATH"))))))
-#+end_src
-
-** Defaults
+* Defaults
 #+begin_src emacs-lisp
 (use-package no-littering
   :demand t
@@ -122,6 +117,10 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror 'nomessage)
+
+;; Python venv choices persist across restarts (defvar lives in Languages/Python).
+(defvar my/venv-choices nil
+  "Alist (PROJECT-ROOT . VENV-DIR or \"none\"); persisted by savehist.")
 
 (setq use-short-answers t
       ring-bell-function #'ignore
@@ -139,10 +138,7 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
       eldoc-idle-delay 0.2
       eldoc-echo-area-use-multiline-p nil
       eldoc-echo-area-prefer-doc-buffer t
-      dired-listing-switches "-alh --group-directories-first"
-      dired-kill-when-opening-new-dired-buffer t
       recentf-max-saved-items 200
-      ;; Python venv choices (fzf picker) survive restarts
       savehist-additional-variables '(my/venv-choices))
 
 (setq-default indent-tabs-mode nil
@@ -154,7 +150,6 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
 (column-number-mode 1)
 (savehist-mode 1)
 
-;; File-reading modes: do it once Emacs is idle instead of during startup.
 (add-hook 'emacs-startup-hook
           (lambda ()
             (run-with-idle-timer 0.5 nil
@@ -163,7 +158,6 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
                                    (save-place-mode 1)
                                    (editorconfig-mode 1)))))
 
-;; relative line numbers and hl-line in code
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'hl-line-mode)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -172,7 +166,6 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
   :hook (after-init . which-key-mode)
   :custom (which-key-idle-delay 0.4))
 
-;; FIX: rainbow-delimiters was installed but never enabled.
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -181,34 +174,28 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
   (if-let* ((p (project-current))) (project-root p) default-directory))
 #+end_src
 
-* Vim
-** Evil
+* Editing foundation
+** Evil (must load before anything else that binds into it)
 #+begin_src emacs-lisp
+(defvar evil-mode-buffers '())
 (use-package evil
   :demand t
   :init
   (setq evil-want-integration t
-        evil-want-keybinding nil          ; evil-collection handles this
+        evil-want-keybinding nil
         evil-want-C-u-scroll t
-        evil-want-C-i-jump t              ; set nil if you run Emacs in a terminal
+        evil-want-C-i-jump t
         evil-want-Y-yank-to-eol t
         evil-undo-system 'undo-redo
         evil-respect-visual-line-mode t
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-ex-search-vim-style-regexp t)
-  :config
-  (evil-mode 1))
+  :config (evil-mode 1))
 
-;; FIX: evil-collection was installed but never initialised.  With
-;; `evil-want-keybinding' nil this must run after evil, or many modes
-;; (magit, dired, help, ...) get no evil bindings at all.
 (use-package evil-collection
   :after evil
   :config (evil-collection-init))
-
-(with-eval-after-load 'evil
-  (defvar evil-mode-buffers '()))
 
 (use-package evil-surround
   :after evil
@@ -216,11 +203,22 @@ GUI launchers and the daemon often miss these: ty/ruff/uv, texlab/tex-fmt, bash-
 
 (use-package evil-commentary
   :after evil
-  :config (evil-commentary-mode 1))   ; gcc / gc{motion}
+  :config (evil-commentary-mode 1))
+
+;; ✨ avy + evil-avy: jump to any visible char/line in ~2 keystrokes.
+(use-package avy
+  :defer t
+  :custom (avy-timeout-seconds 0.3)
+  :bind (:map evil-normal-state-map
+              ("s" . avy-goto-char-timer)
+              ("f" . avy-goto-line)))
+
+(use-package evil-avy
+  :after (evil avy)
+  :config (evil-avy-mode 1))
 #+end_src
 
-** Leader key (SPC)
-Plain functions (no macros), so the config compiles identically in any session.
+** Leader key (SPC) — must be defined before any section binds under it
 #+begin_src emacs-lisp
 (use-package general :demand t)
 
@@ -243,8 +241,8 @@ Plain functions (no macros), so the config compiles identically in any session.
 (define-key evil-normal-state-map (kbd "SPC") nil)
 #+end_src
 
-* Completion and fuzzy workflow
-** Minibuffer: vertico + orderless + marginalia + consult
+* Completion
+** Minibuffer: vertico + orderless + marginalia + consult + embark
 #+begin_src emacs-lisp
 (use-package vertico
   :hook (after-init . vertico-mode)
@@ -266,12 +264,40 @@ Plain functions (no macros), so the config compiles identically in any session.
 (use-package consult
   :defer t
   :custom
-  (consult-preview-key "M-.")           ; no live previews = faster
+  (consult-preview-key "M-.")
   (consult-narrow-key "<"))
+
+;; ✨ Project-wide symbol search (works with texlab, ty, bash-ls).
+(use-package consult-eglot
+  :after (consult eglot)
+  :defer t)
+
+;; ✨ Embark: act on any candidate (refactor, kill-ring, export, open elsewhere).
+(use-package embark
+  :defer t
+  :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim)
+         (:map minibuffer-local-map ("M-." . embark-act)))
+  :custom (embark-quit-after-action nil))
+
+(use-package embark-consult
+  :after (embark consult)
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
+;; ✨ wgrep: editable rg results via consult-ripgrep + embark-export.
+(use-package wgrep
+  :defer t
+  :custom (wgrep-auto-save-buffer t))
+
+;; ✨ consult-dir: jump anywhere from anywhere.
+(use-package consult-dir
+  :defer t
+  :bind (:map minibuffer-local-completion-map
+              ("C-x C-d" . consult-dir)
+              ("C-x C-j" . consult-dir-jump-file)))
 #+end_src
 
 ** fzf (files, ripgrep, recent files, buffers)
-Real =fzf= in a term buffer. Its colors follow pywal through the =term-color-*= faces.
 #+begin_src emacs-lisp
 (use-package fzf
   :defer t
@@ -283,12 +309,10 @@ Real =fzf= in a term buffer. Its colors follow pywal through the =term-color-*= 
   (fzf/window-height 18))
 
 (defun my/fzf-project-files ()
-  "fzf over files in the current project (or cwd)."
   (interactive)
   (fzf-find-file (my/project-root)))
 
 (defun my/fzf-project-grep ()
-  "fzf over a ripgrep search in the current project (or cwd)."
   (interactive)
   (fzf-grep nil (my/project-root)))
 
@@ -297,12 +321,9 @@ Real =fzf= in a term buffer. Its colors follow pywal through the =term-color-*= 
   (fzf-find-file (expand-file-name org-directory)))
 #+end_src
 
-** In-buffer completion: corfu + cape (English / Persian words)
-Corfu starts only in code and text buffers; nothing loads until you open one.
+** In-buffer completion: corfu + cape
 #+begin_src emacs-lisp
 (use-package corfu
-  ;; LaTeX/BibTeX listed explicitly: do not rely on AUCTeX modes deriving
-  ;; from `text-mode' (that differs between AUCTeX versions / built-in tex-mode).
   :hook ((prog-mode text-mode sly-mrepl-mode
           LaTeX-mode latex-mode TeX-mode plain-TeX-mode bibtex-mode) . corfu-mode)
   :custom
@@ -311,14 +332,13 @@ Corfu starts only in code and text buffers; nothing loads until you open one.
   (corfu-auto-prefix 2)
   (corfu-cycle t)
   (corfu-preselect 'prompt)
-  (corfu-separator ?\s)                 ; orderless: space-separated components
+  (corfu-separator ?\s)
   (corfu-quit-at-boundary 'separator)
   (corfu-quit-no-match 'separator)
   (tab-always-indent 'complete)
   :config
   (corfu-history-mode 1)
   (corfu-popupinfo-mode 1)
-  ;; C-n/C-p/C-y are wired by evil-collection; TAB cycles too.
   (define-key corfu-map (kbd "TAB") #'corfu-next)
   (define-key corfu-map (kbd "<tab>") #'corfu-next)
   (define-key corfu-map (kbd "S-TAB") #'corfu-previous)
@@ -326,25 +346,77 @@ Corfu starts only in code and text buffers; nothing loads until you open one.
 
 (use-package cape
   :custom
-  ;; English + Persian word lists, one word per line. Missing files are skipped
-  ;; (restart Emacs after adding one).
   (cape-dict-file
    (seq-filter #'file-readable-p
                (list "/usr/share/dict/words"
                      (expand-file-name "dict/persian.txt" user-emacs-directory))))
   :init
-  ;; Global fallbacks (appended). LaTeX buffers get their own ordered list,
-  ;; see `my/latex-capf-setup' in the LaTeX section.
+  ;; Order matters: specific backends first, catch-alls last.
   (add-hook 'completion-at-point-functions #'cape-file t)
+  (add-hook 'completion-at-point-functions #'cape-tex t)
   (add-hook 'completion-at-point-functions #'cape-keyword t)
   (add-hook 'completion-at-point-functions #'cape-elisp-block t)
+  (add-hook 'completion-at-point-functions #'cape-dict t)
   (add-hook 'completion-at-point-functions #'cape-dabbrev t))
+  ;; (defun my/latex-capf ()
+  ;;   (cape-capf-super
+  ;;    #'cape-tex
+  ;;    (cape-capf-buster #'TeX--completion-at-point)
+  ;;    (cape-capf-buster #'LaTeX--arguments-completion-at-point)))
+  ;; (add-hook 'LaTeX-mode-hook (lambda ()
+  ;;                              (setq-local completion-at-point-functions (list #'my/latex-capf))))
 
 #+end_src
 
+* LSP and formatting
+** Eglot
+=ty= for Python, =texlab= for LaTeX, =bash-language-server= for Bash.
+#+begin_src emacs-lisp
+(use-package eglot
+  :hook ((python-base-mode . eglot-ensure)
+         (LaTeX-mode . eglot-ensure)
+         (bibtex-mode . eglot-ensure)
+         ((sh-mode bash-ts-mode) . eglot-ensure))
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-sync-connect nil)
+  (eglot-extend-to-xref t)
+  (eglot-send-changes-idle-time 0.3)
+  (eglot-events-buffer-config '(:size 0 :format full))
+  :config
+  (add-to-list 'eglot-server-programs
+               '((python-mode python-ts-mode) . ("ty" "server")))
+  (add-to-list 'eglot-server-programs
+               '((LaTeX-mode tex-mode latex-mode bibtex-mode BibTeX-mode)
+                 . ("texlab")))
+  (add-to-list 'eglot-server-programs
+               '((sh-mode bash-ts-mode) . ("bash-language-server" "start")))
+  ;; FIX: `eglot-mode-map' does not exist in Emacs 29/30; the minor mode is
+  ;; `eglot--managed-mode'.  Bind after it loads.
+  (with-eval-after-load 'eglot
+    (evil-define-key* 'normal eglot-mode-map (kbd "K") #'eldoc-doc-buffer)))
+#+end_src
+
+** Formatting: apheleia
+#+begin_src emacs-lisp
+(use-package apheleia
+  :hook ((python-base-mode LaTeX-mode sh-mode bash-ts-mode) . apheleia-mode)
+  :commands apheleia-format-buffer
+  :config
+  (when (executable-find "tex-fmt")
+    (setf (alist-get 'tex-fmt apheleia-formatters) '("tex-fmt" "--stdin"))
+    (dolist (m '(LaTeX-mode latex-mode))
+      (setf (alist-get m apheleia-mode-alist) 'tex-fmt)))
+  (when (executable-find "ruff")
+    (dolist (m '(python-mode python-ts-mode))
+      (setf (alist-get m apheleia-mode-alist) '(ruff-isort ruff))))
+  (unless (executable-find "shfmt")
+    (dolist (m '(sh-mode bash-ts-mode))
+      (setf (alist-get m apheleia-mode-alist nil 'remove) nil))))
+#+end_src
+
 * Syntax highlighting: tree-sitter
-Python and Bash only; LaTeX stays on AUCTeX, Lisp on its classic modes. Grammars
-are offered for install the first time you open such a file.
+Python and Bash only, Lisp on its classic modes.
 #+begin_src emacs-lisp
 (setq treesit-font-lock-level 4)
 
@@ -357,53 +429,28 @@ are offered for install the first time you open such a file.
   (treesit-auto-add-to-auto-mode-alist 'all))
 #+end_src
 
-* LSP (Eglot) and formatting
-** Eglot
-=ty= is the Python server; =ruff= lints through Flymake and formats through
-Apheleia; =texlab= for LaTeX; =bash-language-server= runs =shellcheck= itself.
-#+begin_src emacs-lisp
-(use-package eglot
-  :hook ((python-base-mode . eglot-ensure)
-         (LaTeX-mode . eglot-ensure)
-         (bibtex-mode . eglot-ensure)
-         ((sh-mode bash-ts-mode) . eglot-ensure))
-  :custom
-  (eglot-autoshutdown t)
-  (eglot-sync-connect nil)
-  (eglot-extend-to-xref t)
-  (eglot-send-changes-idle-time 0.3)
-  (eglot-events-buffer-config '(:size 0 :format full))   ; no event log = faster
-  :config
-  (add-to-list 'eglot-server-programs
-               '((python-mode python-ts-mode) . ("ty" "server")))
-   (add-to-list 'eglot-server-programs
-                '((LaTeX-mode tex-mode latex-mode bibtex-mode BibTeX-mode) . ("texlab")))
-  (add-to-list 'eglot-server-programs
-               '((sh-mode bash-ts-mode) . ("bash-language-server" "start")))
-  ;; Vim-style hover (function form: no macro, compiles anywhere)
-  (evil-define-key* 'normal eglot-mode-map (kbd "K") #'eldoc-doc-buffer))
-#+end_src
-
-** Formatting: apheleia (async, cursor-preserving, on save)
-Enabled only in the modes that have a formatter configured.
-#+begin_src emacs-lisp
-(use-package apheleia
-  :hook ((python-base-mode LaTeX-mode sh-mode bash-ts-mode) . apheleia-mode)
-  :commands apheleia-format-buffer
-  :config
-  (setf (alist-get 'tex-fmt apheleia-formatters) '("tex-fmt" "--stdin"))
-  (dolist (m '(LaTeX-mode latex-mode))
-    (setf (alist-get m apheleia-mode-alist) 'tex-fmt))
-  (dolist (m '(python-mode python-ts-mode))
-    (setf (alist-get m apheleia-mode-alist) '(ruff-isort ruff)))
-  ;; FIX: `nil' leaves the entry in place and falls back to the default
-  ;; (shfmt).  `remove' actually drops it.
-  (unless (executable-find "shfmt")
-    (dolist (m '(sh-mode bash-ts-mode))
-      (setf (alist-get m apheleia-mode-alist nil 'remove) nil))))
-#+end_src
-
 * Languages
+** Shell
+#+begin_src emacs-lisp
+(use-package sh-script
+  :custom (sh-basic-offset 2))
+#+end_src
+
+** Common Lisp: SLY
+#+begin_src emacs-lisp
+(use-package sly
+  :defer t
+  :custom
+  (inferior-lisp-program "sbcl")
+  (sly-lisp-implementations '((sbcl ("sbcl" "--noinform") :coding-system utf-8-unix)))
+  :config
+  (evil-set-initial-state 'sly-mrepl-mode 'insert))
+
+(use-package sly-asdf
+  :after sly
+  :config (add-to-list 'sly-contribs 'sly-asdf 'append))
+#+end_src
+
 ** Python: ty + ruff, automatic venv, fzf venv picker (uv aware)
 #+begin_src emacs-lisp
 (use-package python
@@ -411,7 +458,6 @@ Enabled only in the modes that have a formatter configured.
   (python-indent-offset 4)
   (python-indent-guess-indent-offset-verbose nil))
 
-;; ruff diagnostics next to ty's, through Flymake
 (use-package flymake-ruff :defer t)
 
 (defun my/flymake-ruff-maybe ()
@@ -419,24 +465,27 @@ Enabled only in the modes that have a formatter configured.
     (require 'flymake-ruff)
     (flymake-ruff-load)))
 (add-hook 'eglot-managed-mode-hook #'my/flymake-ruff-maybe)
+
+;; ✨ Quick pytest for current file, in the project's vterm.
+(defun my/python-pytest-file ()
+  "Run `pytest' on the current file inside a project terminal."
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (unless file (user-error "Buffer not visiting a file"))
+    (my/term-new)
+    (with-current-buffer (car (my/term-list))
+      (vterm-send-string (format "pytest %s" (shell-quote-argument
+                                              (file-relative-name file (my/project-root)))))
+      (vterm-send-return))))
 #+end_src
 
 *** Detect and activate (per buffer)
-Every Python buffer activates the environment of /its/ project, buffer-locally
-(=VIRTUAL_ENV=, =PATH=, =exec-path=, =run-python=), so projects with different
-venvs coexist. Order of precedence: your fzf choice for the project (remembered
-across restarts), then the nearest =.venv= / =venv= above the file. It runs before
-=eglot-ensure=, so =ty= starts inside the right environment and =ruff= comes from
-the venv when installed there.
 #+begin_src emacs-lisp
 (defvar my/venv-names '(".venv" "PyEnv"))
-(defvar my/venv-search-dirs '("~/PyEnv/" "~/.local/share/virtualenvs" "~/.conda/envs")
-  "Extra directories whose children are offered as environments in the picker.")
-(defvar my/venv-choices nil
-  "Alist (PROJECT-ROOT . VENV-DIR or \"none\"); persisted by savehist.")
+(defvar my/venv-search-dirs '("~/PyEnv/" "~/.local/share/virtualenvs" "~/.conda/envs"))
+;; `my/venv-choices' is defvar'd in * Defaults so savehist sees it early.
 
 (defun my/venv-find (&optional dir)
-  "Nearest virtualenv directory above DIR (default: the buffer's directory)."
   (let ((dir (or dir default-directory)))
     (cl-some (lambda (name)
                (when-let* ((root (locate-dominating-file dir name))
@@ -445,7 +494,6 @@ the venv when installed there.
              my/venv-names)))
 
 (defun my/venv--current ()
-  "Environment for this buffer's project: remembered choice, else detected."
   (let ((choice (alist-get (my/project-root) my/venv-choices nil nil #'equal)))
     (cond ((equal choice "none") nil)
           ((and choice (file-executable-p (expand-file-name "bin/python" choice))) choice)
@@ -456,7 +504,6 @@ the venv when installed there.
           "/" (file-name-nondirectory venv)))
 
 (defun my/venv-activate ()
-  "Buffer-locally activate this project's virtualenv (or deactivate)."
   (if-let* ((venv (my/venv--current)))
       (let ((bin  (expand-file-name "bin" venv))
             (path (getenv-internal "PATH" (default-value 'process-environment))))
@@ -472,19 +519,12 @@ the venv when installed there.
     (dolist (v '(python-shell-virtualenv-root exec-path process-environment mode-line-process))
       (kill-local-variable v))))
 
-;; depth -90: run before `eglot-ensure' so the server inherits the env
 (add-hook 'python-base-mode-hook #'my/venv-activate -90)
 #+end_src
 
 *** Pick with fzf (existing venvs, uv interpreters, uv sync, none)
-=SPC c v= (or =SPC m v= in Python buffers). Choices: venvs found for this project
-and in =my/venv-search-dirs=; =uv sync= when a =pyproject.toml= exists; "new
-=.venv=" with any interpreter =uv= knows about (=uv python list=); or none. The
-selection is remembered per project, applied to all its Python buffers, and the
-language server restarts inside the new environment.
 #+begin_src emacs-lisp
 (defun my/venv--version (venv)
-  "Python version from VENV's pyvenv.cfg, or nil."
   (let ((cfg (expand-file-name "pyvenv.cfg" venv)))
     (when (file-readable-p cfg)
       (with-temp-buffer
@@ -493,7 +533,6 @@ language server restarts inside the new environment.
           (match-string 1))))))
 
 (defun my/venv--existing (root)
-  "Existing virtualenv directories relevant to ROOT, without duplicates."
   (let (found)
     (dolist (name my/venv-names)
       (when-let* ((r (locate-dominating-file root name)))
@@ -509,7 +548,6 @@ language server restarts inside the new environment.
      #'equal)))
 
 (defun my/uv--pythons ()
-  "Interpreters uv knows: list of (PATH VERSION IMPLEMENTATION), deduplicated."
   (when (executable-find "uv")
     (condition-case nil
         (with-temp-buffer
@@ -529,7 +567,6 @@ language server restarts inside the new environment.
       (error nil))))
 
 (defun my/venv--candidates (root)
-  "Alist (DISPLAY-LINE . ACTION) for the picker."
   (let ((cur (my/venv--current)) out)
     (dolist (v (my/venv--existing root))
       (push (cons (format "venv  %s%s%s"
@@ -550,7 +587,6 @@ language server restarts inside the new environment.
     (nreverse out)))
 
 (defun my/uv--run (root args on-success)
-  "Run `uv ARGS' in ROOT asynchronously (output in *uv*); call ON-SUCCESS if it works."
   (unless (executable-find "uv") (user-error "uv not found in PATH"))
   (let ((buf (get-buffer-create "*uv*"))
         (default-directory root))
@@ -569,7 +605,6 @@ language server restarts inside the new environment.
                      (message "uv %s failed (see *uv*)" (car args))))))))
 
 (defun my/venv--refresh (root)
-  "Re-activate every Python buffer of project ROOT and restart its language server."
   (let (bufs)
     (dolist (b (buffer-list))
       (with-current-buffer b
@@ -588,20 +623,17 @@ language server restarts inside the new environment.
         (eglot-ensure)))))
 
 (defun my/venv--apply (venv root)
-  "Remember VENV (nil = none) for project ROOT and apply it everywhere."
   (setf (alist-get root my/venv-choices nil nil #'equal) (or venv "none"))
   (my/venv--refresh root)
   (message "Python env: %s" (if venv (abbreviate-file-name venv) "none")))
 
 (defun my/uv-sync (&optional root)
-  "Run `uv sync' in the project, then use its .venv."
   (interactive)
   (let ((root (or root (my/project-root))))
     (my/uv--run root '("sync")
                 (lambda () (my/venv--apply (expand-file-name ".venv" root) root)))))
 
 (defun my/uv--new (root python)
-  "Create ROOT/.venv with PYTHON via `uv venv', then use it."
   (let ((target (expand-file-name ".venv" root)))
     (when (or (not (file-exists-p target))
               (y-or-n-p (format "Replace existing %s? " (abbreviate-file-name target))))
@@ -619,7 +651,6 @@ language server restarts inside the new environment.
     (`(new ,py)   (my/uv--new root py))))
 
 (defun my/venv-select ()
-  "Pick this project's Python environment with fzf."
   (interactive)
   (let* ((root  (my/project-root))
          (cands (my/venv--candidates root))
@@ -640,7 +671,6 @@ language server restarts inside the new environment.
       (funcall act (completing-read "Python env: " (mapcar #'car cands) nil t)))))
 
 (defun my/venv-reload ()
-  "Forget the remembered choice, re-detect the venv and restart the language server."
   (interactive)
   (let ((root (my/project-root)))
     (setq my/venv-choices (assoc-delete-all root my/venv-choices))
@@ -648,80 +678,36 @@ language server restarts inside the new environment.
     (message "Python env: %s" (if-let* ((v (my/venv--current))) (abbreviate-file-name v) "none"))))
 #+end_src
 
-** LaTeX: AUCTeX + texlab + corfu/cape + tex-fmt
-Division of labour: AUCTeX compiles, views (zathura + SyncTeX) and knows macros,
-environments, labels and citations; texlab (Eglot) adds project-wide
-references and diagnostics; tex-fmt formats on save (Apheleia).
+** LaTeX:  texlab + corfu/cape + tex-fmt
 #+begin_src emacs-lisp
-(use-package tex                        ; feature of the `auctex' package
-  :ensure nil
-  :defer t
-  :custom
-  (TeX-auto-save t)
-  (TeX-parse-self t)                    ; parse the file: feeds macro/label/cite completion
-  (TeX-PDF-mode t)
-  (TeX-save-query nil)
-  (TeX-show-compilation nil)
-  (TeX-error-overview-open-after-TeX-run nil)
-  (TeX-view-program-selection '((output-pdf "Zathura")))
-  (TeX-source-correlate-method 'synctex)
-  (TeX-source-correlate-start-server nil)
-  (TeX-electric-sub-and-superscript t)
-  (LaTeX-electric-left-right-brace t)
-  :config
-  (setq-default TeX-master t)           ; single-file by default; use a file-local TeX-master for multi-file
-  (TeX-source-correlate-mode 1)
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
-
 (use-package latex
   :ensure nil
   :defer t
-  :hook ((LaTeX-mode . visual-line-mode)
-         (LaTeX-mode . LaTeX-math-mode)
-         (LaTeX-mode . reftex-mode)))
-
-;; \ref / \cite helpers (C-c ) / C-c [) integrated with AUCTeX
-(use-package reftex
-  :ensure nil
-  :defer t
+  :hook ((latex-mode . eglot-ensure)
+         (latex-mode . visual-line-mode)
+         (latex-mode . turn-on-auto-fill))
   :custom
-  (reftex-plug-into-AUCTeX t)
-  (reftex-enable-partial-scans t)
-  (reftex-save-parse-info t)
-  (reftex-use-multiple-selection-buffers t))
-
-;; latexmk as the default build command (handles reruns, bibtex/biber)
-(use-package auctex-latexmk
-  :after latex
-  :custom (auctex-latexmk-inherit-TeX-PDF-mode t)
+  (TeX-engine 'pdftex) ; or 'luatex, 'pdftex
+  (TeX-command-default "LatexMk")
+  (TeX-view-program-selection '((output-pdf "Zathura")))
+  (TeX-source-correlate-mode t)
+  (TeX-source-correlate-method 'synctex)
+  (TeX-source-correlate-start-server nil)
   :config
-  (auctex-latexmk-setup)
-  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "LatexMk"))))
+  ;; Use latexmk for compilation
+  (add-to-list 'TeX-command-list
+               '("LatexMk" "latexmk -interaction=nonstopmode -synctex=1 -file-line-error %s"
+                 TeX-run-TeX nil (latex-mode) :help "Run latexmk"))
+  ;; Use xetex or luatex engine (common for modern documents)
+  (setq LaTeX-command-style '(("" "%(PDF)%(latex) -interaction=nonstopmode -synctex=1 %S%(PDFout)"))))
+;; ✨ smartparens for LaTeX only (\left( -> \right), env matching).
+;; Not enabled globally: it fights evil-surround in code buffers.
+(use-package smartparens
+  :defer t
+  :hook (LaTeX-mode . smartparens-mode)
+  :config (require 'smartparens-config))
 
 (set-default 'preview-scale-function 2.0)
-
-(defun my/latex-capf-setup ()
-  (setq-local cape-file-prefix "{")
-  (setq-local completion-at-point-functions
-              (delq nil
-                    (list (and (fboundp 'LaTeX--arguments-completion-at-point)
-                               #'LaTeX--arguments-completion-at-point)
-                          (and (fboundp 'TeX--completion-at-point)
-                               #'TeX--completion-at-point)
-                          (and (fboundp 'eglot-managed-p) (eglot-managed-p)
-                               #'eglot-completion-at-point)
-                          #'cape-file
-                          #'cape-dabbrev
-                          #'cape-dict))))
-
-(defun my/latex-capf-setup-maybe ()
-  (when (derived-mode-p 'LaTeX-mode 'latex-mode 'plain-TeX-mode)
-    (my/latex-capf-setup)))
-
-(add-hook 'LaTeX-mode-hook #'my/latex-capf-setup)
-(add-hook 'eglot-managed-mode-hook #'my/latex-capf-setup-maybe)
-
-
 
 (defun my/latex-eglot-config ()
   (setq-local eglot-workspace-configuration
@@ -729,27 +715,18 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
                          :chktex (:onOpenAndSave ,(if (executable-find "chktex") t :json-false)
                                   :onEdit :json-false)))))
 (add-hook 'LaTeX-mode-hook #'my/latex-eglot-config)
-#+end_src
 
-** Common Lisp: SLY
-#+begin_src emacs-lisp
-(use-package sly
-  :defer t
-  :custom
-  (inferior-lisp-program "sbcl")
-  (sly-lisp-implementations '((sbcl ("sbcl" "--noinform") :coding-system utf-8-unix)))
-  :config
-  (evil-set-initial-state 'sly-mrepl-mode 'insert))
-
-(use-package sly-asdf
-  :after sly
-  :config (add-to-list 'sly-contribs 'sly-asdf 'append))
-#+end_src
-
-** Shell: bash-language-server (+ shellcheck)
-#+begin_src emacs-lisp
-(use-package sh-script
-  :custom (sh-basic-offset 2))
+;; ✨ Write the word count of the current buffer to the echo area.
+(defun my/latex-word-count ()
+  "Count words in the buffer, ignoring LaTeX markup."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0))
+      (while (re-search-forward "\\\\[a-zA-Z]+\\*?\\(\\[[^]]*\\]\\)?\\(\\{[^}]*\\}\\)?" nil t))
+      (goto-char (point-min))
+      (while (re-search-forward "[[:alpha:]]+" nil t) (cl-incf count))
+      (message "Words (approx): %d" count))))
 #+end_src
 
 * Org mode
@@ -778,14 +755,12 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
   (org-log-into-drawer t)
   (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@)" "|" "DONE(d)" "CANCEL(c@)")))
   (org-agenda-window-setup 'current-window)
-  ;; source blocks
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively t)
   (org-src-preserve-indentation t)
   (org-edit-src-content-indentation 0)
   (org-src-window-setup 'current-window)
   (org-confirm-babel-evaluate nil)
-  ;; latex / export
   (org-latex-compiler "lualatex")
   (org-latex-pdf-process '("latexmk -lualatex -interaction=nonstopmode -output-directory=%o %f"))
   (org-preview-latex-default-process 'dvipng)
@@ -796,7 +771,7 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
      ("n" "Note" entry (file+headline "inbox.org" "Notes") "* %?\n  %U\n")
      ("j" "Journal" entry (file+olp+datetree "journal.org") "* %?\n")))
   :config
-  (require 'org-tempo)                  ; <el <py <sh <cl <tex  + TAB
+  (require 'org-tempo)
   (dolist (tpl '(("el"  . "src emacs-lisp")
                  ("py"  . "src python")
                  ("sh"  . "src bash")
@@ -809,10 +784,9 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
   (plist-put org-format-latex-options :scale 1.3)
   (add-hook 'org-mode-hook #'visual-line-mode))
 
-;; Lisp blocks evaluate through SLY
+;; ✨ Symbol (not require) so SLY stays deferred.
 (with-eval-after-load 'ob-lisp
-  (require 'sly)
-  (setq org-babel-lisp-eval-fn #'sly-eval))
+  (setq org-babel-lisp-eval-fn 'sly-eval))
 #+end_src
 
 ** Looks and ergonomics
@@ -821,13 +795,13 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
   :hook ((org-mode . org-modern-mode)
          (org-agenda-finalize . org-modern-agenda))
   :custom
-  (org-modern-table nil)                ; native tables: faster, no alignment glitches
+  (org-modern-table nil)
   (org-modern-block-fringe nil))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
   :custom
-  (org-appear-trigger 'manual)          ; reveal markup only in insert state
+  (org-appear-trigger 'manual)
   (org-appear-autolinks t)
   (org-appear-autoemphasis t)
   (org-appear-autosubmarkers t)
@@ -853,18 +827,15 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
 ** Re-tangle and recompile this file on save
 #+begin_src emacs-lisp
 (defun my/tangle-config ()
-  "Re-tangle config.org into config.el and byte-compile it."
   (when (and buffer-file-name
              (equal (file-truename buffer-file-name)
                     (file-truename (expand-file-name "config.org" user-emacs-directory))))
     (let ((org-confirm-babel-evaluate nil)
           (el (expand-file-name "config.el" user-emacs-directory)))
       (org-babel-tangle nil el "emacs-lisp")
-      (set-file-times el))              ; tangle skips identical output; keep el newer than org
+      (set-file-times el))
     (run-with-idle-timer 1 nil #'my/compile-config)))
 
-;; FIX: one global after-save-hook with a cheap filename guard, instead of
-;; adding a buffer-local hook in every Org buffer.
 (add-hook 'after-save-hook #'my/tangle-config)
 
 (defun my/open-config ()
@@ -872,11 +843,9 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
   (find-file (expand-file-name "config.org" user-emacs-directory)))
 #+end_src
 
-* Projects, git
+* Projects, git, files
 #+begin_src emacs-lisp
-;; FIX: the terminal entry is a lambda, so `my/term-toggle' need not be
-;; defined yet when project.el builds the dispatch menu.
-(setq project-vc-extra-root-markers '("pyproject.toml" ".project")   ; uv projects without git
+(setq project-vc-extra-root-markers '("pyproject.toml" ".project")
       project-switch-commands
       '((my/fzf-project-files "Find file" ?f)
         (my/fzf-project-grep  "Grep"      ?g)
@@ -897,10 +866,8 @@ references and diagnostics; tex-fmt formats on save (Apheleia).
 (use-package restart-emacs :defer t)
 #+end_src
 
-* Terminals and windows
+* Windows and terminals
 ** Windows: movement, resizing, undo, zoom
-Evil's =C-w= family still works. Added: =C-h/j/k/l= to move (normal state, so
-magit/agenda keep their own maps), repeatable resizing, =winner= undo, zoom.
 #+begin_src emacs-lisp
 (winner-mode 1)
 (repeat-mode 1)
@@ -909,14 +876,10 @@ magit/agenda keep their own maps), repeatable resizing, =winner= undo, zoom.
       window-combination-resize t)
 
 (defun my/win-wider   (&optional n) (interactive "p") (enlarge-window-horizontally (* 4 (or n 1))))
-(defun my/win-narrower (&optional n) (interactive "p") (shrink-window-horizontally (* 4 (or n 1))))
+(defun my/win-narrower(&optional n) (interactive "p") (shrink-window-horizontally (* 4 (or n 1))))
 (defun my/win-taller  (&optional n) (interactive "p") (enlarge-window (* 3 (or n 1))))
 (defun my/win-shorter (&optional n) (interactive "p") (shrink-window (* 3 (or n 1))))
 
-;; After the first resize key, keep pressing h/j/k/l (or =) with no prefix;
-;; any other key ends it.
-;; NB: `:repeat t' in defvar-keymap needs Emacs 30.  On Emacs 29 the
-;; (put ... 'repeat-map ...) below is the portable form.
 (defvar-keymap my/window-resize-map
   :repeat t
   "h" #'my/win-narrower
@@ -927,7 +890,6 @@ magit/agenda keep their own maps), repeatable resizing, =winner= undo, zoom.
 
 (defvar my/window-zoom--config nil)
 (defun my/window-zoom-toggle ()
-  "Maximize the current window; call again to restore the layout."
   (interactive)
   (if my/window-zoom--config
       (progn (set-window-configuration my/window-zoom--config)
@@ -935,18 +897,20 @@ magit/agenda keep their own maps), repeatable resizing, =winner= undo, zoom.
     (setq my/window-zoom--config (current-window-configuration))
     (delete-other-windows)))
 
+;; FIX: scope to non-special buffers so evil-collection's C-h in help/magit
+;; (which opens help) keeps working.  C-j/k/l are safe globally.
 (general-define-key
  :states '(normal motion)
- "C-h" #'windmove-left
+ "C-h" (lambda () (interactive)
+         (if (derived-mode-p 'special-mode 'magit-mode 'dired-mode 'help-mode)
+             (evil-normal-state)          ; fall through to mode's binding
+           (windmove-left)))
  "C-j" #'windmove-down
  "C-k" #'windmove-up
  "C-l" #'windmove-right)
 #+end_src
 
 ** Terminals: vterm, per project, bottom popup
-Esc leaves insert state inside a terminal, so =SPC= (leader) and =C-h/j/k/l=
-work there; =i= goes back to the shell. =C-`= toggles from any state. Terminals
-started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
 #+begin_src emacs-lisp
 (use-package vterm
   :defer t
@@ -954,11 +918,10 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   (vterm-max-scrollback 20000)
   (vterm-kill-buffer-on-exit t)
   (vterm-timer-delay 0.01)
-  (vterm-always-compile-module t)       ; build the module without prompting
+  (vterm-always-compile-module t)
   :config
   (evil-set-initial-state 'vterm-mode 'insert))
 
-;; Terminals open in a bottom side window (one third of the frame).
 (add-to-list 'display-buffer-alist
              '("\\`\\*vterm:"
                (display-buffer-in-side-window)
@@ -972,17 +935,14 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
       (file-name-nondirectory (directory-file-name (project-root p)))
     "global"))
 
-(defun my/term--name (n)
-  (format "*vterm:%s/%d*" (my/term--project-name) n))
+(defun my/term--name (n) (format "*vterm:%s/%d*" (my/term--project-name) n))
 
 (defun my/term-list ()
-  "Terminals of the current project, most recently used first."
   (let ((prefix (format "*vterm:%s/" (my/term--project-name))))
     (seq-filter (lambda (b) (string-prefix-p prefix (buffer-name b)))
                 (buffer-list))))
 
 (defun my/term-new ()
-  "Open a new terminal in the project root, inheriting this buffer's environment."
   (interactive)
   (let ((default-directory (my/project-root))
         (env process-environment)
@@ -992,10 +952,7 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
       (vterm (my/term--name n)))))
 
 (defun my/term-toggle ()
-  "Hide the terminal if visible, else show the last project terminal (or create one)."
   (interactive)
-  ;; FIX: burying is correct for side windows and for a lone window;
-  ;; delete-window is only safe when there is more than one normal window.
   (if-let* ((w (cl-find-if
                 (lambda (w) (string-prefix-p "*vterm:" (buffer-name (window-buffer w))))
                 (window-list))))
@@ -1019,14 +976,12 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
 (defun my/term-prev () (interactive) (my/term--cycle -1))
 
 (defun my/term-switch ()
-  "Pick one of this project's terminals."
   (interactive)
   (if-let* ((l (my/term-list)))
       (pop-to-buffer (get-buffer (completing-read "Terminal: " (mapcar #'buffer-name l) nil t)))
     (my/term-new)))
 
 (defun my/term-kill ()
-  "Kill the current terminal (and its window)."
   (interactive)
   (when (derived-mode-p 'vterm-mode)
     (let ((kill-buffer-query-functions nil))
@@ -1039,7 +994,6 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
 #+end_src
 
 * Keybindings
-=SPC= is the leader in normal/visual state, =C-c SPC= from insert state.
 #+begin_src emacs-lisp
 (my/leader
   "SPC" '(my/fzf-project-files :which-key "fzf project files")
@@ -1053,12 +1007,15 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "fd"  '(dired-jump :which-key "dired")
   "fs"  '(save-buffer :which-key "save")
   "fc"  '(my/open-config :which-key "config.org")
+  "fD"  '(consult-dir :which-key "consult-dir jump")
 
   "s"   '(:ignore t :which-key "search")
   "sg"  '(my/fzf-project-grep :which-key "fzf ripgrep")
   "sb"  '(consult-line :which-key "line in buffer")
   "si"  '(consult-imenu :which-key "imenu")
   "sf"  '(fzf-find-in-buffer :which-key "fzf in buffer")
+  "ss"  '(consult-eglot-symbols :which-key "project symbols (eglot)")
+  "sr"  '(consult-ripgrep :which-key "ripgrep (wgrep via C-c C-e)")
 
   "b"   '(:ignore t :which-key "buffer")
   "bb"  '(consult-buffer :which-key "switch")
@@ -1081,10 +1038,10 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "wJ"  '(windmove-swap-states-down :which-key "swap down")
   "wK"  '(windmove-swap-states-up :which-key "swap up")
   "wL"  '(windmove-swap-states-right :which-key "swap right")
-  "w<"  '(my/win-narrower :which-key "narrower (repeat h/l/j/k)")
-  "w>"  '(my/win-wider :which-key "wider (repeat h/l/j/k)")
-  "w+"  '(my/win-taller :which-key "taller (repeat h/l/j/k)")
-  "w-"  '(my/win-shorter :which-key "shorter (repeat h/l/j/k)")
+  "w<"  '(my/win-narrower :which-key "narrower")
+  "w>"  '(my/win-wider :which-key "wider")
+  "w+"  '(my/win-taller :which-key "taller")
+  "w-"  '(my/win-shorter :which-key "shorter")
   "w="  '(balance-windows :which-key "balance")
   "wm"  '(my/window-zoom-toggle :which-key "zoom toggle")
   "wu"  '(winner-undo :which-key "layout undo")
@@ -1108,12 +1065,14 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "p"   '(:ignore t :which-key "project")
   "pp"  '(project-switch-project :which-key "switch")
   "pc"  '(project-compile :which-key "compile")
+  "p!"  '(project-shell-command :which-key "shell command")
 
   "o"   '(:ignore t :which-key "org")
   "oa"  '(org-agenda :which-key "agenda")
   "oc"  '(org-capture :which-key "capture")
   "of"  '(my/fzf-org-files :which-key "fzf org files")
   "ol"  '(org-store-link :which-key "store link")
+  "or"  '(consult-org-heading :which-key "search headings")
 
   "t"   '(:ignore t :which-key "toggle")
   "tl"  '(display-line-numbers-mode :which-key "line numbers")
@@ -1140,47 +1099,52 @@ started from a Python buffer inherit its venv (=VIRTUAL_ENV= + =PATH=).
   "qu"  '(my/update-packages :which-key "update packages")
   "qc"  '(my/compile-config :which-key "recompile config"))
 
-;; Navigate diagnostics like vim-unimpaired
 (general-define-key
  :states 'normal
  "]d" #'flymake-goto-next-error
  "[d" #'flymake-goto-prev-error)
 
-;; Python local leader: SPC m ...
-(my/local-leader
-  :keymaps '(python-mode-map python-ts-mode-map)
-  "v" '(my/venv-select :which-key "python env (fzf, uv)")
-  "r" '(run-python :which-key "run python (venv)")
-  "b" '(python-shell-send-buffer :which-key "send buffer")
-  "f" '(python-shell-send-defun :which-key "send defun")
-  "s" '(python-shell-send-region :which-key "send region"))
+;; All mode maps below are now defined by this point in load order (their
+;; use-package blocks ran above).  LaTeX/SLY maps are deferred, so wrap those.
+(with-eval-after-load 'python
+  (my/local-leader
+    :keymaps '(python-mode-map python-ts-mode-map)
+    "v" '(my/venv-select :which-key "python env (fzf, uv)")
+    "r" '(run-python :which-key "run python (venv)")
+    "b" '(python-shell-send-buffer :which-key "send buffer")
+    "f" '(python-shell-send-defun :which-key "send defun")
+    "s" '(python-shell-send-region :which-key "send region")
+    "t" '(my/python-pytest-file :which-key "pytest this file")))
 
-;; Common Lisp / SLY local leader: SPC m ...
-(my/local-leader
-  :keymaps 'lisp-mode-map
-  "s" '(sly :which-key "start sly")
-  "e" '(sly-eval-last-expression :which-key "eval last sexp")
-  "d" '(sly-eval-defun :which-key "eval defun")
-  "r" '(sly-eval-region :which-key "eval region")
-  "c" '(sly-compile-defun :which-key "compile defun")
-  "k" '(sly-compile-and-load-file :which-key "compile+load file")
-  "m" '(sly-macroexpand-1 :which-key "macroexpand")
-  "h" '(sly-describe-symbol :which-key "describe"))
+(with-eval-after-load 'lisp-mode
+  (my/local-leader
+    :keymaps 'lisp-mode-map
+    "s" '(sly :which-key "start sly")
+    "e" '(sly-eval-last-expression :which-key "eval last sexp")
+    "d" '(sly-eval-defun :which-key "eval defun")
+    "r" '(sly-eval-region :which-key "eval region")
+    "c" '(sly-compile-defun :which-key "compile defun")
+    "k" '(sly-compile-and-load-file :which-key "compile+load file")
+    "m" '(sly-macroexpand-1 :which-key "macroexpand")
+    "h" '(sly-describe-symbol :which-key "describe")))
 
-;; LaTeX local leader: SPC m ...
-(my/local-leader
-  :keymaps 'LaTeX-mode-map
-  "c" '(TeX-command-run-all :which-key "compile+view")
-  "m" '(TeX-command-master :which-key "command menu")
-  "v" '(TeX-view :which-key "view pdf")
-  "e" '(LaTeX-environment :which-key "environment")
-  "s" '(LaTeX-section :which-key "section")
-  "i" '(TeX-insert-macro :which-key "insert macro")
-  "r" '(reftex-reference :which-key "reference")
-  "k" '(reftex-citation :which-key "citation")
-  "t" '(reftex-toc :which-key "table of contents")
-  "l" '(TeX-recenter-output-buffer :which-key "compile log")
-  "f" '(LaTeX-fill-environment :which-key "fill environment"))
+(with-eval-after-load 'latex
+  (my/local-leader
+    :keymaps 'LaTeX-mode-map
+    "c" '(TeX-command-run-all :which-key "compile+view")
+    "m" '(TeX-command-master :which-key "command menu")
+    "v" '(TeX-view :which-key "view pdf")
+    "e" '(LaTeX-environment :which-key "environment")
+    "s" '(LaTeX-section :which-key "section")
+    "i" '(TeX-insert-macro :which-key "insert macro")
+    "r" '(reftex-reference :which-key "reference")
+    "k" '(reftex-citation :which-key "citation")
+    "t" '(reftex-toc :which-key "table of contents")
+    "l" '(TeX-recenter-output-buffer :which-key "compile log")
+    "f" '(LaTeX-fill-environment :which-key "fill environment")
+    "z" '(TeX-fold-buffer :which-key "fold buffer")
+    "'" '(LaTeX-math-menu :which-key "math symbols")
+    "w" '(my/latex-word-count :which-key "word count")))
 #+end_src
 
 * ColorScheme

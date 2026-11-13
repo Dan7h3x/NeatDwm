@@ -14,7 +14,7 @@
       frame-inhibit-implied-resize t
       frame-resize-pixelwise t
       load-prefer-newer nil
-      package-quickstart t
+      package-quickstart nil
       package-native-compile t
       native-comp-async-report-warnings-errors 'silent
       native-comp-jit-compilation t)
